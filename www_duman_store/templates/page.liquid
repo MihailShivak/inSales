@@ -1,0 +1,20 @@
+<!-- info -->
+<section class="info">
+    <div class="info__container info__container_alt">
+        <div class="info__body">
+            {% if page.url contains 'agreement' or page.url contains 'oferta' %}	
+                <a href="/page/legal-information" class="info__back">
+                    <span>Правовые документы</span>
+                </a>
+            {% endif %}
+            <h1 class="info__title">{{ page.title }}</h1>
+            <div class="info__text">
+                {{ page.content }}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% for widgetDrop in widget_lists.page-list.widgets %}
+  {% widget widgetDrop %}
+{% endfor %}

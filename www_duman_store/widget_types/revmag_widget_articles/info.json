@@ -1,0 +1,23 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "[ihaveit] Превью статей из блога"
+  },
+  "handle": "revmag_widget_articles",
+  "description": {
+    "ru": "Список статей и тэгов из блога. Виджет добавляется на любой странице магазина."
+  },
+  "page_kinds": [
+    "all"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "blog",
+  "libraries": [
+    "vanilla-lazyload",
+    "jquery",
+    "my-layout"
+  ]
+}

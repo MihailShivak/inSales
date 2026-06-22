@@ -1,0 +1,95 @@
+{% if blog.comments_enabled? %}
+{% assign reviews_limit = 100 %}
+<div class="reviews">
+{% if widget_settings.title != ''%}
+<div class="reviews__title">{{widget_settings.title | strip_html}}</div>
+{% endif %}
+<div class="grid-list masonry-reviews-list">
+{% unless blog.moderated? %}
+  <div class="masonry-reviews-item hidden" data-pseudo-review>
+    <div class="masonry-reviews-item__content">
+      <div class="review-header">
+        <div class="author"></div>
+      </div>
+      <div class="review-content"></div>
+      <div class="review-footer">
+        <div class="date">{{ widget_messages.now }}</div>
+      </div>
+    </div>
+  </div>
+{% endunless %}
+{% for review in article.comments limit: reviews_limit %}
+<div class="masonry-reviews-item {% if forloop.index > 4 %}hidden{% endif %}">
+  <div class="masonry-reviews-item__content">
+    <div class="review-header">
+      <div class="author">{{ review.author }}</div>
+    </div>
+    <div class="review-content">{{ review.content }}</div>
+    <div class="review-footer">
+      <div class="date">{{ review.created_at | date: "%d.%m.%Y %H:%M" }}</div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% if article.comments_count < 1 %}{{ messages.review_none }}{% endif %}
+</div>
+{% if article.comments_count > 4 %}<span class="button-link more-items js-more-items">{{ messages.review_show_more }}</span>{% endif %}
+</div>
+<button class="button button_size-m show-form-btn js-show-form {% if comment.errors.size > 0 %}hidden{% endif %}">{{ messages.review_write_new }}</button>
+<div class="review-form-wrapper"
+>
+<form class="comment-form" method="post" data-comments-form-wrapper='{"reviews_moderated": {{ account.reviews_moderated? }} , "url": "{{ article.url }}" }' action="/blogs/blog/333/comments#comment_form">
+  {% assign success_message = messages.review_is_added %}
+  {% if blog.moderated? %}
+  {% assign success_message = messages.review_is_added_moderated %}
+  {% endif %}
+
+<div class="reviews-wrapper {% unless comment.errors.size > 0 %}hidden{% endunless%}">
+  <div class="review-form-header">
+    <div class="review-form-title">{{ messages.comment }}</div>
+    <span class="button-link hide-form-btn js-hide-form">{{ messages.cancel }}</span>
+  </div>
+  <div data-comments-form-success='{"showTime": 10000, "message": "{{ success_message }}", "reloadPage": false }' class="h4 comments__success-message rev-notice-success"></div>
+  <div class="reviews-form">
+    <div id="comment_form" class="js-review-wrapper">
+      <div data-comments-form-field-area class="form-row form-author is-required {% if review.errors contains 'author' %}is-error{% endif %}">
+        <label class="form-label">{{ messages.name }} <span class="text-error">*</span></label>
+        <input name="comment[author]" placeholder="{{ messages.name }}" value="{{ review.author }}" type="text" class="rev-input form-control form-control_size-m form-control_wide"
+        data-comments-form-field='{"isRequired": true, "errorMessage": "{{ messages.name_error | escape }}"}'
+        />
+        <div data-comments-form-field-error class="form__field-error rev-notice-error"></div>
+      </div>
+      <div data-comments-form-field-area class="form-row form-email is-required {% if review.errors contains 'email' %}is-error{% endif %}">
+        <label class="form-label">{{ messages.field_email }} <span class="text-error">*</span></label>
+        <input name="comment[email]" placeholder="{{ messages.field_email }}" value="{{ review.email }}" type="text" class="rev-input form-control form-control_size-m form-control_wide"
+        data-comments-form-field='{"isRequired": true, "errorMessage": "{{ messages.email_error | escape}}"}'
+        />
+        <div data-comments-form-field-error class="form__field-error rev-notice-error"></div>
+      </div>
+      <div data-comments-form-field-area class="form-row form-comment is-required {% if review.errors contains 'content' %}is-error{% endif %}">
+        <label class="form-label">{{ messages.comment }} <span class="text-error">*</span></label>
+        <textarea name="comment[content]" placeholder="{{ messages.comment }}" class="rev-input form-control form-control_size-m is-textarea form-control_wide" data-comments-form-field='{"isRequired": true, "errorMessage": "{{ messages.please_enter_message | escape }}"}'>{{ comment.content }}</textarea>
+        <div data-comments-form-field-error class="form__field-error rev-notice-error"></div>
+      </div>
+      {% if comment.captcha_enabled? %}
+      <div data-comments-form-field-area class="form-row form-captcha {% if comment.errors contains 'captcha_solution' %}is-error{% endif %}">
+        <div data-comments-form-recaptcha='{"isRequired": true, "errorMessage": "{{ messages.recaptcha_error | escape }}"}' id="captcha_challenge" class="captcha-recaptcha">
+          {{ comment | recaptcha }}
+        </div>
+        <div data-comments-form-field-error class="form__field-error rev-notice-error"></div>
+      </div>
+      {% endif %}
+      <div class="form-controls">
+        <button type="submit" class="button button_size-m">{{ messages.submit }}</button>
+      </div>
+    </div>
+    {% if blog.moderated? %}
+    <div class="moderation rev-notice-info editor">
+      <p>{{ messages.reviews_are_moderated }}</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+</form>
+</div>
+{% endif %}

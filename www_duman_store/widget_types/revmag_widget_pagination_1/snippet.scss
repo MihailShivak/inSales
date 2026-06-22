@@ -1,0 +1,33 @@
+.rev-coll-pagination{
+	text-align: center;
+
+	> *{
+		display: inline-block;
+		vertical-align: middle;
+	}
+
+	.pag-link{
+		display: inline-block;
+		vertical-align: middle;
+		line-height: 40px;
+		min-width: 40px;
+		border: 1px solid var(--color-border);
+		@include background-color(--bg-no-active);
+		font-weight: 500;
+		text-align: center;
+		text-decoration: none;
+		border-radius: 5px;
+		padding: 0 5px;
+		margin: 0 5px;
+
+		&.pag-disabled{
+			@include background-color(--bg-active);
+			border-color: var(--bg-active);
+		}
+	}
+
+	.pag-prev,
+	.pag-next{
+		color: inherit;
+	}
+}

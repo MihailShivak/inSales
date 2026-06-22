@@ -1,0 +1,15 @@
+{
+  "img-ratio": 2,
+  "layout-wide-bg": false,
+  "layout-wide-content": false,
+  "layout-pt": 2,
+  "layout-pb": 2,
+  "layout-mt": 1,
+  "layout-mb": 1,
+  "hide-mobile": false,
+  "hide-desktop": false,
+  "layout-content-max-width": 1200,
+  "article-hide-photo": true,
+  "img-border-radius": 6,
+  "img-ratio": 2
+}

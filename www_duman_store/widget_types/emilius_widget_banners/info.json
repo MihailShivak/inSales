@@ -1,0 +1,22 @@
+{
+  "type": "BlockListWidgetType",
+  "name": {
+    "ru": "[emilius] Баннер"
+  },
+  "handle": "emilius_widget_banners",
+  "description": {
+    "ru": "Слайдер баннеров на главной"
+  },
+  "page_kinds": [
+    "index"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "sliders",
+  "libraries": [
+    "swiper"
+  ],
+  "block_template_handle": "em-banner"
+}

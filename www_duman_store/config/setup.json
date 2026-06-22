@@ -1,0 +1,2701 @@
+{
+  "block_lists": {
+    "block-list-1fb0608247f82806": {
+      "block_template": "system-banner-block",
+      "title": "[ihaveit] Промо слайдер",
+      "blocks": [
+        "ihaveit-promo-slayder-2",
+        "ihaveit-promo-slayder-3",
+        "ihaveit-promo-slayder-92d808",
+        "ihaveit-promo-slayder-49b96c"
+      ]
+    },
+    "block-list-9de970fec44d761e": {
+      "block_template": "system-collection",
+      "title": "[ihaveit] Карусель с товарами - 2",
+      "blocks": [
+        "ihaveit-karusel-s-tovarami-2"
+      ]
+    },
+    "block-list-7baffa6443dc3d12": {
+      "block_template": "system-benefit-2",
+      "title": "[ihaveit] Карточка товара",
+      "blocks": [
+        "ihaveit-kartochka-tovara",
+        "ihaveit-kartochka-tovara-2"
+      ]
+    },
+    "block-list-5177562c4be00d7b": {
+      "block_template": "system-benefit-2",
+      "title": "[ihaveit] Аккордеон с контентом",
+      "blocks": [
+        "ihaveit-akkordeon-s-kontentom",
+        "ihaveit-akkordeon-s-kontentom-2",
+        "ihaveit-akkordeon-s-kontentom-3"
+      ]
+    },
+    "block-list-113ea254410230dd": {
+      "block_template": "system-banner-block",
+      "title": "[ihaveit] - Группа баннеров",
+      "blocks": [
+        "ihaveit-gruppa-bannerov",
+        "ihaveit-gruppa-bannerov-2c256d",
+        "ihaveit-gruppa-bannerov-2",
+        "ihaveit-gruppa-bannerov-3"
+      ]
+    },
+    "block-list-1c5da27bbc89d76a": {
+      "block_template": "system-collection",
+      "title": "[ihaveit] Вкладки с товарами",
+      "blocks": [
+        "ihaveit-vkladki-s-tovarami"
+      ]
+    },
+    "block-list-4d1b28ec0f753a33": {
+      "block_template": "system-banner-block",
+      "title": "[ihaveit] Интерактивная таблица",
+      "blocks": [
+        "ihaveit-interaktivnaya-tablitsa",
+        "ihaveit-interaktivnaya-tablitsa-2",
+        "ihaveit-interaktivnaya-tablitsa-3"
+      ]
+    },
+    "block-list-d7a5dedff7ffdc64": {
+      "block_template": "system-collection",
+      "title": "[ihaveit] Отзывы из товаров",
+      "blocks": [
+        "ihaveit-otzyvy-iz-tovarov"
+      ]
+    },
+    "block-list-795797714dbf761d": {
+      "block_template": "system-collection",
+      "title": "[ihaveit] Карусель с товарами - 1",
+      "blocks": [
+        "ihaveit-karusel-s-tovarami-1"
+      ]
+    }
+  },
+  "blocks": {
+    "ihaveit-promo-slayder": {
+      "block_template": "system-banner-block",
+      "title": "[ihaveit] Промо слайдер",
+      "name": "Слайд 1",
+      "image": "17241694",
+      "link": "/",
+      "button_text": "Текст ссылки 1",
+      "content": "<p>Описание слайда 1</p>"
+    },
+    "ihaveit-promo-slayder-b6a386": {
+      "block_template": "system-banner-block",
+      "title": "[ihaveit] Промо слайдер",
+      "name": "Слайд 2",
+      "image": "17241694",
+      "link": "/",
+      "button_text": "Текст ссылки 2",
+      "content": "<p>Описание слайда 2</p>"
+    },
+    "ihaveit-karusel-s-tovarami-2": {
+      "block_template": "system-collection",
+      "title": "[ihaveit] Карусель с товарами - 2",
+      "collection": "all"
+    },
+    "ihaveit-kartochka-tovara": {
+      "block_template": "system-benefit-2",
+      "title": "[ihaveit] Карточка товара",
+      "description": "<p><strong>По Москве и области:</strong> в день заказа до 16:00.</p>\n<p><strong>По России:</strong> курьером, почтой России, EMS</p>",
+      "image": "shopping-bag.svg",
+      "name": "Информация о доставке"
+    },
+    "ihaveit-kartochka-tovara-2": {
+      "block_template": "system-benefit-2",
+      "title": "[ihaveit] Карточка товара",
+      "description": "<p>Наличными картой курьеру или более 25 вариантов вариантов оплаты прямо на сайте.</p>",
+      "image": "piggy-bank.svg",
+      "name": "Информация об оплате"
+    },
+    "ihaveit-akkordeon-s-kontentom": {
+      "block_template": "system-benefit-2",
+      "title": "[ihaveit] Аккордеон с контентом",
+      "description": "<p>Ответ на вопрос 1</p>",
+      "image": "",
+      "name": "Вопрос 1"
+    },
+    "ihaveit-akkordeon-s-kontentom-2": {
+      "block_template": "system-benefit-2",
+      "title": "[ihaveit] Аккордеон с контентом",
+      "description": "<p>Ответ на вопрос 2</p>",
+      "image": "",
+      "name": "Вопрос 2"
+    },
+    "ihaveit-akkordeon-s-kontentom-3": {
+      "block_template": "system-benefit-2",
+      "title": "[ihaveit] Аккордеон с контентом",
+      "description": "<p>Ответ на вопрос 3</p>",
+      "image": "",
+      "name": "Вопрос 3"
+    },
+    "ihaveit-gruppa-bannerov": {
+      "block_template": "system-banner-block",
+      "title": "[ihaveit] - Группа баннеров",
+      "name": "Баннер 1",
+      "image": "17241694",
+      "link": "/",
+      "button_text": "Текст ссылки 1",
+      "content": "<p>Описание баннера 1</p>"
+    },
+    "ihaveit-gruppa-bannerov-2c256d": {
+      "block_template": "system-banner-block",
+      "title": "[ihaveit] - Группа баннеров",
+      "name": "Баннер 2",
+      "image": "17241694",
+      "link": "/",
+      "button_text": "Текст ссылки 2",
+      "content": "Описание баннера 2"
+    },
+    "ihaveit-gruppa-bannerov-2": {
+      "block_template": "system-banner-block",
+      "title": "[ihaveit] - Группа баннеров",
+      "name": "Баннер 3",
+      "image": "17241694",
+      "link": "/",
+      "button_text": "Текст ссылки 3",
+      "content": "Описание баннера 3"
+    },
+    "ihaveit-gruppa-bannerov-3": {
+      "block_template": "system-banner-block",
+      "title": "[ihaveit] - Группа баннеров",
+      "name": "Баннер 4",
+      "image": "17241694",
+      "link": "/",
+      "button_text": "Текст ссылки 3",
+      "content": "Описание баннера 4"
+    },
+    "ihaveit-vkladki-s-tovarami": {
+      "block_template": "system-collection",
+      "title": "[ihaveit] Вкладки с товарами",
+      "collection": "all"
+    },
+    "ihaveit-interaktivnaya-tablitsa": {
+      "block_template": "system-banner-block",
+      "title": "[ihaveit] Интерактивная таблица",
+      "name": "Заголовок 1",
+      "image": "17241694",
+      "link": "",
+      "button_text": "",
+      "content": "<p>Чем больше текста - тем лучше</p>"
+    },
+    "ihaveit-interaktivnaya-tablitsa-2": {
+      "block_template": "system-banner-block",
+      "title": "[ihaveit] Интерактивная таблица",
+      "name": "Заголовок 2",
+      "image": "17241694",
+      "link": "",
+      "button_text": "Сайт разработчика",
+      "content": "Чем больше текста - тем лучше"
+    },
+    "ihaveit-interaktivnaya-tablitsa-3": {
+      "block_template": "system-banner-block",
+      "title": "[ihaveit] Интерактивная таблица",
+      "name": "Заголовок 3",
+      "image": "17241694",
+      "link": "",
+      "button_text": "",
+      "content": "Чем больше текста - тем лучше"
+    },
+    "ihaveit-otzyvy-iz-tovarov": {
+      "block_template": "system-collection",
+      "title": "[ihaveit] Отзывы из товаров",
+      "collection": "all"
+    },
+    "ihaveit-karusel-s-tovarami-1": {
+      "block_template": "system-collection",
+      "title": "[ihaveit] Карусель с товарами - 1",
+      "collection": "all"
+    },
+    "ihaveit-promo-slayder-2": {
+      "block_template": "system-banner-block",
+      "title": "[ihaveit] Промо слайдер",
+      "name": "Слайд 1",
+      "image": "17241694",
+      "link": "/",
+      "button_text": "",
+      "content": ""
+    },
+    "ihaveit-promo-slayder-3": {
+      "block_template": "system-banner-block",
+      "title": "[ihaveit] Промо слайдер",
+      "name": "Слайд 2",
+      "image": "17241694",
+      "link": "/",
+      "button_text": "",
+      "content": ""
+    },
+    "ihaveit-promo-slayder-92d808": {
+      "block_template": "system-banner-block",
+      "title": "[ihaveit] Промо слайдер",
+      "name": "Слайд 3",
+      "image": "17241694",
+      "link": "/",
+      "button_text": "Перейти",
+      "content": ""
+    },
+    "ihaveit-promo-slayder-49b96c": {
+      "block_template": "system-banner-block",
+      "title": "[ihaveit] Промо слайдер",
+      "name": "Слайд 4",
+      "image": "17241694",
+      "link": "/",
+      "button_text": "",
+      "content": ""
+    }
+  },
+  "theme_widgets": {
+    "widget_lists": [
+      {
+        "handle": "compare-section_top-list",
+        "kind": "before_content",
+        "name": {
+          "ru": "Верхняя секция сравнения",
+          "en": "Upper section compare",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхня секція порiвняння",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección de comparación superior"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "feedback-list",
+        "kind": "content",
+        "name": {
+          "ru": "Обратная связь",
+          "en": "Feedback",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Зворотній зв'язок",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Realimentación"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "sidebar-list",
+        "kind": "sidebar",
+        "name": {
+          "ru": "Сайдбар",
+          "en": "Sidebar",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Сайдбар",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Barra lateral"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "hide-price": false,
+              "hide-options": false,
+              "hide-properties": false,
+              "if-bttn": {
+                "ru": "Размер"
+              },
+              "bttn-columns": 2,
+              "bttn-gap": 10,
+              "filter-bg": "#ffffff",
+              "border-bg": "#C5C5C5",
+              "active-bg": "#2879fe",
+              "border-radius": 5,
+              "border-radius-bttn": 0,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "layout-pt": 0,
+              "layout-pb": 2,
+              "hide-desktop": false,
+              "hide-mobile": false
+            },
+            "widget_type": "revmag_widget_sidebar_filter_1"
+          }
+        ]
+      },
+      {
+        "handle": "collection-list",
+        "kind": "content",
+        "name": {
+          "ru": "Категория",
+          "en": "Category",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Категорія",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Categoría"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "hide-grid": false,
+              "start-grid": "small",
+              "hide-grid-big": false,
+              "hide-grid-middle": false,
+              "hide-grid-small": false,
+              "product-min-width-middle": 350,
+              "hide-count": false,
+              "hide-sort": false,
+              "border-radius": 5,
+              "border-on": true,
+              "layout-wide-bg": false,
+              "layout-mt": 0,
+              "layout-mb": 1.5,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "layout-content-max-width": 1200,
+              "layout-wide-content": false,
+              "layout-edge": false,
+              "hide-desktop": false,
+              "hide-mobile": false
+            },
+            "widget_type": "revmag_widget_sort"
+          },
+          {
+            "settings_data": {
+              "grid-list-min-width": 245,
+              "grid-list-row-gap": 30,
+              "grid-list-column-gap": 30,
+              "img-ratio": 0.7,
+              "img-view": "hovers",
+              "bg-hover-image": "#F65219",
+              "favorites-color": "#F36464",
+              "product-desc-limit": 10,
+              "hide-description": false,
+              "variant-bg": "#5E9BFF",
+              "product-info-align": "left",
+              "product-item-border-radius": 5,
+              "grid-list-min-width-sm": 180,
+              "grid-list-row-gap-sm": 40,
+              "grid-list-column-gap-sm": 20,
+              "hide-variants-sm": true,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "layout-pt": 0,
+              "layout-pb": 2,
+              "layout-content-max-width": 1200,
+              "product-item-border-color": "#F0F0F0",
+              "product-item-bg": "#FFFFFF"
+            },
+            "widget_type": "revmag_widget_collection_products"
+          },
+          {
+            "settings_data": {
+              "color-border": "#cacaca",
+              "bg-no-active": "#ffffff",
+              "bg-active": "#FC7684",
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 1.5,
+              "layout-pb": 3,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 1200
+            },
+            "widget_type": "revmag_widget_pagination_1"
+          }
+        ]
+      },
+      {
+        "handle": "article-list",
+        "kind": "content",
+        "name": {
+          "ru": "Статья",
+          "en": "Article",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Стаття",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Artículo"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "if-page-title": false,
+              "title": {
+                "ru": "Заголовок",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Bóveda"
+              },
+              "subtitle": {
+                "ru": "Подзаголовок",
+                "en": "Subtitle",
+                "ua": "Пiдзаголовок",
+                "es": "Subtitular"
+              },
+              "if-breadcrumbs": false,
+              "if-image": false,
+              "color-text": "#ffffff",
+              "text-align": "center",
+              "custom-layout-pt": 100,
+              "custom-layout-pb": 100,
+              "title-font-size": 3.5,
+              "subtitle-font-size": 1.3,
+              "border-radius": 0,
+              "bg-image-color": "#000000",
+              "bg-image-opacity": 0.4,
+              "custom-layout-pt-sm": 50,
+              "custom-layout-pb-sm": 50,
+              "title-font-size-sm": 2,
+              "subtitle-font-size-sm": 0.5,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "layout-wide-bg": true,
+              "layout-content-max-width": 1200,
+              "layout-wide-content": false,
+              "layout-edge": false,
+              "hide-desktop": false,
+              "hide-mobile": false
+            },
+            "widget_type": "revmag_widget_page_title_2"
+          },
+          {
+            "settings_data": {
+              "img-ratio": 2,
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 4,
+              "layout-pb": 4,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 600,
+              "article-hide-photo": true,
+              "img-border-radius": 6,
+              "tags-hide": false,
+              "text-justify": true
+            },
+            "widget_type": "revmag_widget_article"
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 2,
+              "layout-pb": 2,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 600,
+              "grid-list-min-width": 280,
+              "grid-list-row-gap": 0.5,
+              "grid-list-column-gap": 2,
+              "bg": "#F7F7F7",
+              "title": {
+                "ru": "Комментарии",
+                "en": "Comments",
+                "ua": "Відгуки",
+                "es": "Comentarios"
+              }
+            },
+            "widget_type": "revmag_widget_article_comments"
+          },
+          {
+            "settings_data": {
+              "title-on": true,
+              "text-align": "center",
+              "show-bg-text": true,
+              "title-font-size": 3,
+              "bg-font-size": 10,
+              "custom-title-pt": 1.5,
+              "custom-title-pb": 0,
+              "custom-title-mb": 1,
+              "img-ratio": 0.7,
+              "bg-hover-image": "#F65219",
+              "hide-favorites": false,
+              "favorites-color": "#F36464",
+              "hide-sku": false,
+              "hide-description": true,
+              "hide-rating": false,
+              "hide-label-variant": false,
+              "hide-variants": false,
+              "variant-bg": "#5E9BFF",
+              "product-info-align": "left",
+              "product-item-border-radius": 5,
+              "count_special_products": 12,
+              "slides-per-view": 4,
+              "slide-gap": 30,
+              "autoplay-delay": 0,
+              "show-arrows": true,
+              "show-progress": true,
+              "navigation-align": "top",
+              "custom-navigation-mt": 0,
+              "custom-navigation-mb": 20,
+              "show-bg-text-sm": true,
+              "title-font-size-sm": 2.6,
+              "bg-font-size-sm": 6,
+              "hide-variants-sm": true,
+              "slides-per-view-sm": 1,
+              "slide-gap-sm": 20,
+              "layout-wide-bg": false,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "layout-pt": 4,
+              "layout-pb": 4,
+              "custom-layout-mb": 4,
+              "layout-content-max-width": 1200,
+              "layout-wide-content": false,
+              "layout-edge": false,
+              "hide-desktop": false,
+              "hide-mobile": false
+            },
+            "widget_type": "revmag_widget_products_article"
+          }
+        ]
+      },
+      {
+        "handle": "collection-section_top-list",
+        "kind": "before_content",
+        "name": {
+          "ru": "Верхняя секция категории",
+          "en": "Top section of the category",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхня секція категорії",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección superior de la categoría"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "text-align": "center",
+              "title-font-size": 3.5,
+              "subtitle-font-size": 1.3,
+              "bg-font-size": 10,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "custom-layout-pt": 1.5,
+              "custom-layout-pb": 2.5,
+              "layout-mt": 1,
+              "layout-mb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 1200,
+              "title": {
+                "ru": "Заголовок",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Bóveda"
+              },
+              "subtitle": {
+                "ru": "Подзаголовок",
+                "en": "Subtitle",
+                "ua": "Пiдзаголовок",
+                "es": "Subtitular"
+              },
+              "title-font-size-sm": 2.5,
+              "subtitle-font-size-sm": 1,
+              "show-bg-text-sm": true,
+              "bg-font-size-sm": 6,
+              "if-page-title": true,
+              "if-breadcrumbs": true,
+              "show-bg-text": true
+            },
+            "widget_type": "revmag_widget_page_title_1"
+          },
+          {
+            "settings_data": {
+              "slides-per-view": 4,
+              "space-between": 20,
+              "autoplay": false,
+              "autoplay-delay": 5,
+              "image-width": 25,
+              "image-padding-top": 100,
+              "border-radius": 5,
+              "bg-slide": "#ffffff",
+              "border-on": true,
+              "slides-per-view-sm": 1.5,
+              "layout-wide-bg": true,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "layout-pt": 0,
+              "layout-pb": 2,
+              "layout-content-max-width": 1200
+            },
+            "widget_type": "revmag_widget_subcollections_1"
+          }
+        ]
+      },
+      {
+        "handle": "product-section_top-list",
+        "kind": "before_content",
+        "name": {
+          "ru": "Верхняя секция товара",
+          "en": "Top section of the product",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхня секція товару",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección superior del producto"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "blog-section_top-list",
+        "kind": "before_content",
+        "name": {
+          "ru": "Верхняя секция блога",
+          "en": "Top section of the blog",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхня секція блогу",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección superior del blog"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "search-section_top-list",
+        "kind": "before_content",
+        "name": {
+          "ru": "Верхняя секция поиска",
+          "en": "Upper section section",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхня секція пошуку",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección de búsqueda superior"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "article-section_top-list",
+        "kind": "before_content",
+        "name": {
+          "ru": "Верхняя секция статьи",
+          "en": "Upper section article",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхня секція статті",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección de búsqueda artículos"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "page-section_bottom-list",
+        "kind": "after_content",
+        "name": {
+          "ru": "Нижняя секция страницы",
+          "en": "Bottom section of the page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція сторінки",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección inferior de la página"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "article-section_bottom-list",
+        "kind": "after_content",
+        "name": {
+          "ru": "Нижняя секция статьи",
+          "en": "Bottom section of the article",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція статті",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección inferior del artículo"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "cart-section_bottom-list",
+        "kind": "after_content",
+        "name": {
+          "ru": "Нижняя секция корзины",
+          "en": "Bottom section of the cart",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція кошику",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección de cesta inferior"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "favorite-list",
+        "kind": "content",
+        "name": {
+          "ru": "Избранные",
+          "en": "Favorites",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Вибрані",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Favoritos"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "text-align": "center",
+              "title-font-size": 3.5,
+              "subtitle-font-size": 1.3,
+              "bg-font-size": 10,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "custom-layout-pt": 1.5,
+              "custom-layout-pb": 2.5,
+              "layout-mt": 1,
+              "layout-mb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 1200,
+              "title": {
+                "ru": "Заголовок",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Bóveda"
+              },
+              "subtitle": {
+                "ru": "Подзаголовок",
+                "en": "Subtitle",
+                "ua": "Пiдзаголовок",
+                "es": "Subtitular"
+              },
+              "title-font-size-sm": 2.5,
+              "subtitle-font-size-sm": 1,
+              "show-bg-text-sm": true,
+              "bg-font-size-sm": 6,
+              "if-page-title": true,
+              "if-breadcrumbs": true,
+              "show-bg-text": true
+            },
+            "widget_type": "revmag_widget_page_title_1"
+          },
+          {
+            "settings_data": {
+              "grid-list-min-width": 245,
+              "grid-list-row-gap": 20,
+              "grid-list-column-gap": 20,
+              "img-ratio": 1,
+              "img-view": "hovers",
+              "bg-hover-image": "#F65219",
+              "favorites-color": "#F36464",
+              "product-desc-limit": 10,
+              "hide-description": true,
+              "variant-bg": "#5E9BFF",
+              "product-info-align": "left",
+              "product-item-border-radius": 5,
+              "grid-list-min-width-sm": 180,
+              "grid-list-row-gap-sm": 40,
+              "grid-list-column-gap-sm": 10,
+              "hide-variants-sm": true,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "layout-pt": 0,
+              "layout-pb": 2,
+              "layout-content-max-width": 1200
+            },
+            "widget_type": "revmag_widget_collection_products"
+          }
+        ]
+      },
+      {
+        "handle": "compare-section_bottom-list",
+        "kind": "after_content",
+        "name": {
+          "ru": "Нижняя секция сравнения",
+          "en": "Bottom section of the compare",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція порiвняння",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección de comparación inferior"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "compare-list",
+        "kind": "content",
+        "name": {
+          "ru": "Сравнение",
+          "en": "Comparison",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Порівняння",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Comparación"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 2,
+              "layout-pb": 3,
+              "layout-mt": 1,
+              "layout-mb": 3,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 1200,
+              "page_heading": {
+                "ru": "Сравнение",
+                "en": "Compare",
+                "ua": "Порівняння",
+                "es": "Comparación"
+              },
+              "img-ratio": 1,
+              "img-fit": "cover",
+              "rating-color": "#1B2738"
+            },
+            "widget_type": "system_widget_v4_compare_2"
+          }
+        ]
+      },
+      {
+        "handle": "cart-list",
+        "kind": "content",
+        "name": {
+          "ru": "Корзина",
+          "en": "Cart",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Кошик",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Carro"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "text-align": "center",
+              "title-font-size": 3.5,
+              "subtitle-font-size": 1.3,
+              "bg-font-size": 10,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "custom-layout-pt": 1.5,
+              "custom-layout-pb": 2.5,
+              "layout-mt": 1,
+              "layout-mb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 1200,
+              "title": {
+                "ru": "Заголовок",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Bóveda"
+              },
+              "subtitle": {
+                "ru": "Подзаголовок",
+                "en": "Subtitle",
+                "ua": "Пiдзаголовок",
+                "es": "Subtitular"
+              },
+              "title-font-size-sm": 2.5,
+              "subtitle-font-size-sm": 1,
+              "show-bg-text-sm": true,
+              "bg-font-size-sm": 6,
+              "if-page-title": true,
+              "if-breadcrumbs": true,
+              "show-bg-text": true
+            },
+            "widget_type": "revmag_widget_page_title_1"
+          },
+          {
+            "settings_data": {
+              "standart-checkout": false,
+              "hide-cart-checkout": false,
+              "buyer-start": false,
+              "comment-end": true,
+              "grid-delivery": 2,
+              "grid-payment": 2,
+              "border-color": "#D5D5D5",
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "layout-mt": 0,
+              "layout-mb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 1200,
+              "block-background-color": "#fafafa",
+              "border-radius": 6
+            },
+            "widget_type": "revmag_widget_cart"
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 2,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 1200,
+              "first-active": false,
+              "border-on": true,
+              "border-radius": 0
+            },
+            "widget_type": "revmag_widget_accordeon",
+            "data_handle": "block-list-5177562c4be00d7b"
+          }
+        ]
+      },
+      {
+        "handle": "page-list",
+        "kind": "content",
+        "name": {
+          "ru": "Страница",
+          "en": "Page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Сторінка",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Página"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "text-align": "center",
+              "title-font-size": 3.5,
+              "subtitle-font-size": 1.3,
+              "bg-font-size": 10,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "custom-layout-pt": 1.5,
+              "custom-layout-pb": 2.5,
+              "layout-mt": 1,
+              "layout-mb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 1200,
+              "title": {
+                "ru": "Заголовок",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Bóveda"
+              },
+              "subtitle": {
+                "ru": "Подзаголовок",
+                "en": "Subtitle",
+                "ua": "Пiдзаголовок",
+                "es": "Subtitular"
+              },
+              "title-font-size-sm": 2.5,
+              "subtitle-font-size-sm": 1,
+              "show-bg-text-sm": true,
+              "bg-font-size-sm": 6,
+              "if-page-title": true,
+              "if-breadcrumbs": true,
+              "show-bg-text": true
+            },
+            "widget_type": "revmag_widget_page_title_1"
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 4,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 1200
+            },
+            "widget_type": "revmag_widget_page_content"
+          }
+        ]
+      },
+      {
+        "handle": "blog-list",
+        "kind": "content",
+        "name": {
+          "ru": "Контент",
+          "en": "Content",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Контент",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Contenido"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "if-page-title": false,
+              "title": {
+                "ru": "Заголовок",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Bóveda"
+              },
+              "subtitle": {
+                "ru": "Подзаголовок",
+                "en": "Subtitle",
+                "ua": "Пiдзаголовок",
+                "es": "Subtitular"
+              },
+              "if-breadcrumbs": false,
+              "if-image": false,
+              "color-text": "#ffffff",
+              "text-align": "center",
+              "custom-layout-pt": 100,
+              "custom-layout-pb": 100,
+              "title-font-size": 3.5,
+              "subtitle-font-size": 1.3,
+              "border-radius": 0,
+              "bg-image-color": "#000000",
+              "bg-image-opacity": 0.4,
+              "custom-layout-pt-sm": 50,
+              "custom-layout-pb-sm": 50,
+              "title-font-size-sm": 2,
+              "subtitle-font-size-sm": 0.5,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "layout-wide-bg": true,
+              "layout-content-max-width": 1200,
+              "layout-wide-content": false,
+              "layout-edge": false,
+              "hide-desktop": false,
+              "hide-mobile": false
+            },
+            "widget_type": "revmag_widget_page_title_2"
+          },
+          {
+            "settings_data": {
+              "tags-align": "center",
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 4,
+              "layout-pb": 4,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 1200,
+              "grid-list-min-width": 340,
+              "grid-list-column-gap": 30,
+              "grid-list-row-gap": 30,
+              "hide-date": false,
+              "hide-description": false,
+              "permalink_blog": {
+                "ru": "blog"
+              },
+              "limit": 12,
+              "title": {
+                "ru": "Новости",
+                "en": "News",
+                "ua": "Новини",
+                "es": "Noticias"
+              },
+              "article_desc_limit": "20",
+              "img-border-radius": 10,
+              "img-ratio": 1,
+              "img-fit": "cover",
+              "border-on": true
+            },
+            "widget_type": "revmag_widget_articles"
+          },
+          {
+            "settings_data": {
+              "color-border": "#cacaca",
+              "bg-no-active": "#ffffff",
+              "bg-active": "#FC7684",
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 4,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 1200
+            },
+            "widget_type": "revmag_widget_pagination_1"
+          }
+        ]
+      },
+      {
+        "handle": "footer-list",
+        "kind": "footer",
+        "name": {
+          "ru": "Подвал",
+          "en": "Footer",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Підвал",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Pie de página"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "soc-youtube": {
+                "ru": "/"
+              },
+              "soc-vk": {
+                "ru": "/"
+              },
+              "soc-twitter": {
+                "ru": "/"
+              },
+              "soc-telegram": {
+                "ru": "/"
+              },
+              "soc-instagram": {
+                "ru": "/"
+              },
+              "soc-facebook": {
+                "ru": "/"
+              },
+              "soc-ydzen": {
+                "ru": "/"
+              },
+              "target-blank": true,
+              "border-color": "#E7E7E7",
+              "bg-color": "#000000",
+              "layout-wide-bg": true,
+              "bg": "#2879fe",
+              "layout-pt": 1.5,
+              "layout-pb": 1.5,
+              "button-bg": "#000000",
+              "text-before": {
+                "ru": "Подписывайтесь на новости!"
+              },
+              "text-before-start": false
+            },
+            "widget_type": "revmag_widget_sub_reg"
+          },
+          {
+            "settings_data": {
+              "footer-top-on": true,
+              "footer-top-grid-1-on": true,
+              "footer-top-grid-2-on": true,
+              "footer-top-grid-3-on": true,
+              "footer-top-grid-4-on": true,
+              "menu-type-1": "collections",
+              "menu-type-2": "links",
+              "links-1": "main-menu",
+              "links-2": "main-menu",
+              "grid-title-3": {
+                "ru": "О нас",
+                "en": "About Us",
+                "ua": "Про нас",
+                "es": "Sobre nosotros"
+              },
+              "grid-text-3": {
+                "ru": "Блок для заполнения информации о компании",
+                "en": "Block for filling in information about the company",
+                "ua": "Блок для заповнення інформації про компанії",
+                "es": "Bloque para completar información sobre la empresa"
+              },
+              "grid-title-4": {
+                "ru": "Контакты",
+                "en": "Contacts",
+                "ua": "Контакти",
+                "es": "Contactos"
+              },
+              "grid-4-address": {
+                "ru": "Москва, 140170, Рязанское шоссе 141/12",
+                "en": "ZIP 67000, New York Default Street, 15",
+                "ua": "Київ, 69000, Хрещатик 1",
+                "es": "Madrid, 69000, Calle Por Defecto, 1"
+              },
+              "grid-4-phone": {
+                "ru": "8 (800) 000-00-00"
+              },
+              "grid-4-email": {
+                "ru": "template@ihaveit.ru"
+              },
+              "grid-4-time": {
+                "ru": "ПН-ПТ 10:00-19:00",
+                "en": "Mon-Fri 10:00-19:00",
+                "ua": "ПН-ПТ 10:00-19:00",
+                "es": "Lunes a viernes 10:00-19:00"
+              },
+              "footer-top-bg": "#F7F8FA",
+              "footer-top-padding-top": 40,
+              "footer-top-padding-bottom": 40,
+              "footer-bottom-on": true,
+              "copyright-on": true,
+              "images-on": true,
+              "copyright-text": {
+                "ru": "© Разработано в <a href=\"https://ihaveit.ru\">IHaveIt</a> специально для <a href=\"https://www.insales.ru/?aff=7a587e7e4\">InSales</a>",
+                "en": "© Developed by <a href=\"https://ihaveit.ru\">IHaveIt</a> especially for <a href=\"https://www.insales.ru/?aff=7a587e7e4\">InSales</a>",
+                "ua": "© Розроблено в <a href=\"https://ihaveit.ru\">IHaveIt</a> спеціально для <a href=\"https://www.insales.ru/?aff=7a587e7e4\">InSales</a>",
+                "es": "© Desarrollado por <a href=\"https://ihaveit.ru\">IHaveIt</a> especialmente para <a href=\"https://www.insales.ru/?aff=7a587e7e4\">InSales</a>"
+              },
+              "footer-bottom-bg": "#ffffff",
+              "footer-bottom-padding-top": 20,
+              "footer-bottom-padding-bottom": 20,
+              "logo-on": true,
+              "if-logo-text": true,
+              "logo-text": {
+                "ru": "Revmag"
+              },
+              "logo-color": "#417CFA",
+              "shadow-color": "#000000",
+              "logo-size": 2,
+              "logo-size-img": 130,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "custom-layout-content-max-width": 1200,
+              "custom-layout-wide-bg": true,
+              "collections-1": "all"
+            },
+            "widget_type": "revmag_widget_footer"
+          }
+        ]
+      },
+      {
+        "handle": "outside-list",
+        "kind": "outside",
+        "name": {
+          "ru": "Вне контента",
+          "en": "Outside content",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Поза контенту",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Contenido externo"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "add-open": true,
+              "border-color": "#ECECEC",
+              "bg-color": "#000000"
+            },
+            "widget_type": "revmag_widget_cart_modal"
+          },
+          {
+            "settings_data": {
+              "bg": "#ffffff",
+              "bg-close": "#000000"
+            },
+            "widget_type": "revmag_widget_geo"
+          },
+          {
+            "settings_data": {
+              "form_title": {
+                "ru": "Обратный звонок",
+                "en": "Back call",
+                "ua": "Зворотний дзвінок",
+                "es": "Llamada de vuelta"
+              },
+              "submit_btn_title": {
+                "ru": "Отправить",
+                "en": "Send",
+                "ua": "Відправити",
+                "es": "Enviar"
+              },
+              "hide-use-agree": false,
+              "success_message": {
+                "ru": "Запрос успешно отправлен!",
+                "en": "Request sent successfully!",
+                "ua": "Запит успішно відправлений!",
+                "es": "¡Solicitud enviada con éxito!"
+              },
+              "hide-field-content": true,
+              "bg-close": "#000000"
+            },
+            "widget_type": "revmag_widget_feedback"
+          },
+          {
+            "settings_data": {
+              "form_title": {
+                "ru": "Форма предзаказа",
+                "en": "Preorder form",
+                "ua": "Форма замовлення",
+                "es": "Formulario de reserva"
+              },
+              "submit_btn_title": {
+                "ru": "Отправить",
+                "en": "Send",
+                "ua": "Відправити",
+                "es": "Enviar"
+              },
+              "success_message": {
+                "ru": "Запрос успешно отправлен!",
+                "en": "Request sent successfully!",
+                "ua": "Запит успішно відправлений!",
+                "es": "¡Solicitud enviada con éxito!"
+              },
+              "bg-close": "#000000"
+            },
+            "widget_type": "revmag_widget_modal_preorder"
+          },
+          {
+            "settings_data": {
+              "soc-youtube": {
+                "ru": "/"
+              },
+              "soc-vk": {
+                "ru": "/"
+              },
+              "soc-twitter": {
+                "ru": "/"
+              },
+              "soc-telegram": {
+                "ru": "/"
+              },
+              "soc-instagram": {
+                "ru": "/"
+              },
+              "soc-facebook": {
+                "ru": "/"
+              },
+              "soc-ydzen": {
+                "ru": "/"
+              },
+              "target-blank": true,
+              "border-color": "#E7E7E7",
+              "bg-color": "#000000",
+              "header-menu-perm": "main-menu"
+            },
+            "widget_type": "revmag_widget_menu_modal"
+          },
+          {
+            "settings_data": {
+              "bg": "#ffffff",
+              "bg-input": "#ffffff",
+              "bg-color": "#000000"
+            },
+            "widget_type": "revmag_widget_search_modal"
+          }
+        ]
+      },
+      {
+        "handle": "blog-section_bottom-list",
+        "kind": "after_content",
+        "name": {
+          "ru": "Нижняя секция блога",
+          "en": "Bottom section of the blog",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція блогу",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección inferior del blog"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "index-section_bottom-list",
+        "kind": "after_content",
+        "name": {
+          "ru": "Нижняя секция страницы",
+          "en": "Bottom section of the page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція сторінки",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección inferior de la página"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "search-section_bottom-list",
+        "kind": "after_content",
+        "name": {
+          "ru": "Нижняя секция поиска",
+          "en": "Bottom section of the search",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція пошуку",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección de búsqueda inferior"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "product-list",
+        "kind": "content",
+        "name": {
+          "ru": "Страница товара",
+          "en": "Product page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Сторінка товару",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Página del producto"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "text-align": "center",
+              "title-font-size": 3.5,
+              "subtitle-font-size": 1.3,
+              "bg-font-size": 10,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "custom-layout-pt": 1.5,
+              "custom-layout-pb": 2.5,
+              "layout-mt": 1,
+              "layout-mb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 1200,
+              "title": {
+                "ru": "Заголовок",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Bóveda"
+              },
+              "subtitle": {
+                "ru": "Подзаголовок",
+                "en": "Subtitle",
+                "ua": "Пiдзаголовок",
+                "es": "Subtitular"
+              },
+              "title-font-size-sm": 2.5,
+              "subtitle-font-size-sm": 1,
+              "show-bg-text-sm": true,
+              "bg-font-size-sm": 6,
+              "if-page-title": true,
+              "if-breadcrumbs": true,
+              "show-bg-text": true
+            },
+            "widget_type": "revmag_widget_page_title_1"
+          },
+          {
+            "settings_data": {
+              "only-var-images": false,
+              "hide-favorites": false,
+              "hide-chars-top": false,
+              "hide-short-description": false,
+              "hide-chars-bottom": false,
+              "main-gallery-height": 140,
+              "width-gallery": 40,
+              "img-ratio": "cover",
+              "break-groups": true,
+              "width-block": 2,
+              "br-gallery": 5,
+              "br-info": 5,
+              "br-variants": 5,
+              "br-tabs": 5,
+              "favorites-color": "#FC7684",
+              "bg-border-gallery": "#FC7684",
+              "bg-border": "#E2E2E2",
+              "bg-variant": "#FFFFFF",
+              "bg-variant-border": "#E2E2E2",
+              "bg-variant-active": "#2879FE",
+              "bg-quantity": "#FC7684",
+              "bg-tab": "#E2E2E2",
+              "bg-tab-active": "#FC7684",
+              "layout-wide-bg": false,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "layout-pt": 0,
+              "layout-pb": 2,
+              "layout-content-max-width": 1200,
+              "layout-wide-content": false,
+              "layout-edge": false,
+              "hide-desktop": false,
+              "hide-mobile": false
+            },
+            "widget_type": "revmag_widget_product_1",
+            "data_handle": "block-list-7baffa6443dc3d12"
+          },
+          {
+            "settings_data": {
+              "title-on": true,
+              "text-align": "center",
+              "show-bg-text": true,
+              "title-font-size": 3,
+              "bg-font-size": 10,
+              "custom-title-pt": 1.5,
+              "custom-title-pb": 0,
+              "custom-title-mb": 1,
+              "img-ratio": 0.7,
+              "bg-hover-image": "#F65219",
+              "hide-favorites": false,
+              "favorites-color": "#F36464",
+              "hide-sku": false,
+              "hide-description": true,
+              "hide-rating": false,
+              "hide-label-variant": false,
+              "hide-variants": false,
+              "variant-bg": "#5E9BFF",
+              "product-info-align": "left",
+              "product-item-border-radius": 5,
+              "count_special_products": 12,
+              "slides-per-view": 4,
+              "slide-gap": 30,
+              "autoplay-delay": 0,
+              "show-arrows": true,
+              "show-progress": true,
+              "navigation-align": "top",
+              "custom-navigation-mt": 0,
+              "custom-navigation-mb": 20,
+              "show-bg-text-sm": true,
+              "title-font-size-sm": 2.5,
+              "bg-font-size-sm": 6,
+              "hide-variants-sm": true,
+              "slides-per-view-sm": 1,
+              "slide-gap-sm": 20,
+              "layout-wide-bg": false,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "layout-pt": 4,
+              "layout-pb": 4,
+              "custom-layout-mb": 4,
+              "layout-content-max-width": 1200,
+              "layout-wide-content": false,
+              "layout-edge": false,
+              "hide-desktop": false,
+              "hide-mobile": false
+            },
+            "widget_type": "revmag_widget_products_similar"
+          },
+          {
+            "settings_data": {
+              "title-on": true,
+              "text-align": "center",
+              "show-bg-text": true,
+              "title-font-size": 3,
+              "bg-font-size": 10,
+              "custom-title-pt": 1.5,
+              "custom-title-pb": 0,
+              "custom-title-mb": 1,
+              "img-ratio": 0.7,
+              "bg-hover-image": "#F65219",
+              "hide-favorites": false,
+              "favorites-color": "#F36464",
+              "hide-sku": false,
+              "hide-description": true,
+              "hide-rating": false,
+              "hide-label-variant": false,
+              "hide-variants": false,
+              "variant-bg": "#5E9BFF",
+              "product-info-align": "left",
+              "product-item-border-radius": 5,
+              "count_special_products": 12,
+              "slides-per-view": 4,
+              "slide-gap": 30,
+              "autoplay-delay": 0,
+              "show-arrows": true,
+              "show-progress": true,
+              "navigation-align": "top",
+              "custom-navigation-mt": 0,
+              "custom-navigation-mb": 20,
+              "show-bg-text-sm": true,
+              "title-font-size-sm": 2.5,
+              "bg-font-size-sm": 6,
+              "hide-variants-sm": true,
+              "slides-per-view-sm": 1,
+              "slide-gap-sm": 20,
+              "layout-wide-bg": false,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "layout-pt": 4,
+              "layout-pb": 4,
+              "custom-layout-mb": 4,
+              "layout-content-max-width": 1200,
+              "layout-wide-content": false,
+              "layout-edge": false,
+              "hide-desktop": false,
+              "hide-mobile": false
+            },
+            "widget_type": "revmag_widget_products_related"
+          }
+        ]
+      },
+      {
+        "handle": "header-list",
+        "kind": "header",
+        "name": {
+          "ru": "Шапка",
+          "en": "Header",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Шапка",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Encabezamiento"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "layout-pt": 5,
+              "layout-pb": 5,
+              "layout-content-max-width": 1200,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-wide-bg": true,
+              "bg": "#f65219",
+              "layout-wide-content": true,
+              "layout-edge": true,
+              "text-align": "marquee",
+              "block-text": {
+                "ru": "Только у нас скидки до 70%",
+                "en": "Only we have discounts up to 70%",
+                "ua": "Тільки у нас знижки до 70%",
+                "es": "Solo tenemos descuentos de hasta el 70%"
+              }
+            },
+            "widget_type": "revmag_widget_promo_header_1"
+          },
+          {
+            "settings_data": {
+              "header-top-hide": false,
+              "header-location-hide": false,
+              "header-menu-hide": false,
+              "header-contacts-hide": false,
+              "header-contacts-phone": {
+                "ru": "+7 (495) 000-00-00"
+              },
+              "header-top-bg": "#f1f1f1",
+              "header-top-contacts-bg": "#E7E7E7",
+              "header-middle-hide": false,
+              "header-fav-hide": false,
+              "header-cab-hide": false,
+              "header-cart-hide": false,
+              "header-middle-count": "#FA7F7F",
+              "header-bottom-hide": false,
+              "header-burger-hide": false,
+              "header-collection-text-align": "center",
+              "header-subs-padding": 20,
+              "header-middle-pt": 10,
+              "header-middle-pb": 10,
+              "header-bottom-pt": 0,
+              "header-bottom-pb": 0,
+              "header-bottom-bg": "#2879fe",
+              "header-bottom-menu-bg": "#F7F8FA",
+              "if-logo-text": true,
+              "logo-text": {
+                "ru": "Revmag"
+              },
+              "logo-color": "#333333",
+              "shadow-color": "#DFDFDF",
+              "logo-size": 2.5,
+              "logo-size-img": 100,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "custom-layout-content-max-width": 1200,
+              "custom-layout-wide-bg": true,
+              "custom-layout-wide-content": false,
+              "custom-layout-edge": false,
+              "hide-desktop": false,
+              "hide-mobile": false,
+              "header-menu-perm": "footer-menu-2",
+              "header-menu-perm-2": "main-menu"
+            },
+            "widget_type": "revmag_widget_header_3"
+          },
+          {
+            "settings_data": {
+              "header-align": "top",
+              "header-align-sm": "bottom",
+              "header-visible": "after",
+              "hide-burger": false,
+              "hide-search": false,
+              "hide-home": false,
+              "hide-favorite": false,
+              "hide-cabinet": false,
+              "hide-cart": false,
+              "hide-tooltip": false,
+              "bg-all": "#f7f8fa",
+              "bg-all-opacity": 0.8,
+              "color-border": "#c5c5c5",
+              "color-hover-before": "#2879fe",
+              "bg-count": "#FA7F7F",
+              "custom-layout-content-max-width": 1200,
+              "custom-layout-wide-content": false,
+              "custom-layout-edge": false,
+              "hide-desktop": false,
+              "hide-mobile": false
+            },
+            "widget_type": "revmag_widget_header_fixed"
+          }
+        ]
+      },
+      {
+        "handle": "collection-section_bottom-list",
+        "kind": "after_content",
+        "name": {
+          "ru": "Нижняя секция категории",
+          "en": "Bottom section of the category",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція категорії",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección inferior de la categoría"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "search-list",
+        "kind": "content",
+        "name": {
+          "ru": "Поиск",
+          "en": "Search",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Пошук",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Búsqueda"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "text-align": "center",
+              "title-font-size": 3.5,
+              "subtitle-font-size": 1.3,
+              "bg-font-size": 10,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "custom-layout-pt": 1.5,
+              "custom-layout-pb": 2.5,
+              "layout-mt": 1,
+              "layout-mb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 1200,
+              "title": {
+                "ru": "Заголовок",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Bóveda"
+              },
+              "subtitle": {
+                "ru": "Подзаголовок",
+                "en": "Subtitle",
+                "ua": "Пiдзаголовок",
+                "es": "Subtitular"
+              },
+              "title-font-size-sm": 2.5,
+              "subtitle-font-size-sm": 1,
+              "show-bg-text-sm": true,
+              "bg-font-size-sm": 4,
+              "if-page-title": true,
+              "if-breadcrumbs": true,
+              "show-bg-text": true
+            },
+            "widget_type": "revmag_widget_page_title_1"
+          },
+          {
+            "settings_data": {
+              "grid-list-min-width": 245,
+              "grid-list-row-gap": 0,
+              "grid-list-column-gap": 20,
+              "img-ratio": 0.7,
+              "img-view": "hovers",
+              "bg-hover-image": "#F65219",
+              "favorites-color": "#F36464",
+              "product-desc-limit": 10,
+              "hide-description": true,
+              "variant-bg": "#5E9BFF",
+              "product-info-align": "left",
+              "product-item-border-radius": 5,
+              "grid-list-min-width-sm": 180,
+              "grid-list-row-gap-sm": 40,
+              "grid-list-column-gap-sm": 10,
+              "hide-variants-sm": true,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "layout-pt": 0,
+              "layout-pb": 2,
+              "layout-content-max-width": 1200
+            },
+            "widget_type": "revmag_widget_collection_products"
+          },
+          {
+            "settings_data": {
+              "color-border": "#cacaca",
+              "bg-no-active": "#ffffff",
+              "bg-active": "#FC7684",
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 3,
+              "layout-pb": 3,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 1200
+            },
+            "widget_type": "revmag_widget_pagination_1"
+          }
+        ]
+      },
+      {
+        "handle": "index-list",
+        "kind": "content",
+        "name": {
+          "ru": "Контент",
+          "en": "Content",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Контент",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Contenido"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "slide-title-size": 2,
+              "slide-subtitle-size": 1.2,
+              "slide-text-align": "left",
+              "slide-text-width": 70,
+              "slide-text-padding": 30,
+              "rotate-title": true,
+              "animate-text": true,
+              "slide-bg-color": "#333333",
+              "slide-bg-opacity": 30,
+              "slide-bg-width": 0,
+              "slide-bg-hover": false,
+              "img-ratio": 1.5,
+              "border-radius": 0,
+              "slides-per-view": 2,
+              "space-between": 0,
+              "loop": false,
+              "autoplay": false,
+              "autoplay-delay": 5,
+              "show-arrows": false,
+              "show-progress": false,
+              "navigation-align": "top",
+              "custom-navigation-mt": 0,
+              "custom-navigation-mb": 20,
+              "slide-title-size-sm": 1,
+              "slide-subtitle-size-sm": 0.9,
+              "slide-text-width-sm": 100,
+              "slide-text-padding-sm": 17,
+              "img-ratio-sm": 1,
+              "slides-per-view-sm": 1.5,
+              "layout-wide-bg": true,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "layout-content-max-width": 1200,
+              "layout-wide-content": true,
+              "layout-edge": true,
+              "hide-desktop": false,
+              "hide-mobile": false
+            },
+            "widget_type": "revmag_widget_promo",
+            "data_handle": "block-list-1fb0608247f82806"
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": true,
+              "layout-edge": true,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "layout-mt": 1,
+              "layout-mb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 1200,
+              "grid-list-min-width": 500,
+              "grid-list-row-gap": 2,
+              "grid-list-column-gap": 2,
+              "img-border-radius": 0,
+              "img-ratio": 1.5,
+              "img-fit": "cover",
+              "block-1-title": {
+                "ru": "Быстрая доставка и примерка",
+                "en": "Title 1",
+                "ua": "Заголовок 1",
+                "es": "Bóveda 1"
+              },
+              "block-1-subtitle": {
+                "ru": "Бесплатный возврат, удобные способы доставки",
+                "en": "Subtitle 1",
+                "ua": "Пiдзаголовок 1",
+                "es": "Subtitular 1"
+              },
+              "block-2-title": {
+                "ru": "SALE! Скидки!",
+                "en": "Title 2",
+                "ua": "Заголовок 2",
+                "es": "Bóveda 2"
+              },
+              "block-2-subtitle": {
+                "ru": "Скидки до 80% не только в чёрную пятницу",
+                "en": "Subtitle 2",
+                "ua": "Пiдзаголовок 2",
+                "es": "Subtitular 2"
+              },
+              "text-align-1": "center",
+              "text-align-2": "center",
+              "bg-1": "#FA7F7F",
+              "bg-2": "#333333",
+              "block-width": 1,
+              "block-margin": 20,
+              "border-radius": 10,
+              "block-width-sm": 1,
+              "block-margin-sm": 10,
+              "layout-wide-blocks": true
+            },
+            "widget_type": "revmag_widget_benefits"
+          },
+          {
+            "settings_data": {
+              "title-on": true,
+              "text-align": "left",
+              "show-bg-text": true,
+              "title-font-size": 3,
+              "bg-font-size": 7,
+              "custom-title-pt": 0.5,
+              "custom-title-pb": 0,
+              "custom-title-mb": 0,
+              "count_special_products": 12,
+              "show-bg-text-sm": true,
+              "title-font-size-sm": 2.5,
+              "bg-font-size-sm": 6,
+              "layout-wide-bg": false,
+              "layout-mt": 2,
+              "layout-mb": 2,
+              "layout-pt": 2,
+              "layout-pb": 2,
+              "custom-layout-mb": 2,
+              "layout-content-max-width": 1200,
+              "layout-wide-content": false,
+              "layout-edge": false,
+              "hide-desktop": false,
+              "hide-mobile": false
+            },
+            "widget_type": "revmag_widget_products_slider_2",
+            "data_handle": "block-list-9de970fec44d761e"
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 4,
+              "layout-pb": 4,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 1200,
+              "grid-list-row-gap": 1.5,
+              "grid-list-column-gap": 1.5,
+              "banner-border-radius": 0,
+              "img-ratio": 1.5,
+              "bg-items": "#f8f8f8",
+              "slides-proportion": 270,
+              "slides-margin": 20,
+              "border-radius": 10,
+              "max-height": 500,
+              "post-text-color": "#ffffff",
+              "post-bg-color": "#29589f",
+              "post-bg-opacity": 40,
+              "s1_width": 2,
+              "s1_height": 2,
+              "s2_width": 2,
+              "s2_height": 1,
+              "s3_width": 2,
+              "s3_height": 2,
+              "s4_width": 2,
+              "s4_height": 1,
+              "s5_width": 4,
+              "s5_height": 1,
+              "s6_width": 3,
+              "s6_height": 1,
+              "slides-margin-sm": 20,
+              "slides-width-sm": "6",
+              "img-ratio-sm": 100,
+              "bg": "#F7F8FA",
+              "layout-edge": false,
+              "show-content-sm": true,
+              "hide-content-sm": false
+            },
+            "widget_type": "revmag_widget_banners_1",
+            "data_handle": "block-list-113ea254410230dd"
+          },
+          {
+            "settings_data": {
+              "tabs-title": {
+                "ru": "Товары",
+                "en": "Products",
+                "ua": "Товари",
+                "es": "Bienes"
+              },
+              "text-align": "left",
+              "show-bg-text": true,
+              "title-font-size": 3.5,
+              "bg-font-size": 10,
+              "subtitle-font-size": 1.5,
+              "custom-title-pt": 1.5,
+              "custom-title-pb": 0,
+              "custom-title-mb": 2,
+              "count_special_products": 12,
+              "grid-list-min-width": 230,
+              "grid-list-row-gap": 30,
+              "grid-list-column-gap": 30,
+              "img-ratio": 0.7,
+              "img-view": "hovers",
+              "bg-hover-image": "#F65219",
+              "hide-favorites": false,
+              "favorites-color": "#F36464",
+              "hide-sku": false,
+              "product-desc-limit": "10",
+              "hide-description": true,
+              "hide-rating": false,
+              "hide-label-variant": false,
+              "hide-variants": false,
+              "variant-bg": "#5E9BFF",
+              "product-info-align": "left",
+              "product-item-border-radius": 5,
+              "grid-list-min-width-sm": 150,
+              "grid-list-row-gap-sm": 40,
+              "grid-list-column-gap-sm": 10,
+              "hide-variants-sm": true,
+              "show-bg-text-sm": true,
+              "title-font-size-sm": 2.5,
+              "bg-font-size-sm": 6,
+              "subtitle-font-size-sm": 1.2,
+              "layout-wide-bg": false,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "layout-pt": 4,
+              "layout-pb": 4,
+              "layout-content-max-width": 1200,
+              "layout-wide-content": false,
+              "layout-edge": false,
+              "hide-desktop": false,
+              "hide-mobile": false
+            },
+            "widget_type": "revmag_widget_products_tabs",
+            "data_handle": "block-list-1c5da27bbc89d76a"
+          },
+          {
+            "settings_data": {
+              "text-align": "right",
+              "title-font-size": 3.5,
+              "subtitle-font-size": 1.3,
+              "bg-font-size": 10,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "custom-layout-pt": 1.5,
+              "custom-layout-pb": 1.5,
+              "layout-mt": 1,
+              "layout-mb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 1200,
+              "title": {
+                "ru": "О шаблоне",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Bóveda"
+              },
+              "subtitle": {
+                "ru": "Индивидуальная разработка IHaveIt",
+                "en": "Subtitle",
+                "ua": "Пiдзаголовок",
+                "es": "Subtitular"
+              },
+              "title-font-size-sm": 2.5,
+              "subtitle-font-size-sm": 1,
+              "show-bg-text-sm": true,
+              "bg-font-size-sm": 6,
+              "if-page-title": false,
+              "show-bg-text": true,
+              "bg": null
+            },
+            "widget_type": "revmag_widget_page_title_1"
+          },
+          {
+            "settings_data": {
+              "grid-table-width": 40,
+              "grid-table-gap": 30,
+              "point-padding": 50,
+              "point-min-height": 250,
+              "grid-table-width-sm": 40,
+              "grid-table-gap-sm": 20,
+              "point-padding-sm": 20,
+              "point-min-height-sm": 110,
+              "layout-wide-bg": true,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "layout-pt": 2,
+              "layout-pb": 2,
+              "layout-content-max-width": 1200
+            },
+            "widget_type": "revmag_widget_int_table",
+            "data_handle": "block-list-4d1b28ec0f753a33"
+          },
+          {
+            "settings_data": {
+              "title-on": true,
+              "text-align": "center",
+              "show-bg-text": true,
+              "title-font-size": 3,
+              "bg-font-size": 10,
+              "custom-title-pt": 1.5,
+              "custom-title-pb": 0,
+              "custom-title-mb": 1,
+              "img-ratio": 0.7,
+              "bg-hover-image": "#F65219",
+              "hide-favorites": false,
+              "favorites-color": "#F36464",
+              "hide-sku": false,
+              "hide-description": true,
+              "hide-rating": false,
+              "hide-label-variant": false,
+              "hide-variants": false,
+              "variant-bg": "#5E9BFF",
+              "product-info-align": "left",
+              "product-item-border-radius": 10,
+              "count_special_products": 12,
+              "slides-per-view": 4,
+              "slide-gap": 30,
+              "autoplay-delay": 0,
+              "show-arrows": true,
+              "show-progress": true,
+              "navigation-align": "top",
+              "custom-navigation-mt": 0,
+              "custom-navigation-mb": 20,
+              "show-bg-text-sm": true,
+              "title-font-size-sm": 2.5,
+              "bg-font-size-sm": 6,
+              "hide-variants-sm": true,
+              "slides-per-view-sm": 1,
+              "slide-gap-sm": 20,
+              "layout-wide-bg": true,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "layout-pt": 4,
+              "layout-pb": 4,
+              "custom-layout-mb": 4,
+              "layout-content-max-width": 1200,
+              "layout-wide-content": false,
+              "layout-edge": false,
+              "hide-desktop": false,
+              "hide-mobile": false,
+              "bg": "#f7f8fa",
+              "product-item-border-color": null,
+              "product-item-bg": "#FFFFFF"
+            },
+            "widget_type": "revmag_widget_products_slider_1",
+            "data_handle": "block-list-795797714dbf761d"
+          }
+        ]
+      },
+      {
+        "handle": "page-section_top-list",
+        "kind": "before_content",
+        "name": {
+          "ru": "Верхняя секция страницы",
+          "en": "Top section of the page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхня секція сторінки",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección superior de la página"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "index-section_top-list",
+        "kind": "before_content",
+        "name": {
+          "ru": "Верхняя секция страницы",
+          "en": "Top section of the page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхня секція сторінки",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección superior de la página"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "product-section_bottom-list",
+        "kind": "after_content",
+        "name": {
+          "ru": "Нижняя секция страницы товара",
+          "en": "Bottom section of the product page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція сторінки товару",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección inferior de la página del producto"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "sidebar_blog-list",
+        "kind": "sidebar",
+        "name": {
+          "ru": "Сайдбар",
+          "en": "Sidebar",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Сайдбар",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Barra lateral"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "cart-section_top-list",
+        "kind": "before_content",
+        "name": {
+          "ru": "Верхняя секция корзины",
+          "en": "Upper section cart",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхня секція кошику",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección de la cesta superior"
+        },
+        "widgets": []
+      }
+    ],
+    "widget_types": []
+  }
+}

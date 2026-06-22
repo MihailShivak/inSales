@@ -1,0 +1,816 @@
+{
+  "{{ messages.s_heading_stylization }}": [
+    {
+      "group_name": "{{ messages.s_bg }}",
+      "items": [
+        {
+          "name": "bg",
+          "label": "{{ messages.s_body_background_color }}",
+          "value": "#ffffff",
+          "help": "",
+          "type": "color"
+        },
+        {
+          "name": "rev-bg-input",
+          "label": "{{ messages.rev_input_bg }}",
+          "value": "#ffffff",
+          "help": "{{ messages.only_ihaveit }}",
+          "type": "color"
+        },
+        {
+          "name": "color-btn-bg",
+          "label": "{{ messages.s_color_btn_bg }}",
+          "value": "#ffffff",
+          "help": "",
+          "type": "color"
+        }
+      ]
+    },
+    {
+      "group_name": "{{ messages.s_text }}",
+      "items": [
+        {
+          "name": "color-accent-text",
+          "label": "{{ messages.s_color_accent_text }}",
+          "value": "#ffffff",
+          "help": "",
+          "type": "color"
+        },
+        {
+          "name": "color-text-dark",
+          "label": "{{ messages.s_dark_text_color }}",
+          "value": "#000000",
+          "help": "",
+          "type": "color"
+        },
+        {
+          "name": "color-text-light",
+          "label": "{{ messages.s_light_text_color }}",
+          "value": "#ffffff",
+          "help": "",
+          "type": "color"
+        }
+      ]
+    },
+    {
+      "group_name": "{{ messages.s_heading_icons_pack }}",
+      "items": [
+        {
+          "name": "icons_pack",
+          "label": "{{ messages.s_label_icons_pack }}",
+          "value": null,
+          "options": [
+            [
+              "{{ messages.s_field_icons_pack1 }}",
+              "default"
+            ],
+            [
+              "{{ messages.s_field_icons_pack2 }}",
+              "thin"
+            ],
+            [
+              "{{ messages.s_field_icons_pack3 }}",
+              "system"
+            ],
+            [
+              "{{ messages.s_field_icons_pack4 }}",
+              "solid"
+            ],
+            [
+              "{{ messages.s_field_icons_pack5 }}",
+              "rounded"
+            ],
+            [
+              "{{ messages.s_field_icons_pack6 }}",
+              "simple"
+            ],
+            [
+              "{{ messages.s_field_icons_pack7 }}",
+              "minimal"
+            ]
+          ],
+          "type": "select",
+          "help": "{{ messages.no_ihaveit }}"
+        }
+      ]
+    },
+    {
+      "group_name": "{{ messages.s_heading_border_radius }}",
+      "items": [
+        {
+          "name": "controls-btn-border-radius",
+          "label": "{{ messages.s_label_border_radius }}",
+          "value": "",
+          "options": [
+            [
+              "{{ messages.s_field_border_radius1 }}",
+              "0px"
+            ],
+            [
+              "{{ messages.s_field_border_radius2 }}",
+              "6px"
+            ],
+            [
+              "{{ messages.s_field_border_radius3 }}",
+              "10px"
+            ],
+            [
+              "{{ messages.s_field_border_radius4 }}",
+              "30px"
+            ]
+          ],
+          "type": "select"
+        }
+      ]
+    },
+    {
+      "group_name": "{{ messages.background_notice }}",
+      "items": [
+        {
+          "name": "color-notice-warning",
+          "label": "{{ messages.warning }}",
+          "value": "#ffffff",
+          "help": "",
+          "type": "color"
+        },
+        {
+          "name": "color-notice-success",
+          "label": "{{ messages.success }}",
+          "value": "#ffffff",
+          "help": "",
+          "type": "color"
+        },
+        {
+          "name": "color-notice-error",
+          "label": "{{ messages.error }}",
+          "value": "#ffffff",
+          "help": "",
+          "type": "color"
+        },
+        {
+          "name": "color-notice-info",
+          "label": "{{ messages.information }}",
+          "value": "#ffffff",
+          "help": "",
+          "type": "color"
+        }
+      ]
+    }
+  ],
+  "{{ messages.s_subheading_fonts }}": [
+    {
+      "group_name": "{{ messages.s_subheading_fonts_main }}",
+      "items": [
+        {
+          "name": "font-family",
+          "options": [
+            [
+              "OpenSans",
+              "Open Sans"
+            ],
+            [
+              "Comfortaa",
+              "Comfortaa"
+            ],
+            [
+              "Jura",
+              "Jura"
+            ],
+            [
+              "Roboto",
+              "Roboto"
+            ],
+            [
+              "Montserrat",
+              "Montserrat"
+            ],
+            [
+              "TTFors",
+              "TTFors"
+            ],
+            [
+              "Oswald",
+              "Oswald"
+            ],
+            [
+              "Exo 2",
+              "Exo 2"
+            ],
+            [
+              "Lobster",
+              "Lobster"
+            ],
+            [
+              "Neucha",
+              "Neucha"
+            ],
+            [
+              "El Messiri",
+              "El Messiri"
+            ],
+            [
+              "PT Serif",
+              "PT Serif"
+            ],
+            [
+              "Anonymous Pro",
+              "Anonymous Pro"
+            ],
+            [
+              "Istok Web",
+              "Istok Web"
+            ],
+            [
+              "Fira Sans",
+              "Fira Sans"
+            ]
+          ],
+          "value": null,
+          "label": "{{ messages.s_font_family }}",
+          "type": "select"
+        },
+        {
+          "name": "font-size",
+          "options": [
+            [
+              "12 px",
+              "12px"
+            ],
+            [
+              "14 px",
+              "14px"
+            ],
+            [
+              "16 px",
+              "16px"
+            ]
+          ],
+          "value": null,
+          "label": "{{ messages.s_font_size_primary }}",
+          "type": "select"
+        }
+      ]
+    },
+    {
+      "group_name": "{{ messages.s_subheading_fonts_heading }}",
+      "items": [
+        {
+          "name": "font-family-heading",
+          "options": [
+            [
+              "OpenSans",
+              "Open Sans"
+            ],
+            [
+              "Comfortaa",
+              "Comfortaa"
+            ],
+            [
+              "Jura",
+              "Jura"
+            ],
+            [
+              "Roboto",
+              "Roboto"
+            ],
+            [
+              "Montserrat",
+              "Montserrat"
+            ],
+            [
+              "TTFors",
+              "TTFors"
+            ],
+            [
+              "Oswald",
+              "Oswald"
+            ],
+            [
+              "Exo 2",
+              "Exo 2"
+            ],
+            [
+              "Lobster",
+              "Lobster"
+            ],
+            [
+              "Neucha",
+              "Neucha"
+            ],
+            [
+              "El Messiri",
+              "El Messiri"
+            ],
+            [
+              "PT Serif",
+              "PT Serif"
+            ],
+            [
+              "Anonymous Pro",
+              "Anonymous Pro"
+            ],
+            [
+              "Istok Web",
+              "Istok Web"
+            ],
+            [
+              "Fira Sans",
+              "Fira Sans"
+            ]
+          ],
+          "value": null,
+          "label": "{{ messages.s_font_family }}",
+          "type": "select"
+        }
+      ]
+    }
+  ],
+  "{{ messages.s_subheading_favicon }}": [
+    {
+      "group_name": "{{ messages.s_subheading_favicon }}",
+      "items": [
+        {
+          "name": "favicon.png",
+          "type": "file",
+          "label": "{{ messages.s_favicon }}",
+          "value": null,
+          "help": ""
+        }
+      ]
+    }
+  ],
+  "{{ messages.collection_page }}": [
+    {
+      "items": [
+        {
+          "name": "collection_count",
+          "value": null,
+          "label": "{{ messages.collection_count }}",
+          "min": 2,
+          "max": 100,
+          "step": 1,
+          "type": "range"
+        }
+      ]
+    }
+  ],
+  "{{ messages.label_product }}": [
+    {
+      "group_name": "{{ messages.label_variant }}",
+      "items": [
+        {
+          "name": "rev_variants_image",
+          "value": null,
+          "type": "text",
+          "label": "{{ messages.var_image }}",
+          "help": "{{ messages.var_image_help }} {{ messages.only_ihaveit }}"
+        }
+      ]
+    },
+    {
+      "group_name": "{{ messages.st_discount }}",
+      "items": [
+        {
+          "name": "rev_sticker_discount",
+          "type": "checkbox",
+          "label": "{{ messages.enabled_live_search_on }}",
+          "value": null,
+          "help": "{{ messages.only_ihaveit }}"
+        },
+        {
+          "name": "rev_bg_stiker_discount",
+          "label": "{{ messages.st_color }}",
+          "value": null,
+          "help": "",
+          "type": "color"
+        }
+      ]
+    },
+    {
+      "group_name": "{{ messages.st_random }}",
+      "items": [
+        {
+          "name": "rev_stickers",
+          "value": null,
+          "type": "text",
+          "label": "{{ messages.st_title }}",
+          "help": "{{ messages.st_help_1 }} {{ messages.only_ihaveit }}"
+        },
+        {
+          "name": "rev_bg_stiker_1",
+          "label": "{{ messages.st_color }} 1",
+          "value": null,
+          "help": "",
+          "type": "color"
+        },
+        {
+          "name": "rev_bg_stiker_2",
+          "label": "{{ messages.st_color }} 2",
+          "value": null,
+          "help": "",
+          "type": "color"
+        },
+        {
+          "name": "rev_bg_stiker_3",
+          "label": "{{ messages.st_color }} 3",
+          "value": null,
+          "help": "",
+          "type": "color"
+        },
+        {
+          "name": "rev_bg_stiker_4",
+          "label": "{{ messages.st_color }} 4",
+          "value": null,
+          "help": "",
+          "type": "color"
+        },
+        {
+          "name": "rev_bg_stiker_5",
+          "label": "{{ messages.st_color }} 5",
+          "value": null,
+          "help": "{{ messages.st_help_2 }}",
+          "type": "color"
+        }
+      ]
+    },
+    {
+      "group_name": "{{ messages.s_subheading_buy_button }}",
+      "items": [
+        {
+          "name": "rev_product_buttons",
+          "options": [
+            [
+              "{{ messages.rev_buy_btn_1 }}",
+              "custom"
+            ],
+            [
+              "{{ messages.rev_buy_btn_2 }}",
+              "standart"
+            ]
+          ],
+          "value": null,
+          "label": "{{ messages.rev_buy_btn_title }}",
+          "type": "select",
+          "help": "{{ messages.rev_buy_btn_help }} {{ messages.only_ihaveit }}"
+        },
+        {
+          "name": "rev_product_redirect",
+          "options": [
+            [
+              "{{ messages.rev_buy_link_cart }}",
+              "/cart_items"
+            ],
+            [
+              "{{ messages.rev_buy_link_checkout }}",
+              "/new_order"
+            ]
+          ],
+          "value": null,
+          "label": "{{ messages.rev_buy_link }}",
+          "type": "select",
+          "help": "{{ messages.rev_buy_link_help }} {{ messages.only_ihaveit }}"
+        },
+        {
+          "name": "product_not_available",
+          "options": [
+            [
+              "{{ messages.show }}",
+              "shown"
+            ],
+            [
+              "{{ messages.preorder }}",
+              "preorder"
+            ],
+            [
+              "{{ messages.hide }}",
+              "hidden"
+            ]
+          ],
+          "value": null,
+          "label": "{{ messages.s_product_not_available }}",
+          "type": "select"
+        }
+      ]
+    }
+  ],
+  "{{ messages.search_page }}": [
+    {
+      "items": [
+        {
+          "name": "search_count",
+          "value": null,
+          "label": "{{ messages.search_count }}",
+          "min": 2,
+          "max": 100,
+          "step": 1,
+          "type": "range"
+        }
+      ]
+    }
+  ],
+  "{{ messages.blog_page }}": [
+    {
+      "items": [
+        {
+          "name": "blog_size",
+          "label": "{{ messages.s_blog_size }}",
+          "value": null,
+          "min": 3,
+          "max": 24,
+          "step": 1,
+          "type": "range"
+        }
+      ]
+    }
+  ],
+  "{{ messages.sidebar }}": [
+    {
+      "group_name": "{{ messages.sidebar }}",
+      "items": [
+        {
+          "name": "layout-content-max-width",
+          "label": "{{ messages.s_layout_max_width }}",
+          "min": 980,
+          "max": 1920,
+          "step": 2,
+          "type": "range",
+          "unit": "px"
+        },
+        {
+          "name": "delta_sidebar",
+          "label": "{{ messages.width_sidebar }}",
+          "min": 1,
+          "max": 3,
+          "step": 1,
+          "type": "range"
+        }
+      ]
+    },
+    {
+      "group_name": "{{ messages.sidebar_index }}",
+      "items": [
+        {
+          "name": "sidebar_index_show",
+          "type": "checkbox",
+          "label": "{{ messages.sidebar_show }}",
+          "value": null,
+          "help": ""
+        },
+        {
+          "name": "sidebar_index_position",
+          "options": [
+            [
+              "{{ messages.left}}",
+              "left"
+            ],
+            [
+              "{{ messages.right }}",
+              "right"
+            ]
+          ],
+          "value": null,
+          "label": "{{ messages.sidebar_position }}",
+          "type": "select"
+        }
+      ]
+    },
+    {
+      "group_name": "{{ messages.sidebar_collection }}",
+      "items": [
+        {
+          "name": "sidebar_collection_show",
+          "type": "checkbox",
+          "label": "{{ messages.sidebar_show }}",
+          "value": null,
+          "help": ""
+        },
+        {
+          "name": "sidebar_collection_position",
+          "options": [
+            [
+              "{{ messages.left}}",
+              "left"
+            ],
+            [
+              "{{ messages.right }}",
+              "right"
+            ]
+          ],
+          "value": null,
+          "label": "{{ messages.sidebar_position }}",
+          "type": "select"
+        }
+      ]
+    },
+    {
+      "group_name": "{{ messages.sidebar_cart }}",
+      "items": [
+        {
+          "name": "sidebar_cart_show",
+          "type": "checkbox",
+          "label": "{{ messages.sidebar_show }}",
+          "value": null,
+          "help": ""
+        },
+        {
+          "name": "sidebar_cart_position",
+          "options": [
+            [
+              "{{ messages.left}}",
+              "left"
+            ],
+            [
+              "{{ messages.right }}",
+              "right"
+            ]
+          ],
+          "value": null,
+          "label": "{{ messages.sidebar_position }}",
+          "type": "select"
+        }
+      ]
+    },
+    {
+      "group_name": "{{ messages.sidebar_product }}",
+      "items": [
+        {
+          "name": "sidebar_product_show",
+          "type": "checkbox",
+          "label": "{{ messages.sidebar_show }}",
+          "value": null,
+          "help": ""
+        },
+        {
+          "name": "sidebar_product_position",
+          "options": [
+            [
+              "{{ messages.left}}",
+              "left"
+            ],
+            [
+              "{{ messages.right }}",
+              "right"
+            ]
+          ],
+          "value": null,
+          "label": "{{ messages.sidebar_position }}",
+          "type": "select"
+        }
+      ]
+    },
+    {
+      "group_name": "{{ messages.sidebar_blog }}",
+      "items": [
+        {
+          "name": "sidebar_blog_show",
+          "type": "checkbox",
+          "label": "{{ messages.sidebar_show }}",
+          "value": null,
+          "help": ""
+        },
+        {
+          "name": "sidebar_blog_position",
+          "options": [
+            [
+              "{{ messages.left}}",
+              "left"
+            ],
+            [
+              "{{ messages.right }}",
+              "right"
+            ]
+          ],
+          "value": null,
+          "label": "{{ messages.sidebar_position }}",
+          "type": "select"
+        }
+      ]
+    },
+    {
+      "group_name": "{{ messages.sidebar_article }}",
+      "items": [
+        {
+          "name": "sidebar_article_show",
+          "type": "checkbox",
+          "label": "{{ messages.sidebar_show }}",
+          "value": null,
+          "help": ""
+        },
+        {
+          "name": "sidebar_article_position",
+          "options": [
+            [
+              "{{ messages.left}}",
+              "left"
+            ],
+            [
+              "{{ messages.right }}",
+              "right"
+            ]
+          ],
+          "value": null,
+          "label": "{{ messages.sidebar_position }}",
+          "type": "select"
+        }
+      ]
+    },
+    {
+      "group_name": "{{ messages.sidebar_page }}",
+      "items": [
+        {
+          "name": "sidebar_page_show",
+          "type": "checkbox",
+          "label": "{{ messages.sidebar_show }}",
+          "value": null,
+          "help": ""
+        },
+        {
+          "name": "sidebar_page_position",
+          "options": [
+            [
+              "{{ messages.left}}",
+              "left"
+            ],
+            [
+              "{{ messages.right }}",
+              "right"
+            ]
+          ],
+          "value": null,
+          "label": "{{ messages.sidebar_position }}",
+          "type": "select"
+        }
+      ]
+    },
+    {
+      "group_name": "{{ messages.sidebar_compare }}",
+      "items": [
+        {
+          "name": "sidebar_compare_show",
+          "type": "checkbox",
+          "label": "{{ messages.sidebar_show }}",
+          "value": null,
+          "help": ""
+        },
+        {
+          "name": "sidebar_compare_position",
+          "options": [
+            [
+              "{{ messages.left}}",
+              "left"
+            ],
+            [
+              "{{ messages.right }}",
+              "right"
+            ]
+          ],
+          "value": null,
+          "label": "{{ messages.sidebar_position }}",
+          "type": "select"
+        }
+      ]
+    },
+    {
+      "group_name": "{{ messages.sidebar_search }}",
+      "items": [
+        {
+          "name": "sidebar_search_show",
+          "type": "checkbox",
+          "label": "{{ messages.sidebar_show }}",
+          "value": null,
+          "help": ""
+        },
+        {
+          "name": "sidebar_search_position",
+          "options": [
+            [
+              "{{ messages.left}}",
+              "left"
+            ],
+            [
+              "{{ messages.right }}",
+              "right"
+            ]
+          ],
+          "value": null,
+          "label": "{{ messages.sidebar_position }}",
+          "type": "select"
+        }
+      ]
+    }
+  ],
+  "{{ messages.s_feedback_captcha_title }}": [
+    {
+      "group_name": "ReCAPTCHA",
+      "items": [
+        {
+          "name": "feedback_captcha_enabled",
+          "type": "checkbox",
+          "label": "{{ messages.s_feedback_captcha_label }}",
+          "value": null,
+          "help": ""
+        }
+      ]
+    }
+  ]
+}

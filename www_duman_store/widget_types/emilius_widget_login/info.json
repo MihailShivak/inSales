@@ -1,0 +1,16 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "[emilius] Авторизация / регистрация"
+  },
+  "handle": "emilius_widget_login",
+  "page_kinds": [
+    "all"
+  ],
+  "widget_list_kinds": [
+    "outside"
+  ],
+  "generation": 4,
+  "widget_category_handle": "modals",
+  "libraries": []
+}

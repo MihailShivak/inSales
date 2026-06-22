@@ -1,0 +1,120 @@
+<section class="">
+    <div class="order-success__body">
+        <div class="order-success__head">
+            <a href="/client_account/orders" class="order__breadcrumbs">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.8048 13.8619L5.94282 7.99994L11.8048 2.13794C12.0652 1.87762 12.0652 1.45562 11.8048 1.1953C11.5445 0.9349 11.1225 0.9349 10.8622 1.1953L4.52882 7.52858C4.3985 7.6589 4.3335 7.8293 4.3335 7.99994C4.3335 8.17059 4.3985 8.34091 4.52882 8.47131L10.8622 14.8046C11.1225 15.0649 11.5445 15.0649 11.8048 14.8046C12.0652 14.5443 12.0652 14.1223 11.8048 13.8619Z" fill="#A8A5A3"/>
+                </svg>
+                {% if client %}
+                    <span>К списку заказов</span>
+                {% else %}
+                    <span>Личный кабинет</span>
+                {% endif %}
+            </a>
+            <div class="order-success__title-wrapper">
+                <div class="account__title">#{{ order.number }} от {{ order.creation_date | date: '%d.%m.%Y %H:%M' }}</div>
+                {% if order.fulfillment_status == 'new' or order.fulfillment_status == 'accepted' and linklists.succ-order2.links %}
+                    {% for link in linklists.succ-order2.links %}
+                        <div class='order-success__text'>{{ link.title }}</div>
+                    {% break %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="order-success__pays-btns">
+                {% if order.fulfillment_status == 'declined' %}
+                    {% assign classNameStatus = "order__cancelled" %}
+                {% else %}
+                    {% assign classNameStatus = "" %}
+                {% endif %}
+                <div class="order__item-status page__order-status btn {{ classNameStatus }}">
+                    {{ order.customer_status }}
+                </div>
+                {% if order.payment_needed? and order.fulfillment_status == 'approved' %}
+                    <a href="{{ order.pay_url }}" class="order__pay-btn btn btn_small btn_primary">Оплатить</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="order__price order__max-width">
+            <div class="order__title-mini">Сумма заказа</div>
+            <div class="order__sidebar-total">
+                <div class="order__sidebar-total-item">
+                    <span>Сумма заказа</span>
+                    <span class="dotts"></span>
+                    <span>{{ order.items_price | money }}</span>
+                </div>
+                <div class="order__sidebar-total-item">
+                    <span>Доставка</span>
+                    <span class="dotts"></span>
+                    <span>{{ order.delivery_price | money }}</span>
+                </div>
+                {% unless order.margin_amount == 0 %}
+                    <div class="order__sidebar-total-item">
+                        <span>Наценка на способ оплаты (включена в стоимость)</span>
+                        <span class="dotts"></span>
+                        <span>{{ order.margin }}</span>
+                    </div>
+                {% endunless %}
+                {% for discount in order.discounts %}
+                    <div class="order__sidebar-total-item order__sidebar-total-item_discount">
+                        <span>{{ discount.description }}</span>
+                        <span class="dotts"></span>
+                        <span>− {{ discount.amount.with_margin | money }}</span>
+                    </div>
+                {% endfor %}
+                <div class="order__sidebar-total-item order__sidebar-total-item_total">
+                    <span style="display: none;">Итого</span>
+                    <span class="dotts" style="border: none;"></span>
+                    <span class="order-total__price">
+                        <span>итого</span>
+                        <span>{{ order.total_price | money }}</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="order__info order__max-width">
+            <div class="order__title-mini">Информация о заказе</div>
+            <div class="order__info-subtitle">Способ доставки</div>
+            <div class="order__info-desc">{{ order.delivery_title }}</div>
+
+            {% if order.delivery_info.outlet.address != blank %}
+                <div class="order__info-subtitle">Адрес доставки (пункт самовывоза)</div>
+                <a href="{{order.delivery_info.outlet.address | address_to_map_url }}" class="order__info-desc" target='_blank' title='Map'>{{ order.delivery_info.outlet.address }}</a>
+            {% else %}
+                <div class="order__info-subtitle">Адрес доставки</div>
+                <div class="order__info-desc">{{ order.shipping_address.full_delivery_address }}</div>
+            {% endif %}
+
+            {% if order.delivery_info.outlet.description %}
+                <div class="order__info-subtitle">Описание доставки</div>
+                <div class="order__info-desc">{{ order.delivery_info.outlet.description | strip_html }}</div>
+            {% endif %}
+
+            {% if order.comment? %}
+                <div class="order__info-subtitle">Комментарий к заказу</div>
+                <div class="order__info-desc">{{ order.comment }}</div>
+            {% endif %}
+        </div>
+        <div class="order__info">
+            <div class="order__title-mini">
+                <span>Состав заказа</span>
+                <span class="basket__title-count">{{ order.items.size }}</span>
+            </div>
+            <div class="order__product-list">
+                {% for item in order.items %}
+                    <div class="order__product-item">
+                        <a class="order__product-item__img" href="{{ item.product.url }}">
+                            {% if item.product.images.size > 0 %}
+                                <img src="{{ item.product.first_image.medium_url }}" alt="{{ item.variant.title }}">
+                            {% else %}
+                                <img src="{{ 'no_image.svg' | asset_url }}" alt="{{ item.variant.title }}" class="image-none">
+                            {% endif %}
+                        </a>
+                        <a href="{{ item.product.url }}" class="order__product-item__title">{{ item.product.title }}</a>
+                        <div class="order__product-item__subtitle">{{ item.quantity }} шт, {{ item.variant.title }}</div>
+                        <div class="order__product-item__price">{{ item.total_price | money }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

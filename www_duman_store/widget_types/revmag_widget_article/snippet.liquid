@@ -1,0 +1,46 @@
+<div class="article">
+  {% if editor_mode? or widget_settings.article-hide-photo != true %}
+    {% unless article.image.original_url contains '/no_image_original.jpg' %}
+      <div class="img-ratio img-ratio_cover article-photo">
+        <div class="img-ratio__inner">
+          {% assign blog_img_title = article.title | escape %}
+          {{ article.image | webp_picture_tag: 2000, alt: blog_img_title, title: blog_img_title }}
+        </div>
+      </div>
+    {% endunless %}
+  {% endif %}
+  <div class="article-info">
+    <div class="time">
+      <div>
+        <div>{% include 'svg' with 'icon_book' %}</div>
+        <div>
+          {% assign minutes = article.content.size | divided_by: 1500 %}
+          {{ widget_messages.reading_time }}: {{ minutes }} {{ widget_messages.minutes }}
+        </div>
+      </div>
+    </div>
+    <div class="divide">|</div>
+    <div class="date">{{ article.created_at | date: '%d.%m.%Y' }}</div>
+    <div class="divide">|</div>
+    <div class="author">
+      <div>
+        <div>{% include 'svg' with 'icon_user' %}</div>
+        <div>{{ article.author }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="article-content editor">
+    {{ article.content | replace: '<table', '<div class="table-wrapper"><table' | replace: '</table>', '</table></div>' }}
+  </div>
+
+  {% if editor_mode? or widget_settings.hide-tags != true %}
+    {% if article.tags.size > 0 %}
+      <div class="article-tags">
+        {% for tag in article.tags %}
+          <a href="{{ tag.url }}">#{{ tag.title }}{% unless forloop.last %},&nbsp;{% endunless %}</a>
+        {% endfor %}
+      </div>  
+    {% endif %}
+  {% endif %}
+</div>
+{% assign blog_img_title = null %}

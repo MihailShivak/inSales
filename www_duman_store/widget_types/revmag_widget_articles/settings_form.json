@@ -1,0 +1,326 @@
+{
+  "Тэги": [
+    {
+      "items": [
+        {
+          "class": "checkbox",
+          "name": "tags-hide",
+          "label": "{{ messages.article_hide_tags_blog }}",
+          "value": null,
+          "type": "checkbox"
+        },
+        {
+          "class": "text",
+          "name": "tags-align",
+          "label": "{{ messages.article_align_tags_blog }}",
+          "options": [
+            [
+              "{{ messages.article_left }}",
+              "left"
+            ],
+            [
+              "{{ messages.article_center }}",
+              "center"
+            ],
+            [
+              "{{ messages.article_right }}",
+              "right"
+            ]
+          ],
+          "value": null,
+          "type": "select"
+        }
+      ]
+    }
+  ],
+  "{{ messages.preview }}": [
+    {
+      "items": [
+		    {
+          "class": "text",
+          "name": "permalink_blog",
+          "label": "{{ messages.permalink_blog }}",
+          "value": null,
+          "type": "text",
+          "help": "{{ messages.article_align_help }}"
+        },
+        {
+          "class": "range",
+          "name": "limit",
+          "label": "{{ messages.limit }}",
+          "min": 1,
+          "max": 24,
+          "step": 1,
+          "value": null,
+          "type": "range",
+          "unit": "",
+          "help": "{{ messages.article_align_help_2 }}"
+        },
+        {
+          "class": "range",
+          "name": "grid-list-min-width",
+          "label": "{{ messages.article_item_min_width }}",
+          "min": 250,
+          "max" : 750,
+          "step": 10,
+          "unit": "px",
+          "type": "range"
+        },
+        {
+          "class": "range",
+          "name": "grid-list-column-gap",
+          "label": "{{ messages.article_grid_hor }}",
+          "min": 0,
+          "max" : 100,
+          "step": 1,
+          "unit": "px",
+          "type": "range"
+        },
+        {
+          "class": "range",
+          "name": "grid-list-row-gap",
+          "label": "{{ messages.article_grid_vert }}",
+          "min": 0,
+          "max" : 100,
+          "step": 1,
+          "unit": "px",
+          "type": "range"
+        },
+		    {
+          "class": "text",
+          "name": "article_desc_limit",
+          "label": "{{ messages.article_desc_limit }}",
+          "options": [
+            [
+              "5",
+              "5"
+            ],
+            [
+              "10",
+              "10"
+            ],
+            [
+              "20",
+              "20"
+            ],
+            [
+              "30",
+              "30"
+            ],
+            [
+              "40",
+              "40"
+            ],
+            [
+              "50",
+              "50"
+            ],
+            [
+              "100",
+              "100"
+            ]
+          ],
+          "value": null,
+          "type": "select"
+        },
+        {
+          "class": "range",
+          "name": "img-ratio",
+          "label": "{{ messages.image_ratio }}",
+          "min": 0.5,
+          "max" : 2,
+          "step": 0.1,
+          "type": "range"
+        },
+        {
+          "class": "range",
+          "name": "img-border-radius",
+          "label": "{{ messages.article_img_border_radius }}",
+          "min": 0,
+          "max" : 50,
+          "step": 1,
+          "unit": "px",
+          "type": "range"
+        },
+        {
+          "class": "checkbox",
+          "name": "border-on",
+          "label": "{{ messages.article_border_on }}",
+          "value": null,
+          "type": "checkbox"
+        },
+        {
+          "name":"article-bg",
+          "label":"{{ messages.article_bg }}",
+          "value":"",
+          "type":"color",
+          "clearable": true
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-image",
+          "label": "{{ messages.article_hide_image }}",
+          "value": null,
+          "type": "checkbox"
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-image-no-image",
+          "label": "{{ messages.article_hide_no_image }}",
+          "value": null,
+          "type": "checkbox",
+          "help": "{{ messages.article_hide_no_image_help }}"
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-description",
+          "label": "{{ messages.hide_announcement }}",
+          "value": null,
+          "type": "checkbox"
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-tags",
+          "label": "{{ messages.article_hide_tags }}",
+          "value": null,
+          "type": "checkbox"
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-time",
+          "label": "{{ messages.article_hide_read_time }}",
+          "value": null,
+          "type": "checkbox"
+        },
+		    {
+          "class": "checkbox",
+          "name": "hide-date",
+          "label": "{{ messages.hide_date }}",
+          "value": null,
+          "type": "checkbox"
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-author",
+          "label": "{{ messages.article_hide_author }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    }
+  ],
+  "{{ messages.label_widget }}": [
+    {
+      "group_name":"{{ messages.background }}",
+      "items": [
+        {
+          "name":"bg",
+          "label":"{{ messages.widget_background_color }}",
+          "value":"",
+          "type":"color",
+          "clearable": true
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-wide-bg",
+          "label": "{{ messages.wide_background }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "group_name":"{{ messages.indentation }}",
+      "items": [
+        {
+          "class": "range",
+          "name": "layout-mt",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.margin_top }}",
+          "type": "range",
+          "unit": "vw"
+        },
+        {
+          "class": "range",
+          "name": "layout-mb",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.margin_bottom }}",
+          "type": "range",
+          "unit": "vw"
+        },
+        {
+          "class": "range",
+          "name": "layout-pt",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.padding_top }}",
+          "type": "range",
+          "unit": "vw"
+        },
+        {
+          "class": "range",
+          "name": "layout-pb",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.padding_bottom }}",
+          "type": "range",
+          "unit": "vw"
+        }
+      ]
+    },
+    {
+      "group_name":"{{ messages.content }}",
+      "items": [
+        {
+          "class": "range",
+          "name": "layout-content-max-width",
+          "min": 400,
+          "max": 2000,
+          "step": 2,
+          "label": "{{ messages.content_max_width }}",
+          "type": "range",
+          "unit": "px"
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-wide-content",
+          "label": "{{ messages.wide_content }}",
+          "value": null,
+          "type": "checkbox"
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-edge",
+          "label": "{{ messages.remove_padding_at_edges }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "group_name":"{{ messages.adaptive }}",
+      "items": [
+        {
+          "class": "checkbox",
+          "name": "hide-desktop",
+          "label": "{{ messages.hide_desktop }}",
+          "value": null,
+          "type": "checkbox"
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-mobile",
+          "label": "{{ messages.hide_mobile }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "layout-wide-bg": true,
+  "layout-wide-content": false,
+  "layout-pt": 2,
+  "layout-pb": 2,
+  "layout-mt": 0,
+  "layout-mb": 0,
+  "hide-mobile": false,
+  "hide-desktop": false,
+  "layout-content-max-width": 600,
+  "grid-list-min-width": 400,
+  "grid-list-row-gap": 0.5,
+  "grid-list-column-gap": 2,
+  "bg": "#F7F7F7",
+  "title": {
+    "ru": "Комментарии",
+    "en": "Comments",
+    "ua": "Відгуки",
+    "es": "Comentarios"
+  }
+}

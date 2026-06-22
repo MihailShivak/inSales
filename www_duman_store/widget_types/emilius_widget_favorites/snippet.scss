@@ -1,0 +1,25 @@
+&:not(:last-child) {
+    margin-bottom: 5rem;
+}
+
+.catalog__list_wishlist > p {
+    grid-column: 3 span;
+}
+
+.checkbox__text_color::before {
+    content: none;
+}
+
+@media (max-width: 63.99875em) {
+    &:not(:last-child) {
+        margin-bottom: 4rem;
+    }
+
+    .basket__actions {
+        display: none;
+    }
+
+    .service-message {
+        top: 0.75rem;
+    }
+}

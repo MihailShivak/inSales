@@ -1,0 +1,159 @@
+
+{% capture seo_block_time %}{{'now' | date: '%s.%L' }}{% endcapture %}
+
+{% if widget_settings.is_hide %}
+    {% comment %} {% capture cache_key_seo_block %}{{upd_cache}}_seo-block-{{ template }}_{{ widget_settings.updated_at }}_{{ language.locale }}{% endcapture %}
+    {% cache cache_key_seo_block %}
+    {% endcache %} {% endcomment %}
+
+    {% if data.blocks.size > 0 %}
+        {% for block in data.blocks %}
+            {% if block.type == "block-1" %}
+                {% assign block1 = block %}
+            {% elsif block.type == "block-2" %}
+                {% assign block2 = block %}
+            {% elsif block.type == "block-3" %}
+                {% assign block3 = block %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% comment %} 1 {% endcomment %}
+    {% if widget_settings.select-block == "block-1" %}
+    <div class="block-seo__wrapper">
+        <div class="block-seo__item block-seo__item-horizon">
+            <div class="block-seo__image">
+                {% if widget_settings.link-video %}
+                    <video 
+                        muted 
+                        playsinline webkit-playsinline
+                        loop
+                        preload="metadata"
+                        id="seo-video"
+                        class="block-seo__video">
+                        <source src="{{ widget_settings.link-video }}" type="video/mp4">
+                        Ваш браузер не поддерживает воспроизведение видео.
+                    </video>
+                    <div class="catalog__loader seo-loader">
+                        <div class="catalog__loader-body">
+                            <div class="catalog__loader-anim">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="34" viewBox="0 0 24 24"><circle class="spinner_b2T7" cx="4" cy="12" r="3"></circle><circle class="spinner_b2T7 spinner_YRVV" cx="12" cy="12" r="3"></circle><circle class="spinner_b2T7 spinner_c9oY" cx="20" cy="12" r="3"></circle></svg>
+                            </div>
+                            <span>Загружаем ещё</span>
+                        </div>
+                    </div>
+                    {% comment %} <img src="{{ widget_settings.img-1 }}" alt="{{ block1.title-right }}" class="block-seo__preview entered _lazy-loaded" loading="lazy" hidden> {% endcomment %}
+                {% else %}
+                    <img src="{{ widget_settings.img-1 }}" alt="{{ block1.title-right }}" class="entered _lazy-loaded" loading="lazy">
+                {% endif %}
+            </div>
+            <div class="block-seo__text">
+                <div>{{ block1.desc-left }} </div>
+                <a href="{{ widget_settings.link-tg }}" class="block-seo__icon">
+                    <span></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <g clip-path="url(#clip0_8019_17124)">
+                    <path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="url(#paint0_linear_8019_17124)"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.43104 11.8727C8.92928 10.3486 11.262 9.34379 12.4292 8.85832C15.7617 7.47221 16.4542 7.23142 16.9055 7.22347C17.0048 7.22172 17.2267 7.24633 17.3705 7.36299C17.4919 7.4615 17.5253 7.59457 17.5413 7.68796C17.5573 7.78136 17.5772 7.99412 17.5614 8.16036C17.3808 10.0578 16.5994 14.6625 16.2018 16.7877C16.0336 17.687 15.7024 17.9885 15.3817 18.018C14.6849 18.0821 14.1557 17.5575 13.4808 17.1151C12.4246 16.4227 11.8279 15.9918 10.8028 15.3162C9.61798 14.5354 10.386 14.1063 11.0612 13.405C11.2379 13.2215 14.3083 10.4287 14.3677 10.1754C14.3752 10.1437 14.3821 10.0256 14.3119 9.96324C14.2417 9.90087 14.1382 9.9222 14.0635 9.93916C13.9575 9.9632 12.2703 11.0784 9.00179 13.2847C8.52287 13.6136 8.08909 13.7738 7.70043 13.7654C7.27197 13.7562 6.44778 13.5232 5.83508 13.324C5.08358 13.0797 4.4863 12.9506 4.53831 12.5357C4.5654 12.3196 4.86298 12.0986 5.43104 11.8727Z" fill="white"/>
+                    </g>
+                    <defs>
+                    <linearGradient id="paint0_linear_8019_17124" x1="12" y1="0" x2="12" y2="23.822" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#2AABEE"/>
+                    <stop offset="1" stop-color="#229ED9"/>
+                    </linearGradient>
+                    <clipPath id="clip0_8019_17124">
+                    <rect width="24" height="24" rx="12" fill="white"/>
+                    </clipPath>
+                    </defs>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="block-seo__item">
+            <div class="block-seo__item-wrapper">
+                <h1 class="block-seo__title">{{ block1.title-right }}</h1>
+                <div class="block-seo__desc">{{ block1.desc-right }}</div>
+            </div>
+        </div>
+    </div>
+
+    {% comment %} 2 {% endcomment %}
+    {% elsif widget_settings.select-block == "block-2" %}
+    <div class="block-seo__wrapper" style="margin-top: 2rem;">
+        <div class="block-seo__item block-seo__item-vertically">
+            <div class="block-seo__images-wrapper">
+                <div class="block-seo__images">
+                    <div class="block-seo__item-img">
+                        <img src="{{ widget_settings.img-1 }}" alt="{{ block2.title-right }}" class="entered _lazy-loaded" loading="lazy">
+                    </div>
+                    <div class="block-seo__item-img">
+                        <img src="{{ widget_settings.img-2 }}" alt="{{ block2.title-right }}" class="entered _lazy-loaded" loading="lazy">
+                    </div>
+                    <div class="block-seo__item-img">
+                        <img src="{{ widget_settings.img-3 }}" alt="{{ block2.title-right }}" class="entered _lazy-loaded" loading="lazy">
+                    </div>
+                </div>
+            </div>
+            <div class="block-seo__text">
+                <div>{{ block2.desc-left }}</div>
+                <a href="{{ widget_settings.link-tg }}" class="block-seo__icon">
+                    <span></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <g clip-path="url(#clip0_8019_17124)">
+                    <path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="url(#paint0_linear_8019_17124)"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.43104 11.8727C8.92928 10.3486 11.262 9.34379 12.4292 8.85832C15.7617 7.47221 16.4542 7.23142 16.9055 7.22347C17.0048 7.22172 17.2267 7.24633 17.3705 7.36299C17.4919 7.4615 17.5253 7.59457 17.5413 7.68796C17.5573 7.78136 17.5772 7.99412 17.5614 8.16036C17.3808 10.0578 16.5994 14.6625 16.2018 16.7877C16.0336 17.687 15.7024 17.9885 15.3817 18.018C14.6849 18.0821 14.1557 17.5575 13.4808 17.1151C12.4246 16.4227 11.8279 15.9918 10.8028 15.3162C9.61798 14.5354 10.386 14.1063 11.0612 13.405C11.2379 13.2215 14.3083 10.4287 14.3677 10.1754C14.3752 10.1437 14.3821 10.0256 14.3119 9.96324C14.2417 9.90087 14.1382 9.9222 14.0635 9.93916C13.9575 9.9632 12.2703 11.0784 9.00179 13.2847C8.52287 13.6136 8.08909 13.7738 7.70043 13.7654C7.27197 13.7562 6.44778 13.5232 5.83508 13.324C5.08358 13.0797 4.4863 12.9506 4.53831 12.5357C4.5654 12.3196 4.86298 12.0986 5.43104 11.8727Z" fill="white"/>
+                    </g>
+                    <defs>
+                    <linearGradient id="paint0_linear_8019_17124" x1="12" y1="0" x2="12" y2="23.822" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#2AABEE"/>
+                    <stop offset="1" stop-color="#229ED9"/>
+                    </linearGradient>
+                    <clipPath id="clip0_8019_17124">
+                    <rect width="24" height="24" rx="12" fill="white"/>
+                    </clipPath>
+                    </defs>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="block-seo__item">
+            <div class="block-seo__item-wrapper">
+                <h1 class="block-seo__title">{{ block2.title-right }}</h1>
+                <div class="block-seo__desc">{{ block2.desc-right }}</div>
+            </div>
+        </div>
+    </div>
+
+    {% comment %} 3 {% endcomment %}
+    {% elsif widget_settings.select-block == "block-3" %}
+    <div class="block-seo__wrapper" style="margin-top: 2rem;">
+        <div class="block-seo__item block-seo__item-cover">
+            <img src="{{ widget_settings.img-1 }}" alt="{{ widget_settings.title-right-3 }}" class="entered _lazy-loaded" loading="lazy">
+            <div class="block-seo__cover-wrapper">
+                {% if widget_settings.title-right-3 %}
+                    <h1 class="block-seo__title-white">{{ widget_settings.title-right-3 }}</h1>
+                {% endif %}
+                {% if widget_settings.btn-more %}
+                    <a href="{{ widget_settings.btn-more }}" class="btn btn_seo">Подробнее</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="block-seo__item">
+            <div class="block-seo__item-wrapper">
+                <div class="block-seo__title">{{ block3.title-right }}</div>
+                <div class="block-seo__desc">{{ block3.desc-right }}</div>
+                <div class="block-seo__btns">
+                    {% if widget_settings.btn-1 %}
+                        <a href="{{ widget_settings.btn-1 }}" class="btn btn_small btn_primary">Написать в WhatsApp</a>
+                    {% endif %}
+                    {% if widget_settings.btn-2 %}
+                        <a href="{{ widget_settings.btn-2 }}" class="btn btn_small btn_primary">Написать в Telegram</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endif %}
+
+<script>console.log("render seo block: {{ 'now' | date: '%s.%L' | minus: seo_block_time }}");</script>

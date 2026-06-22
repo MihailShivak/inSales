@@ -1,0 +1,563 @@
+<div class="article__container info__container_alt">
+    <div class="article__grid">
+
+        <div class="article__info">
+            <div class="article__section">
+                <ul class="article__breadcrumbs">
+                    <li class="breadcrumbs__item">
+                        <a href="/" class="breadcrumbs__link">Главная</a>
+                    </li>
+                    {% comment %} <li class="breadcrumbs__item">
+                        <a href="/blogs/blog" class="breadcrumbs__link">Блог</a>
+                    </li> {% endcomment %}
+                    <li class="breadcrumbs__item">
+                        <a href="{{ blog.url }}" class="breadcrumbs__link">{{ blog.title }}</a>
+                    </li>
+                </ul>
+                <h1 class="article__title">{{ article.title }}</h1>
+                <div class="article__details">
+                    <span data-em-date="{{ article.created_at | date: "%d.%m.%Y" }}">{{ article.created_at | date: "%d %b %Y" }}</span>
+                    {% assign readingTime = article.content.size | plus: article.preview.size | times: 1.0 %}
+                    <span>{{ readingTime | divided_by: 1500 | round: 1 }} мин чтения</span>
+                    <span>{{ article.author }}</span>
+                </div>
+                <div class="article__preview article__text">{{ article.preview }}</div>
+                {% if article.image %}
+                    <div class="article__image">
+                        <img src="{{ article.image | image_url: 1500, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" alt="{{ article.image.title }}" title="{{ article.image.title }}">
+                    </div>
+                {% endif %}
+                <div class="article__text" data-article-content>{{ article.content }}</div>
+            </div>
+
+            <div class="article__section">
+                <h2 class="article__subtitle">Хроники Duman</h2>
+                <div class="page__history">
+                    {% capture cache_key_blog_history %}{{upd_cache}}_blog_history_{{ block_lists.em-history-blog.updated_at }}_{{ language.locale }}{% endcapture %}
+                    {% cache cache_key_blog_history %}
+                        {% for badge in block_lists.em-history-blog.blocks %}
+                            <div class="page__history-item">
+                                <span class="page__history-item__first">{{ badge.question }}</span>
+                                <span class="page__history-item__last">{{ badge.answer }}</span>
+                            </div>
+                        {% endfor %}
+                    {% endcache %}
+                </div>
+            </div>
+
+            <div class="article__section">
+                <h2 class="article__subtitle">Образы, о которых говорим</h2>
+            </div>
+            <div class="article__section">
+                <h2 class="article__subtitle">Команда — как ателье</h2>
+                <div class="article__mini-blocks">
+                    <div class="article__mini-block"></div>
+                    <div class="article__mini-block"></div>
+                    <div class="article__mini-block"></div>
+                </div>
+                <div class="article__desc">Наши швеи работают как в хорошем ателье — каждая вещь проходит тройной контроль. Средний стаж мастериц — 12 лет.</div>
+                <a href="#" class="article__btn-link">О команде</a>
+                <div class="article__reception">
+                    <div class="article__reception-body">
+                        <div class="article__bold-title">Хотите собрать свою капсулу?</div>
+                        <div class="article__desc">
+                            Поможем подобрать вещи, которые будут сочетаться друг с другом
+                        </div>
+                        <button type="button" class="btn_article btn_primary btn" data-popup="#popup-feedback">Записаться на примерку</button>
+                    </div>
+                </div>
+            </div>
+            <div class="article__section">
+                <div class="article__subtitle">Философия «нескучного кэжуал»</div>
+                <div class="article__desc">
+                    Мы не любим пафос. Duman — это одежда, в которой можно пойти на встречу, в кафе или гулять с детьми. Натуральные ткани, продуманные детали, честная цена.
+                </div>
+                <div class="article__question">
+                    <div class="article__block-title">Часто спрашивают</div>
+                     <div class="article__faq" data-spollers>
+                        <div class="article__faq-item">
+                            <button type="button" data-spoller class="article__faq-item__title">
+                                <span class="product-card-descr__title-icon"></span>
+                                <span>Как выбрать размер?</span>
+                            </button>
+                            <div class="article__faq-item__body">
+                                Мы сняли мерки со 100 реальных женщин. В каждом товаре есть подробная таблица размеров. Если сомневаетесь — напишите в WhatsApp, подберём индивидуально.
+                            </div>
+                        </div>
+                        <div class="article__faq-item">
+                            <button type="button" data-spoller class="article__faq-item__title">
+                                <span class="product-card-descr__title-icon"></span>
+                                <span>Сколько идёт доставка?</span>
+                            </button>
+                            <div class="article__faq-item__body">
+                                По Москве — 1-2 дня, в регионы — 3-7 дней. От 10 000 ₽ доставка бесплатная. Все заказы отправляем с трек-номером.
+                            </div>
+                        </div>
+                        <div class="article__faq-item">
+                            <button type="button" data-spoller class="article__faq-item__title">
+                                <span class="product-card-descr__title-icon"></span>
+                                <span>Можно примерить перед покупкой?</span>
+                            </button>
+                            <div class="article__faq-item__body">
+                                Да, у нас есть примерка в шоуруме на Советской. А при курьерской доставке вы можете померить вещи и вернуть неподошедшее.
+                            </div>
+                        </div>
+                        <div class="article__faq-item">
+                            <button type="button" data-spoller class="article__faq-item__title">
+                                <span class="product-card-descr__title-icon"></span>
+                                <span>Как ухаживать за вещами?</span>
+                            </button>
+                            <div class="article__faq-item__body">
+                                Натуральные ткани рекомендуем стирать вручную или в режиме «деликатная стирка» при 30°C. Сушить в расправленном виде.
+                            </div>
+                        </div>
+                     </div>
+                </div>
+                {% assign blockBlog = blocks.em-blog-duman %}
+                <div class="article__about">
+                    <img class="article__about-img" src="{{ blockBlog.img.large_url | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" alt="">
+                    <div class="article__about-text">
+                        <div class="article__about-name">{{ blockBlog.name }}</div>
+                        <div class="article__about-desc">{{ blockBlog.desc }}</div>
+                        <div class="footer__socials-btns">
+                            <a href="https://t.me/dumanstores" class="contact-btn_icon-mini btn" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M3.37188 9.10588C8.08488 7.03251 14.1839 4.50463 15.0258 4.15476C17.2341 3.23901 17.9118 3.41451 17.5739 5.44251C17.3313 6.90013 16.6311 11.726 16.0731 14.7298C15.742 16.511 14.9991 16.7221 13.831 15.9515C13.2693 15.5806 10.4339 13.7056 9.81851 13.2654C9.25676 12.8641 8.48201 12.3815 9.45363 11.4309C9.79938 11.0923 12.0659 8.92813 13.8318 7.24363C14.0631 7.02238 13.7725 6.659 13.5055 6.83638C11.1254 8.41475 7.82538 10.6055 7.40538 10.8909C6.77088 11.3218 6.16151 11.5194 5.06763 11.2051C4.24113 10.9678 3.43376 10.6846 3.11951 10.5766C1.90938 10.1611 2.19663 9.623 3.37188 9.10588Z" fill="#40332B"/>
+                                </svg>
+                            </a>
+                            <a href="https://vk.com/duman.store" class="contact-btn_icon-mini btn" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <g clip-path="url(#clip0_5275_25814)">
+                                <path d="M19.894 14.5983C19.8698 14.5461 19.8472 14.5028 19.8262 14.4681C19.4792 13.8431 18.8161 13.076 17.8373 12.1666L17.8166 12.1458L17.8063 12.1356L17.7958 12.1251H17.7853C17.341 11.7016 17.0597 11.4169 16.9419 11.2711C16.7264 10.9934 16.6781 10.7123 16.7959 10.4275C16.8791 10.2123 17.1918 9.75785 17.7331 9.06352C18.0178 8.69555 18.2433 8.40064 18.4099 8.17845C19.611 6.58168 20.1317 5.56132 19.9719 5.11698L19.9099 5.01314C19.8682 4.95063 19.7606 4.89344 19.5872 4.84128C19.4135 4.78924 19.1914 4.78063 18.9206 4.81531L15.9217 4.83603C15.8731 4.81882 15.8037 4.82042 15.7134 4.84128C15.6231 4.86215 15.5779 4.87261 15.5779 4.87261L15.5257 4.89869L15.4843 4.93002C15.4496 4.95074 15.4114 4.98717 15.3697 5.03926C15.3282 5.09116 15.2936 5.15206 15.2658 5.22147C14.9393 6.06147 14.5681 6.84246 14.1515 7.56439C13.8946 7.99488 13.6587 8.36796 13.4433 8.68384C13.2281 8.99962 13.0476 9.23228 12.9019 9.38142C12.756 9.5307 12.6244 9.65029 12.5061 9.74064C12.3881 9.83101 12.298 9.8692 12.2355 9.85523C12.173 9.84126 12.1141 9.8274 12.0583 9.81354C11.9612 9.75103 11.8831 9.66601 11.8242 9.55842C11.765 9.45083 11.7252 9.3154 11.7044 9.15226C11.6836 8.98901 11.6714 8.84859 11.6679 8.73053C11.6646 8.61261 11.6661 8.44583 11.6732 8.23064C11.6804 8.01534 11.6836 7.86967 11.6836 7.7933C11.6836 7.52945 11.6888 7.24311 11.6991 6.93419C11.7096 6.62526 11.7181 6.3805 11.7252 6.20018C11.7323 6.01967 11.7356 5.8287 11.7356 5.62738C11.7356 5.42605 11.7233 5.26816 11.6991 5.15356C11.6752 5.03911 11.6385 4.92801 11.5901 4.82031C11.5414 4.71272 11.4701 4.62949 11.3766 4.5704C11.2829 4.51139 11.1664 4.46456 11.0278 4.42976C10.6598 4.3465 10.1912 4.30145 9.62185 4.29445C8.33069 4.28059 7.50105 4.36397 7.13311 4.54447C6.98733 4.62073 6.85541 4.72494 6.73746 4.85675C6.61247 5.00953 6.59504 5.09291 6.68527 5.10662C7.10186 5.16903 7.39677 5.31831 7.57035 5.55432L7.6329 5.67938C7.68155 5.76962 7.73013 5.92937 7.77875 6.15841C7.8273 6.38746 7.85863 6.64084 7.87241 6.91839C7.90706 7.42525 7.90706 7.85913 7.87241 8.22006C7.83765 8.58114 7.80483 8.86223 7.7735 9.06356C7.74217 9.26489 7.69534 9.42803 7.6329 9.55295C7.57035 9.6779 7.52873 9.75428 7.50787 9.782C7.48704 9.80971 7.46968 9.82719 7.4559 9.83404C7.36566 9.86862 7.27182 9.88623 7.17469 9.88623C7.07742 9.88623 6.95947 9.83758 6.82065 9.74034C6.68188 9.64311 6.53785 9.50955 6.38856 9.33944C6.23928 9.16929 6.07093 8.93153 5.88342 8.62611C5.69606 8.32069 5.50166 7.95972 5.30033 7.5432L5.13376 7.24114C5.02963 7.04681 4.88739 6.76386 4.70689 6.39253C4.52628 6.02106 4.36664 5.66173 4.22786 5.31462C4.17238 5.16884 4.08904 5.05786 3.97799 4.98148L3.92587 4.95015C3.89122 4.92243 3.8356 4.893 3.7593 4.86163C3.68289 4.8303 3.60316 4.80784 3.51978 4.79401L0.666572 4.81473C0.375011 4.81473 0.177184 4.88078 0.073018 5.0127L0.0313299 5.07511C0.0105041 5.10987 0 5.16538 0 5.24179C0 5.31816 0.0208258 5.4119 0.0625139 5.52288C0.47903 6.5018 0.931983 7.44589 1.42137 8.3553C1.91076 9.26471 2.33603 9.99726 2.69692 10.5523C3.05789 11.1077 3.42583 11.632 3.80073 12.1247C4.17563 12.6176 4.42379 12.9335 4.54521 13.0723C4.66677 13.2113 4.76225 13.3153 4.83166 13.3847L5.09204 13.6346C5.25865 13.8012 5.5033 14.0008 5.82612 14.2333C6.14901 14.4659 6.50648 14.695 6.89871 14.9208C7.291 15.1462 7.74739 15.3302 8.2681 15.4725C8.78875 15.6149 9.2955 15.6721 9.78842 15.6445H10.986C11.2288 15.6235 11.4128 15.5471 11.5379 15.4153L11.5793 15.3631C11.6072 15.3217 11.6333 15.2573 11.6573 15.1707C11.6817 15.0839 11.6938 14.9883 11.6938 14.8844C11.6867 14.5859 11.7094 14.3169 11.7614 14.0774C11.8133 13.838 11.8724 13.6575 11.9386 13.536C12.0047 13.4145 12.0793 13.312 12.1624 13.2289C12.2456 13.1457 12.3049 13.0952 12.3397 13.0779C12.3743 13.0604 12.4019 13.0485 12.4227 13.0414C12.5893 12.9859 12.7854 13.0397 13.0112 13.203C13.2369 13.3661 13.4486 13.5676 13.6465 13.807C13.8444 14.0466 14.0821 14.3154 14.3597 14.6139C14.6376 14.9124 14.8805 15.1344 15.0886 15.2804L15.2968 15.4053C15.4359 15.4887 15.6164 15.5651 15.8386 15.6345C16.0604 15.7039 16.2547 15.7212 16.4215 15.6865L19.0872 15.645C19.3509 15.645 19.556 15.6013 19.7015 15.5147C19.8474 15.4279 19.934 15.3323 19.9619 15.2283C19.9898 15.1242 19.9913 15.0061 19.9672 14.8741C19.9425 14.7424 19.9182 14.6503 19.894 14.5983Z" fill="#251E19"/>
+                                </g>
+                                <defs>
+                                <clipPath id="clip0_5275_25814">
+                                <rect width="20" height="20" fill="white"/>
+                                </clipPath>
+                                </defs>
+                                </svg>
+                            </a>
+                            <div class="social__ban">
+                                <a href="https://www.instagram.com/duman.store/" class="contact-btn_icon-mini btn" target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <path d="M6.66536 2C4.0927 2 2 4.09464 2 6.66797V13.3346C2 15.9073 4.09464 18 6.66797 18H13.3346C15.9073 18 18 15.9054 18 13.332V6.66536C18 4.0927 15.9054 2 13.332 2H6.66536ZM14.6667 4.66667C15.0347 4.66667 15.3333 4.96533 15.3333 5.33333C15.3333 5.70133 15.0347 6 14.6667 6C14.2987 6 14 5.70133 14 5.33333C14 4.96533 14.2987 4.66667 14.6667 4.66667ZM10 6C12.206 6 14 7.794 14 10C14 12.206 12.206 14 10 14C7.794 14 6 12.206 6 10C6 7.794 7.794 6 10 6ZM10 7.33333C9.29276 7.33333 8.61448 7.61428 8.11438 8.11438C7.61428 8.61448 7.33333 9.29276 7.33333 10C7.33333 10.7072 7.61428 11.3855 8.11438 11.8856C8.61448 12.3857 9.29276 12.6667 10 12.6667C10.7072 12.6667 11.3855 12.3857 11.8856 11.8856C12.3857 11.3855 12.6667 10.7072 12.6667 10C12.6667 9.29276 12.3857 8.61448 11.8856 8.11438C11.3855 7.61428 10.7072 7.33333 10 7.33333Z" fill="#251E19"/>
+                                    </svg>
+                                </a>
+                                <button type="button" class="social__ban-open" data-modal-ban>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 16 16" fill="none">
+                                    <path d="M7.99967 1.33203C4.3237 1.33203 1.33301 4.32272 1.33301 7.9987C1.33301 11.6747 4.3237 14.6654 7.99967 14.6654C11.6757 14.6654 14.6663 11.6747 14.6663 7.9987C14.6663 4.32272 11.6757 1.33203 7.99967 1.33203ZM7.99967 2.33203C11.1352 2.33203 13.6663 4.86316 13.6663 7.9987C13.6663 11.1342 11.1352 13.6654 7.99967 13.6654C4.86414 13.6654 2.33301 11.1342 2.33301 7.9987C2.33301 4.86316 4.86414 2.33203 7.99967 2.33203ZM7.99967 4.66536C7.82286 4.66536 7.65329 4.7356 7.52827 4.86063C7.40325 4.98565 7.33301 5.15522 7.33301 5.33203C7.33301 5.50884 7.40325 5.67841 7.52827 5.80344C7.65329 5.92846 7.82286 5.9987 7.99967 5.9987C8.17649 5.9987 8.34606 5.92846 8.47108 5.80344C8.5961 5.67841 8.66634 5.50884 8.66634 5.33203C8.66634 5.15522 8.5961 4.98565 8.47108 4.86063C8.34606 4.7356 8.17649 4.66536 7.99967 4.66536ZM7.99186 6.99154C7.85937 6.99361 7.73311 7.04818 7.64083 7.14327C7.54854 7.23837 7.49777 7.3662 7.49967 7.4987V11.1654C7.49874 11.2316 7.51098 11.2974 7.53569 11.3589C7.56039 11.4204 7.59707 11.4763 7.64359 11.5235C7.69012 11.5707 7.74555 11.6082 7.80668 11.6337C7.86781 11.6593 7.93341 11.6725 7.99967 11.6725C8.06594 11.6725 8.13154 11.6593 8.19267 11.6337C8.2538 11.6082 8.30923 11.5707 8.35575 11.5235C8.40228 11.4763 8.43896 11.4204 8.46366 11.3589C8.48837 11.2974 8.50061 11.2316 8.49967 11.1654V7.4987C8.50063 7.43178 8.48815 7.36534 8.46296 7.30333C8.43777 7.24133 8.40039 7.18501 8.35304 7.13771C8.30568 7.09041 8.24931 7.05311 8.18727 7.028C8.12523 7.00289 8.05878 6.99049 7.99186 6.99154Z" fill="#A8A5A3"/>
+                                    </svg>
+                                </button>
+                                <div class="modal-ban__wrapper">
+                                    <div class="modal-ban__title">* проект Meta Platforms Inc., деятельность которой запрещена в РФ</div>
+                                    <button type="button" class="popup__close btn-ban__close" data-modal-ban-close></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="article__sidebar">
+            <div class="article__sidebar-body">
+                {% include "blog-sidebar" %}
+            </div>
+        </div>
+    </div>
+    
+    {% if blogs.blog.articles.size > 0 %}
+        <div class="article__section">
+            <div class="article__subtitle">Вам может быть интересно</div>
+            <div class="page__from-grid">
+                {% for article in blogs.blog.articles limit: 3 %}
+                    <div class="page__from-item">
+                        <div class="from-item__img-wrapper">
+                            <a href="{{ article.url }}">
+                                <picture>
+                                    <source media="(max-width:650px)" 
+                                        srcset="{{ article.image | image_url: 750, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" 
+                                        type="image/webp" data-ll-status="loaded" class="entered">
+                                    <source
+                                        srcset="{{ article.image | image_url: 1100, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" 
+                                        type="image/webp" data-ll-status="loaded" class="entered">
+
+                                    <source media="(max-width:650px)" 
+                                        srcset="{{ article.image | image_url: 750 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" data-ll-status="loaded" class="entered">
+
+                                    <img src="{{ article.image | image_url: 1100 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" 
+                                        alt="{{ article.title }}" title="{{ article.title }}"
+                                        data-ll-status="loaded" class="entered">
+                                </picture>
+                            </a>
+                            {% unless article.tags == empty %}
+                                <div class="from-item__tags">
+                                    {% for tag in article.tags %}
+                                        <a href="{{ tag.url }}">{{ tag.title }}</a>
+                                    {% endfor %}
+                                </div>
+                            {% endunless %}
+                        </div>
+                        <div class="from-item__info">
+                            <a href="{{ article.url }}" class="from-item__info-title">{{ article.title }}</a>
+                            <div class="from-item__info-subtitle" data-em-date="{{ article.created_at | date: "%d.%m.%Y" }}">{{ article.created_at | data: "%d %b %Y" }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if article.related_products.size > 0 %}
+        <div class="article__section" data-js-slider="products-slider-wrapper">
+            <div class="page__choice-head">
+                <h2 class="article__subtitle">Вещи из статьи</h2>
+                <div class="products-slider__arrows">
+                    <button type="button" class="products-slider__arrow products-slider__arrow-prev swiper-button-prev"></button>
+                    <button type="button" class="products-slider__arrow products-slider__arrow-next swiper-button-next"></button>
+                </div>
+            </div>
+            <div class="products-slider__list swiper">
+                <div class="products-slider__list-wrapper swiper-wrapper">
+                    {% for product in article.related_products limit: 10 %}
+                        {% if product.properties.predzakaz.characteristics.first.name == "Да" %}
+                            {% assign isPreorder = true %}
+
+                            {% if product.properties.skoro-v-prodazhe.characteristics.first.name == "Да" %}
+                                {% for collection in product.collections %}
+                                    {% if collection.handle == "skoro-v-prodazhe" %}
+                                        {% assign isSoon = true %}
+                                        {% break %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                {% assign isSoon = false %}
+                            {% endif %}
+                        {% else %}
+                            {% assign isPreorder = false %}
+                            {% assign isSoon = false %}
+                        {% endif %}
+
+                        <form class="products-slider__slide products-item swiper-slide"{% if product.available or isPreorder and isSoon == false %} data-js="product-item"{% endif %} method="post" data-cust-product-id="{{ product.id }}">
+                            <div class="products-item__img-wrapper">
+                                <a href="{{ product.url }}" class="products-item__img" target="_blank">
+                                    {% if product.images.size > 0 %}
+                                        <picture>
+                                            <source media="(max-width:700px)" type="image/webp" 
+                                                srcset="{{ product.first_image | image_url: 700,  format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }},
+                                                        {{ product.first_image | image_url: 1200, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }} 2x">
+                                            <source type="image/webp" 
+                                                srcset="{{ product.first_image | image_url: 980,  format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }},
+                                                        {{ product.first_image | image_url: 1600, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }} 2x"> 
+                                            {% comment %} <source type="image/webp" 
+                                                srcset="{{ product.first_image | image_url: 1400, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }},
+                                                        {{ product.first_image | image_url: 1800, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }} 2x"> {% endcomment %}
+                                                            
+                                            <img src="{{ product.first_image | image_url: 980 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }}" 
+                                                srcset="{{ product.first_image | image_url: 980 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }},
+                                                        {{ product.first_image | image_url: 1600 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }} 2x" 
+                                                alt="{{ product.title }}" class="entered _lazy-loaded" loading="lazy">
+                                        </picture>
+                                    {% else %}
+                                        <img src="{{ 'no_image.svg' | asset_url }}" data-src="{{ 'no_image.svg' | asset_url }}" alt="{{ product.title }}" class="image-none entered _lazy-loaded" loading="lazy">
+                                    {% endif %}
+                                </a>
+                                <div class="products-item__actions">
+                                    <button type="button" class="products-item__action products-item__action-whishlist" data-em-favorites-trigger="{{ product.id }}">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M11.2077 15.9163C11.0789 15.9163 10.951 15.8768 10.8427 15.7984L5.99935 12.3113L1.15602 15.7984C0.965182 15.9355 0.714349 15.9547 0.505599 15.8476C0.297265 15.7409 0.166016 15.5259 0.166016 15.2913V2.79134C0.166016 1.29801 1.38102 0.0830078 2.87435 0.0830078H9.12435C10.6177 0.0830078 11.8327 1.29801 11.8327 2.79134V15.2913C11.8327 15.5259 11.7014 15.7409 11.4927 15.8476C11.4027 15.8934 11.3052 15.9163 11.2077 15.9163Z"/>
+                                        </svg>
+                                    </button>
+                                    {% if product.available or isPreorder and isSoon == false %}
+                                        <button type="button" class="products-item__action products-item__action-addcart" 
+                                            {%- if product.variants.size > 1 -%}
+                                                data-em-js="product-item-addcard" 
+                                                data-add-cart="{{ product.id }}"
+                                            {%- else -%}
+                                                data-btn-cart-add="{{ product.variants.first.id }}"
+                                            {%- endif -%}
+                                        ></button>
+                                    {% else %}
+                                        <button type="button" class="products-item__action products-item__action-subscribe" 
+                                            data-popup="#popup-subscribe"
+                                        ></button>
+                                    {% endif %}
+                                </div>
+                                {% assign firstVariant = null %}
+                                {% if product.available or isPreorder and isSoon == false %}
+                                    {% assign latestSizes = "" %}
+                                    {% assign countLatestSizes = 0 %}
+                                    <!--noindex-->
+                                    <div class="products-item__sizes-wrapper" data-em-js="product-sizes-wrapper">
+                                        <button type="button" class="products-item__sizes-close" data-js="product-sizes-close"></button>
+                                        <div class="products-item__sizes-content">
+                                            <div class="products-item__sizes-title">Выберите размер</div>
+                                            <div class="products-item__sizes-list checkbox-list">
+                                                {% for variant in product.variants %}
+                                                    {% if variant.available == false or variant.quantity == 0 %}
+                                                        {% if isPreorder == false or isSoon %}
+                                                            <button type="button" class="checkbox-list__item checkbox-btn" data-popup="#popup-subscribe">
+                                                                <div class="checkbox-btn__label checkbox__item-not-available">
+                                                                    <div class="checkbox-btn__text-wrapper">
+                                                                        <span class="checkbox-btn__text">{{ variant.option_values[0].title | default: variant.title }}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </button>
+                                                            {% continue %}
+                                                        {% endif %}
+                                                    {% elsif variant.quantity == 1 %}
+                                                        {% assign latestSizes = latestSizes |  append: ' ' |  append: variant.title %}
+                                                        {% assign countLatestSizes = countLatestSizes | plus: 1 %}
+                                                    {% endif %}
+                                                    {% unless firstVariant %}
+                                                        {% assign firstVariant = variant %}
+                                                    {% endunless %}
+                                                    <div class="checkbox-list__item checkbox-btn">
+                                                        <label class="checkbox-btn__label">
+                                                            <input class="checkbox-btn__input" type="radio" name="{{ product.id }}" value="{{ variant.id }}" data-size-select>
+                                                            <div class="checkbox-btn__text-wrapper">
+                                                                <span class="checkbox-btn__text">{{ variant.option_values[0].title | default: variant.title }}</span>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            {% if countLatestSizes == 1 %}
+                                                <div class="products-item__sizes-text">{{ latestSizes }} — последний размер</div>
+                                            {% elsif countLatestSizes > 1 %}
+                                                <div class="products-item__sizes-text">{{ latestSizes }} — последние размеры</div>
+                                            {% endif %}
+                                            {% comment %} <div class="products-item__sizes-bottom sizes__bottom-mob">
+                                                <button data-popup="#" type="button" class="products-item__sizes-table">
+                                                    <span>Таблица размеров</span>
+                                                </button>
+                                            </div> {% endcomment %}
+                                            <div class="product-item__sizes__buttons">
+                                                <button type="button" class="btn-icon btn-icon_medium btn-icon_secondary btn-icon_remove" data-size-remove hidden></button>
+                                                <button type="button" class="btn btn_medium btn_primary btn-item_added" data-size-cart-add disabled>
+                                                    <span>Размер не выбран</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {% comment %} <div class="products-item__sizes-bottom sizes__bottom-pc">
+                                            <button data-popup="#" type="button" class="products-item__sizes-table">
+                                                <span>Таблица размеров</span>
+                                            </button>
+                                        </div> {% endcomment %}
+                                    </div>
+                                    <!--/noindex-->
+                                {% endif %}
+                                <div class="products-item__sizes-filling" data-js="product-sizes-close"></div>
+                            </div>
+                            <div class="products-item__info">
+                                <a href="{{ product.url }}" class="products-item__title">{{ product.title | escape }}</a>
+                                <div class="products-item__properties">
+                                    <div class="products-item__prices">
+                                        {% if product.available == false and isSoon %}
+                                            <div class="products-item__button btn btn_outline btn_small">
+                                                Скоро в продаже
+                                            </div>
+                                        {% elsif product.old_price and product.price < product.old_price %}
+                                            <span class="products-item__price products-item__price_new">{{ product.price | money }}</span>
+                                            <span class="products-item__price products-item__price_old">{{ product.old_price | money }}</span>
+                                        {% else %}
+                                            <span class="products-item__price">{{ product.price | money }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="products-item__colors colors-list"
+                                        {%- if firstVariant -%}
+                                            data-first-variant="{{ firstVariant.id }}" 
+                                            data-variant-sku="{{ firstVariant.sku }}"
+                                        {%- else -%}
+                                            data-first-variant="{{ product.variants.first.id }}" 
+                                            data-variant-sku="{{ product.variants.first.sku }}"
+                                        {%- endif -%}
+                                    ></div>
+                                </div>
+                                {% if product.available %}
+                                    <!--noindex-->
+                                    <div class="products-item__badges"
+                                        {%- if product.properties.badge -%}data-badges-id="{%- for item in product.properties.badge.characteristics -%}{{- item.name -}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}"{%- endif -%}
+                                    >
+                                        {% for collection in product.collections %}
+                                            {% if collection.handle == "sale" and product.price < product.old_price %}
+                                                <span class="badge-sale">
+                                                    <span>SUPER SALE</span>
+                                                    <span>{{- product.old_price | minus: product.price | divided_by: product.old_price | times: 100 | round: 0 -}}%</span>
+                                                </span>
+                                            {% elsif collection.handle == "novinki" %}
+                                                <span class="products-item__badge">Новинка</span>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if product.properties.badge %}
+                                            <span class="products-item__badge _disabled-badge">Загрузка</span>
+                                        {% endif %} 
+                                    </div>
+                                    <!--/noindex-->
+                                
+                                {% elsif isPreorder and isSoon == false %}
+                                    <!--noindex-->
+                                    <div class="products-item__badges">
+                                        <span class="products-item__badge">Предзаказ</span>
+                                    </div>
+                                    <!--/noindex-->
+
+                                {% elsif isSoon == false %}
+                                    <div class="products-item__product-ended">Товар закончился</div>
+                                    <a href="{{ product.canonical_collection.url }}" class="products-item__button btn btn_outline btn_small">
+                                        <span>Смотреть похожие</span>
+                                        <span>Похожие</span>
+                                    </a>
+                                {% endif %}
+
+                                {% comment %} <div class="products-item__badges" hidden>
+                                    <span class="products-item__badge">Новинка</span>
+                                </div> {% endcomment %}
+                            </div>
+                        </form>
+                    {% endfor %}
+                    {% if article.related_products.size > 10 %}
+                        <div class="products-slider__slide products-item swiper-slide" data-js="product-item">
+                            <div class="products-item__img-wrapper">
+                                <a href="{{ article.related_products.url }}" class="products-item__img products-item__more" target="_blank">
+                                    <div class="products-item__more-text">Смотреть все</div>
+                                </a>
+                            </div>
+                            <div class="products-item__info"></div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="page__subscribe">
+        <div class="page__subscribe-wrapper">
+            <h2 class="page__title page__subscribe-title">Будьте в курсе новых коллекций</h2>
+            <div class="page__subscribe-subtitle">Никакого спама, только стиль и анонсы</div>
+            {% comment %} ! Сделать подстановку хэша (form_hash) {% endcomment %}
+            <form method="POST" action="https://cp.unisender.com/ru/subscribe?hash=6x6h415quodmsx55zzie37qc4zkahmou1dwx4j1dtxfec66ufjqry" name="subscribtion_form" 
+                class="page__subscribe-form" target="_blank"
+            >
+                <input type="hidden" name="charset" value="UTF-8">
+                <input type="hidden" name="default_list_id" value="1">
+                <input type="hidden" name="overwrite" value="2">
+                <input type="hidden" name="is_v5" value="1">
+                <input data-reqiured="Email" autocomplete="off" type="email" name="email" data-error="Ошибка" placeholder="Email" class="footer__form-input input-promocode">
+                {% comment %} {% unless widget_settings.form_id or widget_settings.form_hash %}disabled{% endunless %} {% endcomment %}
+                <button type="submit" class="footer__form-button btn btn_medium btn_primary">Подписаться</button>
+                <label class="page__subscribe-policy-agree">
+                    <input type="checkbox" required class="page__checkbox-input">
+                    <a href="/page/agreement">Согласен с обработкой</a> персональных данных
+                </label>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div id="popup-feedback" aria-hidden="true" class="popup">
+    <div class="popup__wrapper">
+        <div class="popup__content">
+            <button data-close type="button" class="popup__close"></button>
+            <div class="popup__body{% unless client %} _disabled-form{% endunless %}"
+                data-subscribe-client="{%- if client -%}true{%- endif -%}">
+                <div class="popup__title-wrapper">
+                    <div class="popup__title">Запись на примеру</div>
+                    <div class="popup__subtitle">Поможем подобрать вещи, которые будут сочетаться друг с другом</div>
+                    <div class="popup__error" {% if client %} hidden{% endif %}>
+                        <button data-popup="#popup-login" type="button">Авторизуйтесь</button> для отравки формы
+                    </div>
+                    <div class="account__contacts-message account-success" data-em-message hidden>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M9.55021 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9919 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.1125 19.7252 7.3875C19.7252 7.6625 19.6252 7.9 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81687 17.6 9.55021 17.6C9.28354 17.6 9.05021 17.5 8.85021 17.3L4.55021 13C4.35021 12.8 4.25437 12.5625 4.26271 12.2875C4.27104 12.0125 4.37521 11.775 4.57521 11.575C4.77521 11.375 5.01271 11.275 5.28771 11.275C5.56271 11.275 5.80021 11.375 6.00021 11.575L9.55021 15.15Z"
+                                fill="#789D4A"></path>
+                        </svg>
+                        <span class="account__success-info">Ваш запрос успешно отправлен</span>
+                        <button type="button" class="btn-close-grey" data-em-message-close>
+                            <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2.75 2.04297L2.04297 2.75L2.39844 3.10156L7.29297 8L2.04297 13.25L2.75 13.957L8 8.70703L12.8945 13.6055L13.25 13.957L13.957 13.25L13.6055 12.8945L8.70703 8L13.957 2.75L13.25 2.04297L8 7.29297L3.10156 2.39844L2.75 2.04297Z"
+                                    fill="#111111"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <form action="#" method="post" {% if settings.feedback_captcha_enabled %} data-recaptcha="true" {% endif %} class="popup__form form-popup">
+                    <div class="form-popup__group">
+                        <div class="form-popup__input-group input-group">
+                            <div class="input-group__label">Имя</div>
+                            <div data-js="input-wrapper" class="input-group__wrapper">
+                                <input data-required autocomplete="off" type="text" name="name" data-error="Введите имя"
+                                    placeholder="" class="input-group__input input">
+                                <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                            </div>
+                            {% comment %} <div class="form-error" data-form-error="">Некорректный формат почты</div> {% endcomment %}
+                        </div>
+                        <div class="form-popup__input-group input-group">
+                            <div class="input-group__label">Телефон</div>
+                            <div data-js="input-wrapper" class="input-group__wrapper">
+                                <input type="text" autocomplete="off" name="phone" data-error="Введите телефон"
+                                    placeholder="" class="input-group__input input" data-mask-phone>
+                                <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                            </div>
+                        </div>
+                        <div class="form-popup__input-group input-group">
+                            <div class="input-group__label">Email</div>
+                            <div data-js="input-wrapper" class="input-group__wrapper">
+                                <input data-required="email" autocomplete="off" type="text" name="email"
+                                    data-error="Введите email" placeholder="" class="input-group__input input">
+                                <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                            </div>
+                        </div>
+
+                        {% if settings.feedback_captcha_enabled %}
+                            <div class="form-popup__input-group input-group feedback__field-area"
+                                data-feedback-form-field-area>
+                                <div data-feedback-form-recaptcha='{
+                                    "isRequired": true, 
+                                    "errorMessage": "{{ messages.recaptcha_error | escape }}"
+                                    }' data-error="Пройдите капчу" class="feedback__recaptcha">
+                                </div>
+                                <input type="text" name="em-recaptcha" class="input" hidden>
+                                <div data-feedback-form-field-error class="feedback__field-error form-popup__input-mess-error">
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% comment %} <input hidden type="text" value="Сообщить о поступлении"
+                            name="feedback[subject]" />
+                        <input hidden type="text" value="Товар не выбран" name="feedback[content]" /> {% endcomment %}
+                    </div>
+                    <div class="form-popup__group">
+                        <button type="button" class="form-popup__button btn btn_large btn_primary" {%- unless client -%}
+                            disabled{%- endunless -%} data-em-form-submit>Записаться на примерку</button>
+                        <div class="form-popup__policy">
+                            Нажимая на кнопку «Подписаться», вы соглашаетесь с
+                            <a href="/page/oferta">политикой конфиденциальности</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %} <div id="popup-subscribe-success" aria-hidden="true" class="popup">
+    <div class="popup__wrapper">
+        <div class="popup__content">
+            <button data-close type="button" class="popup__close"></button>
+            <div class="popup__body">
+                <div class="popup__title-wrapper">
+                    <div class="popup__title">Вы подписались на товар!</div>
+                    <div class="popup__subtitle">Мы сообщим, когда он появится в продаже</div>
+                </div>
+                <button type="button" data-close class="popup__button btn btn_medium btn_primary">Продолжить
+                    покупки</button>
+            </div>
+        </div>
+    </div>
+</div> {% endcomment %}
+
+{% for widgetDrop in widget_lists.article-list.widgets %}
+    {% widget widgetDrop %}
+{% endfor %}

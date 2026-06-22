@@ -1,0 +1,422 @@
+{% assign blockPage = blocks.em-page-duman %}
+<div class="shop__container info__container_alt">
+    <div class="shop__body">
+        <div class="page__cover page__wrapper">
+            <div class="page__cover-left">
+                <h1 class="page__cover-title">{{ page.title }}</h1>
+                <div class="page__cover-subtitle">{{ blockPage.subtitle }}</div>
+                <div class="page__cover-desc">{{ blockPage.desc }}</div>
+                <div class="page__cover-social footer__socials-btns">
+                    <a href="https://t.me/dumanstores" class="contact-btn_icon-mini btn" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M3.37213 9.10588C8.08513 7.03251 14.1841 4.50463 15.026 4.15476C17.2344 3.23901 17.912 3.41451 17.5741 5.44251C17.3315 6.90013 16.6314 11.726 16.0734 14.7298C15.7423 16.511 14.9994 16.7221 13.8313 15.9515C13.2695 15.5806 10.4341 13.7056 9.81875 13.2654C9.257 12.8641 8.48225 12.3815 9.45388 11.4309C9.79963 11.0923 12.0661 8.92813 13.832 7.24363C14.0634 7.02238 13.7728 6.659 13.5058 6.83638C11.1256 8.41475 7.82563 10.6055 7.40563 10.8909C6.77113 11.3218 6.16175 11.5194 5.06788 11.2051C4.24138 10.9678 3.434 10.6846 3.11975 10.5766C1.90963 10.1611 2.19688 9.623 3.37213 9.10588Z" fill="white"/>
+                        </svg>
+                    </a>
+                    <a href="https://vk.com/duman.store" class="contact-btn_icon-mini btn" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <g clip-path="url(#clip0_5215_95599)">
+                        <path d="M19.894 14.6022C19.8698 14.55 19.8472 14.5067 19.8262 14.472C19.4792 13.847 18.8161 13.08 17.8373 12.1705L17.8166 12.1497L17.8063 12.1395L17.7958 12.129H17.7853C17.341 11.7055 17.0597 11.4208 16.9419 11.275C16.7264 10.9973 16.6781 10.7162 16.7959 10.4314C16.8791 10.2162 17.1918 9.76176 17.7331 9.06743C18.0178 8.69946 18.2433 8.40454 18.4099 8.18235C19.611 6.58558 20.1317 5.56523 19.9719 5.12088L19.9099 5.01705C19.8682 4.95453 19.7606 4.89734 19.5872 4.84519C19.4135 4.79314 19.1914 4.78454 18.9206 4.81922L15.9217 4.83994C15.8731 4.82272 15.8037 4.82433 15.7134 4.84519C15.6231 4.86605 15.5779 4.87652 15.5779 4.87652L15.5257 4.9026L15.4843 4.93393C15.4496 4.95464 15.4114 4.99108 15.3697 5.04316C15.3282 5.09506 15.2936 5.15597 15.2658 5.22538C14.9393 6.06538 14.5681 6.84636 14.1515 7.5683C13.8946 7.99879 13.6587 8.37186 13.4433 8.68775C13.2281 9.00353 13.0476 9.23619 12.9019 9.38532C12.756 9.53461 12.6244 9.6542 12.5061 9.74454C12.3881 9.83492 12.298 9.87311 12.2355 9.85914C12.173 9.84517 12.1141 9.83131 12.0583 9.81745C11.9612 9.75494 11.8831 9.66992 11.8242 9.56233C11.765 9.45473 11.7252 9.31931 11.7044 9.15617C11.6836 8.99292 11.6714 8.8525 11.6679 8.73444C11.6646 8.61652 11.6661 8.44973 11.6732 8.23454C11.6804 8.01925 11.6836 7.87358 11.6836 7.7972C11.6836 7.53336 11.6888 7.24701 11.6991 6.93809C11.7096 6.62917 11.7181 6.3844 11.7252 6.20408C11.7323 6.02358 11.7356 5.83261 11.7356 5.63128C11.7356 5.42995 11.7233 5.27206 11.6991 5.15747C11.6752 5.04302 11.6385 4.93192 11.5901 4.82422C11.5414 4.71662 11.4701 4.63339 11.3766 4.57431C11.2829 4.5153 11.1664 4.46846 11.0278 4.43367C10.6598 4.3504 10.1912 4.30536 9.62185 4.29836C8.33069 4.2845 7.50105 4.36787 7.13311 4.54838C6.98733 4.62464 6.85541 4.72884 6.73746 4.86065C6.61247 5.01344 6.59504 5.09681 6.68527 5.11053C7.10186 5.17293 7.39677 5.32221 7.57035 5.55823L7.6329 5.68329C7.68155 5.77352 7.73013 5.93327 7.77875 6.16232C7.8273 6.39137 7.85863 6.64474 7.87241 6.9223C7.90706 7.42916 7.90706 7.86303 7.87241 8.22397C7.83765 8.58504 7.80483 8.86614 7.7735 9.06747C7.74217 9.2688 7.69534 9.43194 7.6329 9.55685C7.57035 9.68181 7.52873 9.75818 7.50787 9.7859C7.48704 9.81362 7.46968 9.83109 7.4559 9.83795C7.36566 9.87252 7.27182 9.89014 7.17469 9.89014C7.07742 9.89014 6.95947 9.84149 6.82065 9.74425C6.68188 9.64702 6.53785 9.51345 6.38856 9.34334C6.23928 9.1732 6.07093 8.93544 5.88342 8.63002C5.69606 8.32459 5.50166 7.96363 5.30033 7.54711L5.13376 7.24504C5.02963 7.05072 4.88739 6.76776 4.70689 6.39644C4.52628 6.02497 4.36664 5.66564 4.22786 5.31853C4.17238 5.17275 4.08904 5.06176 3.97799 4.98539L3.92587 4.95406C3.89122 4.92634 3.8356 4.89691 3.7593 4.86554C3.68289 4.83421 3.60316 4.81174 3.51978 4.79792L0.666572 4.81864C0.375011 4.81864 0.177184 4.88469 0.073018 5.01661L0.0313299 5.07901C0.0105041 5.11377 0 5.16928 0 5.24569C0 5.32207 0.0208258 5.4158 0.0625139 5.52679C0.47903 6.50571 0.931983 7.4498 1.42137 8.35921C1.91076 9.26861 2.33603 10.0012 2.69692 10.5562C3.05789 11.1116 3.42583 11.6359 3.80073 12.1286C4.17563 12.6215 4.42379 12.9374 4.54521 13.0762C4.66677 13.2152 4.76225 13.3192 4.83166 13.3886L5.09204 13.6385C5.25865 13.8051 5.5033 14.0047 5.82612 14.2372C6.14901 14.4698 6.50648 14.6989 6.89871 14.9247C7.291 15.1501 7.74739 15.3341 8.2681 15.4764C8.78875 15.6188 9.2955 15.676 9.78842 15.6484H10.986C11.2288 15.6274 11.4128 15.551 11.5379 15.4192L11.5793 15.367C11.6072 15.3256 11.6333 15.2612 11.6573 15.1746C11.6817 15.0878 11.6938 14.9922 11.6938 14.8883C11.6867 14.5898 11.7094 14.3208 11.7614 14.0813C11.8133 13.8419 11.8724 13.6614 11.9386 13.5399C12.0047 13.4184 12.0793 13.3159 12.1624 13.2328C12.2456 13.1496 12.3049 13.0991 12.3397 13.0818C12.3743 13.0643 12.4019 13.0525 12.4227 13.0453C12.5893 12.9898 12.7854 13.0436 13.0112 13.2069C13.2369 13.37 13.4486 13.5715 13.6465 13.8109C13.8444 14.0505 14.0821 14.3193 14.3597 14.6178C14.6376 14.9163 14.8805 15.1383 15.0886 15.2843L15.2968 15.4092C15.4359 15.4926 15.6164 15.569 15.8386 15.6384C16.0604 15.7078 16.2547 15.7251 16.4215 15.6904L19.0872 15.6489C19.3509 15.6489 19.556 15.6052 19.7015 15.5186C19.8474 15.4318 19.934 15.3362 19.9619 15.2322C19.9898 15.1281 19.9913 15.01 19.9672 14.878C19.9425 14.7463 19.9182 14.6542 19.894 14.6022Z" fill="white"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0_5215_95599">
+                        <rect width="20" height="20" fill="white"/>
+                        </clipPath>
+                        </defs>
+                        </svg>
+                    </a>
+                    <div class="social__ban">
+                        <a href="https://www.instagram.com/duman.store/" class="contact-btn_icon-mini btn" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M6.66536 2C4.0927 2 2 4.09464 2 6.66797V13.3346C2 15.9073 4.09464 18 6.66797 18H13.3346C15.9073 18 18 15.9054 18 13.332V6.66536C18 4.0927 15.9054 2 13.332 2H6.66536ZM14.6667 4.66667C15.0347 4.66667 15.3333 4.96533 15.3333 5.33333C15.3333 5.70133 15.0347 6 14.6667 6C14.2987 6 14 5.70133 14 5.33333C14 4.96533 14.2987 4.66667 14.6667 4.66667ZM10 6C12.206 6 14 7.794 14 10C14 12.206 12.206 14 10 14C7.794 14 6 12.206 6 10C6 7.794 7.794 6 10 6ZM10 7.33333C9.29276 7.33333 8.61448 7.61428 8.11438 8.11438C7.61428 8.61448 7.33333 9.29276 7.33333 10C7.33333 10.7072 7.61428 11.3855 8.11438 11.8856C8.61448 12.3857 9.29276 12.6667 10 12.6667C10.7072 12.6667 11.3855 12.3857 11.8856 11.8856C12.3857 11.3855 12.6667 10.7072 12.6667 10C12.6667 9.29276 12.3857 8.61448 11.8856 8.11438C11.3855 7.61428 10.7072 7.33333 10 7.33333Z" fill="white"/>
+                            </svg>
+                        </a>
+                        <button type="button" class="social__ban-open" data-modal-ban>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 16 16" fill="none">
+                            <path d="M7.99967 1.33203C4.3237 1.33203 1.33301 4.32272 1.33301 7.9987C1.33301 11.6747 4.3237 14.6654 7.99967 14.6654C11.6757 14.6654 14.6663 11.6747 14.6663 7.9987C14.6663 4.32272 11.6757 1.33203 7.99967 1.33203ZM7.99967 2.33203C11.1352 2.33203 13.6663 4.86316 13.6663 7.9987C13.6663 11.1342 11.1352 13.6654 7.99967 13.6654C4.86414 13.6654 2.33301 11.1342 2.33301 7.9987C2.33301 4.86316 4.86414 2.33203 7.99967 2.33203ZM7.99967 4.66536C7.82286 4.66536 7.65329 4.7356 7.52827 4.86063C7.40325 4.98565 7.33301 5.15522 7.33301 5.33203C7.33301 5.50884 7.40325 5.67841 7.52827 5.80344C7.65329 5.92846 7.82286 5.9987 7.99967 5.9987C8.17649 5.9987 8.34606 5.92846 8.47108 5.80344C8.5961 5.67841 8.66634 5.50884 8.66634 5.33203C8.66634 5.15522 8.5961 4.98565 8.47108 4.86063C8.34606 4.7356 8.17649 4.66536 7.99967 4.66536ZM7.99186 6.99154C7.85937 6.99361 7.73311 7.04818 7.64083 7.14327C7.54854 7.23837 7.49777 7.3662 7.49967 7.4987V11.1654C7.49874 11.2316 7.51098 11.2974 7.53569 11.3589C7.56039 11.4204 7.59707 11.4763 7.64359 11.5235C7.69012 11.5707 7.74555 11.6082 7.80668 11.6337C7.86781 11.6593 7.93341 11.6725 7.99967 11.6725C8.06594 11.6725 8.13154 11.6593 8.19267 11.6337C8.2538 11.6082 8.30923 11.5707 8.35575 11.5235C8.40228 11.4763 8.43896 11.4204 8.46366 11.3589C8.48837 11.2974 8.50061 11.2316 8.49967 11.1654V7.4987C8.50063 7.43178 8.48815 7.36534 8.46296 7.30333C8.43777 7.24133 8.40039 7.18501 8.35304 7.13771C8.30568 7.09041 8.24931 7.05311 8.18727 7.028C8.12523 7.00289 8.05878 6.99049 7.99186 6.99154Z" fill="#A8A5A3"/>
+                            </svg>
+                        </button>
+                        <div class="modal-ban__wrapper">
+                            <div class="modal-ban__title">* проект Meta Platforms Inc., деятельность которой запрещена в РФ</div>
+                            <button type="button" class="popup__close btn-ban__close" data-modal-ban-close></button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a href="{{ blockPage.btn-link }}" class="page__cover-btn btn">{{ blockPage.btn-text }}</a>
+                </div>
+            </div>
+            <div class="page__cover-right">
+                <img src="{{ blockPage.img | image_url: 950, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" alt="{{ page.title }}" title="{{ page.title }}">
+            </div>
+        </div>
+        <div class="page__width-38 page__wrapper">
+            <div class="page__wrapper page__content">
+                <div class="page__title">История бренда</div>
+                <div class="page__text article__text">{{ page.content }}</div>
+                <div class="page__history">
+                    {% capture cache_key_blog_history %}{{upd_cache}}_blog_history_{{ block_lists.em-history-blog.updated_at }}_{{ language.locale }}{% endcapture %}
+                    {% cache cache_key_blog_history %}
+                        {% for blog in block_lists.em-history-blog.blocks %}
+                            <div class="page__history-item">
+                                <span class="page__history-item__first">{{ blog.question }}</span>
+                                <span class="page__history-item__last">{{ blog.answer }}</span>
+                            </div>
+                        {% endfor %}
+                    {% endcache %}
+                </div>
+            </div>
+            <div>
+                <h2 class="page__title">Почему мне доверяют</h2>
+                <div class="page__trust-grid">
+                    <div class="page__trust-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22C10.6167 22 9.31667 21.7375 8.1 21.2125ZM6.325 17.675L12 12V4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 13.0667 4.2 14.0917 4.6 15.075C5 16.0583 5.575 16.925 6.325 17.675Z" fill="#40332B"/>
+                        </svg>
+                        <span>10 лет в индустрии</span>
+                    </div>
+                    <div class="page__trust-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.2875 20.1984C11.0458 20.1151 10.8333 19.9818 10.65 19.7984L8.925 18.2234C7.15833 16.6068 5.5625 15.0026 4.1375 13.4109C2.7125 11.8193 2 10.0651 2 8.14844C2 6.58177 2.525 5.27344 3.575 4.22344C4.625 3.17344 5.93333 2.64844 7.5 2.64844C8.38333 2.64844 9.21667 2.83594 10 3.21094C10.7833 3.58594 11.45 4.09844 12 4.74844C12.55 4.09844 13.2167 3.58594 14 3.21094C14.7833 2.83594 15.6167 2.64844 16.5 2.64844C18.0667 2.64844 19.375 3.17344 20.425 4.22344C21.475 5.27344 22 6.58177 22 8.14844C22 10.0651 21.2917 11.8234 19.875 13.4234C18.4583 15.0234 16.85 16.6318 15.05 18.2484L13.35 19.7984C13.1667 19.9818 12.9542 20.1151 12.7125 20.1984C12.4708 20.2818 12.2333 20.3234 12 20.3234C11.7667 20.3234 11.5292 20.2818 11.2875 20.1984Z" fill="#40332B"/>
+                        </svg>
+                        <span>500+ довольных клиентов</span>
+                    </div>
+                    <div class="page__trust-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 10.95L5 11.5C4.76666 11.6333 4.51666 11.6667 4.25 11.6C3.98333 11.5333 3.78333 11.3833 3.65 11.15L1.65 7.65C1.51666 7.41667 1.48333 7.16667 1.55 6.9C1.61666 6.63333 1.76666 6.43333 2 6.3L7.75 3H9.5C9.65 3 9.77083 3.04583 9.8625 3.1375C9.95416 3.22917 10 3.35 10 3.5V4C10 4.55 10.1958 5.02083 10.5875 5.4125C10.9792 5.80417 11.45 6 12 6C12.55 6 13.0208 5.80417 13.4125 5.4125C13.8042 5.02083 14 4.55 14 4V3.5C14 3.35 14.0458 3.22917 14.1375 3.1375C14.2292 3.04583 14.35 3 14.5 3H16.25L22 6.3C22.2333 6.43333 22.3833 6.63333 22.45 6.9C22.5167 7.16667 22.4833 7.41667 22.35 7.65L20.35 11.15C20.2167 11.3833 20.0208 11.5292 19.7625 11.5875C19.5042 11.6458 19.25 11.6083 19 11.475L18 10.975V20C18 20.2833 17.9042 20.5208 17.7125 20.7125C17.5208 20.9042 17.2833 21 17 21H7C6.71666 21 6.47916 20.9042 6.2875 20.7125C6.09583 20.5208 6 20.2833 6 20V10.95Z" fill="#40332B"/>
+                        </svg>
+                        <span>100% своё производство</span>
+                    </div>
+                    <div class="page__trust-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 19V5C4 4.45 4.19583 3.97917 4.5875 3.5875C4.97917 3.19583 5.45 3 6 3H18C18.55 3 19.0208 3.19583 19.4125 3.5875C19.8042 3.97917 20 4.45 20 5V19H21C21.2833 19 21.5208 19.0958 21.7125 19.2875C21.9042 19.4792 22 19.7167 22 20C22 20.2833 21.9042 20.5208 21.7125 20.7125C21.5208 20.9042 21.2833 21 21 21H3C2.71667 21 2.47917 20.9042 2.2875 20.7125C2.09583 20.5208 2 20.2833 2 20C2 19.7167 2.09583 19.4792 2.2875 19.2875C2.47917 19.0958 2.71667 19 3 19H4ZM11 19H13V5H11V19Z" fill="#40332B"/>
+                        </svg>
+                        <span>5 коллекций в году</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% if blogs.blog.articles.size > 0 %}
+            <div class="page__wrapper page__from">
+                <h2 class="page__title">Статьи от Екатерины</h2>
+                <div class="page__from-grid">
+                    {% for article in blogs.blog.articles %}
+                        <div class="page__from-item">
+                            <div class="from-item__img-wrapper">
+                                <a href="{{ article.url }}">
+                                    <picture>
+                                        <source media="(max-width:650px)" 
+                                            srcset="{{ article.image | image_url: 750, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" 
+                                            type="image/webp" data-ll-status="loaded" class="entered">
+                                        <source
+                                            srcset="{{ article.image | image_url: 1100, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" 
+                                            type="image/webp" data-ll-status="loaded" class="entered">
+
+                                        <source media="(max-width:650px)" 
+                                            srcset="{{ article.image | image_url: 750 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" data-ll-status="loaded" class="entered">
+
+                                        <img src="{{ article.image | image_url: 1100 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" 
+                                            alt="{{ article.title }}" title="{{ article.title }}"
+                                            data-ll-status="loaded" class="entered">
+                                    </picture>
+                                </a>
+                                {% unless article.tags == empty %}
+                                    <div class="from-item__tags">
+                                        {% for tag in article.tags %}
+                                            <a href="{{ tag.url }}">{{ tag.title }}</a>
+                                        {% endfor %}
+                                    </div>
+                                {% endunless %}
+                            </div>
+                            <div class="from-item__info">
+                                <a href="{{ article.url }}" class="from-item__info-title">{{ article.title }}</a>
+                                <div class="from-item__info-subtitle" data-em-date="{{ article.created_at | date: "%d.%m.%Y" }}">{{ article.created_at | data: "%d %b %Y" }}</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <a href="{{ blogs.blog.url }}" class="page__from-btn btn btn_secondary">Загрузить ещё</a>
+            </div>
+        {% endif %}
+
+        {% assign collection = blockPage.collection %}
+        {% if collection and collection.products_count > 0 %}
+            <div class="page__wrapper page__choice" data-js-slider="products-slider-wrapper">
+                <div class="page__choice-head">
+                    <h2 class="page__title">Выбор Екатерины</h2>
+                    <div class="products-slider__arrows">
+                        <button type="button" class="products-slider__arrow products-slider__arrow-prev swiper-button-prev"></button>
+                        <button type="button" class="products-slider__arrow products-slider__arrow-next swiper-button-next"></button>
+                    </div>
+                </div>
+                <div class="products-slider__list swiper">
+                    <div class="products-slider__list-wrapper swiper-wrapper">
+                        {% for product in collection.products limit: 10 %}
+                            {% if product.properties.predzakaz.characteristics.first.name == "Да" %}
+                                {% assign isPreorder = true %}
+    
+                                {% if product.properties.skoro-v-prodazhe.characteristics.first.name == "Да" %}
+                                    {% for collection in product.collections %}
+                                        {% if collection.handle == "skoro-v-prodazhe" %}
+                                            {% assign isSoon = true %}
+                                            {% break %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    {% assign isSoon = false %}
+                                {% endif %}
+                            {% else %}
+                                {% assign isPreorder = false %}
+                                {% assign isSoon = false %}
+                            {% endif %}
+    
+                            <form class="products-slider__slide products-item swiper-slide"{% if product.available or isPreorder and isSoon == false %} data-js="product-item"{% endif %} method="post" data-cust-product-id="{{ product.id }}">
+                                <div class="products-item__img-wrapper">
+                                    <a href="{{ product.url }}" class="products-item__img" target="_blank">
+                                        {% if product.images.size > 0 %}
+                                            <picture>
+                                                <source media="(max-width:700px)" type="image/webp" 
+                                                    srcset="{{ product.first_image | image_url: 700,  format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }},
+                                                            {{ product.first_image | image_url: 1200, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }} 2x">
+                                                <source type="image/webp" 
+                                                    srcset="{{ product.first_image | image_url: 980,  format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }},
+                                                            {{ product.first_image | image_url: 1600, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }} 2x"> 
+                                                {% comment %} <source type="image/webp" 
+                                                    srcset="{{ product.first_image | image_url: 1400, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }},
+                                                            {{ product.first_image | image_url: 1800, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }} 2x"> {% endcomment %}
+                                                                
+                                                <img src="{{ product.first_image | image_url: 980 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }}" 
+                                                    srcset="{{ product.first_image | image_url: 980 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }},
+                                                            {{ product.first_image | image_url: 1600 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }} 2x" 
+                                                    alt="{{ product.title }}" class="entered _lazy-loaded" loading="lazy">
+                                            </picture>
+                                        {% else %}
+                                            <img src="{{ 'no_image.svg' | asset_url }}" data-src="{{ 'no_image.svg' | asset_url }}" alt="{{ product.title }}" class="image-none entered _lazy-loaded" loading="lazy">
+                                        {% endif %}
+                                    </a>
+                                    <div class="products-item__actions">
+                                        <button type="button" class="products-item__action products-item__action-whishlist" data-em-favorites-trigger="{{ product.id }}">
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M11.2077 15.9163C11.0789 15.9163 10.951 15.8768 10.8427 15.7984L5.99935 12.3113L1.15602 15.7984C0.965182 15.9355 0.714349 15.9547 0.505599 15.8476C0.297265 15.7409 0.166016 15.5259 0.166016 15.2913V2.79134C0.166016 1.29801 1.38102 0.0830078 2.87435 0.0830078H9.12435C10.6177 0.0830078 11.8327 1.29801 11.8327 2.79134V15.2913C11.8327 15.5259 11.7014 15.7409 11.4927 15.8476C11.4027 15.8934 11.3052 15.9163 11.2077 15.9163Z"/>
+                                            </svg>
+                                        </button>
+                                        {% if product.available or isPreorder and isSoon == false %}
+                                            <button type="button" class="products-item__action products-item__action-addcart" 
+                                                {%- if product.variants.size > 1 -%}
+                                                    data-em-js="product-item-addcard" 
+                                                    data-add-cart="{{ product.id }}"
+                                                {%- else -%}
+                                                    data-btn-cart-add="{{ product.variants.first.id }}"
+                                                {%- endif -%}
+                                            ></button>
+                                        {% else %}
+                                            <button type="button" class="products-item__action products-item__action-subscribe" 
+                                                data-popup="#popup-subscribe"
+                                            ></button>
+                                        {% endif %}
+                                    </div>
+                                    {% assign firstVariant = null %}
+                                    {% if product.available or isPreorder and isSoon == false %}
+                                        {% assign latestSizes = "" %}
+                                        {% assign countLatestSizes = 0 %}
+                                        <!--noindex-->
+                                        <div class="products-item__sizes-wrapper" data-em-js="product-sizes-wrapper">
+                                            <button type="button" class="products-item__sizes-close" data-js="product-sizes-close"></button>
+                                            <div class="products-item__sizes-content">
+                                                <div class="products-item__sizes-title">Выберите размер</div>
+                                                <div class="products-item__sizes-list checkbox-list">
+                                                    {% for variant in product.variants %}
+                                                        {% if variant.available == false or variant.quantity == 0 %}
+                                                            {% if isPreorder == false or isSoon %}
+                                                                <button type="button" class="checkbox-list__item checkbox-btn" data-popup="#popup-subscribe">
+                                                                    <div class="checkbox-btn__label checkbox__item-not-available">
+                                                                        <div class="checkbox-btn__text-wrapper">
+                                                                            <span class="checkbox-btn__text">{{ variant.option_values[0].title | default: variant.title }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </button>
+                                                                {% continue %}
+                                                            {% endif %}
+                                                        {% elsif variant.quantity == 1 %}
+                                                            {% assign latestSizes = latestSizes |  append: ' ' |  append: variant.title %}
+                                                            {% assign countLatestSizes = countLatestSizes | plus: 1 %}
+                                                        {% endif %}
+                                                        {% unless firstVariant %}
+                                                            {% assign firstVariant = variant %}
+                                                        {% endunless %}
+                                                        <div class="checkbox-list__item checkbox-btn">
+                                                            <label class="checkbox-btn__label">
+                                                                <input class="checkbox-btn__input" type="radio" name="{{ product.id }}" value="{{ variant.id }}" data-size-select>
+                                                                <div class="checkbox-btn__text-wrapper">
+                                                                    <span class="checkbox-btn__text">{{ variant.option_values[0].title | default: variant.title }}</span>
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                                {% if countLatestSizes == 1 %}
+                                                    <div class="products-item__sizes-text">{{ latestSizes }} — последний размер</div>
+                                                {% elsif countLatestSizes > 1 %}
+                                                    <div class="products-item__sizes-text">{{ latestSizes }} — последние размеры</div>
+                                                {% endif %}
+                                                {% comment %} <div class="products-item__sizes-bottom sizes__bottom-mob">
+                                                    <button data-popup="#" type="button" class="products-item__sizes-table">
+                                                        <span>Таблица размеров</span>
+                                                    </button>
+                                                </div> {% endcomment %}
+                                                <div class="product-item__sizes__buttons">
+                                                    <button type="button" class="btn-icon btn-icon_medium btn-icon_secondary btn-icon_remove" data-size-remove hidden></button>
+                                                    <button type="button" class="btn btn_medium btn_primary btn-item_added" data-size-cart-add disabled>
+                                                        <span>Размер не выбран</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            {% comment %} <div class="products-item__sizes-bottom sizes__bottom-pc">
+                                                <button data-popup="#" type="button" class="products-item__sizes-table">
+                                                    <span>Таблица размеров</span>
+                                                </button>
+                                            </div> {% endcomment %}
+                                        </div>
+                                        <!--/noindex-->
+                                    {% endif %}
+                                    <div class="products-item__sizes-filling" data-js="product-sizes-close"></div>
+                                </div>
+                                <div class="products-item__info">
+                                    <a href="{{ product.url }}" class="products-item__title">{{ product.title | escape }}</a>
+                                    <div class="products-item__properties">
+                                        <div class="products-item__prices">
+                                            {% if product.available == false and isSoon %}
+                                                <div class="products-item__button btn btn_outline btn_small">
+                                                    Скоро в продаже
+                                                </div>
+                                            {% elsif product.old_price and product.price < product.old_price %}
+                                                <span class="products-item__price products-item__price_new">{{ product.price | money }}</span>
+                                                <span class="products-item__price products-item__price_old">{{ product.old_price | money }}</span>
+                                            {% else %}
+                                                <span class="products-item__price">{{ product.price | money }}</span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="products-item__colors colors-list"
+                                            {%- if firstVariant -%}
+                                                data-first-variant="{{ firstVariant.id }}" 
+                                                data-variant-sku="{{ firstVariant.sku }}"
+                                            {%- else -%}
+                                                data-first-variant="{{ product.variants.first.id }}" 
+                                                data-variant-sku="{{ product.variants.first.sku }}"
+                                            {%- endif -%}
+                                        ></div>
+                                    </div>
+                                    {% if product.available %}
+                                        <!--noindex-->
+                                        <div class="products-item__badges"
+                                            {%- if product.properties.badge -%}data-badges-id="{%- for item in product.properties.badge.characteristics -%}{{- item.name -}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}"{%- endif -%}
+                                        >
+                                            {% for collection in product.collections %}
+                                                {% if collection.handle == "sale" and product.price < product.old_price %}
+                                                    <span class="badge-sale">
+                                                        <span>SUPER SALE</span>
+                                                        <span>{{- product.old_price | minus: product.price | divided_by: product.old_price | times: 100 | round: 0 -}}%</span>
+                                                    </span>
+                                                {% elsif collection.handle == "novinki" %}
+                                                    <span class="products-item__badge">Новинка</span>
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% if product.properties.badge %}
+                                                <span class="products-item__badge _disabled-badge">Загрузка</span>
+                                            {% endif %} 
+                                        </div>
+                                        <!--/noindex-->
+                                    
+                                    {% elsif isPreorder and isSoon == false %}
+                                        <!--noindex-->
+                                        <div class="products-item__badges">
+                                            <span class="products-item__badge">Предзаказ</span>
+                                        </div>
+                                        <!--/noindex-->
+    
+                                    {% elsif isSoon == false %}
+                                        <div class="products-item__product-ended">Товар закончился</div>
+                                        <a href="{{ product.canonical_collection.url }}" class="products-item__button btn btn_outline btn_small">
+                                            <span>Смотреть похожие</span>
+                                            <span>Похожие</span>
+                                        </a>
+                                    {% endif %}
+    
+                                    {% comment %} <div class="products-item__badges" hidden>
+                                        <span class="products-item__badge">Новинка</span>
+                                    </div> {% endcomment %}
+                                </div>
+                            </form>
+                        {% endfor %}
+                        {% if widget_settings.category and products.size > 10 %}
+                            <div class="products-slider__slide products-item swiper-slide" data-js="product-item">
+                                <div class="products-item__img-wrapper">
+                                    <a href="{{ widget_settings.category }}" class="products-item__img products-item__more" target="_blank">
+                                        <div class="products-item__more-text">Смотреть все</div>
+                                    </a>
+                                </div>
+                                <div class="products-item__info"></div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% comment %} ! Прикрутить swiper.js {% endcomment %}
+        {% if account.reviews_not_spam.size > 0 %}
+            <div class="page__wrapper page__reviews">
+                <h2 class="page__title">Что говорят клиенты</h2>
+                <div class="swiper">
+                    <div class="page__reviews-list swiper-wrapper">
+                        {% for item in account.reviews_not_spam limit: 10%}
+                            <div class="swiper-slide page__reviews-item">
+                                {% if item.rating %}
+                                    <div class="page__reviews-stars">
+                                        {% for rating in (1..5) %}
+                                            {% if rating > item.rating %}
+                                                {% break %}
+                                            {% endif %}
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                            <path d="M18.3039 8.97177L14.7883 12.0054L15.8594 16.5421C15.9185 16.7884 15.9033 17.0466 15.8157 17.2843C15.728 17.5219 15.572 17.7282 15.3672 17.8772C15.1623 18.0262 14.918 18.1111 14.6649 18.1213C14.4118 18.1314 14.1614 18.0663 13.9453 17.9343L10 15.5061L6.05236 17.9343C5.83628 18.0656 5.58619 18.13 5.33356 18.1195C5.08093 18.109 4.83706 18.0239 4.63267 17.8751C4.42828 17.7262 4.27249 17.5202 4.18494 17.283C4.09738 17.0458 4.08197 16.788 4.14064 16.5421L5.21564 12.0054L1.70001 8.97177C1.50884 8.80654 1.37058 8.58865 1.3025 8.34532C1.23442 8.10198 1.23954 7.84398 1.31721 7.60354C1.39489 7.36309 1.54168 7.15086 1.73925 6.99335C1.93683 6.83583 2.17643 6.74001 2.42814 6.71786L7.03751 6.34598L8.81564 2.04286C8.91188 1.80834 9.07569 1.60774 9.28624 1.46656C9.49679 1.32538 9.74456 1.25 9.99806 1.25C10.2516 1.25 10.4993 1.32538 10.7099 1.46656C10.9204 1.60774 11.0842 1.80834 11.1805 2.04286L12.9578 6.34598L17.5672 6.71786C17.8194 6.73919 18.0597 6.83447 18.258 6.99177C18.4563 7.14907 18.6038 7.36139 18.6819 7.60212C18.7601 7.84286 18.7655 8.10131 18.6974 8.34509C18.6293 8.58886 18.4908 8.80713 18.2992 8.97255L18.3039 8.97177Z" fill="#B60017"/>
+                                            </svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                            <path d="M18.3039 8.97177L14.7883 12.0054L15.8594 16.5421C15.9185 16.7884 15.9033 17.0466 15.8157 17.2843C15.728 17.5219 15.572 17.7282 15.3672 17.8772C15.1623 18.0262 14.918 18.1111 14.6649 18.1213C14.4118 18.1314 14.1614 18.0663 13.9453 17.9343L10 15.5061L6.05236 17.9343C5.83628 18.0656 5.58619 18.13 5.33356 18.1195C5.08093 18.109 4.83706 18.0239 4.63267 17.8751C4.42828 17.7262 4.27249 17.5202 4.18494 17.283C4.09738 17.0458 4.08197 16.788 4.14064 16.5421L5.21564 12.0054L1.70001 8.97177C1.50884 8.80654 1.37058 8.58865 1.3025 8.34532C1.23442 8.10198 1.23954 7.84398 1.31721 7.60354C1.39489 7.36309 1.54168 7.15086 1.73925 6.99335C1.93683 6.83583 2.17643 6.74001 2.42814 6.71786L7.03751 6.34598L8.81564 2.04286C8.91188 1.80834 9.07569 1.60774 9.28624 1.46656C9.49679 1.32538 9.74456 1.25 9.99806 1.25C10.2516 1.25 10.4993 1.32538 10.7099 1.46656C10.9204 1.60774 11.0842 1.80834 11.1805 2.04286L12.9578 6.34598L17.5672 6.71786C17.8194 6.73919 18.0597 6.83447 18.258 6.99177C18.4563 7.14907 18.6038 7.36139 18.6819 7.60212C18.7601 7.84286 18.7655 8.10131 18.6974 8.34509C18.6293 8.58886 18.4908 8.80713 18.2992 8.97255L18.3039 8.97177Z" fill="#B60017"/>
+                                            </svg>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="page__reviews-text">{{ item.content | default: "Без описания" | truncate: 500, '...' }}</div>
+                                <div class="page__reviews-name">{{ item.author }}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="page__subscribe">
+            <div class="page__subscribe-wrapper">
+                <h2 class="page__title page__subscribe-title">Подпишитесь на личные заметки Екатерины</h2>
+                <div class="page__subscribe-subtitle">Никакого спама, только стиль и анонсы коллекций</div>
+                {% comment %} ! Сделать подстановку хэша (form_hash) {% endcomment %}
+                <form method="POST" action="https://cp.unisender.com/ru/subscribe?hash=6x6h415quodmsx55zzie37qc4zkahmou1dwx4j1dtxfec66ufjqry" name="subscribtion_form" 
+                    class="page__subscribe-form" target="_blank"
+                >
+                    <input type="hidden" name="charset" value="UTF-8">
+                    <input type="hidden" name="default_list_id" value="1">
+                    <input type="hidden" name="overwrite" value="2">
+                    <input type="hidden" name="is_v5" value="1">
+                    <input data-reqiured="Email" autocomplete="off" type="email" name="email" data-error="Ошибка" placeholder="Email" class="footer__form-input input-promocode">
+                    {% comment %} {% unless widget_settings.form_id or widget_settings.form_hash %}disabled{% endunless %} {% endcomment %}
+                    <button type="submit" class="footer__form-button btn btn_medium btn_primary">Подписаться</button>
+                    <label class="page__subscribe-policy-agree">
+                        <input type="checkbox" required class="page__checkbox-input">
+                        <a href="/page/agreement">Согласен с обработкой</a> персональных данных
+                    </label>
+                </form>
+                <div class="page__subscribe-note">Присоединились 2 000+ подписчиков</div>
+            </div>
+        </div>
+    </div>
+</div>

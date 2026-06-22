@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html class="{{ default_checkout2_layout_class }}">
+  <head data-ccc>
+    {% include "head" %}
+  </head>
+  <body class="adaptive" data-multi-lang="{{ language.not_default? }}" data-template-name="{{ template }}">
+    {% include "system_no_js_alert" %}
+    <div class="page_layout page_layout-clear">
+      <header>
+        {% for widgetDrop in widget_lists.header-list.widgets %}
+        {% widget widgetDrop %}
+        {% endfor %}
+      </header>
+      <main {% if settings.custom-cabinet-on %}class="custom-cabinet"{% endif %}>
+        <div class="layout">
+          <div class="layout__content">
+            {% if client or template contains "order2" %}
+                <div class='login__container account__grid'>
+                    <div class="account__left">
+                        {% if client %}
+                            <nav class="account__navigation">
+                                <a href="/client_account/orders" class="account__navigation-title">Мои заказы</a>
+                                {% comment %} <a href="/client_account/discounts" class="account__navigation-title">Бонусные баллы</a> {% endcomment %}
+                                <a href="/client_account/addresses" class="account__navigation-title">Адрес доставки</a>
+                                <a href="/client_account/contacts" class="account__navigation-title">Мои данные</a>
+                                <a href="/client_account/exit" class="account__navigation-title _last">Выйти</a>
+                            </nav>
+                        {% endif %}
+                        {% comment %} {% yield 'menu' %} {% endcomment %}
+                    </div>
+                    <div class="account__body em_form">
+                        {% unless template == "order2" %}
+                            <div class="account__title">
+                                {% yield 'title' %} 
+                            </div>
+                        {% endunless %}
+                        <div id="yield-all" hidden>{% yield %}</div>
+                        <form id="em-contact" class="account__contacts" hidden>
+							<div class="account__contacts-message account-success-fix" data-em-message hidden>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M9.99935 1.66797C5.40435 1.66797 1.66602 5.4063 1.66602 10.0013C1.66602 14.5963 5.40435 18.3346 9.99935 18.3346C14.5943 18.3346 18.3327 14.5963 18.3327 10.0013C18.3327 5.4063 14.5943 1.66797 9.99935 1.66797ZM13.5664 8.56839L9.39977 12.7351C9.27768 12.8571 9.11768 12.918 8.95768 12.918C8.79768 12.918 8.63768 12.8571 8.5156 12.7351L6.43227 10.6517C6.1881 10.4076 6.1881 10.0121 6.43227 9.76797C6.67643 9.5238 7.07185 9.5238 7.31602 9.76797L8.95727 11.4092L12.6818 7.68464C12.926 7.44047 13.3214 7.44047 13.5656 7.68464C13.8098 7.9288 13.8102 8.32422 13.5664 8.56839Z" fill="white"/>
+                                </svg>
+								<span class="account__success-info">Изменения сохранены</span>
+                                {% comment %} <button type="button" class="order__input-clear" data-em-message-close></button> {% endcomment %}
+							</div>
+                            <div class="popup-right__form-group">
+                                <div class="popup-right__input-group input-group">
+                                    <div class="input-group__label">Имя</div>
+                                    <div class="input-group__wrapper" data-js="input-wrapper">
+                                        <input autocomplete="off" type="text" name="name" value="" placeholder class="input-group__input input">
+                                        <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                                    </div>
+                                </div>
+                                <div class="popup-right__input-group input-group">
+                                    <div class="input-group__label">Фамилия</div>
+                                    <div class="input-group__wrapper" data-js="input-wrapper">
+                                        <input autocomplete="off" type="text" name="surname" class="input-group__input input">
+                                        <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popup-right__form-group">
+                                <div class="popup-right__input-group input-group">
+                                    <div class="input-group__label">Email</div>
+                                    <div class="input-group__wrapper" data-js="input-wrapper">
+                                        <input data-required="email" autocomplete="off" type="text" name="email" class="input-group__input input" disabled>
+                                        {% comment %} <button type="button" data-js="input-clear" class="input-group__clear"></button> {% endcomment %}
+                                    </div>
+                                </div>
+                                <div class="popup-right__input-group input-group input-group_narrow-17">
+                                    <div class="input-group__label">Телефон</div>
+                                    <div class="input-group__wrapper" data-js="input-wrapper">
+                                        <input data-required="tel" autocomplete="off" type="text" name="phone" data-mask-phone placeholder="+7 (999) 999-99-99" class="input-group__input input">
+                                        <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                                    </div>
+                                </div>
+                                <div class="popup-right__input-group input-group input-group_narrow-17">
+                                    <div class="input-group__label">Дата рождения</div>
+                                    <div class="input-group__wrapper">
+                                        <input data-datepicker type="date" max="2022-12-01" min="1850-01-01" name="birthdate" class="input-group__input input input_datepicker" disabled>
+                                    </div>
+                                    <div class="input-group__capture">
+                                        Пришлем персональное предложение ко дню рождения
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popup-right__form-group">
+                                <div class="popup-right__input-group input-group">
+                                    <div class="input-group__title">Ваши замеры в см</div>
+                                    <div class="input-group__capture">
+                                        Они помогут консультанту скорректировать размер после оформления заказа при необходимости
+                                    </div>
+                                </div>
+                                <div class="popup-right__input-group input-group input-group-17">
+                                    <div class="input-group__label">Рост</div>
+                                    <div class="input-group__wrapper" data-js="input-wrapper">
+                                        <input data-required autocomplete="off" type="number" min="40" max="300" name="dimension[16728780]" placeholder class="input-group__input input">
+                                        <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                                    </div>
+                                </div>
+                                <div class="popup-right__form-row_3">
+                                    <div class="popup-right__form-col input-group">
+                                        <div class="input-group__label">Обхват груди</div>
+                                        <div class="input-group__wrapper" data-js="input-wrapper">
+                                            <input data-required autocomplete="off" type="number" min="1" max="500" name="dimension[16728777]" placeholder class="input-group__input input">
+                                            <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                                        </div>
+                                    </div>
+                                    <div class="popup-right__form-col input-group">
+                                        <div class="input-group__label">Обхват талии</div>
+                                        <div class="input-group__wrapper" data-js="input-wrapper">
+                                            <input data-required autocomplete="off" type="number" min="1" max="500" name="dimension[16728778]" placeholder class="input-group__input input">
+                                            <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                                        </div>
+                                    </div>
+                                    <div class="popup-right__form-col input-group">
+                                        <div class="input-group__label">Обхват бёдер</div>
+                                        <div class="input-group__wrapper" data-js="input-wrapper">
+                                            <input data-required autocomplete="off" type="number" min="1" max="500" name="dimension[16728779]" placeholder class="input-group__input input">
+                                            <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popup-right__form-group">
+                                <div class="popup-right__input-group popup-right__checkbox checkbox">
+                                    <label class="checkbox__label checkbox__label_filter">
+                                        <input  class="checkbox__input" type="checkbox" value="1" name="subscribe">
+                                        <span class="checkbox__text-wrapper">
+                                            <span class="checkbox__point"></span>
+                                            <span class="checkbox__text">Подписаться на email рассылку</span>
+                                        </span>
+                                        <span class="co-input-description">Узнавайте о секретных распродажах и уникальных акциях</span>
+                                    </label>
+                                </div>
+                                <div class="popup-right__input-group popup-right__checkbox checkbox">
+                                    <label class="checkbox__label checkbox__label_filter">
+                                        <input class="checkbox__input" type="checkbox" value="1" name="messenger_subscription">
+                                        <span class="checkbox__text-wrapper">
+                                            <span class="checkbox__point"></span>
+                                            <span class="checkbox__text">Получать уведомления о заказе</span>
+                                        </span>
+                                        <span class="co-input-description">
+                                            С помощью уведомлений о заказе можно не только получать актуальную информацию по заказу, но и иметь быстрый канал связи с магазином
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="button" class="contact__button btn btn_primary btn_large" disabled>Сохранить</button>
+                        </form>
+                    </div>
+                </div>
+            {% else %}
+                <form action="/client_account/session.json" method="post" data-dev class="popup-right__form login__form-page" data-em-login>
+                    <div class="popup-right__form-body-wrapper">
+                        <div class="popup-right__form-body">
+                            <div class="popup__from-wrapper__title">
+                                <div class="popup-right__form-title">Войти или зарегистрироваться</div>
+                                <div class="popup__form-message">
+                                    <div class="product-card-info__installment-button"></div>
+                                    <span>Проверьте папку «Спам» — иногда письма могут попасть туда по ошибке</span>
+                                </div>
+                            </div>
+                            <div class="popup-right__form-error form-error" hidden></div>
+                            <div class="popup-right__form-group" data-login-name hidden>
+                                <div class="popup-right__form-row">
+                                    <div class="popup-right__form-col input-group">
+                                        <div class="input-group__label">Имя</div>
+                                        <div class="input-group__wrapper" data-js="input-wrapper">
+                                            <input data-required autocomplete="off" type="text" name="client[name]" data-error="Заполните имя" placeholder="" class="input-group__input input">
+                                            <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                                        </div>
+                                    </div>
+                                    <div class="popup-right__form-col input-group">
+                                        <div class="input-group__label">Фамилия</div>
+                                        <div class="input-group__wrapper">
+                                            <input data-required autocomplete="off" type="text" name="client[surname]" data-error="Заполните фамилию" placeholder="" class="input-group__input input">
+                                            <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popup-right__form-group">
+                                <div class="popup-right__input-group input-group" data-login-email>
+                                    <div class="input-group__label">Email</div>
+                                    <div class="input-group__wrapper">
+                                        <input data-required="email" autocomplete="off" type="text" name="login" value="" placeholder="" class="input-group__input input">
+                                        <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                                    </div>
+                                    <div class="input-group__capture">Отправим письмо с кодом на вашу почту</div>
+                                </div>
+                                <div class="popup-right__input-group input-group" data-login-code hidden>
+                                    <div class="input-group__label">Код</div>
+                                    <div class="input-group__grid" data-js="pincode-wrapper">
+                                        <div class="input-group__wrapper">
+                                            <input autocomplete="off" data-type="code" data-next-input="2" type="number" placeholder="" maxlength="1" class="input-group__input input input_code">
+                                            {% comment %} <button type="button" data-js="input-clear" class="input-group__clear"></button> {% endcomment %}
+                                        </div>
+                                        <div class="input-group__wrapper">
+                                            <input autocomplete="off" data-type="code" data-next-input="3" type="number" placeholder="" maxlength="1" class="input-group__input input input_code">
+                                        </div>
+                                        <div class="input-group__wrapper">
+                                            <input autocomplete="off" data-type="code" data-next-input="4" type="number" placeholder="" maxlength="1" class="input-group__input input input_code">
+                                        </div>
+                                        <div class="input-group__wrapper">
+                                            <input autocomplete="off" data-type="code" data-next-input="5" type="number" placeholder="" maxlength="1" class="input-group__input input input_code">
+                                        </div>
+                                        <div class="input-group__wrapper"> 
+                                            <input autocomplete="off" data-type="code" type="number" placeholder="" maxlength="1" class="input-group__input input input_code">
+                                        </div>
+                                    </div>
+                                    <div class="input-group__capture" data-timer hidden><span>Получить новый код можно через 00:</span><span></span></div>
+                                    <button type="button" class="input-group__get-code" hidden>Получить код повторно</button>
+                                </div>
+                                <div class="popup-right__input-group input-group input-group_narrow" data-login-phone hidden>
+                                    <div class="input-group__label">Телефон</div>
+                                    <div class="input-group__wrapper">
+                                        <input data-required="tel" autocomplete="off" type="text" name="client[phone]" data-error="Заполните телефон" data-mask-phone placeholder="+7 (999) 999-99-99" class="input-group__input input">
+                                        <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                                    </div>
+                                </div>
+                                <div class="popup-right__input-group input-group input-group_narrow" data-login-datebirth hidden>
+                                    <div class="input-group__label">Дата рождения</div>
+                                    <div class="input-group__wrapper">
+                                        <input data-datepicker type="date" max="2022-12-01" min="1850-01-01" name="client[birthdate]" class="input-group__input input input_datepicker">
+                                    </div>
+                                    <div class="input-group__capture">
+                                        Пришлем персональное предложение ко дню рождения
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popup-right__checkbox checkbox" data-login-offers hidden>
+                                <label class="checkbox__label checkbox__label_filter">
+                                    <input data-error="" class="checkbox__input" type="checkbox" value="1" name="offers">
+                                    <span class="checkbox__text-wrapper">
+                                        <span class="checkbox__point"></span>
+                                        <span class="checkbox__text">Подписаться на новости и скидки</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-right__form-group">
+                        <div id="recaptchaBlockLogin"></div>
+                    </div>
+                    <div class="popup-right__form-button-wrapper">
+                        <button type="button" class="popup-right__form-button btn btn_medium btn_primary" data-login-button>Получить код</button>
+                        <div class="popup-right__form-policy">
+                            Нажимая на кнопку «<span data-em-policy-name>Получить код</span>», я принимаю условия <a href="/page/oferta">публичной оферты</a> и <a href="/page/oferta">политики конфиденциальности</a>
+                        </div>
+                        <div class="popup-right__form-back-wrapper">
+                            <button type="button" class="popup-right__form-back" hidden>Вернуться назад</button>
+                        </div>
+                    </div>
+                </form>
+            {% endif %}
+          </div>
+        </div>
+      </main>
+      <footer>
+        {% for widgetDrop in widget_lists.footer-list.widgets %}
+        {% widget widgetDrop %}
+        {% endfor %}
+      </footer>
+      <div class="outside-widgets">
+        {% for widgetDrop in widget_lists.outside-list.widgets %}
+           {% widget widgetDrop %}
+         {% endfor %}
+      </div>
+    </div>
+  </body>
+  {{ 'checkout2.core' | global_stylesheet_tag }}
+
+  {%- capture css_js_lists -%}header-list, footer-list, sidebar-list, outside-list, {{ template }}-list, {{ template }}-section_top-list, {{ template }}-section_bottom-list{%- endcapture -%}
+
+  {% if sidebar_show %}
+    {% if template contains 'blog' or template contains 'article' %}
+        {% assign css_js_lists = css_js_lists | append: ', sidebar_blog-list' %}
+    {% else %}
+        {% assign css_js_lists = css_js_lists | append: ', sidebar-list' %}
+    {% endif %}
+  {% endif %}
+
+  {% widgets_assets css_js_lists %}
+
+    {% include "styles" %}
+    {% include "script" %}
+    {% comment %} Непонятно откуда это
+        <link rel="stylesheet" href="{{ 'custom-inside.css' | asset_url }}" />
+      <script src="{{ 'custom-inside.js' | asset_url }}" charset="utf-8"></script>
+    {% endcomment %}
+
+	<!-- Кастомизация личного кабинета -->
+	<link href="{{ 'em-client-account.css' | asset_url }}" rel="stylesheet" type="text/css"/>
+	<script type="text/javascript" src="{{ 'em-client-account.js' | asset_url }}"></script>
+
+    {% include "microdata" %}
+</html>

@@ -1,0 +1,22 @@
+.popup-right__form-error {
+    margin-bottom: 1rem;
+}
+
+.popup-right__back {
+    transform: rotate(180deg);
+}
+
+._disabled-back {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.input_datepicker {
+    padding-right: 0.75rem;
+}
+
+@media (max-width: 47.9988em) {
+    .popup__content {
+        position: relative;
+    }
+}

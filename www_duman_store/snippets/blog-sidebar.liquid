@@ -1,0 +1,110 @@
+<div class="article__block" data-table-contents hidden>
+    <div class="article__block-subtitle">Содержание статьи</div>
+    <div class="article__block-contents"></div>
+</div>
+
+<div class="article__block">
+    <div class="article__block-title">{{ blockBlog.sidebar-name }}</div>
+    <div class="article__block-subtitle">{{ blockBlog.sidebar-desc }}</div>
+    <a href="{{ blockBlog.sidebar-link }}" class="article__block-img">
+        <img src="{{ blockBlog.sidebar-img | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" alt="{{ blockBlog.sidebar-name }}" title="{{ blockBlog.sidebar-name }}">
+    </a>
+</div>
+
+<div id="form-feedback" 
+    class="article__form article__block{% unless client %} _disabled-form{% endunless %}"
+    data-subscribe-client="{%- if client -%}true{%- endif -%}"
+>
+    <div class="article__block-title">Консультация стилиста</div>
+    <div class="article__block-subtitle">Поможем найти лучшую вещь для самовыражения</div>
+    <div class="popup__error" {% if client %} hidden{% endif %}>
+        <button data-popup="#popup-login" type="button">Авторизуйтесь</button> для отравки формы
+    </div>
+    <div class="account__contacts-message account-success" data-em-message hidden>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M9.55021 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9919 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.1125 19.7252 7.3875C19.7252 7.6625 19.6252 7.9 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81687 17.6 9.55021 17.6C9.28354 17.6 9.05021 17.5 8.85021 17.3L4.55021 13C4.35021 12.8 4.25437 12.5625 4.26271 12.2875C4.27104 12.0125 4.37521 11.775 4.57521 11.575C4.77521 11.375 5.01271 11.275 5.28771 11.275C5.56271 11.275 5.80021 11.375 6.00021 11.575L9.55021 15.15Z"
+                fill="#789D4A"></path>
+        </svg>
+        <span class="account__success-info">Ваш запрос успешно отправлен</span>
+        <button type="button" class="btn-close-grey" data-em-message-close>
+            <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.75 2.04297L2.04297 2.75L2.39844 3.10156L7.29297 8L2.04297 13.25L2.75 13.957L8 8.70703L12.8945 13.6055L13.25 13.957L13.957 13.25L13.6055 12.8945L8.70703 8L13.957 2.75L13.25 2.04297L8 7.29297L3.10156 2.39844L2.75 2.04297Z"
+                    fill="#111111"></path>
+            </svg>
+        </button>
+    </div>
+    <form action="#" method="post" 
+        {% if settings.feedback_captcha_enabled %} data-recaptcha="true" {% endif %}
+    >
+        <div class="form-popup__group">
+            <div class="form-popup__input-group input-group">
+                {% comment %} <div class="input-group__label">Имя</div> {% endcomment %}
+                <div data-js="input-wrapper" class="input-group__wrapper">
+                    <input data-required autocomplete="off" type="text" name="name" data-error=""
+                        placeholder="Имя" class="input-group__input input">
+                    <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                </div>
+                {% comment %} <div class="form-error" data-form-error="">Некорректный формат почты</div> {% endcomment %}
+            </div>
+            <div class="form-popup__input-group input-group">
+                {% comment %} <div class="input-group__label">Телефон</div> {% endcomment %}
+                <div data-js="input-wrapper" class="input-group__wrapper">
+                    <input type="text" autocomplete="off" name="phone" data-error=""
+                        placeholder="Телефон" class="input-group__input input" data-mask-phone>
+                    <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                </div>
+            </div>
+            {% comment %} <div class="form-popup__input-group input-group">
+                {% comment %} <div class="input-group__label">Email</div> {% endcomment %}
+                <div data-js="input-wrapper" class="input-group__wrapper">
+                    <input data-required="email" autocomplete="off" type="text" name="email"
+                        data-error="Введите email" placeholder="Email" class="input-group__input input">
+                    <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                </div>
+            </div> {% endcomment %}
+
+            {% if settings.feedback_captcha_enabled %}
+                <div class="form-popup__input-group input-group feedback__field-area"
+                    data-feedback-form-field-area>
+                    <div data-feedback-form-recaptcha='{
+                        "isRequired": true, 
+                        "errorMessage": "{{ messages.recaptcha_error | escape }}"
+                        }' data-error="Пройдите капчу" class="feedback__recaptcha">
+                    </div>
+                    <input type="text" name="em-recaptcha" class="input" hidden>
+                    <div data-feedback-form-field-error class="feedback__field-error form-popup__input-mess-error">
+                    </div>
+                </div>
+            {% endif %}
+            {% comment %} <input hidden type="text" value="Сообщить о поступлении"
+                name="feedback[subject]" />
+            <input hidden type="text" value="Товар не выбран" name="feedback[content]" /> {% endcomment %}
+        </div>
+        <div class="form-popup__group">
+            <button type="button" class="form-popup__button btn btn_large btn_primary" {%- unless client -%}
+                disabled{%- endunless -%} data-em-form-submit>Отправить заявку</button>
+            <div class="form-popup__policy">
+                Нажимая на кнопку «Подписаться», вы соглашаетесь с
+                <a href="/page/oferta">политикой конфиденциальности</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="article__block">
+    <div class="article__block-subtitle">Популярные категории</div>
+    <div class="article__block-links">
+        {% capture cache_key_blog_menu %}{{upd_cache}}_blog_menu__{{ language.locale }}{% endcapture %}
+        {% cache cache_key_blog_menu %}
+            {% assign menuList = linklists["menu-blog-sidebar"].links %}
+            {% if menuList.size > 0 %}
+                {% for link in menuList %}
+                    <a href="{{ link.url }}" class="article__block-link">{{ link.title }}</a>
+                {% endfor %}
+            {% else %}
+                <a href="/collection/all" class="article__block-link">Каталог</a>
+            {% endif %}
+        {% endcache %}
+    </div>
+</div>

@@ -1,0 +1,36 @@
+{
+  "content": [
+    {
+      "items": [
+        {
+          "name": "slider-title",
+          "label": "Заголовок слайдера",
+          "value": null,
+          "type": "text"
+        },
+        {
+          "name": "slider-description",
+          "label": "Описание слайдера",
+          "value": null,
+          "type": "text"
+        },
+        {
+          "name": "category",
+          "label": "Категория товаров",
+          "help": "Если нет сопутствующих товаров, тогда появятся товары из выбранной категории",
+          "value": null,
+          "type": "collection"
+        },
+        {
+          "class": "range",
+          "name": "elem-number",
+          "step": 1,
+          "min": 1,
+          "label": "Количество элементов",
+          "type": "number",
+          "with_btns": true
+        }
+      ]
+    }
+  ]
+}

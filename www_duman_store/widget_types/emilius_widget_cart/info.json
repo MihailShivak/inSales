@@ -1,0 +1,16 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "[emilius] Корзина"
+  },
+  "handle": "emilius_widget_cart",
+  "page_kinds": [
+    "cart"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "cart",
+  "libraries": []
+}

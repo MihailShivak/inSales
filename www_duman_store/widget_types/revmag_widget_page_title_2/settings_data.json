@@ -1,0 +1,38 @@
+{
+  "if-page-title": false,
+  "title": {
+    "ru": "Заголовок",
+    "en": "Title",
+    "ua": "Заголовок",
+    "es": "Bóveda"
+  },
+  "subtitle": {
+    "ru": "Подзаголовок",
+    "en": "Subtitle",
+    "ua": "Пiдзаголовок",
+    "es": "Subtitular"
+  },
+  "if-breadcrumbs": false,
+  "if-image": false,
+  "color-text": "#ffffff",
+  "text-align": "center",
+  "custom-layout-pt": 100,
+  "custom-layout-pb": 100,
+  "title-font-size": 3.5,
+  "subtitle-font-size": 1.3,
+  "border-radius": 0,
+  "bg-image-color": "#000000",
+  "bg-image-opacity": 0.4,
+  "custom-layout-pt-sm": 50,
+  "custom-layout-pb-sm": 50,
+  "title-font-size-sm": 2,
+  "subtitle-font-size-sm": 0.5,
+  "layout-mt": 0,
+  "layout-mb": 0,
+  "layout-wide-bg": true,
+  "layout-content-max-width": 1200,
+  "layout-wide-content": false,
+  "layout-edge": false,
+  "hide-desktop": false,
+  "hide-mobile": false
+}

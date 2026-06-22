@@ -1,0 +1,55 @@
+{
+    "theme": {
+        "path": "./",
+        "name": ""
+    },
+    "options": {
+        "default": {
+            "js": [
+                "name-file.js"
+            ],
+            "css": [
+                "name-file.css"
+            ]
+        },
+        "min": {
+            "js": [],
+            "css": []
+        },
+        "max": {
+            "js": [],
+            "css": []
+        }
+    },
+    "minifyModes": {
+        "light": {
+            "terserJS": {
+                "compress": false,
+                "mangle": false
+            },
+            "cleanCSS": {
+                "level": 1
+            }
+        },
+        "normal": {
+            "terserJS": {
+                "compress": true,
+                "mangle": true
+            },
+            "cleanCSS": {
+                "level": 2
+            }
+        },
+        "hard": {
+            "terserJS": {
+                "compress": {
+                    "drop_console": true
+                },
+                "mangle": true
+            },
+            "cleanCSS": {
+                "level": 2
+            }
+        }
+    }
+}

@@ -1,0 +1,186 @@
+{% capture banner_time %}{{'now' | date: '%s.%L' }}{% endcapture %}
+
+{% comment %} 
+    Задавать таймер глобально
+    data-promo-date="{{ widget_settings.promotion_date }}"
+{% endcomment %}
+{% capture cache_key_banner %}{{upd_cache}}_banner_{{ widget_settings.updated_at }}_{{ language.locale }}{% endcapture %}
+{% cache cache_key_banner %}
+<div class="banner swiper">
+    <img class="banner__logo" src="{{ "icon-logo.svg" | asset_url }}" alt="Duman">
+    <div class="swiper-wrapper">
+        {% if widget_settings.show_timer_bf %}
+            <a href="/collection/{{ widget_settings.promotion_bf_link }}" class="banner__slide slide__promotion swiper-slide" id="promoTimerBFBanner" style="background-color: {{ widget_settings.promo_bf_bg_color | default: '#000' }};" target="_blank">
+                <div class="header__promo-info">
+                    <div class="promo-slider__item-content">
+                        <div class="slide__promotion-wrapper" style="color: {{- widget_settings.promo_bf_text_color | default: '#fff' -}};">
+                            <div class="promotion__title">{{ widget_settings.promotion_bf_title }}</div>
+                            <div class="promotion__bottom">
+                                <div class="promotion__row">
+                                    <div class="promotion__subtitle" data-promo-count>0</div>
+                                    <div class="promotion__descript">Вещей по акции</div>
+                                </div>
+                                <div class="promotion__row">
+                                    <div class="promotion__subtitle" data-discount-size>0%</div>
+                                    <div class="promotion__descript">Последние дни скидок</div>
+                                </div>
+                                <div class="promotion__row">
+                                    <div class="promotion__subtitle promotion__notfound" data-promo-disabled hidden>{{ widget_settings.promotion_hide_title }}</div>
+                                    {% unless widget_settings.hide_timer %}
+                                        <div class="promotion__subtitle promotion__timer">
+                                        <div class="promotion__timer-row">
+                                            <span data-promo-day>0</span>
+                                            <span class="promotion__timer-day">дн</span>
+                                        </div>
+                                        <div class="promotion__timer-row">
+                                            <span data-promo-hour>0</span>
+                                            <span class="promotion__timer-day">ч</span>
+                                        </div>
+                                        <div class="promotion__timer-row">
+                                            <span data-promo-minute>0</span>
+                                            <span class="promotion__timer-day">мин</span>
+                                        </div>
+                                        </div>
+                                        <div class="promotion__descript">До окончания акции</div>
+                                    {% endunless %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% comment %} <div class="promo-slider__item-photo">
+                        <div class="img-ratio img-ratio_cover">
+                            <div class="img-ratio__inner"></div> 
+                        </div>
+                    </div> {% endcomment %}
+                </div>
+            </a>
+        {% elsif widget_settings.show_timer %}
+            <div class="banner__slide slide__promotion swiper-slide" id="promoTimerBanner" style="background-color: {{ widget_settings.promotion_bg_color | default: '#000000' }};">
+                <div class="promo-slider__item">
+                    <div class="promo-slider__item-content"
+                        style="color: {{ widget_settings.promotion_text_color | default: '#ffffff' }};">
+                        <div class="slide__promotion-wrapper">
+                            {% if widget_settings.promotion_link %}
+                                <a href="{{ widget_settings.promotion_link }}" class="promotion__title">
+                                    {{ widget_settings.promotion_title }}
+                                </a>
+                            {% else %}
+                                <div class="promotion__title">{{ widget_settings.promotion_title }}</div>
+                            {% endif %}
+                            <div class="promotion__bottom">
+                                <div class="promotion__row">
+                                    <div class="promotion__subtitle promotion__timer">
+                                        <div class="timer-days">
+                                            <div class="promotion__timer-row">
+                                                <span data-promo-day>0</span>
+                                                <span class="promotion__timer-day">дн</span>
+                                            </div>
+                                            <div class="promotion__timer-row">
+                                                <span data-promo-hour>0</span>
+                                                <span class="promotion__timer-day">ч</span>
+                                            </div>
+                                            <div class="promotion__timer-row">
+                                                <span data-promo-minute>0</span>
+                                                <span class="promotion__timer-day">мин</span>
+                                            </div>
+                                        </div>
+                                        <div class="timer-seconds" hidden>
+                                            <div class="promotion__timer-row">
+                                                <span data-promo-hour>0</span>
+                                                <span class="promotion__timer-day">ч</span>
+                                            </div>
+                                            <div class="promotion__timer-row">
+                                                <span data-promo-minute>0</span>
+                                                <span class="promotion__timer-day">мин</span>
+                                            </div>
+                                            <div class="promotion__timer-row">
+                                                <span data-promo-second>0</span>
+                                                <span class="promotion__timer-day">сек</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="promotion__descript">До окончания акции</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% comment %} <div class="promo-slider__item-photo">
+                        <div class="img-ratio img-ratio_cover">
+                            <div class="img-ratio__inner">
+                                {% if widget_settings.promotion_image %}
+                                    <img src="{{ widget_settings.promotion_image | image_url: 1920, format: 'webp', resizing_type: 'fit_width' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}"
+                                        alt="{{ widget_settings.promotion_title }}" class="promotion-banner-image">
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div> {% endcomment %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% for slide in data.blocks %}
+            <div class="banner__slide swiper-slide">
+                <a class="banner__title" href="{{ slide.link }}">{{ slide.name }}</a>
+                <div class="banner__img{% if slide.image-mob %} _banner__img-mob{% endif %}">
+                    <picture>
+                        <!-- webp -->
+                        {% comment %} <source media="(min-width:769px)" 
+                            srcset="{{ slide.image | image_url: 1920, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" 
+                            type="image/webp" data-ll-status="loaded" class="entered">
+                        <source media="(max-width:480px)" 
+                            srcset="{{ slide.image | image_url: 1400, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" 
+                            type="image/webp" data-ll-status="loaded" class="entered">
+                        <source
+                            srcset="{{ slide.image | image_url: 1920, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" 
+                            type="image/webp" data-ll-status="loaded" class="entered">
+
+                        <!-- Fallback версии в оригинальном формате -->
+                        <source media="(min-width:769px)" 
+                            srcset="{{ slide.image | image_url: 1920 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" data-ll-status="loaded" class="entered">
+                        <source media="(max-width:480px)" 
+                            srcset="{{ slide.image | image_url: 1400 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" data-ll-status="loaded" class="entered"> {% endcomment %}
+
+                        <source 
+                            srcset="{{ slide.image | image_url: 2048, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l100' }}" 
+                            type="image/webp" data-ll-status="loaded" class="entered">
+                        <img src="{{ slide.image | image_url: 2048 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l100' }}" data-ll-status="loaded" class="entered" alt="{{ slide.name }}">
+                    </picture>
+                    {% if slide.image-mob %}
+                        <picture>
+                            <!-- webp -->
+                            {% comment %} <source media="(min-width:769px)" 
+                                srcset="{{ slide.image-mob | image_url: 1920, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" 
+                                type="image/webp" data-ll-status="loaded" class="entered">
+                            <source media="(max-width:480px)" 
+                                srcset="{{ slide.image-mob | image_url: 1400, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" 
+                                type="image/webp" data-ll-status="loaded" class="entered">
+                            <source
+                                srcset="{{ slide.image-mob | image_url: 1920, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" 
+                                type="image/webp" data-ll-status="loaded" class="entered">
+
+                            <!-- Fallback версии в оригинальном формате -->
+                            <source media="(min-width:769px)" 
+                                srcset="{{ slide.image-mob | image_url: 1920 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" data-ll-status="loaded" class="entered">
+                            <source media="(max-width:480px)" 
+                                srcset="{{ slide.image-mob | image_url: 1400 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" data-ll-status="loaded" class="entered"> {% endcomment %}
+
+                            <source 
+                                srcset="{{ slide.image-mob | image_url: 2048, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l100' }}" 
+                                type="image/webp" data-ll-status="loaded" class="entered">
+
+                            {% comment %} <source media="(max-width:768px)" srcset="{{ slide.image | image_url: 1000, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }}" type="image/webp" data-ll-status="loaded" class="entered"> {% endcomment %}
+                            <img src="{{ slide.image-mob | image_url: 2048 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l100' }}" data-ll-status="loaded" class="entered" alt="{{ slide.name }}">
+                        </picture>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="banner__swiper-btn swiper-button-prev" style="cursor: url('{{ 'point-arrow-left.svg' | asset_url  }}') 16 16, auto;"></div>
+    <div class="banner__swiper-btn swiper-button-next" style="cursor: url('{{ 'point-arrow-right.svg' | asset_url  }}') 16 16, auto;"></div>
+    <div class="swiper-pagination"></div>
+</div>
+{% endcache %}
+
+<script>console.log("render banner: {{ 'now' | date: '%s.%L' | minus: banner_time }}");</script>

@@ -1,0 +1,147 @@
+&:not(:last-child) {
+    margin-bottom: 5rem;
+}
+
+.basket-item__name {
+    display: block;
+}
+
+.basket__list-wrapper {
+    position: relative;
+}
+
+[data-intallment],
+.basket__info-total-wrapper {
+    position: relative;
+}
+
+.bsk-form-error {
+    margin-top: .5rem;
+    font-size: .875rem;
+    line-height: 120%;
+    color: #b60017
+}
+
+.bsk-form-success {
+    margin-top: .5rem;
+    font-size: .875rem;
+    line-height: 120%;
+    color: #975730
+}
+
+.products-item__basket-btn._disabled {
+    pointer-events: none;
+}
+
+.basket-item__actions-wishlist span:last-child {
+    display: none;
+}
+
+.basket-item__actions-wishlist.favorites-added {
+    span:first-child {
+        display: none;
+    }
+    span:last-child {
+        display: block;
+    }
+}
+
+.popup__products-list-body > span {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+._hidden-btn .popup__products-list-arrow {
+    display: none;
+}
+
+.products-item__price_new {
+    font-size: 1rem;
+}
+
+.popup_replace .products-item__price_old {
+    font-size: 0.875rem;
+}
+
+.basket__info-part {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.basket__info-part p {
+    margin: 0;
+}
+
+.basket__info-total-wrapper .payment__head:not(:last-child) {
+    margin-bottom: 0.75rem;
+}
+
+.basket__info-total-wrapper .payment__btns {
+    margin-bottom: 0;
+}
+
+.basket__info-total-wrapper .popup__parts-steps {
+    padding: 0.75rem 0 0 0;
+    margin-bottom: 0 !important;
+}
+
+.basket__info-total-wrapper .popup__parts-steps-item {
+    justify-content: start;
+}
+
+.basket__info-total-wrapper .popup__parts-steps-item::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 0.25rem;
+    border-radius: 0.25rem;
+    background-color: #d1c3ba;
+}
+
+.basket__info-total-wrapper .popup__parts-steps-item._active::before {
+    background-color: #40332b;
+}
+
+.basket__info-total-wrapper .popup__parts-steps-item::after {
+    content: none;
+}
+
+.basket__info-total-wrapper .popup__plait-price_6 {
+    bottom: 0;
+    top: auto;
+}
+
+.basket-item__max-quantity {
+    display: block;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    width: 100%;
+    background: #fff;
+    z-index: 1000;
+    color: #B60017;
+    font-size: 0.875rem;
+}
+
+@media (max-width: 63.9988em) {
+    &:not(:last-child) {
+        margin-bottom: 4rem;
+    }
+
+    ._anim-stretch{
+        -webkit-transition: -webkit-transform .3s ease 0s, max-height ease 0.6s;
+        transition: -webkit-transform .3s ease 0s, max-height ease 0.6s;
+        transition: transform .3s ease 0s, max-height ease 0.6s;
+        transition: transform .3s ease 0s, -webkit-transform .3s ease 0s, max-height ease 0.6s;
+    }
+
+    ._popup-stretch {
+        max-height: calc(100% - 1.3125rem) !important;
+    }
+}
+
+@media (max-width: 29.9988em) {
+    .basket-item__max-quantity {
+        padding: 0.25rem;
+    }
+}

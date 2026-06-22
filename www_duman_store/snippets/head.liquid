@@ -1,0 +1,62 @@
+<!-- meta -->
+<meta charset="UTF-8" />
+{%- include "system_seo_description" -%}
+{%- include "system_v4_meta_data" -%}
+
+<meta name="robots" content="index,follow" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0" />
+<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
+<meta name="format-detection" content="telephone=no">
+<meta name="ibice-cdn-verification" content="ffa4e9b577e7" />
+
+<!-- canonical url-->
+{%- if template contains "collection" -%}
+
+  {%- if filter -%}
+    {%- assign canon =  filter.handle -%}
+    <link rel="canonical" href="{{ account.url }}{{ collection.url }}/{{ canon }}"/>
+  {%- else -%}
+    <link rel="canonical" href="{{ account.url }}{{ collection.url }}"/>
+  {%- endif -%}
+
+{%- elsif template contains "product" -%}
+  <link rel="canonical" href="{{ account.url }}{{ product.canonical_url }}"/>
+{% endif %}
+
+<!-- organization microdata -->
+<script type="application/ld+json">
+{
+	"@context": "https://schema.org",
+	"@type": "Organization",
+	"name": "DUMAN STORE",
+	"image": "https://ibicecdn.com/dumanstore/files/1/3431/30993767/original/favicon.svg",
+	"address": [{"@type": "PostalAddress","streetAddress": "ул. Советская, д. 49","addressLocality": "Новосибирск","addressRegion": "Новосибирская область","telephone": "+7 (913) 762-11-21","postalCode": "630099","addressCountry": "RU","email": "info@duman.store"}]
+}
+</script>
+
+<!-- rss feed-->
+{%- if template == "blog" -%}
+  <link rel="alternate" type="application/rss+xml" title="{{ blog.title }}" href="{{ account.url }}{{ blog.url }}.atom" />
+{%- endif -%}
+
+{%- include "system_op_graph" -%}
+
+<!-- icons-->
+<link rel="icon" type="image/png" sizes="16x16" href="https://ibicecdn.com/dumanstore/files/1/3431/30993767/original/favicon.svg" />
+{%- assign canon =  null -%}
+
+<script src="{{ 'popup.js' | asset_url }}"></script>
+
+<style media="screen">
+  @supports (content-visibility: hidden) {
+    body:not(.settings_loaded) {
+      content-visibility: hidden;
+    }
+  }
+  @supports not (content-visibility: hidden) {
+    body:not(.settings_loaded) {
+      visibility: hidden;
+    }
+  }
+</style>

@@ -1,0 +1,173 @@
+{% yield 'flash_messages' %}
+{% content_for 'title' %}
+Заказ №
+{{ order.number }} - {{ account.title }}
+{% end_content_for %}
+{% content_for 'top_info' %}
+<h3>
+  Статус заказа:
+  {% capture span_class %}{% if order.fulfillment_status == 'declined' or order.fulfillment_status == 'returned' %}red{% else %}green{% endif %}{% endcapture %}
+  <span class='{{ span_class }}'>{{ order.customer_status }}</span>
+</h3>
+{% end_content_for %}
+<div class='set wide_set'>
+  <div class='set-title'>Состав заказа</div>
+  <div class='set-block'>
+    <table class='table'>
+      {% if order.order_lines_has_sku? %}
+      <col width="100" />
+      {% endif %}
+      <col width="750" />
+      <thead>
+        <tr>
+          {% if order.order_lines_has_sku? %}
+          <th>Артикул</th>
+          {% endif %}
+          <th>Наименование</th>
+          <th class='count'>Кол-во</th>
+          <th class='price-field'>Стоимость</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in order.items %}
+        <tr class="{% cycle 'highlited_row', '' %}">
+          {% if order.order_lines_has_sku? %}
+          <td>{{ item.sku }}</td>
+          {% endif %}
+          <td>{{ item.title }}</td>
+          <td class='count'>{{ item.quantity }} {{ item.unit }}</td>
+          <td class='price-field'>{{ item.total_price.with_margin | money }}</td>
+        </tr>
+        {% endfor %}
+        {% capture colspan %}{% if order.order_lines_has_sku? %}2{% else %}1{% endif %}{% endcapture %}
+        {% for discount in order.discounts %}
+        <tr>
+          <td colspan='{{ colspan }}'>Скидка: {{ discount.description }}</td>
+          <td class='count'></td>
+          <td class='price-field'>-{{ discount.amount | money }}</td>
+        </tr>
+        {% endfor %}
+        {% unless order.delivery_price == 0 %}
+        <tr>
+          <td colspan='{{ colspan }}'>Доставка: {{ order.delivery_description }}</td>
+          <td class='count'></td>
+          <td class='price-field'>+{{ order.delivery_price | money }}</td>
+        </tr>
+        {% endunless %}
+        {% if order.margin_amount != 0 %}
+        <tr>
+          <td colspan='{{ colspan }}'>Наценка на способ оплаты:</td>
+          <td class='count'></td>
+          <td class='price-field'>{{ order.margin }} %</td>
+        </tr>
+        {% endif %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan='{% if order.order_lines_has_sku? %}3{% else %}2{% endif %}'>Итого:</td>
+          <td class='price-field'>
+            <strong>{{ order.total_price | money }}</strong>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  {% assign shipping_address = order.shipping_address %}
+  <div class='set-title'>Доставка</div>
+  <div class='set-block'>
+    {% if shipping_address %}
+    <div class='field fc'>
+      <div class='field-label'>Получатель (ФИО):</div>
+      <div class='field-content'>{{ shipping_address.full_name }}</div>
+    </div>
+    <div class='field fc'>
+      <div class='field-label'>Телефон получателя:</div>
+      <div class='field-content'>{{ shipping_address.phone }}</div>
+    </div>
+    {% endif %}
+    {% if order.client and order.client.email != empty %}
+    <div class='field fc'>
+      <div class='field-label'>Email:</div>
+      <div class='field-content'>{{ order.client.email }}</div>
+    </div>
+    {% endif %}
+    <div class='field fc'>
+      <div class='field-label'>Способ доставки:</div>
+      <div class='field-content'>{{ order.delivery_description }}</div>
+    </div>
+    {% if shipping_address %}
+     {% for field in shipping_address.client_fields %}
+       {% if field.value and field.value != empty %}
+    <div class='field fc'>
+      <div class='field-label'>{{ field.client_title }}:</div>
+      <div class='field-content'>{{ field.value }}</div>
+    </div>
+       {% endif %}
+     {% endfor %}
+    {% endif %}
+    {% if order.delivery_date != blank %}
+    <div class='field fc'>
+      <div class='field-label'>Дата доставки:</div>
+      <div class='field-content'>{{ order.delivery_date | date: "%d.%m.%Y" }}</div>
+    </div>
+    {% endif %}
+    {% if order.comment != empty %}
+    <div class='field fc'>
+      <div class='field-label'>Комментарии к заказу:</div>
+      <div class='field-content'>{{ order.comment | escape | newline_to_br }}</div>
+    </div>
+    {% endif %}
+  </div>
+  {% capture additional_info %}{% for field in order.result_fields %}{% if field.value and field.value != empty %}
+  <div class='field fc'>
+    <div class='field-label'>{{ field.client_title }}:</div>
+    <div class='field-content'>
+      {% if field.is_file? %}
+      <a target="_blank" href="{{ field.value }}">{{ field.file_name }}</a>
+      {% else %}
+       {{ field.value }}
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}{% endfor %}{% endcapture %}
+  {% if additional_info != empty %}
+  <div class='set-title'>Дополнительная информация</div>
+  <div class='set-block'>
+    {{ additional_info }}
+  </div>
+  {% endif %}
+  <div class='set-title'>Оплата</div>
+  <div class='set-block'>
+    <div class='field fc'>
+      <div class='field-label'>Способ оплаты:</div>
+      <div class='field-content'>
+        {{ order.payment_title }}
+        {% if order.payment_description %}
+        <p>
+          <small>{{ order.payment_description }}</small>
+        </p>
+        {% endif %}
+      </div>
+    </div>
+    <div class='field fc'>
+      <div class='field-label'>Статус оплаты:</div>
+      <div class='field-content'>
+        <span class='{% if order.paid? %}green{% else %}red{% endif %}'>
+          {% if order.paid? %}
+          Оплачен
+          {% else %}
+          Не оплачен
+          {% endif %}
+        </span>
+        {% if order.payment_needed? %}
+         {% if order.paid_with_bank_bill? %}
+           <a href="{{ order.pay_url }}">Перейти к оплате (распечатать квитанцию)</a>
+         {% else %}
+           <a href="{{ order.pay_url }}">Перейти к оплате</a>
+         {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<a class="back_to_shop" href="/">Вернуться в магазин</a>

@@ -1,0 +1,48 @@
+{
+  "content": [
+    {
+      "items": [
+        {
+          "name": "slider-title",
+          "label": "Заголовок слайдера",
+          "value": null,
+          "type": "text"
+        },
+        {
+          "name": "slider-description",
+          "label": "Описание слайдера",
+          "value": null,
+          "type": "text"
+        },
+        {
+          "name": "category",
+          "label": "Ссылка на категорию",
+          "help": "Заголовок будет ссылаться на данную категорию и в конце появится блок Смотреть еще",
+          "value": null,
+          "type": "collection"
+        },
+        {
+          "name":"select-related",
+          "label":"Выводить сопутствующие товары (если есть)",
+          "value":false,
+          "type":"checkbox"
+        },
+        {
+          "name":"select-similar",
+          "label":"Выводить аналогичные товары (если есть)",
+          "value":false,
+          "type":"checkbox"
+        },
+        {
+          "class": "range",
+          "name": "elem-number",
+          "step": 1,
+          "min": 1,
+          "label": "Количество элементов",
+          "type": "number",
+          "with_btns": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{% capture layouts_time %}{{'now' | date: '%s.%L' }}{% endcapture %}
+
+{%- assign setting_show = 'sidebar_' | append: template | append: '_show' -%}
+{%- assign setting_position = 'sidebar_' | append: template | append: '_position' -%}
+{%- assign layout_delta = template | append: '_delta_sidebar' -%}
+
+{%- assign sidebar_show = settings[setting_show] -%}
+{%- assign sidebar_type = settings.type_sidebar | default: 'normal' -%}
+{%- assign sidebar_position = settings[setting_position] -%}
+
+<!DOCTYPE html>
+<html>
+  <head data-ddd>
+    {% include "head" %}
+    <script>
+      window.SHOP_BLOGS = {
+        {% for blog in blogs %}
+          "{{ blog.handle }}": {
+            title: {{ blog.title | json }},
+            url: {{ blog.url | json }},
+            articles: [
+              {% for article in blog.articles %}
+                { title: {{ article.title | json }}, url: {{ article.url | json }} }
+                {% unless forloop.last %},{% endunless %}
+              {% endfor %}
+            ]
+          }
+          {% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      };
+    </script>
+
+<script>
+  window.__RUM_BASE__ = "https://rum.111-88-153-5.nip.io";
+  window.__RUM_ENV__  = "prod";
+</script>
+<script src="{{ 'web-vitals.iife.js' | asset_url }}" defer></script>
+<script src="{{ 'rum.js' | asset_url }}" defer></script>
+
+  </head>
+  <body data-multi-lang="{{ language.not_default? }}" data-theme-template="{{ template }}" data-sidebar-type="{{ sidebar_type }}" data-sidebar-position="{{ sidebar_position }}">
+    {% include "popups" %}
+    <div class="preloader">
+      <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+    </div>
+    {% include "system_no_js_alert" %}
+    <div class="page_layout {% if sidebar_show %}page_layout_{{ sidebar_type }}_{{ sidebar_position }}{% else %}page_layout-clear{% endif %} {{- settings.fixed_sidebar_border -}} {% if template contains 'collection' %}page_layout_section_top{% endif %}">
+      <header>
+      {% for widgetDrop in widget_lists.header-list.widgets %}
+        {% widget widgetDrop %}
+      {% endfor %}
+      </header>
+
+      {% if template contains 'collection' %}
+      <section class="page_section_top">
+        {% for widgetDrop in widget_lists.collection-section_top-list.widgets %}
+          {% widget widgetDrop %}
+        {% endfor %}
+      </section>
+      {% endif %}
+
+      <main>
+        {{ content_for_layout }}
+      </main>
+
+      {% if sidebar_show or editor_mode? %}
+      <aside>
+        <section data-sidebar>
+          {% if template contains 'blog' or template contains 'article' %}
+            {% for widgetDrop in widget_lists.sidebar_blog-list.widgets %}
+              {% widget widgetDrop %}
+            {% endfor %}
+          {% else %}
+            {% for widgetDrop in widget_lists.sidebar-list.widgets %}
+              {% widget widgetDrop %}
+            {% endfor %}
+          {% endif %}
+        </section>
+      </aside>
+      {% endif %}
+
+      <footer>
+        {% for widgetDrop in widget_lists.footer-list.widgets %}
+          {% widget widgetDrop %}
+        {% endfor %}
+      </footer>
+    </div>
+    
+    <div data-fixed-panels="bottom">
+      {% for widgetDrop in widget_lists.bottom-panel-list.widgets %}
+        {% widget widgetDrop %}
+      {% endfor %}
+    </div>
+
+    <div class="outside-widgets">
+      {% for widgetDrop in widget_lists.outside-list.widgets %}
+        {% widget widgetDrop %}
+      {% endfor %}
+    </div>
+    <script>console.log("render layouts: {{ 'now' | date: '%s.%L' | minus: layouts_time }}");</script>
+    {% include "template-product" %}
+    <a href="https://max.ru/u/f9LHodD0cOI-rRBMBTnZ_yCHvDWsNpaTWlxqL5rrEUEVHqB_IU0mg7BqicI
+" target="_blank" rel="noopener" class="my-amo-extra-btn" id="myAmoExtraBtn" aria-label="Макс">
+      <span class="my-amo-extra-btn-tooltip">Макс</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="-185 -180 1100 1100"><path fill="#fff" d="M350.4,9.6C141.8,20.5,4.1,184.1,12.8,390.4c3.8,90.3,40.1,168,48.7,253.7,2.2,22.2-4.2,49.6,21.4,59.3,31.5,11.9,79.8-8.1,106.2-26.4,9-6.1,17.6-13.2,24.2-22,27.3,18.1,53.2,35.6,85.7,43.4,143.1,34.3,299.9-44.2,369.6-170.3C799.6,291.2,622.5-4.6,350.4,9.6h0ZM269.4,504c-11.3,8.8-22.2,20.8-34.7,27.7-18.1,9.7-23.7-.4-30.5-16.4-21.4-50.9-24-137.6-11.5-190.9,16.8-72.5,72.9-136.3,150-143.1,78-6.9,150.4,32.7,183.1,104.2,72.4,159.1-112.9,316.2-256.4,218.6h0Z"></path></svg>
+    </a>
+  </body>
+
+  {%- capture css_js_lists -%}header-list, footer-list, sidebar-list, outside-list, {{ template }}-list, {{ template }}-section_top-list, {{ template }}-section_bottom-list, bottom-panel-list, top-panel-list{%- endcapture -%}
+
+  {% if sidebar_show or editor_mode? %}
+    {% if template contains 'blog' or template contains 'article' %}
+        {% assign css_js_lists = css_js_lists | append: ', sidebar_blog-list' %}
+    {% else %}
+        {% assign css_js_lists = css_js_lists | append: ', sidebar-list' %}
+    {% endif %}
+  {% endif %}
+
+  {% widgets_assets css_js_lists %}
+
+  {% include "styles" %}
+  {% include "script" %}
+  
+  {% include "microdata" %}
+</html>

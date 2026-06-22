@@ -1,0 +1,19 @@
+{% comment %} JS default {% endcomment %}
+{% comment %} <script src="{{ 'emilius_modules.js' | asset_url }}" charset="utf-8"></script> {% endcomment %}
+{% comment %} <script src="{{ 'theme.js' | asset_url }}" charset="utf-8"></script> {% endcomment %}
+
+{% comment %} !! Открыть перед публикацией {% endcomment %}
+{% comment %} <script src="https://status.dumansto.re/v0.2/live.js" charset="utf-8" defer></script>  {% endcomment %}
+
+{% comment %} Минификация JS {% endcomment %}
+<script src="{{ 'emilius_modules.min.js' | asset_url }}" charset="utf-8"></script>
+<script src="{{ 'theme.min.js' | asset_url }}" charset="utf-8"></script>
+
+{% comment %} ! Потом вернуться к этому скрипту {% endcomment %}
+<script src="{{ 'em-theme.js' | asset_url }}" charset="utf-8"></script>
+
+{% if template contains "page" or template contains "blog" or template contains "article" %}
+    <script src="{{ 'em-page.js' | asset_url }}" charset="utf-8"></script>
+{% endif %}
+
+<script src="https://dumansto.re/assets/js/city_autoselect.js" charset="utf-8"></script>

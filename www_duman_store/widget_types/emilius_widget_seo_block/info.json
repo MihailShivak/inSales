@@ -1,0 +1,20 @@
+{
+  "type": "BlockListWidgetType",
+  "name": {
+    "ru": "[emilius] SEO блок"
+  },
+  "handle": "emilius_widget_seo_block",
+  "description": {
+    "ru": "SEO блок в нескольких вариациях:\n1. Seo текст + пост из тг (видео и текст)\n2. Seo текст + пост из тг (до 3 картинок и текст)\n3. Seo текст + пост из тг (1 картинка и текст)"
+  },
+  "page_kinds": [
+    "all"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "banner",
+  "libraries": [],
+  "block_template_handle": "seo-desc"
+}

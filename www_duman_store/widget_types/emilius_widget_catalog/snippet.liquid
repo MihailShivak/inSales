@@ -1,0 +1,755 @@
+{% capture catalog_time %}{{'now' | date: '%s.%L' }}{% endcapture %}
+
+{% assign price_min = collections[collection.handle].products_price_min | round: 0 %}
+{% assign price_max = collections[collection.handle].products_price_max | round: 0 %}
+
+{% if page_size %}
+    {% assign page_size = page_size | to_integer %}
+{% elsif paginate.page_size %}
+    {% assign page_size = paginate.page_size | to_integer %}
+{% else %}
+    {% assign page_size = 16 %}
+{% endif %}
+
+{% comment %} <div class="">
+{% for seo_filter in collection.filters %}
+  <a href="{{ collection.url }}/{{ seo_filter.handle }}" class="{% if filter.handle == seo_filter.handle %}is-active{% endif %}">
+    {{ seo_filter.title }}
+  </a><br>
+{% endfor %}
+</div> {% endcomment %}
+
+{% capture tags_time %}{{'now' | date: '%s.%L' }}{% endcapture %}
+{% if widget_settings.show_tags %}
+    {% capture cache_key_tags_seo %}{{upd_cache}}_tags_{{ widget_settings.updated_at }}_{{ language.locale }}{% endcapture %}
+    {% cache cache_key_tags_seo %}
+    <script id="seo-tags" type="application/ld+json" hidden>
+        {
+        "tags": [
+        {%- for block in data.blocks -%}
+            {
+                "handle": "{{- block.collection.handle -}}",
+                "collection_title": "{{- block.collection.title -}}",
+                "title": "{{- block.name -}}",
+                "link": "{{- block.link -}}"
+            }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+        ]}
+    </script>
+    {% endcache %}
+{% endif %}
+<script>console.log("render tags: {{ 'now' | date: '%s.%L' | minus: tags_time }}");</script>
+
+<section class="catalog page">
+    <div class="catalog__container">
+        <div class="catalog__grid" data-js="catalog-wrapper">
+            <div class="catalog__top" data-em-menu-top>
+                <a href={% if collection.handle == "all" %}"/"{% else %}"/collection/all"{% endif %} class="catalog__back"></a>
+                <div class="catalog__title-wrapper">
+                    <div class="catalog__title">
+                        <h1>
+                            {%- if filter.title -%}
+                                {{ filter.title | editable }}
+                            {%- else -%}
+                                {{ collection.title | editable }}
+                            {%- endif -%}
+                        </h1>
+                        <span class="catalog__title-count">{{ paginate.items }}</span>
+                    </div>
+                </div>
+                <button type="button" class="catalog__filters-search header__icon_search" data-mob-popup-open="search"></button>
+                <button data-mob-popup-open="filters" type="button" class="catalog__filters-button">
+                    <span class="icon-counter" hidden>0</span>
+                </button>
+            </div>
+            <form action="/" id="catalog" method="get" hidden>
+                {% if order %}
+                    <input type="hidden" name="order" value="{{ order }}" />
+                {% endif %}
+                <input type="hidden" name="page_size" value="{{ page_size }}"/>
+                {% if language.not_default? %}
+                    <input type="hidden" name="lang" value="{{ language.locale }}"/>
+                {% endif %}
+                <input type="hidden" name="page_next" value="{{ paginate.next.url }}"/>
+                <input type="hidden" name="page_items" value="{{ paginate.items }}"/>
+                <input type="hidden" name="current_page" value="{{ paginate.current_page }}"/>
+            </form>
+
+            {% capture cache_key_nav %}{{upd_cache}}_nav_{{ widget_settings.updated_at }}_{{ language.locale }}_{{ collections.last_updated_at }}_{% endcapture %}
+            {% cache cache_key_nav %}
+            <div class="catalog__navigation" data-spollers data-js="catalog-navigation">
+                {% if collection.handle != "all" %}
+                    <div class="catalog__navigation-item">
+                        <a href="/collection/all" class="catalog__navigation-item-link">Все товары</a>
+                    </div>
+                {% endif %}
+                {% comment %} [NEW] Доп. фильтр {% endcomment %}
+                {% assign excludedMenuItems = '26768916,26785050'| split:"," %}
+                {% for link in linklists.catalog.links %}
+                    {% if excludedMenuItems contains link.id %}
+                        {% continue %}
+                    {% endif %}
+
+                    {% assign collHandle = link.url | replace: "/collection/", "" | default: "all" %}
+                    {% if link.url != "#women" and link.url contains "/collection/" and collections[collHandle].products_count > 0 %}
+                        <div class="catalog__navigation-item">
+                            <a href="{{ link.url }}" 
+                                class="catalog__navigation-item-link" 
+                                data-coll-permalink="{{ link.url }}"
+                            >
+                                {{ link.title }}
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {% for link in linklists.for-women.links %}
+                    {% assign collHandle = link.url | replace: "/collection/", "" | default: "all" %}
+                    {% if link.url contains "/collection/" and collections[collHandle].products_count > 0 %}
+                        <div class="catalog__navigation-item">
+                            <a href="{{ link.url }}"
+                                class="catalog__navigation-item-link"
+                                data-coll-permalink="{{ link.url }}"
+                            >
+                                {{ link.title }}
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endcache %}
+
+            {% capture ctl_body_time %}{{'now' | date: '%s.%L' }}{% endcapture %}
+            <div class="catalog__body">
+                {% if widget_settings.show_tags %}
+                    <div class="catalog__tag" data-js-slider="tag-slider-wrapper" hidden>
+                        <button type="button" class="tag-btn swiper-button-prev">
+                            <p>
+                                <svg width="13" height="11" viewBox="0 0 13 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.6757 5.33323C12.6731 5.15651 12.6005 4.98811 12.4738 4.86491C12.3471 4.74171 12.1766 4.67387 11.9999 4.67635H2.27592L5.80456 1.14771C5.86856 1.08627 5.91968 1.01267 5.95488 0.931233C5.99008 0.849873 6.00864 0.762193 6.00952 0.673553C6.0104 0.584833 5.9936 0.496833 5.96008 0.414753C5.92656 0.332593 5.87704 0.258033 5.81432 0.195313C5.7516 0.132593 5.67696 0.0829929 5.59488 0.0494729C5.51272 0.0159529 5.42472 -0.000847135 5.33608 3.28655e-05C5.24736 0.000912866 5.15976 0.0195528 5.07832 0.0547528C4.99688 0.0898728 4.92328 0.140993 4.86192 0.204993L0.1952 4.87163C0.07024 4.99667 0 5.16619 0 5.34299C0 5.51979 0.07024 5.68931 0.1952 5.81435L4.86192 10.481C4.92328 10.545 4.99688 10.5961 5.07832 10.6312C5.15976 10.6664 5.24736 10.6851 5.33608 10.686C5.42472 10.6868 5.51272 10.67 5.59488 10.6365C5.67696 10.603 5.7516 10.5534 5.81432 10.4907C5.87704 10.428 5.92656 10.3534 5.96008 10.2712C5.9936 10.1892 6.0104 10.1012 6.00952 10.0124C6.00864 9.92379 5.99008 9.83611 5.95488 9.75475C5.91968 9.67331 5.86856 9.59971 5.80456 9.53827L2.27592 6.00963H11.9999C12.0891 6.01091 12.1775 5.99419 12.2601 5.96067C12.3427 5.92707 12.4177 5.87731 12.4807 5.81419C12.5437 5.75115 12.5935 5.67611 12.6269 5.59347C12.6604 5.51083 12.677 5.42235 12.6757 5.33323Z" fill="#975730"/>
+                                </svg>
+                            </p>
+                        </button>
+                        <div class="catalog__tag-swiper swiper" hidden>
+                            <div class="catalog__tag-list swiper-wrapper">
+                                {% comment %} {% assign string = 'wooden, deepsnow, 1, 1, 2, 2, 2, 1' %}
+                                {% assign array = string | split: ', '%}
+                                {% for item in array %}
+                                    <a href="#" class="catalog__tag-item swiper-slide">
+                                        Чёрные женские платья
+                                    </a>
+                                {% endfor %} {% endcomment %}
+                                {% comment %} data-spoller data-spoller-fade data-spoller-close {% endcomment %}
+                            </div>
+                        </div>
+                        <button type="button" class="tag-btn swiper-button-next">
+                            <p>
+                                <svg width="13" height="11" viewBox="0 0 13 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.13418e-05 5.35276C0.00266334 5.52948 0.0752873 5.69787 0.202007 5.82107C0.328719 5.94427 0.499151 6.01211 0.675855 6.00963H10.3998L6.8712 9.53827C6.8072 9.59971 6.75608 9.67332 6.72088 9.75476C6.68568 9.83611 6.66712 9.92379 6.66624 10.0124C6.66536 10.1012 6.68216 10.1892 6.71568 10.2712C6.7492 10.3534 6.79872 10.428 6.86144 10.4907C6.92416 10.5534 6.9988 10.603 7.08088 10.6365C7.16304 10.67 7.25104 10.6868 7.33968 10.686C7.4284 10.6851 7.516 10.6664 7.59744 10.6312C7.67888 10.5961 7.75248 10.545 7.81384 10.481L12.4806 5.81435C12.6055 5.68931 12.6758 5.51979 12.6758 5.34299C12.6758 5.16621 12.6055 4.99667 12.4806 4.87164L7.81384 0.204971C7.75248 0.140987 7.67888 0.0899067 7.59744 0.0547147C7.516 0.0195307 7.4284 0.000938621 7.33968 3.4621e-05C7.25104 -0.000869379 7.16304 0.0159386 7.08088 0.0494586C6.9988 0.0829866 6.92416 0.132563 6.86144 0.195283C6.79872 0.258003 6.7492 0.332603 6.71568 0.414723C6.68216 0.496843 6.66536 0.584826 6.66624 0.673514C6.66712 0.76221 6.68568 0.849835 6.72088 0.931251C6.75608 1.01267 6.8072 1.08625 6.8712 1.14768L10.3998 4.67633H0.675847C0.586711 4.67511 0.498239 4.69178 0.415655 4.72535C0.333071 4.75891 0.258055 4.80871 0.195055 4.87177C0.132047 4.93484 0.0823274 5.0099 0.0488394 5.09251C0.0153514 5.17513 -0.00123266 5.26363 7.13418e-05 5.35276Z" fill="#975730"/>
+                                </svg>
+                            </p>
+                        </button>
+                        <div class="tag__spoller" data-spollers data-one-spoller>
+                            <button type="button" data-popup="#popup-tags"></button>
+                            <button type="button" data-spoller data-spoller-fade data-spoller-close></button>
+                            <div class="filters__body" hidden>
+                                <div class="tag__spoller-label">Все подброки</div>
+                                <div class="filters__list"> </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% capture catalog_panel_time %}{{'now' | date: '%s.%L' }}{% endcapture %}
+                <div id="filters" class="catalog__top-panel">
+                    <form action="/" method="get" class="catalog__filters-wrapper">
+                        <div class="catalog__filters-switcher switcher" hidden>
+                            <button type="button" class="switcher__button" data-js="catalog-button"></button>
+                            <span class="switcher__label">Каталог</span>
+                        </div>
+                        <select name="form[]" data-show-selected data-fade-select data-class-modif="catalog-sort" class="catalog__sort">
+                            <option data-class="_active" value="1" selected>По популярности</option>
+                            <option value="2">Сначала новинки</option>
+                            <option value="3">Сначала дешевле</option>
+                            <option value="4">Сначала дороже</option>
+                        </select>
+                        <div data-spollers data-one-spoller class="catalog__filters filters">
+                            <div class="filters__wrapper">
+                                <div class="filters__head">
+                                    <div class="filters__capture">фильтры <span>(3)</span></div>
+                                    <button type="button" class="filters__close filters-icon">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2.75 2.04297L2.04297 2.75L2.39844 3.10156L7.29297 8L2.04297 13.25L2.75 13.957L8 8.70703L12.8945 13.6055L13.25 13.957L13.957 13.25L13.6055 12.8945L8.70703 8L13.957 2.75L13.25 2.04297L8 7.29297L3.10156 2.39844L2.75 2.04297Z" fill="#111111"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="filters__main-wrapper">
+                                    <div class="filters__main">
+                                        {% for option in collection.options %}
+                                            {% if option.id != 1607434 and option.id != 1607435 %}
+                                                {% continue %}
+                                            {% endif %}
+                                            <div class="filters__group" data-filter-id="{{ option.id }}">
+                                                <button type="button" data-spoller data-spoller-fade data-spoller-close class="filters__title-wrapper">
+                                                    <span class="filters__title">{{ option.title }} <span class="filters__title-count"></span></span></button>
+                                                <div class="filters__body">
+                                                    <div class="filters__label">{{ option.title }}</div>
+                                                    <div class="filters__list">
+                                                        {% if option.values.size > 0 %}
+                                                            {% for option_value in option.values %}
+                                                                <div class="filters__list-item checkbox">
+                                                                    <label class="checkbox__label checkbox__label_filter">
+                                                                        <input data-error="" class="checkbox__input" type="checkbox" value="{{ option_value.id }}" data-property-id="{{ option.id }}">
+                                                                        <span class="checkbox__text-wrapper">
+                                                                            <span class="checkbox__point"></span>
+                                                                            {% if option.id == 1607435 and option_value.image_url %}
+                                                                                <span class="checkbox__text checkbox__text_color">
+                                                                                    <img class="checkbox__text-icon" data-src="{{ option_value.image_url | image_url: 32 }}" >
+                                                                                    {{ option_value.title }}
+                                                                                </span>
+                                                                            {% else %}
+                                                                                <span class="checkbox__text">{{ option_value.title }}</span>
+                                                                            {% endif %}
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                        {% comment %} Скрыл, т.к. это лишнее                             
+                                        {% for property in collection.properties %}
+                                            <div class="filters__group" data-filter-id="{{ property.id }}">
+                                                <button type="button" data-spoller data-spoller-fade data-spoller-close class="filters__title-wrapper">
+                                                    <span class="filters__title">{{ property.name }} <span class="filters__title-count"></span></span></button>
+                                                <div class="filters__body">
+                                                    <div class="filters__label">{{ property.name }}</div>
+                                                    <div class="filters__list">
+                                                        {% for characteristic in property.characteristics %}
+                                                            <div class="filters__list-item checkbox">
+                                                                <label class="checkbox__label checkbox__label_filter">
+                                                                    <input data-error="" class="checkbox__input" type="checkbox" value="{{ characteristic.id }}" name="characteristic">
+                                                                    <span class="checkbox__text-wrapper">
+                                                                        <span class="checkbox__point"></span>
+                                                                        <span class="checkbox__text">
+                                                                            {{ characteristic.name }}
+                                                                        </span>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        {% endfor %}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %} {% endcomment %}
+
+                                        <div class="filters__group" data-filter-id="price">
+                                            <button type="button" data-spoller data-spoller-fade data-spoller-close class="filters__title-wrapper">
+                                                <span class="filters__title">Цена <span class="filters__title-count"></span></span></button>
+                                            <div class="filters__body">
+                                                <div class="filters__label">Цена</div>
+                                                <div data-range class="filters__price price-filter">
+                                                    <div class="price-filter__inputs">
+                                                        <div class="price-filter__input-wrap">
+                                                            <input data-range-from="{{ price_min }}" autocomplete="off" type="text" value="{{ price_min }}" name="price_min" class="price-filter__input">
+                                                            <span>от</span>
+                                                        </div>
+                                                        <div class="price-filter__input-wrap">
+                                                            <input data-range-to="{{ price_max }}" autocomplete="off" type="text" value="{{ price_max }}" name="price_max" class="price-filter__input">
+                                                            <span>от</span>
+                                                        </div>
+                                                    </div>
+                                                    <div data-range-item class="price-filter__range"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="catalog__selected-filters selected-filters" hidden>
+                        <div class="selected-filters__list"></div>
+                        <button type="button" class="selected-filters__clear" data-clear-filtres>Очистить всё</button>
+                    </div>
+                </div>
+                <script>console.log("render catalog filters: {{ 'now' | date: '%s.%L' | minus: catalog_panel_time }}");</script>
+
+                <div class="catalog__error" hidden>Товары не найдены</div>
+                <div class="catalog__list catalog__list_default" data-js="catalog-list" data-ajax-products="{{ products.size }}" data-no-image="{{ 'no_image.svg' | asset_url }}"></div>
+
+                {% comment %} <div class="catalog__btn">
+                    <button type="button" class="basket__empty-btn btn btn_primary btn_medium" data-load-more style="margin-top: 40px;"
+                        {% if products.size <= page_size and collection.products_count <= page_size %} hidden{% endif %}
+                    >Загрузить еще</button>
+                </div> {% endcomment %}
+                {%- if paginate.pages > 1 -%}
+                    <div class="catalog__loader" hidden>
+                        <div class="catalog__loader-body">
+                            <div class="catalog__loader-anim">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="34" viewBox="0 0 24 24"><circle class="spinner_b2T7" cx="4" cy="12" r="3"></circle><circle class="spinner_b2T7 spinner_YRVV" cx="12" cy="12" r="3"></circle><circle class="spinner_b2T7 spinner_c9oY" cx="20" cy="12" r="3"></circle></svg>
+                            </div>
+                            <span>Загружаем ещё</span>
+                        </div>
+                    </div>
+                    <div class="pagin__body" data-em-pagin="{{ paginate.pages }}">
+                        <input type="text" name="em-pagin" value="{{ paginate.current_page }}" hidden/>
+                        <div class="pagin__btn" data-pagin-left></div>
+                        <div class="pagin__wrapper">
+                            <div class="pagin__slider"></div>
+                        </div>
+                        <div class="pagin__btn" data-pagin-right></div>
+                    </div>
+                {%- endif -%}
+                {% comment %} {%- if paginate.pages > 1 -%}
+                    <div class="catalog__loader">
+                        <div class="catalog__loader-body">
+                            <div class="catalog__loader-anim">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="34" viewBox="0 0 24 24"><style>.spinner_b2T7{animation:spinner_xe7Q .8s linear infinite}.spinner_YRVV{animation-delay:-.65s}.spinner_c9oY{animation-delay:-.5s}@keyframes spinner_xe7Q{93.75%,100%{r:3px}46.875%{r:.2px}}</style><circle class="spinner_b2T7" cx="4" cy="12" r="3"></circle><circle class="spinner_b2T7 spinner_YRVV" cx="12" cy="12" r="3"></circle><circle class="spinner_b2T7 spinner_c9oY" cx="20" cy="12" r="3"></circle></svg>
+                            </div>
+                            <span>Загружаем ещё</span>
+                        </div>
+                    </div>
+                    <div class="pagin__body" data-em-pagin="{{ paginate.pages }}">
+                        <input type="text" name="em-pagin" value="{{ paginate.current_page }}" hidden/>
+                        {% if paginate.current_page > 1 %}
+                            <a href="{{ paginate.previous.url }}" class="pagin__btn" data-pagin-left></a>
+                        {% endif %}
+                        <div class="pagin__wrapper">
+                            <div class="pagin__slider">
+                                {% for part in paginate.parts %}
+                                    {% if part.is_link %}
+                                        <a href="{{ part.url }}" 
+                                            class="pagin__number" 
+                                            data-pagin-index="{{ part.title }}"
+                                        >
+                                            {{ part.title }}
+                                        </a>
+                                    {% else %}
+                                        <div class="pagin__number {% if part.title == paginate['current_page'] %}pagin__action{% endif %}" 
+                                            data-pagin-index="{{ part.title }}"
+                                        >
+                                            {{ part.title }}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% if paginate.current_page < paginate.pages %}
+                            <a href="{{ paginate.next.url }}" class="pagin__btn" data-pagin-right></a>
+                        {% endif %}
+                    </div>
+                {%- endif -%} {% endcomment %}
+            </div>
+
+            <script>console.log("render catalog body: {{ 'now' | date: '%s.%L' | minus: ctl_body_time }}");</script>
+        </div>
+        {% if collection.description and collection.seo_description %}
+            <div class="catalog__seo">
+                <h2 class="catalog__seo-title">{{ collection.description }}</h2>
+                <div class="catalog__seo-desc">{{ collection.seo_description }}</div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<div data-mob-popup="filters" class="mob-popup mob-popup_filters" style="transform:translateX(-100%);">
+    <div class="mob-popup__top">
+        <button data-mob-popup-close type="button" class="mob-popup__back"></button>
+        <div class="mob-popup__title">Фильтры</div>
+        <div class="mob-popup__actions">
+            {% comment %} <button data-mob-popup-close type="button" class="mob-popup__actions-item mob-popup__actions-item_close-disabled"></button> {% endcomment %}
+            <button data-mob-btn-clear="filters" type="button" class="mob-popup__actions-item-clear" hidden>Сбросить</button>
+        </div>
+    </div>
+    <div class="mob-popup__body">
+        <div class="mob-popup__group" data-filter-id="sort">
+            <div class="mob-popup__group-title-wrapper">
+                <div class="mob-popup__group-title">Сортировка</div>
+            </div>
+            <div class="mob-popup__options options-sort">
+                <div class="options-sort__item">
+                    <label class="options-sort__label">
+                        <input hidden class="options-sort__input" checked type="radio" value="1" name="filters-sort">
+                        <span class="options-sort__text">По актуальности</span>
+                    </label>
+                </div>
+                <div class="options-sort__item">
+                    <label class="options-sort__label">
+                        <input hidden class="options-sort__input" type="radio" value="2" name="filters-sort">
+                        <span class="options-sort__text">Сначала новинки</span>
+                    </label>
+                </div>
+                <div class="options-sort__item">
+                    <label class="options-sort__label">
+                        <input hidden class="options-sort__input" type="radio" value="3" name="filters-sort">
+                        <span class="options-sort__text">Сначала дешевле</span>
+                    </label>
+                </div>
+                <div class="options-sort__item">
+                    <label class="options-sort__label">
+                        <input hidden class="options-sort__input" type="radio" value="4" name="filters-sort">
+                        <span class="options-sort__text">Сначала дороже</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        {% for option in collection.options %}
+            {% if option.id != 1607434 and option.id != 1607435 %}
+                {% continue %}
+            {% endif %}
+            {% if option.id == 1607435 %}
+                {% assign optionColor = option %}
+                {% continue %}
+            {% endif %}
+            <div class="mob-popup__group" data-filter-id="{{ option.id }}">
+                <div class="mob-popup__group-title-wrapper">
+                    <div class="mob-popup__group-title">{{ option.title }}</div>
+                </div>
+                <div class="mob-popup__checkbox-list checkbox-list">
+                    {% if option.values.size > 0 %}
+                        {% for option_value in option.values %}
+                            <div class="checkbox-list__item checkbox-btn">
+                                <label class="checkbox-btn__label">
+                                    <input data-error="Ошибка" class="checkbox-btn__input" type="checkbox" value="{{ option_value.id }}" data-property-id="{{ option.id }}">
+                                    <div class="checkbox-btn__text-wrapper">
+                                        <span class="checkbox-btn__text">{{ option_value.title }}</span>
+                                    </div>
+                                </label>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+
+        {% comment %} Скрыл, т.к. это лишнее
+        {% for property in collection.properties %}
+            <div class="mob-popup__group" data-filter-id="{{ property.id }}">
+                <div class="mob-popup__group-title-wrapper">
+                    <div class="mob-popup__group-title">{{ property.name }}</div>
+                </div>
+                <div class="mob-popup__checkbox-list checkbox-list">
+                    {% for characteristic in property.characteristics %}
+                        <div class="checkbox-list__item checkbox-btn">
+                            <label class="checkbox-btn__label">
+                                <input data-error="Ошибка" class="checkbox-btn__input" type="checkbox" value="{{ characteristic.id }}" name="characteristic">
+                                <div class="checkbox-btn__text-wrapper">
+                                    <span class="checkbox-btn__text">{{ characteristic.name }}</span>
+                                </div>
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %} {% endcomment %}
+
+        <div class="mob-popup__group" data-filter-id="price">
+            <div class="mob-popup__group-title-wrapper">
+                <div class="mob-popup__group-title">Цена</div>
+            </div>
+            <div data-range class="mob-popup__price-filter price-filter">
+                <div class="price-filter__inputs">
+                    <div class="price-filter__input-wrap">
+                        <input data-range-from="{{ price_min }}" autocomplete="off" type="text" value="{{ price_min }}" name="price_min" class="price-filter__input">
+                        <span>от</span>
+                    </div>
+                    <div class="price-filter__input-wrap">
+                        <input data-range-to="{{ price_max }}" autocomplete="off" type="text" value="{{ price_max }}" name="price_max" class="price-filter__input">
+                        <span>от</span>
+                    </div>
+                </div>
+                <div data-range-item class="price-filter__range"></div>
+            </div>
+        </div>
+
+        {% if optionColor %}
+            <div class="mob-popup__group" data-filter-id="{{ optionColor.id }}">
+                <div class="mob-popup__group-title-wrapper">
+                    <div class="mob-popup__group-title">{{ optionColor.title }}</div>
+                    <button data-mob-popup-open="filter-colors" type="button" class="mob-popup__group-more">Все</button>
+                </div>
+                <div class="mob-popup__checkbox-list checkbox-list" >
+                    {% if optionColor.values.size > 0 %}
+                        {% for option_value in optionColor.values limit: 8 %}
+                            <div class="checkbox-list__item checkbox-btn checkbox-btn_color">
+                                <label class="checkbox-btn__label">
+                                    <input data-error="" class="checkbox-btn__input" type="checkbox" value="{{ option_value.id }}" data-property-id="{{ optionColor.id }}">
+                                    <div class="checkbox-btn__text-wrapper">
+                                        <span class="checkbox-btn__text checkbox-btn__text_color">
+                                            {% if option_value.image_url %}
+                                                <img class="checkbox__text-icon" data-src="{{ option_value.image_url | image_url: 32 }}">
+                                            {% endif %}
+                                            {{ option_value.title }}
+                                        </span>
+                                    </div>
+                                </label>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="mob-popup__bottom">
+        <button type="button" class="mob-popup__button btn btn_medium btn_primary" data-mob-apply>
+            <span>Показать все товары</span>
+        </button>
+    </div>
+</div>
+
+<div data-mob-popup="filter-colors" class="mob-popup mob-popup_filters" style="transform:translateX(-100%);">
+    <div class="mob-popup__top">
+        <button data-mob-popup-back type="button" class="mob-popup__back"></button>
+        <div class="mob-popup__title">Цвет</div>
+        <div class="mob-popup__actions">
+            {% comment %} <button data-mob-popup-close type="button" class="mob-popup__actions-item mob-popup__actions-item_close-disabled"></button> {% endcomment %}
+            <button data-mob-btn-clear="filter-colors" type="button" class="mob-popup__actions-item-clear" hidden>Сбросить</button>
+        </div>
+    </div>
+    <div class="mob-popup__body">
+        <div class="mob-popup__row">
+            <div class="mob-popup__filter-list">
+                {% if optionColor and optionColor.values.size > 0 %}
+                    {% assign index = 1 %}
+                    {% for option_value in optionColor.values %}
+                        <div class="mob-popup__filter-list-item checkbox">
+                            <label class="checkbox__label checkbox__label_filter">
+                                <input data-index="{{ index }}" class="checkbox__input" type="checkbox" value="{{ option_value.id }}" data-property-id="{{ optionColor.id }}">
+                                <span class="checkbox__text-wrapper">
+                                    <span class="checkbox__point"></span>
+                                    <span class="checkbox__text checkbox__text_colorr">
+                                        {% if option_value.image_url %}
+                                            <img class="checkbox__text-icon" data-src="{{ option_value.image_url | image_url: 32 }}" >
+                                        {% endif %}
+                                        <span class="checkbox-btn__text">{{ option_value.title }}</span>
+                                    </span>
+                                </span>
+                            </label>
+                        </div>
+                        {% assign index = index | plus: 1 %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="mob-popup__bottom">
+        <button type="button" class="mob-popup__button btn btn_medium btn_primary" data-mob-popup-back>
+            <span>Готово</span>
+        </button>
+    </div>
+</div>
+
+<div id="popup-tags" aria-hidden="false" class="popup popup_replace">
+    <div class="popup__wrapper">
+        <div class="popup__content popup__account _anim-stretch">
+            <button data-close type="button" class="popup__close"></button>
+            <div class="popup__body">
+                <div class="popup__tags-nav">
+                    <div class="popup__tags-title">Все подброки</div>
+                    <div class="popup__tags-wrapper">
+                        <div class="popup__tags-list">Упс, ничего не найдено</div>
+                    </div>
+                    <button type="button" class="btn btn_medium btn_popup-tag" data-close>Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %} Шаблон блока товара {% endcomment %}
+<script type="text/template" data-template-id="catalog-item">
+    <% var firstVariant = null; %>
+
+    <div class="catalog__list-item products-item" <% if (product.available){ %>data-js="product-item"<% } %> data-cust-product-id="<%= product.id %>">
+        <div class="products-item__img-wrapper">
+            <a href="<%= product.url %>" class="products-item__img" target="_blank">
+                <div class="products-item__img-list">
+                    <% if (images && images.length) { %>
+                        <% for (const image of images) { %>
+                            <div>
+                                <picture>
+                                    <source srcset="<%= image.x1 %> 1x, <%= image.x2 %> 2x" type="image/webp">
+                                    <img src="<%= image.x2 %>" alt="<%= product.title %>" class="entered" loading="lazy">
+                                </picture>
+                            </div>
+                        <% } %>
+                    <% } else { %>
+                        <div>
+                            <img src="{{ 'no_image.svg' | asset_url }}" alt="<%= product.title %>" class="image-none entered loading" loading="lazy">
+                        </div>
+                    <% } %>
+                </div>
+                <div class="products-item__sections"></div>
+            </a>
+            <div class="products-item__actions">
+                <button type="button" class="products-item__action products-item__action-whishlist" data-em-favorites-trigger="<%= product.id %>"></button>
+                <% if (product.available) { %>
+                    <button type="button" 
+                    class="products-item__action products-item__action-addcart<% if (product.variants.length == 1 && Cart.order.getItemByID(product.variants[0]?.id) !== undefined) { %> _active<% } %>" 
+                        <% if (product.variants.length > 1) { %>
+                            data-js="product-item-addcard"
+                            data-add-cart="<%= product.id %>"
+                        <% } else { %>
+                            data-btn-cart-add="<%= product.variants[0]?.id %>"
+                        <% } %>
+                    ></button>
+                <% } %>
+            </div>
+            <% if (product.available || isPreorder && !isSoon) { %>
+                <!--noindex-->
+                <div class="products-item__sizes-wrapper" data-js="product-sizes-wrapper">
+                    <button type="button" class="products-item__sizes-close" data-js="product-sizes-close"></button>
+                    <div class="products-item__sizes-content">
+                        <div class="products-item__sizes-title">Выберите размер</div>
+                        <div class="products-item__sizes-list checkbox-list">
+                            <% 
+                            var note = "", count = 0;
+                            product.variants.forEach(function (value) {
+                                if ((!value.available || value.quantity == 0) && (!isPreorder || isSoon != false)) return;
+                                if (!firstVariant) {
+                                    firstVariant = value;
+                                }
+                                if (value.quantity == 1) {
+                                    note = [note, value.title].join(', ').trim();
+                                    count++;
+                                } %>
+                                <div class="checkbox-list__item checkbox-btn">
+                                    <label class="checkbox-btn__label">
+                                        <input class="checkbox-btn__input" type="radio" value="<%= value.id %>" data-size-select name="<%= product.id %>">
+                                        <div class="checkbox-btn__text-wrapper">
+                                            <span class="checkbox-btn__text"><%= value.option_values[0]?.title ?? value.title %></span>
+                                        </div>
+                                    </label>
+                                </div>
+                            <% }); %>
+                        </div>
+                        <% if (count == 1) { %>
+                            <div class="products-item__sizes-text"><%= note.substr(2) %> — последний размер</div>
+                        <% } else if (count > 1) { %>
+                            <div class="products-item__sizes-text"><%= note.substr(2) %> — последние размеры</div>
+                        <% } %>
+                        {% comment %}
+                        <div class="products-item__sizes-bottom sizes__bottom-mob" hidden>
+                            <button data-popup="#" type="button" class="products-item__sizes-table">
+                                <span>Таблица размеров</span>
+                            </button>
+                        </div>
+                        {% endcomment %}
+                        <div class="product-item__sizes__buttons">
+                            <button type="button" class="btn-icon btn-icon_medium btn-icon_secondary btn-icon_remove" data-size-remove hidden></button>
+                            <button type="button" class="btn btn_medium btn_primary btn-item_added" data-size-cart-add disabled>
+                                <span>Размер не выбран</span>
+                            </button>
+                        </div>
+                    </div>
+                    <% if (false) { %>
+                        <div class="products-item__sizes-bottom sizes__bottom-pc" hidden>
+                            <button data-popup="#" type="button" class="products-item__sizes-table">
+                                <span>Таблица размеров</span>
+                            </button>
+                        </div>
+                    <% } %>
+                </div>
+                <!--/noindex-->
+            <% } %>
+            <div class="products-item__sizes-filling" data-js="product-sizes-close"></div>
+            <ul class="catalog__dots"></ul>
+        </div>
+        <div class="products-item__info">
+            <a href="<%= product.url %>" class="products-item__title" target="_blank"><%= product.title %></a>
+            <div class="products-item__properties">
+                <div class="products-item__prices">
+                    <% if (!product.available && isSoon) { %>
+                        <div class="products-item__button btn btn_outline btn_small">
+                            Скоро в продаже
+                        </div>
+                    <% } else {
+                        const oldPrice = Number(firstVariant?.old_price);
+                        const currentPrice = Number(firstVariant.price);
+                        
+                        if (!isNaN(oldPrice) && currentPrice < oldPrice) { %>
+                            <span class="products-item__price products-item__price_new"><%= Shop.money.format(currentPrice) %></span>
+                            <span class="products-item__price products-item__price_old"><%= Shop.money.format(oldPrice) %></span>
+                        <% } else { %>
+                            <span class="products-item__price"><%= Shop.money.format(currentPrice ?? product.price_min) %></span>
+                        <% }
+                    } %>
+                </div>
+                <div class="products-item__colors colors-list"
+                    <% if (firstVariant && firstVariant?.id !== undefined) { %>
+                        data-first-variant="<%= firstVariant.id %>" 
+                        data-variant-sku="<%= article ?? '' %>"
+                    <% } else if (article) { %>
+                        data-first-variant="<%= product.variants[0].id %>" 
+                        data-variant-sku="<%= article %>"
+                    <% } %>
+                ></div>
+            </div>
+            <% if (product.available) { %>
+                <!--noindex-->
+                <div class="products-item__badges">
+                    <% if (product.url.includes("/sale") && firstVariant && firstVariant.old_price) {
+                        if (!isNaN(oldPrice) && price < oldPrice) { %>
+                            <span class="badge-sale">
+                                <span>SUPER SALE</span>
+                                <span><%= Math.floor( (oldPrice - price) / oldPrice * 100 ) %>%</span>
+                            </span>
+                        <% }
+                    }
+                    if (product.url.includes("/novinki")) { %>
+                        <span class="products-item__badge">Новинка</span>
+                    <% } %>
+                    <%= badgesHTML %>
+                </div>
+                <!--/noindex-->
+            <% } else if (isPreorder && !isSoon) { %>
+                <!--noindex-->
+                <div class="products-item__badges">
+                    <span class="products-item__badge">Предзаказ</span>
+                </div>
+                <!--/noindex-->
+            <% } else if (!isSoon) { %>
+                <!--noindex-->
+                <div class="products-item__product-ended">Товар закончился</div>
+                <a href="<%= urlNotAvailable ?? '/collection/all' %>" class="products-item__button btn btn_outline btn_small">
+                    <span>Смотреть похожие</span>
+                    <span>Похожие</span>
+                </a>
+                <!--/noindex-->
+            <% } %>
+        </div>
+    </div>
+</script>
+
+{% comment %} Шаблон выбранного фильтра {% endcomment %}
+<script type="text/template" data-template-id="filter-selected">
+    <div class="selected-filters__item" 
+        data-selected-filter-id="<%= itemID %>" 
+        data-filter-id="<%= id %>"
+    >
+        <% if (img) { %>
+            <img class="selected-filters__item-color color" src="<%= img %>">
+        <% } %>
+        <div class="selected-filters__item-title"><%= title %></div>
+        <button type="button" class="selected-filters__delete" data-remove-filter></button>
+    </div> 
+</script>
+
+{% comment %} Шаблон выбранного фильтра цены {% endcomment %}
+<script type="text/template" data-template-id="filter-selected-price">
+    <div class="selected-filters__item" data-filter-id="<%= id %>">
+        <div class="selected-filters__item-title">
+            <span><%= Shop.money.format(priceMin) %></span> - <span><%= Shop.money.format(priceMax) %></span>
+        </div>
+        <button type="button" class="selected-filters__delete" data-remove-filter="price"></button>
+    </div>
+</script>
+
+<script>
+    console.log("render catalog: {{ 'now' | date: '%s.%L' | minus: catalog_time }}");
+    console.log("[Log] collection id:", "{{ collection.id }}");
+</script>

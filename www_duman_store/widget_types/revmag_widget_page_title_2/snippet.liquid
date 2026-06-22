@@ -1,0 +1,222 @@
+{% if widget_settings.if-page-title %}
+  {% capture page_title %}
+    <h1 class="title">
+      {% if template contains 'cart' %}
+        {{ messages.cart_title }}
+      {% elsif template contains 'search' %}
+        {{ messages.search_title }}
+      {% elsif template contains 'compare' %}
+        {{ messages.comparison_title }}
+      {% elsif template contains 'index' %}
+        {{ page.title | editable }}
+      {% elsif template contains 'collection' %}
+      {% if filter.title %}
+        {{ filter.title | editable }}
+      {% else %}
+        {{ collection.title | editable }}
+      {% endif %}
+      {% elsif template contains 'product' %}
+        {{ product.title | editable }}
+      {% elsif template contains 'blog' %}
+        {{ blog.title | editable }}
+      {% elsif template contains 'article' %}
+        {{ article.title | editable }}
+      {% elsif template contains 'page' %}
+        {{ page.title | editable }}
+      {% endif %}
+      {% if checkout_page %}
+        Оформление заказа
+      {% endif %}
+    </h1>
+  {% endcapture %}
+{% else %}
+  {% capture page_title %}
+    <div class="title">{{ widget_settings.title | editable }}</div>
+  {% endcapture %}
+{% endif %}
+
+{% if widget_settings.if-breadcrumbs %}
+  {% capture page_subtitle %}
+    <div class="subtitle">
+      {% assign with_tag = blog.tags.first.current? %}
+      {% assign show_last = show_last | default: true %}
+
+      <ul class="breadcrumbs">
+        <li>
+          <a title="{{ widget_messages.breadcrumb_home }}" href="/">{{ widget_messages.breadcrumb_home }}</a>
+        </li>
+        {% if template contains 'page' and show_last %}
+        <li>
+          <span>{{ page.title }}</span>
+        </li>
+        {% elsif template contains "search" and show_last %}
+        <li>
+          <span>{{ messages.search_title }}</span>
+        </li>
+        {% elsif template contains "blog" %}
+        {% if with_tag %}
+        <li>
+          <a href="{{ blog.url }}">{{ blog.title }}</a>
+        </li>
+        <li>
+          <span>{{ blog.tags.first.title }}</span>
+        </li>
+        {% elsif show_last %}
+        <li>
+          <span>{{ blog.title }}</span>
+        </li>
+        {% endif %}
+        {% elsif template contains 'article' %}
+        <li>
+          <a title="{{ blog.title }}" href="{{ blog.url }}">{{ blog.title }}</a>
+        </li>
+        {% if show_last %}
+        <li>
+          <span>{{ article.title }}</span>
+        </li>
+        {% endif %}
+        {% elsif template contains 'cart' and show_last %}
+        <li>
+          <span>
+          {{ messages.cart_title }}
+          </span>
+        </li>
+        {% elsif template contains 'compare' and show_last %}
+        <li>
+          <span>
+            {{ messages.comparison_title }}
+          </span>
+        </li>
+        {% elsif template contains 'collection' %}
+        {% if collection.url != collections[0].parent.url %}
+          <li>
+          <a title="{{ collections[0].parent.title }}" href="{{ collections[0].parent.url }}">{{ collections[0].parent.title }}</a>
+        </li>
+        {% endif %}
+
+        {% if current_collections.size == 1 and show_last %}
+        {% if filter %}
+        <li>
+          <a title="{{ collection.title }}" href="{{ collection.url }}">{{ collection.title }}</a>
+        </li>
+        <li>
+          <span>{{ filter.title }}</span>
+        </li>
+        {% else %}
+        <li>
+          <span>{{ collection.title }}</span>
+        </li>
+        {% endif %}
+        {% elsif current_collections.size > 0 %}
+        {% for collection in current_collections %}
+        {% if collection.level > 0 %}
+        {% unless forloop.last %}
+        <li data-breadcrumbs="{{ forloop.index }}">
+          <a title="{{ collection.title }}" href="{{ collection.url }}">{{ collection.title }}</a>
+        </li>
+        {% elsif show_last %}
+        {% if filter %}
+        <li>
+          <a title="{{ collection.title }}" href="{{ collection.url }}">{{ collection.title }}</a>
+        </li>
+        <li>
+          <span>{{ filter.title }}</span>
+        </li>
+        {% else %}
+        <li>
+          <span>{{ collection.title }}</span>
+        </li>
+        {% endif %}
+        {% endunless %}
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% elsif template contains 'product' %}
+        {% if current_collections.size == 1 %}
+        {% assign path = current_collections %}
+        {% assign ignor_root = false %}
+        {% elsif current_collections.size > 1 %}
+        {% assign path = current_collections %}
+        {% assign ignor_root = true %}
+        {% else %}
+        {% assign root = product.collections | sort: 'level' %}
+        {% assign path = root.last.current_collections %}
+        {% assign ignor_root = true %}
+        {% endif %}
+        {% assign show_link = true %}
+        {% for collection in path %}
+        {% if collection.level == 0 and ignor_root %}
+        {% assign show_link = false %}
+        {% endif %}
+        {% if show_link %}
+        <li data-breadcrumbs="{{ forloop.index }}">
+          <a title="{{ collection.title }}" href="{{ collection.url }}">{{ collection.title }}</a>
+        </li>
+        {% endif %}
+        {% assign show_link = true %}
+        {% endfor %}
+        {% endif %}
+
+        {% if checkout_page %}
+          <li>
+            <span>{{ widget_messages.checkout_title }}</span>
+          </li>
+        {% endif %}
+      </ul>
+      {% assign show_link = null %}
+      {% assign path = null %}
+      {% assign with_tag = null %}
+    </div>
+  {% endcapture %}
+{% else %}
+  {% capture page_subtitle %}
+    <div class="subtitle">{{ widget_settings.subtitle | editable }}</div>
+  {% endcapture %}
+{% endif %}
+
+{% if widget_settings.if-image %}
+  {% if template contains 'collection' %}
+    {% unless collection.products[0].images[0].original_url contains '/images/no_image' %}
+      {% assign image_bg = collection.products[0].images[0] %}
+    {% else %}
+      {% assign image_bg = widget_settings.image-bg %}
+    {% endunless %}
+  {% elsif template contains 'product' %}
+    {% unless product.images[0].image.original_url contains '/images/no_image' %}
+      {% assign image_bg = product.images[0].image %}
+    {% else %}
+      {% assign image_bg = widget_settings.image-bg %}
+    {% endunless %}
+  {% elsif template contains 'blog' %}
+    {% unless blog.articles[0].image.original_url contains '/images/no_image' %}
+      {% assign image_bg = blog.articles[0].image %}
+    {% else %}
+      {% assign image_bg = widget_settings.image-bg %}
+    {% endunless %}
+  {% elsif template contains 'article' %}
+    {% unless article.image.original_url contains '/images/no_image' %}
+      {% assign image_bg = article.image %}
+    {% else %}
+      {% assign image_bg = widget_settings.image-bg %}
+    {% endunless %}
+  {% endif %}
+{% else %}
+  {% assign image_bg = widget_settings.image-bg %}
+{% endif %}
+
+<div class="title-container">
+  <div class="image-container">
+    {% if image_bg != blank %}
+      <picture>
+        <source data-srcset="{{ image_bg | image_url: 1500, format: 'webp', resizing_type: 'fit_width' }}" type="image/webp" class="lazyload">
+        <img data-src="{{ image_bg | image_url: 1500, resizing_type: 'fit_width' }}" class="lazyload">
+      </picture>
+    {% endif %}
+  </div>
+  <div class="rev-title">
+    <div class="text-container">
+      {{ page_title }}
+      {{ page_subtitle }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "[ihaveit] Карусель с товарами к статье"
+  },
+  "handle": "revmag_widget_products_article",
+  "description": {
+    "ru": "Карусель с товарами к статье с большим количество настроек."
+  },
+  "page_kinds": [
+    "article"
+  ],
+  "widget_list_kinds": [
+    "before_content",
+    "content",
+    "after_content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "product-homepage",
+  "libraries": [
+    "commonjs_v2",
+    "jquery",
+    "my-layout",
+    "vanilla-lazyload"
+  ]
+}

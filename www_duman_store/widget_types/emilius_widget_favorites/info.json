@@ -1,0 +1,16 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "[emilius] Вишлист"
+  },
+  "handle": "emilius_widget_favorites",
+  "page_kinds": [
+    "favorite"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "favorites",
+  "libraries": []
+}

@@ -1,0 +1,46 @@
+.block__faq-title {
+    margin-bottom: 1.25rem;
+    display: block;
+    font-weight: 500;
+    font-size: 1.75rem;
+    line-height: 100%;
+    color: #251e19;
+}
+
+.block__faq-item:not(:last-child) {
+    margin-bottom: 0.75rem;
+}
+
+.block__faq-item__title {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: left;
+    color: #251e19;
+
+    font-size: 1.25rem;
+    line-height: 120%;
+}
+
+.block__faq-item__title._spoller-active .product-card-descr__title-icon::before {
+    -webkit-transform: rotate(0);
+    -ms-transform: rotate(0);
+    transform: rotate(0);
+}
+
+.block__faq-item__body {
+    padding: 0.75rem 0 0.5rem 2rem;
+    font-size: 1rem;
+    color: #514B47;
+    line-height: 120%;
+}
+
+@media screen and (max-width: 63.9988em) {
+    .faq__container {
+        padding: 0 0.75rem;
+    }
+}

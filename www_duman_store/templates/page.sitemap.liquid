@@ -1,0 +1,110 @@
+<style>
+    .sublist {
+        display: none;
+    }
+
+    .toggle-arrow {
+        cursor: pointer;
+        margin-right: 6px;
+        font-size: 12px;
+        user-select: none;
+    }
+
+    .expanded>.toggle-arrow {
+        transform: rotate(90deg);
+    }
+</style>
+<section class="info">
+    <div class="info__container info__container_alt">
+        <div class="info__body">
+            <h1 class="info__title">{{ page.title }}</h1>
+            <ul class="sitemap">
+                <li style="margin-bottom:5px;"><a href="/">Главная</a></li>
+                <li style="margin-bottom:5px;"><a href="/collection/all">Каталог</a></li>
+
+                {% for collection in collections %}
+                    {% unless collection.handle == 'all' %}
+                        <li class="has-sublist" style="margin-left:10px;margin-bottom:5px;">
+                            {% if collection.products.size > 0 %}
+                                <span class="toggle-arrow">▶</span>
+                            {% endif %}
+                            <a href="{{ collection.url }}">{{ collection.title }}</a>
+
+                            {% if collection.products.size > 0 %}
+                                <ul class="sublist" style="margin-top:5px;">
+                                    {% for product in collection.products %}
+                                    <li style="margin-left:50px;margin-bottom:5px;">
+                                        <a href="{{ product.url }}">{{ product.title }}</a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+
+                        </li>
+                    {% endunless %}
+                {% endfor %}
+
+                <li class="has-sublist" style="margin-bottom:5px;">
+                    <span class="toggle-arrow">▶</span>
+                    Блоги
+                    <ul class="sublist" id="all-blogs-list" style="margin-bottom:5px;margin-top:5px;"></ul>
+                </li>
+
+                <li class="has-sublist" style="margin-bottom:5px;">
+                    <span class="toggle-arrow">▶</span>
+                    <a href="/pages">Страницы</a>
+                    <ul class="sublist" style="margin-bottom:5px;">
+                        <li style="margin-left:50px;margin-bottom:5px;margin-top:5px;">О нас</li>
+                        <li style="margin-left:100px;margin-bottom:5px;"><a href="https://www.duman.store/page/contacts">Контакты</a></li>
+                        <li style="margin-left:100px;margin-bottom:5px;"><a href="https://www.duman.store/page/magaziny">Магазины DUMAN</a></li>
+                        <li style="margin-left:50px;margin-bottom:5px;">покупателям</li>
+                        <li style="margin-left:100px;margin-bottom:5px;"><a href="https://www.duman.store/page/oplata-dolyami">Оплата долями</a></li>
+                        <li style="margin-left:100px;margin-bottom:5px;"><a href="https://www.duman.store/page/o-brende">О бренде</a></li>
+                        <li style="margin-left:100px;margin-bottom:5px;"><a href="https://www.duman.store/page/exchange">условия обмена и возврата</a></li>
+                        <li style="margin-left:50px;margin-bottom:5px;margin-top:10px;"><a href="https://www.duman.store/page/duman">Екатерина Думан</a></li>
+                        <li style="margin-left:50px;margin-bottom:5px;margin-top:10px;"><a href="https://www.duman.store/page/legal-information">Правовая информация</a></li>
+                        <li style="margin-left:50px;margin-bottom:5px;margin-top:10px;"><a href="https://www.duman.store/page/aktsii">Акции</a></li>
+                        <li style="margin-left:50px;margin-bottom:5px;margin-top:10px;"><a href="https://www.duman.store/page/feedback">Обратная связь</a></li>
+                        <li style="margin-left:50px;margin-bottom:5px;margin-top:10px;"><a href="https://www.duman.store/page/about-us">О компании</a></li>
+                        <li style="margin-left:50px;margin-bottom:5px;margin-top:10px;"><a href="https://www.duman.store/page/agreement">Пользовательское соглашение</a></li>
+                        <li style="margin-left:50px;margin-bottom:5px;margin-top:10px;"><a href="https://www.duman.store/page/oferta">политика конфиденциальности и оферта</a></li>
+                        <li style="margin-left:50px;margin-bottom:5px;margin-top:10px;"><a href="https://www.duman.store/page/payment">Оплата</a></li>
+                        <li style="margin-left:50px;margin-bottom:5px;margin-top:10px;"><a href="https://www.duman.store/page/delivery">Доставка</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+
+        $('.has-sublist .toggle-arrow').on('click', function () {
+            let parentLi = $(this).closest('li');
+            let sublist = parentLi.children('.sublist');
+
+            // Переключаем состояние
+            sublist.slideToggle(200);
+            parentLi.toggleClass('expanded');
+        });
+
+        var list = document.getElementById('all-blogs-list');
+        var blogs = window.SHOP_BLOGS || {};
+        var html = '';
+
+        Object.values(blogs).forEach(function(blog) {
+        html += '<li style="margin-left:50px;margin-bottom:5px;">'
+                + '<a href="' + blog.url + '">' + blog.title + '</a>'
+                + '</li>';
+
+        blog.articles.forEach(function(a) {
+            html += '<li style="margin-left:100px;margin-bottom:5px;">'
+                + '<a href="' + a.url + '">' + a.title + '</a>'
+                + '</li>';
+        });
+        });
+
+        list.innerHTML = html || '<li>Нет статей</li>';
+
+    });
+</script>

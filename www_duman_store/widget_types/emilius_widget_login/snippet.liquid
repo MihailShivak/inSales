@@ -1,0 +1,129 @@
+<div id="popup-login" aria-hidden="true" class="popup popup-right" data-em-login>
+    <div class="popup__wrapper popup-right__wrapper">
+        <div class="popup__content popup-right__content">
+            <div class="popup-right__head">
+                <button type="button" class="popup-right__back _disabled-back"></button>
+                <button data-close type="button" class="popup-right__close"></button>
+            </div>
+            <div class="popup-right__body">
+                {% if client %}
+                    <div class="popup-right__form">
+                        <div class="popup-right__form-body-wrapper">
+                            <div class="popup__from-wrapper__title">
+                                <div class="popup-right__form-title">Добро пожаловать ...</div>
+                                <div class="input-group__label">Вы авторизованы</div>
+                            </div>
+                            <div class="popup-right__form-back-wrapper">
+                                <a href="/client_account/orders" class="popup-right__form-button btn btn_medium btn_primary">Мой кабинет</a>
+                                <a href="/client_account/exit" class="popup-right__form-back">Выйти</a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %} 
+                    <form action="/client_account/session.json" method="post" data-dev class="popup-right__form">
+                        <div class="popup-right__form-body-wrapper">
+                            <div class="popup-right__form-body">
+                                <div class="popup__from-wrapper__title">
+                                    <div class="popup-right__form-title">Войти или зарегистрироваться</div>
+                                    <div class="popup__form-message" hidden>
+                                        <div class="product-card-info__installment-button"></div>
+                                        <span>Проверьте папку «Спам» — иногда письма могут попасть туда по ошибке</span>
+                                    </div>
+                                </div>
+                                <div class="popup-right__form-error form-error" hidden></div>
+                                <div class="popup-right__form-group" data-login-name hidden>
+                                    <div class="popup-right__form-row">
+                                        <div class="popup-right__form-col input-group">
+                                            <div class="input-group__label">Имя</div>
+                                            <div class="input-group__wrapper" data-js="input-wrapper">
+                                                <input data-required autocomplete="off" type="text" name="client[name]" data-error="Заполните имя" placeholder="" class="input-group__input input">
+                                                <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                                            </div>
+                                        </div>
+                                        <div class="popup-right__form-col input-group">
+                                            <div class="input-group__label">Фамилия</div>
+                                            <div class="input-group__wrapper">
+                                                <input data-required autocomplete="off" type="text" name="client[surname]" data-error="Заполните фамилию" placeholder="" class="input-group__input input">
+                                                <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="popup-right__form-group">
+                                    <div class="popup-right__input-group input-group" data-login-email>
+                                        <div class="input-group__label">Email</div>
+                                        <div class="input-group__wrapper">
+                                            <input data-required="email" autocomplete="off" type="text" name="login" value="" placeholder="" class="input-group__input input">
+                                            <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                                        </div>
+                                        <div class="input-group__capture">Отправим письмо с кодом на вашу почту</div>
+                                    </div>
+                                    <div class="popup-right__input-group input-group" data-login-code hidden>
+                                        <div class="input-group__label">Код</div>
+                                        <div class="input-group__grid" data-js="pincode-wrapper">
+                                            <div class="input-group__wrapper">
+                                                <input autocomplete="off" data-type="code" data-next-input="2" type="number" placeholder="" maxlength="1" class="input-group__input input input_code">
+                                                {% comment %} <button type="button" data-js="input-clear" class="input-group__clear"></button> {% endcomment %}
+                                            </div>
+                                            <div class="input-group__wrapper">
+                                                <input autocomplete="off" data-type="code" data-next-input="3" type="number" placeholder="" maxlength="1" class="input-group__input input input_code">
+                                            </div>
+                                            <div class="input-group__wrapper">
+                                                <input autocomplete="off" data-type="code" data-next-input="4" type="number" placeholder="" maxlength="1" class="input-group__input input input_code">
+                                            </div>
+                                            <div class="input-group__wrapper">
+                                                <input autocomplete="off" data-type="code" data-next-input="5" type="number" placeholder="" maxlength="1" class="input-group__input input input_code">
+                                            </div>
+                                            <div class="input-group__wrapper"> 
+                                                <input autocomplete="off" data-type="code" type="number" placeholder="" maxlength="1" class="input-group__input input input_code">
+                                            </div>
+                                        </div>
+                                        <div class="input-group__capture" data-timer hidden><span>Получить новый код можно через 00:</span><span></span></div>
+                                        <button type="button" class="input-group__get-code" hidden>Получить код повторно</button>
+                                    </div>
+                                    <div class="popup-right__input-group input-group input-group_narrow" data-login-phone hidden>
+                                        <div class="input-group__label">Телефон</div>
+                                        <div class="input-group__wrapper">
+                                            <input data-required="tel" autocomplete="off" type="text" name="client[phone]" data-error="Заполните телефон" data-mask-phone placeholder="+7 (999) 999-99-99" class="input-group__input input">
+                                            <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                                        </div>
+                                    </div>
+                                    <div class="popup-right__input-group input-group input-group_narrow" data-login-datebirth hidden>
+                                        <div class="input-group__label">Дата рождения</div>
+                                        <div class="input-group__wrapper">
+                                            <input data-datepicker type="date" max="2022-12-01" min="1850-01-01" name="client[birthdate]" class="input-group__input input input_datepicker">
+                                        </div>
+                                        <div class="input-group__capture">
+                                            Пришлем персональное предложение ко дню рождения
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="popup-right__checkbox checkbox" data-login-offers hidden>
+                                    <label class="checkbox__label checkbox__label_filter">
+                                        <input data-error="" class="checkbox__input" type="checkbox" value="1" name="offers">
+                                        <span class="checkbox__text-wrapper">
+                                            <span class="checkbox__point"></span>
+                                            <span class="checkbox__text">Подписаться на новости и скидки</span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="popup-right__form-group">
+                            <div id="recaptchaBlockLogin"></div>
+                        </div>
+                        <div class="popup-right__form-button-wrapper">
+                            <button type="button" class="popup-right__form-button btn btn_medium btn_primary" data-login-button>Получить код</button>
+                            <div class="popup-right__form-policy">
+                                Нажимая на кнопку «<span data-em-policy-name>Получить код</span>», я принимаю условия <a href="/page/oferta">публичной оферты</a> и <a href="/page/oferta">политики конфиденциальности</a>
+                            </div>
+                            <div class="popup-right__form-back-wrapper">
+                                <button type="button" class="popup-right__form-back" hidden>Вернуться назад</button>
+                            </div>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
