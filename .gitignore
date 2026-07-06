@@ -17,7 +17,7 @@ themes/
 **/locales/
 **/index.js
 
-limemart_wizzu_ru/
-vkusdom_wizzu_ru/
+# limemart_wizzu_ru/
+# vkusdom_wizzu_ru/
 
-# www_duman_store/
+www_duman_store/
