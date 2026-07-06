@@ -46,17 +46,73 @@
 <link rel="icon" type="image/png" sizes="16x16" href="https://ibicecdn.com/dumanstore/files/1/3431/30993767/original/favicon.svg" />
 {%- assign canon =  null -%}
 
-<script src="{{ 'popup.js' | asset_url }}"></script>
+{% comment %} ! Уточнияется, скорее всего удалить и выпилить зависимости {% endcomment %}
+{% comment %} <script src="{{ 'popup.js' | asset_url }}"></script> {% endcomment %}
 
 <style media="screen">
-  @supports (content-visibility: hidden) {
-    body:not(.settings_loaded) {
-      content-visibility: hidden;
-    }
+  body:not(.settings_loaded) {
+    visibility: hidden;
   }
-  @supports not (content-visibility: hidden) {
-    body:not(.settings_loaded) {
-      visibility: hidden;
-    }
+
+  body:not(.settings_loaded) .preloader {
+    visibility: visible;
   }
+
+  .preloader {
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  body.settings_loaded .preloader {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .preloader__loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .preloader__text {
+    margin: 0;
+    font-size: 14px;
+    color: #1a1a1a;
+  }
+
+  .preloader__slow {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .preloader__slow._visible {
+    display: flex;
+  }
+
+  .preloader__slow-text {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+  }
+
+  .preloader__reload {
+    font-size: 14px;
+    color: #1a1a1a;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
 </style>

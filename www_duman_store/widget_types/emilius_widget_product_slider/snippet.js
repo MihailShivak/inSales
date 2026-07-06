@@ -179,8 +179,6 @@
             if (!renderedSliders.length) return;
             if (window.EM_Module?.Colors) setIcons(renderedSliders);
             else EventBus.subscribe("eventLoader", () => setIcons(renderedSliders));
-            
-            document.body.classList.add("settings_loaded");
         })
         .catch((err) => {
             console.error("[AJAX.Sliders] Критическая ошибка:", err);

@@ -316,10 +316,22 @@ $(document).ready(() => {
             this.container = container;
             if (!this.container) return;
 
-            // Параметры зума
-            this.zoomLevel = 2;
-            this.minScale = 1;
-            this.maxScale = this.zoomLevel;
+            // Определяем тип устройства
+            this.isMobile = sessionStorage.getItem('isMobile') === 'true';
+
+            // Параметры зума (зависят от устройства)
+            if (this.isMobile) {
+                // Mobile: 2 → 5 (кнопка) → 10 (пинч)
+                this.minScale = 2;
+                this.midScale = 5;     // При нажатии кнопки +
+                this.maxScale = 10;    // Максимум при пинч-зуме
+            } else {
+                // Desktop: 2 → 3.5 (кнопка) → 5 (двойной клик)
+                this.minScale = 2;
+                this.midScale = 3.5;   // При нажатии кнопки +
+                this.maxScale = 5;     // Максимум при двойном клике
+            }
+            this.zoomLevel = this.midScale;  // Для совместимости
 
             // Состояние для каждого IMG элемента
             this.imageStates = new Map();
@@ -354,10 +366,10 @@ $(document).ready(() => {
                 if (this.imageStates.has(img)) return;
 
                 this.imageStates.set(img, {
-                    scale: 1,
+                    scale: 2,
                     translateX: 0,
                     translateY: 0,
-                    isZoomed: false,
+                    isZoomed: true,
                     isScrolling: false,
                 });
 
@@ -385,10 +397,12 @@ $(document).ready(() => {
 
                 this.eventHandlers.set(img, handlers);
                 this.setImageStyle(img);
+                this.applyTransform(img, false);
             });
 
             this.btnPlus = this.container.closest("#popup-gallery")?.querySelector(".gallery-slider__plus");
             if (this.btnPlus) {
+                this.btnPlus.innerText = "+";
                 this.btnPlus.addEventListener("click", (e) => {
                     this.clickBtnPlus(e);
                 });
@@ -405,6 +419,28 @@ $(document).ready(() => {
         }
 
         /**
+         * Обновить состояние кнопки в зависимости от текущего scale
+         */
+        updateButtonState(img) {
+            const state = this.imageStates.get(img);
+            if (!state) return;
+
+            if (this.isMobile) {
+                // Mobile: "-" если scale > 2, иначе "+"
+                this.btnPlus.innerText = (state.scale > 2) ? "-" : "+";
+            } else {
+                // Desktop: зависит от точных значений scale
+                if (state.scale === 2) {
+                    this.btnPlus.innerText = "+";
+                } else if (state.scale < this.maxScale) {
+                    this.btnPlus.innerText = "+";
+                } else {
+                    this.btnPlus.innerText = "-";
+                }
+            }
+        }
+
+        /**
          * Установка базовых стилей
          */
         setImageStyle(img) {
@@ -415,6 +451,45 @@ $(document).ready(() => {
             img.style.touchAction = 'none';
             img.style.transformOrigin = 'center center';
             img.style.willChange = 'transform';
+            img.style.backfaceVisibility = 'hidden';
+            img.style.WebkitBackfaceVisibility = 'hidden';
+            img.style.contain = 'paint';
+            img.style.display = 'block';
+        }
+
+        /**
+         * Получить координаты центра камеры (центра экрана) в координатах изображения
+         */
+        getCameraCenter(img) {
+            const state = this.imageStates.get(img);
+            const container = img.parentElement;
+            const containerRect = container.getBoundingClientRect();
+
+            // Центр экрана в координатах контейнера (0, 0)
+            const centerX = 0;
+            const centerY = 0;
+
+            // Преобразуем координаты экрана в координаты изображения
+            // Если картинка трансформирована: translate(X, Y) scale(S)
+            // То координаты экрана в координаты изображения: (screenX - translateX) / scale
+            const imageX = (centerX - state.translateX) / state.scale + img.width / 2;
+            const imageY = (centerY - state.translateY) / state.scale + img.height / 2;
+
+            return { x: imageX, y: imageY };
+        }
+
+        /**
+         * Вычислить смещение при зуме в точку на изображении
+         */
+        getTranslateForZoom(img, targetScale, imagePointX, imagePointY) {
+            const containerRect = img.parentElement.getBoundingClientRect();
+
+            // Нам нужно, чтобы точка (imagePointX, imagePointY) из изображения
+            // была в центре экрана (0, 0) при новом масштабе targetScale
+            const newTranslateX = -(imagePointX - img.width / 2) * targetScale;
+            const newTranslateY = -(imagePointY - img.height / 2) * targetScale;
+
+            return { translateX: newTranslateX, translateY: newTranslateY };
         }
 
         // Кнопка Увеличить / уменьшить
@@ -423,29 +498,83 @@ $(document).ready(() => {
             if (!img) return;
             const state = this.imageStates.get(img);
 
-            if (state.scale === 1) {
-                e.target.innerText = "-";
-                state.scale = this.zoomLevel;
-                state.isZoomed = true;
+            // Запомнить текущий центр камеры в координатах изображения
+            const cameraCenter = this.getCameraCenter(img);
 
-                state.translateX = 0;
-                state.translateY = 0;
-                
-                this.disableSwiperIfNeeded(img);
-            }
-            else {
-                e.target.innerText = "+";
-                state.scale = 1;
-                state.translateX = 0;
-                state.translateY = this.getTopImgY(img);
-                this.clampTranslate(img);
+            if (this.isMobile) {
+                // Mobile: простое переключение 2x ↔ 5x
+                if (state.scale === 2) {
+                    this.btnPlus.innerText = "-";
+                    const newScale = this.midScale;  // 2x → 5x
 
-                state.isZoomed = false;
-                state.isScrolling = false;
-                // this.enableSwiperIfNeeded(img);
+                    const newTranslate = this.getTranslateForZoom(img, newScale, cameraCenter.x, cameraCenter.y);
+                    state.scale = newScale;
+                    state.translateX = newTranslate.translateX;
+                    state.translateY = newTranslate.translateY;
+
+                    state.isZoomed = true;
+                    this.clampTranslate(img);
+                    this.disableSwiperIfNeeded(img);
+                } else {
+                    // Любой scale > 2 возвращает в 2x
+                    this.btnPlus.innerText = "+";
+                    const newScale = 2;
+
+                    const newTranslate = this.getTranslateForZoom(img, newScale, cameraCenter.x, cameraCenter.y);
+                    state.scale = newScale;
+                    state.translateX = newTranslate.translateX;
+                    state.translateY = newTranslate.translateY;
+
+                    state.isZoomed = false;
+                    state.isScrolling = false;
+                    this.clampTranslate(img);
+                }
+            } else {
+                // Desktop: три этапа через кнопку
+                if (state.scale === 2) {
+                    // 2x → 3.5x
+                    this.btnPlus.innerText = "+";
+                    const newScale = this.midScale;
+
+                    const newTranslate = this.getTranslateForZoom(img, newScale, cameraCenter.x, cameraCenter.y);
+                    state.scale = newScale;
+                    state.translateX = newTranslate.translateX;
+                    state.translateY = newTranslate.translateY;
+
+                    state.isZoomed = true;
+                    this.clampTranslate(img);
+                    this.disableSwiperIfNeeded(img);
+                } else if (state.scale === this.midScale) {
+                    // 3.5x → 5x
+                    this.btnPlus.innerText = "-";
+                    const newScale = this.maxScale;
+
+                    const newTranslate = this.getTranslateForZoom(img, newScale, cameraCenter.x, cameraCenter.y);
+                    state.scale = newScale;
+                    state.translateX = newTranslate.translateX;
+                    state.translateY = newTranslate.translateY;
+
+                    state.isZoomed = true;
+                    this.clampTranslate(img);
+                    this.disableSwiperIfNeeded(img);
+                } else {
+                    // 5x → 2x
+                    this.btnPlus.innerText = "+";
+                    const newScale = 2;
+
+                    const newTranslate = this.getTranslateForZoom(img, newScale, cameraCenter.x, cameraCenter.y);
+                    state.scale = newScale;
+                    state.translateX = newTranslate.translateX;
+                    state.translateY = newTranslate.translateY;
+
+                    state.isZoomed = false;
+                    state.isScrolling = false;
+                    this.clampTranslate(img);
+                }
             }
 
             this.applyTransform(img, true);
+            this.updateButtonState(img);  // Обновить текст кнопки
         }
 
         /**
@@ -459,10 +588,10 @@ $(document).ready(() => {
                 images.forEach((img) => {
                     if (!this.imageStates.has(img)) {
                         this.imageStates.set(img, {
-                            scale: 1,
+                            scale: 2,
                             translateX: 0,
                             translateY: 0,
-                            isZoomed: false,
+                            isZoomed: true,
                             isScrolling: false,
                         });
 
@@ -490,6 +619,7 @@ $(document).ready(() => {
 
                         this.eventHandlers.set(img, handlers);
                         this.setImageStyle(img);
+                        this.applyTransform(img, false);
                     }
                 });
             });
@@ -587,37 +717,48 @@ $(document).ready(() => {
 
             const state = this.imageStates.get(img);
 
-            if (state.scale === 1) {
-                state.scale = this.zoomLevel;
-                state.isZoomed = true;
-                if (event.offsetX !== undefined) {
-                    this.positionCursorZoom(img, {
-                        clientX: event.offsetX,
-                        clientY: event.offsetY
-                    });
+            // Логика двойного клика отличается для desktop и mobile
+            if (this.isMobile) {
+                // Mobile: простое переключение 2x ↔ 10x
+                if (state.scale === 2) {
+                    state.scale = this.maxScale;
+                    this.btnPlus.innerText = "-";
+                } else {
+                    state.scale = 2;
+                    this.btnPlus.innerText = "+";
                 }
-                this.clampTranslate(img);
-
-                this.disableSwiperIfNeeded(img);
-                this.btnPlus.innerText = "-";
             } else {
-                state.scale = 1;
-                if (event.offsetX !== undefined) {
-                    this.positionCursorZoom(img, {
-                        clientX: event.offsetX,
-                        clientY: event.offsetY
-                    });
+                // Desktop: трехэтапное переключение 2x → 3.5x → 5x → 2x
+                if (state.scale === 2) {
+                    state.scale = this.midScale;  // 2x → 3.5x
+                    this.btnPlus.innerText = "+";
+                } else if (state.scale === this.midScale) {
+                    state.scale = this.maxScale;  // 3.5x → 5x
+                    this.btnPlus.innerText = "-";
+                } else {
+                    state.scale = 2;  // 5x → 2x
+                    this.btnPlus.innerText = "+";
                 }
-                this.clampTranslate(img);
-
-                state.isZoomed = false;
-                state.isScrolling = false;
-                this.enableSwiperIfNeeded(img);
-
-                this.btnPlus.innerText = "+";
             }
 
+            state.isZoomed = (state.scale > 2);
+
+            if (event.offsetX !== undefined) {
+                this.positionCursorZoom(img, {
+                    clientX: event.offsetX,
+                    clientY: event.offsetY
+                });
+            }
+            this.clampTranslate(img);
+
+            if (state.scale > 2) {
+                this.disableSwiperIfNeeded(img);
+            }
+
+            state.isScrolling = false;
+
             this.applyTransform(img, true);
+            this.updateButtonState(img);  // Обновить текст кнопки
         }
 
         /**
@@ -830,6 +971,7 @@ $(document).ready(() => {
                     state.scale = newScale;
                     this.clampTranslate(img);
                     this.applyTransform(img, false);
+                    this.updateButtonState(img);  // Обновить кнопку при пинч-зуме
                 }
 
                 this.lastTouchDistance = currentDistance;
@@ -954,21 +1096,22 @@ $(document).ready(() => {
             this.handlePopupVideoPlay(e);
 
             const img = e.clickedSlide?.querySelector("img");
-            
+
             if (!img) return;
 
             const state = this.imageStates.get(img);
 
             this.btnPlus.innerText = "+";
-            state.scale = 1;
+            state.scale = 2;
             state.translateX = 0;
             state.translateY = this.getTopImgY(img);
             this.clampTranslate(img);
 
-            state.isZoomed = false;
+            state.isZoomed = true;
             state.isScrolling = false;
 
             this.applyTransform(img, true);
+            this.updateButtonState(img);  // Обновить текст кнопки
 
             // Убедимся что Swiper включен при смене слайда
             if (gallerySwiper && this.swiperDisabled) {
@@ -1037,6 +1180,12 @@ $(document).ready(() => {
 
         if (!galleryList) return;
         isInitPopup = true;
+
+        // Добавляем overflow: hidden на контейнер слайдов и каждый слайд
+        galleryList.style.overflow = 'hidden';
+        galleryList.querySelectorAll('.swiper-slide').forEach(slide => {
+            slide.style.overflow = 'hidden';
+        });
 
         const zoomPan = new OptimizedImageZoomPan(galleryList);
         window.imageZoomPan = zoomPan;

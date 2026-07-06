@@ -323,4 +323,107 @@ document.addEventListener("DOMContentLoaded", function() {
     else {
         $("#yield-all").removeAttr("hidden");
     }
+
+    if (path.includes("/client_account/orders")) {
+        const params      = new URLSearchParams(window.location.search);
+        const isPreview   = params.get("preview") === "1";
+        const isMobile    = window.innerWidth < 768;
+
+        if (isPreview) {
+            _initOrderStubs(isMobile);
+        } else {
+            const $paginBody = $("[data-orders-pagin]:first");
+            if ($paginBody.length && typeof window.EM_Module.Pagination === "function") {
+                const currentPage = Number($paginBody.attr("data-orders-pagin")) || 1;
+                const totalPages  = Number($paginBody.attr("data-em-pagin")) || 1;
+                const $container  = $paginBody.parent();
+
+                const pagination = new window.EM_Module.Pagination($container, isMobile);
+                pagination.init(currentPage, totalPages);
+                pagination.initEvent();
+            }
+        }
+    }
+
+    function _initOrderStubs(isMobile) {
+        const params      = new URLSearchParams(window.location.search);
+        const currentPage = Math.max(1, Number(params.get("page")) || 1);
+        const totalPages  = 2;
+        const pageSize    = 10;
+
+        const statuses = [
+            { label: "Принят",            cls: "" },
+            { label: "В обработке",       cls: "" },
+            { label: "Укомплектован",     cls: "" },
+            { label: "Отправлен",         cls: "" },
+            { label: "Доставлен",         cls: "order__delivered" },
+            { label: "Ожидает оплаты",    cls: "" },
+            { label: "Отменён",           cls: "order__cancelled" },
+        ];
+        const prices = [
+            "4 500", "8 900", "12 300", "6 750", "23 100",
+            "9 800", "3 200", "15 600", "7 400", "18 900",
+            "5 100", "11 200", "22 000", "4 800", "16 500",
+            "8 300", "13 700", "6 200",  "19 400", "10 500",
+        ];
+
+        const startIdx = (currentPage - 1) * pageSize;
+        let ordersHtml = "";
+
+        for (let i = 0; i < pageSize; i++) {
+            const n      = startIdx + i;
+            const num    = 1001 + n;
+            const status = statuses[n % statuses.length];
+            const price  = prices[n % prices.length];
+            const day    = String((n * 3 % 28) + 1).padStart(2, "0");
+            const month  = String((n % 12) + 1).padStart(2, "0");
+            const imgs   = (n % 3) + 1;
+
+            let imgsHtml = "";
+            for (let j = 0; j < imgs; j++) {
+                imgsHtml += `<a href="#"><img src="/assets/img/no_image.svg" alt="Товар ${j + 1}" class="image-none"></a>`;
+            }
+
+            ordersHtml += `
+                <div class="order__item">
+                    <div class="order__item-top">
+                        <div class="order__item-info">
+                            <a href="#" class="order__item-title">Заказ #${num} от ${day}.${month}.2025</a>
+                            <div class="order__item-price">${price} ₽</div>
+                        </div>
+                        <div class="order__item-status btn ${status.cls}">${status.label}</div>
+                    </div>
+                    <div class="order__pay-btns">
+                        <div class="order__item-status btn ${status.cls}">${status.label}</div>
+                    </div>
+                    <div class="order__item-images">${imgsHtml}</div>
+                </div>`;
+        }
+
+        const paginHtml = `
+            <div class="pagin__body" data-em-pagin="${totalPages}" data-orders-pagin="${currentPage}" hidden>
+                <input type="text" name="em-pagin" value="${currentPage}" hidden/>
+                <div class="pagin__btn" data-pagin-left></div>
+                <div class="pagin__wrapper"><div class="pagin__slider"></div></div>
+                <div class="pagin__btn" data-pagin-right></div>
+            </div>`;
+
+        const $block = $(".co-checkout-block--padded:first");
+        $block.html(`<div class="order__list">${ordersHtml}</div>${paginHtml}`);
+
+        if (typeof window.EM_Module.Pagination === "function") {
+            const $paginBody = $block.find("[data-orders-pagin]:first");
+            const pagination = new window.EM_Module.Pagination($block, isMobile);
+            pagination.init(currentPage, totalPages);
+            pagination.initEvent();
+
+            $block.on("click", ".pagin__number[data-pagin-index]", function(e) {
+                e.preventDefault();
+                const page = Number(this.dataset.paginIndex);
+                const url  = new URL(window.location.href);
+                url.searchParams.set("page", page);
+                window.location.href = url.toString();
+            });
+        }
+    }
 });

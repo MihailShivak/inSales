@@ -1,6 +1,7 @@
 /* Общие */
 
 
+
 .login__container {
     max-width: 75rem;
     padding-top: 1.25rem;
@@ -158,35 +159,6 @@
 .order__item-images img {
     width: 3.75rem;
     height: 5.625rem;
-}
-
-.order__pagination {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    gap: 0.5rem;
-}
-
-.order__pagin-arrow,
-.order__pagin-btn {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    line-height: 120%;
-    color: #975730;
-    background-color: #F3F0EE;
-    border-radius: 0.5rem;
-}
-
-.order__pagin-btn._active {
-    color: #fff;
-    background-color: #40332B;
 }
 
 

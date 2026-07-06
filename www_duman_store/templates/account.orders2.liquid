@@ -46,36 +46,14 @@
                 </div>
             {% endfor %}
         </div>
-        {% if paginate.pages > 1 %}
-            <div class="order__pagination">
-                {% if paginate.current_page > 1 %}
-                    <a href="{{paginate.previous.url}}" class="order__pagin-arrow pagin-left">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M11.8048 13.8619L5.94282 7.99994L11.8048 2.13794C12.0652 1.87762 12.0652 1.45562 11.8048 1.1953C11.5445 0.9349 11.1225 0.9349 10.8622 1.1953L4.52882 7.52858C4.3985 7.6589 4.3335 7.8293 4.3335 7.99994C4.3335 8.17059 4.3985 8.34091 4.52882 8.47131L10.8622 14.8046C11.1225 15.0649 11.5445 15.0649 11.8048 14.8046C12.0652 14.5443 12.0652 14.1223 11.8048 13.8619Z" fill="#975730"/>
-                        </svg>
-                    </a>
-                {% endif %}
-                {% for button in paginate.parts %}
-                    {% assign previous_index = forloop.index0 | minus: 1 %}
-    
-                    {% if button.url == null %}
-                        {% assign url = paginate.parts[previous_index].title | to_integer | plus: 1 | string | prepend: '?page=' %}
-                    {% else %}
-                        {% assign url = button.url %}
-                    {% endif %}
-                    <a href="{{ url }}" class="order__pagin-btn{% if button.title == paginate['current_page'] %} _active{% endif %}">
-                        <span>{{ button.title }}</span>
-                    </a>
-                {% endfor %}
-                {% if paginate.current_page < paginate.pages %}
-                    <a href="{{paginate.next.url}}" class="order__pagin-arrow pagin-right">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M4.1953 2.13788L10.0573 7.99988L4.1953 13.8619C3.9349 14.1222 3.9349 14.5442 4.1953 14.8045C4.45562 15.0649 4.87762 15.0649 5.13794 14.8045L11.4713 8.47124C11.6016 8.34092 11.6667 8.17052 11.6667 7.99988C11.6667 7.82923 11.6016 7.65892 11.4713 7.52852L5.13794 1.19524C4.87762 0.93492 4.45562 0.93492 4.1953 1.19524C3.9349 1.45556 3.9349 1.87756 4.1953 2.13788Z" fill="#975730"/>
-                        </svg>
-                    </a>
-                {% endif %}
+        <div class="pagin__body" data-em-pagin="{{ paginate.pages }}" data-orders-pagin="{{ paginate.current_page }}" hidden>
+            <input type="text" name="em-pagin" value="{{ paginate.current_page }}" hidden/>
+            <div class="pagin__btn" data-pagin-left></div>
+            <div class="pagin__wrapper">
+                <div class="pagin__slider"></div>
             </div>
-        {% endif %}
+            <div class="pagin__btn" data-pagin-right></div>
+        </div>
         {% endpaginate %}
     {% endif %}
 </div>

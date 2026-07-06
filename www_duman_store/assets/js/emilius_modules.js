@@ -259,7 +259,7 @@ window.EM_Module.Filters = class {
         if (!this.isMobStyle)  {
             this.currentPage = 1;
             this.applied.change = false;
-
+            this._saveToURL();
             EventBus.publish(this.nameEvent, {
                 added: {
                     id: "sort",
@@ -312,6 +312,7 @@ window.EM_Module.Filters = class {
     // Применение Фильтров на ПК
     applyPCiltres() {
         this.applied.change = false;
+        this._saveToURL();
         EventBus.publish(this.nameEvent, {
             method: this.typesEvent.change,
             filters: this.filters
@@ -323,7 +324,7 @@ window.EM_Module.Filters = class {
         if (this.applied.change) {
             this.applied.change = false;
             this.$filtresMob.find("[data-mob-popup-close]:first").trigger("click");
-
+            this._saveToURL();
             EventBus.publish(this.nameEvent, {
                 method: this.typesEvent.change,
                 filters: this.filters
@@ -574,6 +575,8 @@ window.EM_Module.Filters = class {
     async readingFilters() {
         if (this.modeCatalog) {
             this.filters = this.filters || {};
+            this._checkInputsFromURL();
+            this._restoreFromCheckedInputs();
             EventBus.publish(this.nameEvent, {
                 method: this.typesEvent.init,
                 filters: this.filters
@@ -646,6 +649,8 @@ window.EM_Module.Filters = class {
 
         if (this.isMobStyle) this._renderMobFilters();
         else this._renderPCFilters();
+
+        this._restoreFromURL();
 
         EventBus.publish(this.nameEvent, {
             method: this.typesEvent.render,
@@ -842,7 +847,7 @@ window.EM_Module.Filters = class {
         if (isApply) {
             this.currentPage = 1;
             this.applied.change = false;
-
+            this._saveToURL();
             EventBus.publish(this.nameEvent, {
                 method: this.typesEvent.change,
                 filters: this.filters,
@@ -878,6 +883,7 @@ window.EM_Module.Filters = class {
         if (!isApply) return;
 
         this.applied.change = false;
+        this._saveToURL();
         EventBus.publish(this.nameEvent, {
             method: this.typesEvent.clear,
             filters: this.filters
@@ -948,6 +954,247 @@ window.EM_Module.Filters = class {
         }
     }
 
+    // Восстанавливает состояние чекбоксов из параметров URL при загрузке страницы
+    _checkInputsFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        if (!params.toString()) return;
+
+        const $container = this.isMobStyle ? this.$filtresMob : this.$filtres;
+
+        for (const [key, value] of params.entries()) {
+            const match = key.match(/^f\[(\d+)\]\[\]$/);
+            if (!match) continue;
+
+            const filterID = match[1];
+            const selector = this.isMobStyle
+                ? `[data-filter-id="${filterID}"] .checkbox-btn__input[value="${value}"]`
+                : `[data-filter-id="${filterID}"] .checkbox__input[value="${value}"]`;
+
+            $container.find(selector + ":first").prop("checked", true);
+        }
+
+        const priceMinParam = params.get('price_min');
+        const priceMaxParam = params.get('price_max');
+        const $f = this.isMobStyle ? this.$filtresMob : this.$filtres;
+        if (priceMinParam) {
+            const input = $f.find("input[name='price_min']:first").val(priceMinParam).get(0);
+            const slider = input?.closest("[data-range]")?.querySelector("[data-range-item]");
+            if (slider?.noUiSlider) slider.noUiSlider.set([priceMinParam, null]);
+        }
+        if (priceMaxParam) {
+            const input = $f.find("input[name='price_max']:first").val(priceMaxParam).get(0);
+            const slider = input?.closest("[data-range]")?.querySelector("[data-range-item]");
+            if (slider?.noUiSlider) slider.noUiSlider.set([null, priceMaxParam]);
+        }
+
+        const sortParam = params.get('sort');
+        if (sortParam && sortParam !== '1') {
+            if (this.isMobStyle) {
+                this.$filtresMob.find(".options-sort__input:first").prop("checked", false);
+                this.$filtresMob.find(`.options-sort__input[value="${sortParam}"]`).prop("checked", true);
+            } else {
+                this.$filtres.find(".catalog__sort:first")
+                    .find(`option[value="${sortParam}"]`).prop("selected", true);
+            }
+        }
+    }
+
+    // Перебирает отмеченные чекбоксы и строит панель выбранных фильтров (режим modeCatalog)
+    _restoreFromCheckedInputs() {
+        const $container = this.isMobStyle ? this.$filtresMob : this.$filtres;
+        let hasFilters = false;
+
+        for (const input of $container.find("[data-filter-id] input:checked")) {
+            const filterID = input.getAttribute("data-property-id");
+            const filterItemID = input.value;
+
+            if (!filterID || !filterItemID) continue;
+
+            let savedImg;
+            try { savedImg = sessionStorage.getItem(`em_fimg_${filterItemID}`); } catch(_) {}
+            const imgEl = input.parentElement.querySelector("img");
+            const img = savedImg
+                || (imgEl ? (imgEl.dataset.src || (imgEl.getAttribute("src") && imgEl.src !== window.location.href ? imgEl.src : null) || undefined) : undefined);
+            const title = input.parentElement.querySelector(
+                this.isMobStyle ? ".checkbox-btn__text" : ".checkbox__text"
+            );
+
+            this.addFilter({
+                id: filterID,
+                itemID: filterItemID,
+                title: title?.innerText ?? "Фильтр",
+                img: img
+            }, false);
+
+            if (filterID === String(this.filtersID.color)) {
+                this.applied.quantityColor++;
+            } else {
+                this.applied.quantity++;
+            }
+            hasFilters = true;
+        }
+
+        const $f = this.isMobStyle ? this.$filtresMob : this.$filtres;
+        const priceRange = this._getPriceRange();
+        const priceMin = Number($f.find("input[name='price_min']:first").val());
+        const priceMax = Number($f.find("input[name='price_max']:first").val());
+
+        if (!isNaN(priceMin) && !isNaN(priceMax) &&
+            (priceMin > priceRange.min || priceMax < priceRange.max)) {
+            this.applied.quantity++;
+            this.addFilterPrice({ id: "price", priceMin, priceMax }, false);
+            hasFilters = true;
+        }
+
+        const sortRaw = this._getRawSortValue();
+        if (sortRaw && sortRaw !== '1') {
+            this.applied.sort = true;
+            hasFilters = true;
+        }
+
+        if (hasFilters) this.visibleBtnsFilters(false);
+    }
+
+    // Восстанавливает фильтры из URL после получения данных API (не-catalog режим)
+    _restoreFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        if (!params.toString()) return;
+
+        const $container = this.isMobStyle ? this.$filtresMob : this.$filtres;
+
+        for (const [key, value] of params.entries()) {
+            const match = key.match(/^f\[(\d+)\]\[\]$/);
+            if (!match) continue;
+
+            const filterID = match[1];
+            const filterItemID = value;
+            const selector = this.isMobStyle
+                ? `[data-filter-id="${filterID}"] .checkbox-btn__input[value="${filterItemID}"]`
+                : `[data-filter-id="${filterID}"] .checkbox__input[value="${filterItemID}"]`;
+
+            const $input = $container.find(selector + ":first");
+            if (!$input.length) continue;
+
+            $input.prop("checked", true);
+
+            let savedImg2;
+            try { savedImg2 = sessionStorage.getItem(`em_fimg_${filterItemID}`); } catch(_) {}
+            const imgEl2 = $input[0].parentElement.querySelector("img");
+            const img2 = savedImg2
+                || (imgEl2 ? (imgEl2.dataset.src || (imgEl2.getAttribute("src") && imgEl2.src !== window.location.href ? imgEl2.src : null) || undefined) : undefined);
+            const title = $input[0].parentElement.querySelector(
+                this.isMobStyle ? ".checkbox-btn__text" : ".checkbox__text"
+            );
+
+            this.addFilter({
+                id: filterID,
+                itemID: filterItemID,
+                title: title?.innerText ?? "Фильтр",
+                img: img2
+            }, false);
+
+            if (filterID === String(this.filtersID.color)) {
+                this.applied.quantityColor++;
+            } else {
+                this.applied.quantity++;
+            }
+        }
+
+        const priceMinParam = params.get('price_min');
+        const priceMaxParam = params.get('price_max');
+        if (priceMinParam || priceMaxParam) {
+            const priceRange = this._getPriceRange();
+            const priceMin = priceMinParam ? Number(priceMinParam) : priceRange.min;
+            const priceMax = priceMaxParam ? Number(priceMaxParam) : priceRange.max;
+
+            if (priceMin > priceRange.min || priceMax < priceRange.max) {
+                this.applied.quantity++;
+                this.addFilterPrice({ id: "price", priceMin, priceMax }, false);
+            }
+
+            const $f = this.isMobStyle ? this.$filtresMob : this.$filtres;
+            if (priceMinParam) {
+                const input = $f.find("input[name='price_min']:first").val(priceMin).get(0);
+                const slider = input?.closest("[data-range]")?.querySelector("[data-range-item]");
+                if (slider?.noUiSlider) slider.noUiSlider.set([priceMin, null]);
+            }
+            if (priceMaxParam) {
+                const input = $f.find("input[name='price_max']:first").val(priceMax).get(0);
+                const slider = input?.closest("[data-range]")?.querySelector("[data-range-item]");
+                if (slider?.noUiSlider) slider.noUiSlider.set([null, priceMax]);
+            }
+        }
+
+        const sortParam = params.get('sort');
+        if (sortParam && sortParam !== '1') {
+            if (this.isMobStyle) {
+                this.$filtresMob.find(".options-sort__input:first").prop("checked", false);
+                this.$filtresMob.find(`.options-sort__input[value="${sortParam}"]`).prop("checked", true);
+            } else {
+                const $nativeSort = this.$filtres.find(".catalog__sort:first");
+                if ($nativeSort.length) {
+                    $nativeSort.find("option:selected").prop("selected", false);
+                    $nativeSort.find(`option[value="${sortParam}"]`).prop("selected", true);
+                }
+            }
+            this.applied.sort = true;
+        }
+
+        this.visibleBtnsFilters(false);
+    }
+
+    // Сохранить текущее состояние фильтров в URL
+    _saveToURL() {
+        const params = new URLSearchParams();
+        const $container = this.isMobStyle ? this.$filtresMob : this.$filtres;
+
+        const options = this._getOptionsFilters();
+        for (const [filterID, values] of Object.entries(options)) {
+            for (const value of values) {
+                params.append(`f[${filterID}][]`, value);
+
+                const selector = this.isMobStyle
+                    ? `[data-filter-id="${filterID}"] .checkbox-btn__input[value="${value}"]`
+                    : `[data-filter-id="${filterID}"] .checkbox__input[value="${value}"]`;
+                const input = $container.find(selector + ":first").get(0);
+                if (input) {
+                    const imgEl = input.parentElement.querySelector("img");
+                    if (imgEl) {
+                        const imgUrl = imgEl.dataset.src
+                            || (imgEl.getAttribute("src") && imgEl.src !== window.location.href ? imgEl.src : null);
+                        if (imgUrl) {
+                            try { sessionStorage.setItem(`em_fimg_${value}`, imgUrl); } catch(_) {}
+                        }
+                    }
+                }
+            }
+        }
+
+        const $f = this.isMobStyle ? this.$filtresMob : this.$filtres;
+        const priceMin = Number($f.find("input[name='price_min']:first").val());
+        const priceMax = Number($f.find("input[name='price_max']:first").val());
+        const priceRange = this._getPriceRange();
+
+        if (!isNaN(priceMin) && priceMin > priceRange.min) params.set('price_min', priceMin);
+        if (!isNaN(priceMax) && priceMax < priceRange.max) params.set('price_max', priceMax);
+
+        const sortRaw = this._getRawSortValue();
+        if (sortRaw && sortRaw !== '1') params.set('sort', sortRaw);
+
+        const search = params.toString();
+        history.replaceState(null, '', window.location.pathname + (search ? '?' + search : ''));
+    }
+
+    // Получить числовое значение сортировки из UI
+    _getRawSortValue() {
+        if (this.isMobStyle) {
+            return this.$filtresMob.find(".options-sort__input:checked:first").val() || '1';
+        }
+        const $active = this.$filtres.find(".select_catalog-sort .select__option._active:first");
+        if ($active.length) return $active.attr("data-value") || '1';
+        return this.$filtres.find(".catalog__sort option:selected:first").val() || '1';
+    }
+
     async fetch(formData, type = "", typePage = "") {
         const response = await $.ajax({
             url: `https://insales.widgets.ibice.ru/api/jls-gateway/${typePage}${type}`,
@@ -968,7 +1215,10 @@ window.EM_Module.Filters = class {
     }
 }
 
-// Новый лоадер с 2 типами: обычный и скелетон
+/**
+ * Новая версия лоадера 
+ * Типы: обычный и скелетон
+ */
 window.EM_Module.Loaders = {
     // Скелетон загрузки
     Skeleton: class {
@@ -1334,13 +1584,12 @@ window.EM_Module.Pagination = class {
     }
 }
 
-// ! Выпилить из код старый лоадер 
 // Старый лоадер
 window.EM_Module.Loader = class {
     constructor($block) {
         this.$_block = $block;
         this.className = "local-loader";
-        this.svg = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><circle class="spinner_b2T7" cx="4" cy="12" r="3" /><circle class="spinner_b2T7 spinner_YRVV" cx="12" cy="12" r="3" /><circle class="spinner_b2T7 spinner_c9oY" cx="20" cy="12" r="3" /></svg>';
+        this.svg = '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><style>.spinner_b2T7{animation:spinner_xe7Q .8s linear infinite}.spinner_YRVV{animation-delay:-.65s}.spinner_c9oY{animation-delay:-.5s}@keyframes spinner_xe7Q{93.75%,100%{r:3px}46.875%{r:.2px}}</style><circle class="spinner_b2T7" cx="4" cy="12" r="3"/><circle class="spinner_b2T7 spinner_YRVV" cx="12" cy="12" r="3"/><circle class="spinner_b2T7 spinner_c9oY" cx="20" cy="12" r="3"/></svg>';
     }
 
     call() {
@@ -1594,6 +1843,7 @@ window.EM_Module.Badges = {
     }
 };
 
+// Сбор полезных функций
 window.EM_Module.func = {
     property_ids: {
         preorder:   42134720, // предзаказ
@@ -1612,6 +1862,7 @@ window.EM_Module.func = {
         return str.slice(start, end + 1);
     },
 
+    // Предзаказ 1. Проверка через characteristics
     checkPreorder: function (properties) {
         for (const key in properties) {
             const property = properties[key];
@@ -1625,6 +1876,7 @@ window.EM_Module.func = {
         return false;
     },
 
+    // Предзаказ 2. Проверка через properties
     checkPreorderChars: function (chars) {
         if (!chars) return false;
 
@@ -1638,6 +1890,7 @@ window.EM_Module.func = {
     },
 
     // !Важно: url больше не учитывается 
+    // Скоро в продажах 1. Проверка через characteristics
     checkSoon: function (properties, url) {
         // if (!url || !url.includes("/skoro-v-prodazhe")) return false;
 
@@ -1654,6 +1907,7 @@ window.EM_Module.func = {
     },
 
     // !Важно: url больше не учитывается 
+    // Скоро в продажах 2. Проверка через properties
     checkSoonCahrs: function (chars, url) {
         if (!url || ! chars) return false;
         // if (!url || !url.includes("/skoro-v-prodazhe")) return false;
@@ -1667,16 +1921,21 @@ window.EM_Module.func = {
         return false;
     },
 
-    matchesNthChild: window.innerWidth > 1023 ? 
+    /**
+     * Коэффициент разрешения у фота для каталога.
+     * Реализация под гибкую сетку в каталоге
+     */
+    matchesNthChild: (window.innerWidth > 1023 ? 
         (i) => {
             return i === 7 || ((i >= 7) && ((i - 7) % 8 === 0 || (i - 8) % 8 === 0)) ? 1.4 : 1;
         } :
         (i) => {
             return i % 5 === 0 ? 1.8 : 1;
-        },
+        }
+    ),
 
     /**
-     * Получить URL фото 
+     * Получить URL фото (1 вариант)
      * @param {Object<InSales>} image Фото товара
      * @returns {Object<String, String>} URL фото с 2 типа изображениями (x1, x2)
      */
@@ -1711,7 +1970,7 @@ window.EM_Module.func = {
     },
 
     /**
-     * Получить URL фото 
+     * Получить URL фото (2 вариант)
      * @param {Object<InSales>} image Фото товара
      * @returns {Object<String, String>} URL фото с 2 типа изображениями (x1, x2)
      */
