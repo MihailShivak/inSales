@@ -1,0 +1,359 @@
+<div class="breadcrumbs">
+  <div class="breadcrumbs__list">
+    {% if collection.handle == "all" or collection.level == 1 %}
+      <a href="/" class="btn__bread-back">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+        <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span>Главная</span>
+      </a>
+    {% else %}
+      <a href="{{ collection.parent.url }}" class="btn__bread-back">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+        <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span>Назад</span>
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+{% comment %} 
+!!! Выключил фильтры
+{% if display_filter %}
+  <form action="{{ collection.url }}" method="get" class="filter" style="visibility: hidden;">
+    <button type="button" class="button filter__hide-filter-btn js-hide-filter">
+      <span class="icon icon-times"></span>
+    </button>
+    <div class="filter__content">
+      <div class="filter__head">
+        <div class="filter__head-title">{{messages.filters}}</div>
+        <div class="filter__head-reset">
+          <span class="button-link filter__reset-btn js-reset-filter">{{messages.filter_reset_title}}</span>
+        </div>
+        <button type="button" class="button filter__hide-filter-btn js-hide-filter">
+          <span class="icon icon-times"></span>
+        </button>
+      </div>
+      <div class="filter__items">
+        {% assign all_min = coll_min %}
+        {% assign all_max = coll_max %}
+        {% if price_min %}
+          {% assign cur_min = price_min | round: 0 %}
+        {% else %}
+          {% assign cur_min = all_min %}
+        {% endif %}
+        {% if price_max %}
+          {% assign cur_max = price_max | round: 0 %}
+        {% else %}
+          {% assign cur_max = all_max %}
+        {% endif %}
+        {% unless coll_min == coll_max %}
+        <div class="filter-item filter-item_price">
+          <div class="filter-item__head">
+            <span class="filter-item__name js-toggle-show-filter-item">
+              {{messages.filter_price_title}}
+              <span class="filter-item__arrow icon-angle-down"></span>
+            </span>
+          </div>
+          <div class="filter-item__content">
+            <div
+              class="filter-range js-filter-range"
+              data-range-min="{{coll_min}}"
+              data-range-max="{{coll_max}}"
+              data-range-start="{{cur_min}}"
+              data-range-end="{{cur_max}}"
+              data-range-step="1"
+              >
+              <div class="filter-range__slider"></div>
+              <div class="filter-range__values">
+                <div class="filter-range__values-item">
+                  <span class="filter-range__values-label">{{messages.from}}</span>
+                  <input
+                  class="form-control filter-range__field filter-range__field-min"
+                  type="text"
+                  name="price_min"
+                  value="{{ price_min }}"
+                  {% unless price_min %} disabled {% endunless %}
+                  />
+                  {% unless price_min %}
+                    <div class="filter-range__field-disabled-click"></div>
+                  {% endunless %}
+                </div>
+                <div class="filter-range__values-item">
+                  <span class="filter-range__values-label">{{messages.to}}</span>
+                  <input
+                  class="form-control filter-range__field filter-range__field-max"
+                  type="text"
+                  name="price_max"
+                  value="{{ price_max }}"
+                  {% unless price_max %} disabled {% endunless %}
+                  />
+                  {% unless price_max %}
+                    <div class="filter-range__field-disabled-click"></div>
+                  {% endunless %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endunless %}
+        {% for option in collection.options %}
+        <div class="filter-item filter-item_option">
+          <div class="filter-item__head">
+            <span class="filter-item__name js-toggle-show-filter-item">
+              {{ option.title }}
+              <span class="filter-item__arrow icon-angle-down"></span>
+            </span>
+          </div>
+          <div class="filter-item__content">
+            <div class="filter-item__list">
+              {% for value in option.values %}
+              <div class="filter-item__list-item">
+                <label class="filter-option _checkbox">
+                <input autocomplete="off" class="filter-option__field" type="checkbox"
+                value="{{ value.id }}"
+                {% if value.selected %}checked{% endif %} name="options[{{ option.id }}][]"
+                id="{{ value.id }}"
+                />
+                <span class="filter-option__content">
+                <span class="filter-option__btn icon-check"></span>
+                <span class="filter-option__label">{{ value.title }}</span>
+                </span>
+                </label>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        {% for property in collection.properties %}
+        <div class="filter-item filter-item_property">
+          <div class="filter-item__head">
+            <span class="filter-item__name js-toggle-show-filter-item">
+              {{ property.title }}
+              <span class="filter-item__arrow icon-angle-down"></span>
+            </span>
+          </div>
+          <div class="filter-item__content">
+            {% if property.is_numeric? and property.characteristics.size > 1 %}
+              {% assign min_val = property.characteristics.first.name | round: 0 %}
+              {% assign max_val = property.characteristics.first.name | round: 0 %}
+              {% for characteristic in property.characteristics %}
+                {% assign val = characteristic.name | round: 0 %}
+                {% if val < min_val %}
+                  {% assign min_val = val %}
+                {% endif %}
+                {% if val > max_val %}
+                  {% assign max_val = val %}
+                {% endif %}
+              {% endfor %}
+              {% if property.gt_value %}
+                {% assign start = property.gt_value %}
+              {% else %}
+                {% assign start = min_val %}
+              {% endif %}
+              {% if property.lt_value %}
+                {% assign end = property.lt_value %}
+              {% else %}
+                {% assign end = max_val %}
+              {% endif %}
+            <div
+              class="filter-range js-filter-range"
+              data-range-min="{{min_val}}"
+              data-range-max="{{max_val}}"
+              data-range-start="{{start}}"
+              data-range-end="{{end}}"
+              data-range-step="1"
+              >
+              <div class="filter-range__slider"></div>
+              <div class="filter-range__values">
+                <div class="filter-range__values-item">
+                  <span class="filter-range__values-label">{{messages.from}}</span>
+                  <input
+                  class="form-control filter-range__field filter-range__field-min"
+                  type="text"
+                  name="properties_gt[{{ property.id }}]"
+                  value="{{ start }}"
+                  {% if min_val == start %}disabled{% endif %}
+                  />
+                  {% if min_val == start %}
+                    <div class="filter-range__field-disabled-click"></div>
+                  {% endif %}
+                </div>
+                <div class="filter-range__values-item">
+                  <span class="filter-range__values-label">{{messages.to}}</span>
+                  <input
+                  class="form-control filter-range__field filter-range__field-max"
+                  type="text"
+                  name="properties_lt[{{ property.id }}]"
+                  value="{{ end }}"
+                  {% if max_val == end %}disabled{% endif %}
+                  />
+                  {% if max_val == end %}
+                    <div class="filter-range__field-disabled-click"></div>
+                    {% endif %}
+                </div>
+              </div>
+            </div>
+            {% else %}
+            <div class="filter-item__list">
+              {% for characteristic in property.characteristics %}
+              <div class="filter-item__list-item">
+                <label class="filter-option _checkbox">
+                <input autocomplete="off" class="filter-option__field" type="checkbox"
+                value="{{ characteristic.id }}"
+                {% if characteristic.current? %}checked{% endif %} name="characteristics[]"
+                id="{{ characteristic.id }}"
+                />
+                <span class="filter-option__content">
+                <span class="filter-option__btn icon-check"></span>
+                <span class="filter-option__label">{{ characteristic.title }}</span>
+                </span>
+                </label>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="filter__controls">
+      <button class="button button_wide" type="submit">{{messages.filter_submit_title}}</button>
+    </div>
+    {% if order %}
+    <input type="hidden" name="order" value="{{ order }}">
+    {% endif %}
+    {% if page_size %}
+    <input type="hidden" name="page_size" value="{{ page_size }}">
+    {% endif %}
+    {% if language.not_default? %}
+    <input type="hidden" name="lang" value="{{ language.locale }}">
+    {% endif %}
+    {% if search.query != '' %}
+    <input type="hidden" name="q" value="{{ search.query }}">
+    {% endif %}
+  </form>
+  <div class="filter-overlay js-hide-filter"></div>
+{% endif %} 
+
+!!! Было так
+{% if collection.products.size > 1 or display_filter %}
+{% endif %}
+{% endcomment %}
+
+<div class="filter-top-controls">
+  <div class="filter__title-wrapper filter__back-wrapper">
+    {% comment %} {% if collection.handle != "all" %}
+      <a href="{{ collections.root_category.url }}" class="filter__title-close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+        <path d="M4 4.5L13 13.5M13 4.5L4 13.5" stroke="#181818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    {% endif %} {% endcomment %}
+    
+    <a href="{%- if collection.handle == "all" or collection.level == 1 -%}/{%- else -%}{{ collection.parent.url }}{%- endif -%}" class="filter__title-close">
+      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+      <path d="M11 3.5L6 9L11 14.5" stroke="#181818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span>Назад</span>
+    </a>
+    <div class="title__large">{{ collection.title }}</div>
+  </div>
+  {% if collection.products.size > 1 %}
+    <div class="collection-sort">
+      <form action="{{ collection.url }}" method="get">
+        {% assign order_values = 'price,descending_price,descending_age,title' | split: ',' %}
+
+        {% capture order_messages %}
+          {{ messages.sort_by_price }},{{ messages.sort_by_price_desc }},{{ messages.sort_by_createdon }},{{ messages.sort_by_title }}
+        {% endcapture %}
+        {% assign order_messages_arr = order_messages | split: ',' %}
+
+        <div class="collection-order">
+          <button type="button" class="button button_size-m collection-order__value js-open-order-list">
+            <span class="collection-order__value-text">
+              {% unless order %} {{ messages.sorting }} {% endunless %}
+
+              {% for order_value in order_values %}
+                {% if order == order_value %}
+                  {{ order_messages_arr[forloop.index0] }}
+                {% endif %}
+              {% endfor %}
+            </span>
+            <span class="icon_arrow-black"></span>
+          </button>
+          <div class="collection-order__content">
+            <div class="collection-order__list">
+              <label class="collection-order__option">
+                <input type="radio" name="order" value="" {% unless order %}checked="checked" {% endunless %} class="collection-order__field js-sorting-trigger-radio">
+                <span class="collection-order__option-btn">
+                  {{ messages.default }}
+                  <span class="collection-order__option-btn-check"></span>
+                </span>
+              </label>
+              {% for order_value in order_values %}
+                <label class="collection-order__option">
+                  <input type="radio" name="order" value="{{ order_value }}" {% if order == order_value %}checked="checked" {% endif %} class="collection-order__field js-sorting-trigger-radio">
+                  <span class="collection-order__option-btn">
+                    {{ order_messages_arr[forloop.index0] }}
+                    <span class="collection-order__option-btn-check"></span>
+                  </span>
+                </label>
+              {% endfor %}
+            </div>
+            <div class="collection-order__loader"></div>
+          </div>
+        </div>
+
+        {% for prop in collection.current_characteristics %}
+        <input type="hidden" name="characteristics[]" value="{{ prop.id }}">
+        {% endfor %}
+        {% for property in collection.properties %}
+          {% if property.is_numeric? and property.gt_value %}
+          <input type="hidden" name="properties_gt[{{ property.id }}]" value="{{ property.gt_value }}">
+          {% endif %}
+          {% if property.is_numeric? and property.lt_value %}
+          <input type="hidden" name="properties_lt[{{ property.id }}]" value="{{ property.lt_value }}">
+          {% endif %}
+        {% endfor %}
+        {% for val in collection.current_option_values %}
+          <input type="hidden" name="options[{{ val.option_name.id }}][]" value="{{ val.id }}">
+        {% endfor %}
+        {% if search.query != '' %}
+          <input type="hidden" name="q" value="{{ search.query }}">
+        {% endif %}
+        {% if language.not_default? %}
+          <input type="hidden" name="lang" value="{{ language.locale }}">
+        {% endif %}
+        {% if price_min %}
+          <input type="hidden" name="price_min" value="{{ price_min }}">
+        {% endif %}
+        {% if price_max %}
+          <input type="hidden" name="price_max" value="{{ price_max }}">
+        {% endif %}
+      </form>
+    </div>
+  {% endif %}
+</div>
+<div class="catalog__categories">
+  {% assign handle_active = collection.handle %}
+  <div class="catalog__categories-body">
+    {% if collection.show_subcollections? %}
+      {% for collection in collection.subcollections %}
+          <a href="{{ collection.url }}" class="catalog__categories-item {% if collection.handle == handle_active %} _active {% endif %}">{{ collection.title | downcase }}</a>
+      {% endfor %}
+    {% elsif collection.parent %}
+      {% for collection in collection.parent.subcollections %}
+          <a href="{{ collection.url }}" class="catalog__categories-item {% if collection.handle == handle_active %} _active {% endif %}">{{ collection.title | downcase }}</a>
+      {% endfor %}
+    {% else %}
+      {% for collection in collections["all"].subcollections %}
+        <a href="{{ collection.url }}" class="catalog__categories-item {% if collection.handle == handle_active %} _active {% endif %}">{{ collection.title | downcase }}</a>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+<div class="order-overlay js-hide-order"></div>

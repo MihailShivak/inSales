@@ -1,0 +1,19 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "[EM] Слайдер с акциями и сторис"
+  },
+  "handle": "emilius_widget_slider_promo_stories",
+  "page_kinds": [
+    "index"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "sliders",
+  "libraries": [
+    "swiper",
+    "micromodal"
+  ]
+}

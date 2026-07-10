@@ -1,0 +1,45 @@
+{% include "system_collection_filter_check", display_filter: false %}
+
+{% if search.performed? and products.size > 0 or template == 'search' and search.results.size > 0 %}
+  {% if template == 'search' %}
+    {% assign product_arr = search.results.products %}
+  {% else %}
+    {% assign product_arr = products %}
+  {% endif %}
+  {% assign is_search = true %}
+{% else  %}
+  {% assign product_arr = products %}
+{% endif %}
+
+{% if product_arr.size > 0 %}
+<div class="catalog">
+  <div class="grid-list catalog-list" {% if widget_settings.hide-desktop %}hide-desktop{% endif %}
+  {% if widget_settings.hide-mobile %}hide-mobile{% endif %} data-collection-infinity="{{ paginate.next.url }}">
+    {% for product in product_arr %}
+      {% comment %} MIN_QUANTITY {% endcomment %}
+      {% if product.variants.first.quantity > 2 %}
+        {% include "product-item" %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% else %}
+{% if template == 'favorite' %}
+{% assign favorite_empty = true %}
+{% else %}
+<div class="empty-catalog-message">
+  {{ messages.empty_catalog }}
+</div>
+{% endif %}
+{% endif %}
+
+{% if template == 'favorite' %}
+<div class="empty-catalog-message {% unless favorite_empty %}hidden{% endunless %}">
+{{ messages.favorites_is_empty }}
+</div>
+{% endif %}
+{% assign product_arr = null %}
+{% assign is_search = null %}
+{% assign image_title = null %}
+{% assign product_variants_first = null %}
+{% assign preview_text = null %}

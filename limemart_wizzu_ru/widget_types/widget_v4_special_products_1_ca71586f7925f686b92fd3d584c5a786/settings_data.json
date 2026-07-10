@@ -1,0 +1,22 @@
+{
+  "layout-wide-bg": false,
+  "layout-wide-content": false,
+  "layout-pt": 3,
+  "layout-pb": 3,
+  "hide-mobile": false,
+  "hide-desktop": false,
+  "product-border-radius": 10,
+  "img-ratio": 1,
+  "slide-width": 220,
+  "slide-width-mobile": 150,
+  "slide-gap": 30,
+  "count_special_products": 12,
+  "hide-description": true,
+  "hide-variants": false,
+  "hide-variants-title": true,
+  "hide-sku": true,
+  "product-desc-limit": "10",
+  "img-fit": "contain",
+  "sticker-font-size": 0.9,
+  "display-property-color": "text"
+}

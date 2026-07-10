@@ -1,0 +1,18 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Крупный подвал сайта"
+  },
+  "handle": "widget_v4_footer_18_1_968f68c361c04b30358dc33a92bf2359",
+  "page_kinds": [
+    "all"
+  ],
+  "widget_list_kinds": [
+    "footer"
+  ],
+  "generation": 4,
+  "widget_category_handle": "footers",
+  "libraries": [
+    "my-layout"
+  ]
+}

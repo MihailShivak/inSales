@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs grep -l \"магазин\")",
+      "Bash(git -C \"E:\\\\Work\\\\inSales\\\\insales-gulp-minifier\\\\limemart_wizzu_ru\" status --short)",
+      "Bash(git -C \"E:\\\\Work\\\\inSales\\\\insales-gulp-minifier\\\\limemart_wizzu_ru\" ls-files -- widget_types/emilius_widget_delivery_zones_map/snippet.liquid)",
+      "Bash(git -C \"E:\\\\Work\\\\inSales\\\\insales-gulp-minifier\\\\limemart_wizzu_ru\" check-ignore -v widget_types/emilius_widget_delivery_zones_map/snippet.liquid)",
+      "Bash(git -C \"E:\\\\Work\\\\inSales\\\\insales-gulp-minifier\\\\limemart_wizzu_ru\" rev-parse --show-toplevel)",
+      "Bash(git -C \"E:\\\\Work\\\\inSales\\\\insales-gulp-minifier\" remote -v)",
+      "Bash(git -C \"E:\\\\Work\\\\inSales\\\\insales-gulp-minifier\" branch --show-current)",
+      "Bash(git -C \"E:\\\\Work\\\\inSales\\\\insales-gulp-minifier\" log --oneline -1 -- limemart_wizzu_ru/widget_types/emilius_widget_delivery_zones_map/snippet.liquid)",
+      "Bash(git -C \"E:\\\\Work\\\\inSales\\\\insales-gulp-minifier\" ls-files -- limemart_wizzu_ru/widget_types/emilius_widget_delivery_zones_map/snippet.liquid)",
+      "Bash(git -C \"E:\\\\Work\\\\inSales\\\\insales-gulp-minifier\" ls-files -- limemart_wizzu_ru/assets/style/theme.scss limemart_wizzu_ru/widget_types/emilius_widget_delivery_zones_map/snippet.liquid limemart_wizzu_ru/assets/svg/vkusdom-logo.svg)",
+      "Bash(git -C \"E:\\\\Work\\\\inSales\\\\insales-gulp-minifier\" show --stat -1 f8fbd2f)",
+      "Bash(git -C \"E:\\\\Work\\\\inSales\\\\insales-gulp-minifier\" show --stat -1 c955d81)",
+      "Bash(git -C \"E:\\\\Work\\\\inSales\\\\insales-gulp-minifier\" log --oneline -- limemart_wizzu_ru)",
+      "Bash(git -C \"E:\\\\Work\\\\inSales\\\\insales-gulp-minifier\" log --oneline -- .gitignore)",
+      "Bash(git -C \"E:\\\\Work\\\\inSales\\\\insales-gulp-minifier\" status --short)",
+      "Bash(git commit *)",
+      "Bash(echo \"exit:$?\")",
+      "Bash(python -c \"import json; print\\('ok'\\)\")",
+      "Bash(node -e \"console.log\\('ok'\\)\")",
+      "Bash(node \"C:\\\\Users\\\\mihail\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\E--Work-inSales-insales-gulp-minifier-limemart-wizzu-ru\\\\a8f512c8-e675-41c6-86de-5ce65f7f59ea\\\\scratchpad\\\\build_shop_json.js\")",
+      "Bash(node -e ' *)",
+      "Bash(node \"C:\\\\Users\\\\mihail\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\E--Work-inSales-insales-gulp-minifier-limemart-wizzu-ru\\\\a8f512c8-e675-41c6-86de-5ce65f7f59ea\\\\scratchpad\\\\verify_shop_json.js\")",
+      "mcp__visualize__read_me",
+      "Bash(node \"C:\\\\Users\\\\mihail\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\E--Work-inSales-insales-gulp-minifier-limemart-wizzu-ru\\\\a8f512c8-e675-41c6-86de-5ce65f7f59ea\\\\scratchpad\\\\gen_compare_svg.js\")",
+      "mcp__visualize__show_widget",
+      "Bash(node \"C:\\\\Users\\\\mihail\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\E--Work-inSales-insales-gulp-minifier-limemart-wizzu-ru\\\\a8f512c8-e675-41c6-86de-5ce65f7f59ea\\\\scratchpad\\\\escape_ascii.js\")",
+      "Bash(node --check \"E:\\\\Work\\\\inSales\\\\insales-gulp-minifier\\\\limemart_wizzu_ru\\\\widget_types\\\\emilius_widget_delivery_zones_map\\\\snippet.js\")",
+      "Bash(cd \"E:\\\\Work\\\\inSales\" && ls run.js 2>&1)",
+      "Bash(node run.js stream limemart.wizzu.ru)",
+      "Bash(taskkill //F //FI \"WINDOWTITLE eq node*\")",
+      "Bash(curl -s \"https://api.wizzu.ru/api/get/shop/webapp\")",
+      "Bash(curl -s \"https://api.wizzu.ru/api/get/shop\")",
+      "Bash(node --check \"E:\\\\Work\\\\inSales\\\\insales-gulp-minifier\\\\vkusdom_wizzu_ru\\\\widget_types\\\\emilius_widget_delivery_zones_map\\\\snippet.js\")"
+    ]
+  }
+}

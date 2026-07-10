@@ -1,0 +1,173 @@
+.map__wrapper {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.zones-list--popular {
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-map,
+.popup-address {
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.map__panel-address {
+    position: absolute;
+    top: 20px;
+    left: 70px;
+    right: 70px;
+    text-align: center;
+    font-size: 24px;
+    background: rgba(255,255,255,0.6);
+    padding: 10px;
+    z-index: 10;
+}
+
+.btn__change-address {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    background: white;
+    padding: 8px 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+}
+
+.map__panel-marker {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 42px;
+    height: 42px;
+    transform: translate(-50%, calc(-50% - 21px));
+    background: url('https://static.insales-cdn.com/files/1/967/39510983/original/684908.png') no-repeat center;
+    background-size: contain;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.modal__recaptcha {
+    margin-top: 15px;
+}
+
+.btn-ready {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    background: #2394F0;
+    color: #fff;
+    padding: 15px 40px;
+    border-radius: 15px;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    max-width: 320px;
+    width: 100%;
+    transition: color, background-color 0.3s ease;
+}
+
+.btn-ready:disabled {
+    pointer-events: none;
+    cursor: none;
+    background-color: #999999;
+    color: #fff;
+}
+
+.btn-home {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    padding: 10px;
+    z-index: 10;
+    background-color: #fff;
+    box-shadow: 0px 4px 9px 0px #0000002E;
+    padding: 10px;
+    border-radius: 55px;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-home > svg {
+    width: 30px;
+    height: 30px;
+}
+
+.btn_small:not(.btn__disabled-grey) {
+    background-color: #2394F0;
+    color: #fff;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    display: none;
+}
+
+input[type="search"]::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+}
+input[type="search"]::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+.vitamin-marker {
+    position: relative;
+    top: -40px;
+    display: inline-flex;
+    align-items: center;
+    pointer-events: auto;
+    z-index: 1000;
+}
+
+.vitamin-marker__icon {
+    position: relative;
+    z-index: 10;
+}
+
+.vitamin-marker__label {
+    margin-left: -4px;
+    margin-bottom: 15px;
+    padding: 4px 8px;
+    background: white;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 560px) {
+    .btn__change-address {
+        top: 180px;
+    }
+
+    .map__panel-address {
+        font-size: 19px;
+    }
+
+    .btn-home > svg {
+        width: 30px;
+        height: 30px;
+    }
+}

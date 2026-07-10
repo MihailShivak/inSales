@@ -1,0 +1,308 @@
+{
+  "content": [
+    {
+      "group_name":"{{ messages.logo_img }}",
+      "items": [
+        {
+          "name": "logo-img",
+          "label": "{{ messages.logo_img }}",
+          "value": null,
+          "type": "file",
+          "general": true,
+          "general_position": 1,
+          "with_generate_logo": true,
+          "only_images": true,
+          "branding_field": "logo",
+          "help": "{{ messages.logo_recommended_width }}"
+        },
+        {
+          "class": "range",
+          "name": "logo-max-width",
+          "min": 100,
+          "max": 300,
+          "step": 20,
+          "label": "{{ messages.logo_max_width }} (px)",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.px_helper }}",
+"unit": "px",
+          "general": true,
+          "general_position": 1
+        }
+      ]
+    },
+    {
+      "group_name":"{{ messages.menu }}",
+      "items": [
+        {
+          "class": "text",
+          "name": "menu-handle",
+          "label": "{{ messages.menu }}",
+          "value": "main-menu",
+          "type": "navigation",
+          "placeholder": null,
+          "general": true,
+          "general_position": 1
+        }
+      ]
+    },
+    {
+      "group_name":"{{ messages.contacts }}",
+      "items": [
+        {
+          "class": "text",
+          "name": "working_hours",
+          "label": "{{ messages.working_hours }}",
+          "value": "",
+          "type": "text",
+          "placeholder": null,
+          "general": true,
+          "general_position": 1
+        },
+        {
+          "class": "text",
+          "name": "phone_number",
+          "label": "{{ messages.phone }}",
+          "value": "",
+          "type": "text",
+          "placeholder": null,
+          "general": true,
+          "general_position": 1,
+          "branding_field": "account_contact_phone"
+        },
+        {
+          "class": "text",
+          "name": "phone_number_2",
+          "label": "{{ messages.phone }} 2",
+          "value": "",
+          "type": "text",
+          "placeholder": null,
+          "branding_field": "account_contact_phone2"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.live_search }}",
+      "items": [
+        {
+          "name": "live-search",
+          "label": "{{ messages.enable_live_search }}",
+          "enable_server_reload": true,
+          "value": null,
+          "help": "{{ messages.help_live_search }}",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "group_name":"{{ messages.elements }}",
+      "items": [
+        {
+          "class": "checkbox",
+          "name": "hide-catalog",
+          "label": "{{ messages.hide_catalog }}",
+          "value": null,
+          "type": "checkbox",
+          "general": true,
+          "general_position": 1
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-top-panel",
+          "label": "{{ messages.hide_top_panel }}",
+          "value": null,
+          "type": "checkbox",
+          "general": true,
+          "general_position": 100
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-search",
+          "label": "{{ messages.hide_search }}",
+          "value": null,
+          "type": "checkbox",
+          "general": true,
+          "general_position": 100
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-language",
+          "label": "{{ messages.hide_language }}",
+          "value": null,
+          "type": "checkbox",
+          "help": "{{ messages.hide_language_help }}",
+          "general": true,
+          "general_position": 100
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-personal",
+          "label": "{{ messages.hide_personal }}",
+          "value": null,
+          "type": "checkbox",
+          "general": true,
+          "general_position": 100
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-compare",
+          "label": "{{ messages.hide_comparison }}",
+          "value": null,
+          "type": "checkbox",
+          "general": true,
+          "general_position": 100,
+          "help": "{{ messages.hide_compare_help }}",
+          "enable_server_reload": true
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-favorite",
+          "label": "{{ messages.hide_favorites }}",
+          "value": null,
+          "type": "checkbox",
+          "general": true,
+          "general_position": 100,
+          "enable_server_reload": true,
+          "help": "{{ messages.hide_favorite_help }}"
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-total-price",
+          "label": "{{ messages.hide_total_price }}",
+          "value": null,
+          "type": "checkbox",
+          "general": true,
+          "general_position": 100
+        }
+      ]
+    }
+  ],
+  "design": [
+    {
+      "type": "group",
+      "name": "{{ messages.stylization }}",
+      "items": [
+        {
+          "name": "bage-bg",
+          "label": "{{ messages.bages_background_color }}",
+          "value": "",
+          "type": "color"
+        },
+        {
+          "name": "bg",
+          "label": "{{ messages.widget_background_color }}",
+          "value": "",
+          "type": "color",
+          "clearable": true
+        },
+        {
+          "class": "checkbox",
+          "name": "header-wide-bg",
+          "label": "{{ messages.wide_background }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.indentation }}",
+      "items": [
+        {
+          "class": "range",
+          "name": "header-top-pt",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.header_top_padding_top }}",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.vw_helper }}",
+"unit": "vw"
+        },
+        {
+          "class": "range",
+          "name": "header-top-pb",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.header_top_padding_bottom }}",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.vw_helper }}",
+"unit": "vw"
+        },
+        {
+          "class": "range",
+          "name": "header-main-pt",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.header_main_padding_top }}",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.vw_helper }}",
+"unit": "vw"
+        },
+        {
+          "class": "range",
+          "name": "header-main-pb",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.header_main_padding_bottom }}",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.vw_helper }}",
+"unit": "vw"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.content }}",
+      "items": [
+        {
+          "class": "number",
+          "name": "layout-content-max-width",
+          "min": 1060,
+          "max": 2000,
+          "label": "{{ messages.content_max_width }} (px)",
+          "type": "number",
+          "help": "{{ messages.px_helper }}",
+"unit": "px",
+          "hide_mobile": true
+        },
+        {
+          "class": "checkbox",
+          "name": "header-wide-content",
+          "label": "{{ messages.wide_content }}",
+          "value": null,
+          "type": "checkbox",
+          "hide_mobile": true
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.adaptive }}",
+      "items": [
+        {
+          "class": "checkbox",
+          "name": "hide-desktop",
+          "label": "{{ messages.hide_desktop }}",
+          "value": null,
+          "type": "checkbox"
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-mobile",
+          "label": "{{ messages.hide_mobile }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    }
+  ]
+}

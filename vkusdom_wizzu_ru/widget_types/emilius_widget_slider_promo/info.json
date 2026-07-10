@@ -1,0 +1,19 @@
+{
+  "type": "BlockListWidgetType",
+  "name": {
+    "ru": "Слайдер с акциями"
+  },
+  "handle": "emilius_widget_slider_promo",
+  "page_kinds": [
+    "index"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "sliders",
+  "libraries": [
+    "swiper"
+  ],
+  "block_template_handle": "system-personal"
+}

@@ -1,0 +1,101 @@
+{% assign productAvailable = false %}
+{% assign perGram = null %}
+{% if product.available %}
+    {% if product.properties.price-gram %}
+        {% assign perGram = product.properties.price-gram.characteristics.first.name | to_integer | default: 1 %}
+        {% if perGram > 10 %}
+            {% assign perGram = 0 %}
+        {% endif %}
+    {% endif %}
+    {% comment %} MIN_QUANTITY = 1 {% endcomment %}
+    {% if product.variants.first.quantity > 1 %}
+        {% assign productAvailable = true %}
+        {% if perGram > 2 %}
+            {% assign firstPropPackage = 1.0 | divided_by: perGram | round: 3 %}
+        {% else %}
+            {% assign firstPropPackage = product.properties.pack.characteristics.first.name %}
+        {% endif %}
+    {% endif %}
+
+    {% assign firstPropQantity = product.properties.limit.characteristics | first %}
+{% endif %}
+
+<div class="product-item {% unless productAvailable %} product-item_disabled{% endunless %}" data-product-id="{{ product.id }}" data-variant-id="{{ product.variants[0].id }}">
+    <div class="products-item__actions">
+        <button type="button" class="products-item__action icon_favorite" 
+            data-ui-favorites-trigger="{{ product.id }}">
+        </button>
+    </div>
+    <a href="{{ product.url }}">
+        <div class="products-item__img">
+            <img src="{{ product.first_image.large_url }}" alt="{{ product.title }}" loading="lazy">
+            {% if product.price < product.old_price %}
+                <span class="products-item__badge">{{ product.price | divided_by: product.old_price | minus: 1 | times: 100 | round: 0 }}%</span>
+            {% endif %}
+        </div>
+        <div class="products-item__info">
+            <div class="products-item__title">{{ product.title }}</div>
+            <div class="products-item__descr">{{ product.short_description | truncatewords: 4, "" }}</div>
+        </div>
+    </a>
+    {% if productAvailable %}
+        <div class="products-item__prices"> 
+            <span class="products-item__price{% if product.price < product.old_price %} products-item__price-new{%- endif -%}">
+                {% if perGram > 1 %}
+                    {{ product.price | times: 1.0 | divided_by: perGram | round: 1 }} ₽ <span class="item__price-step"> за {{ 1000 | divided_by: perGram }}г.</span>
+                {% else %}
+                    {{ product.price | money }}
+                {% endif %}
+            </span>
+            {% if product.price < product.old_price %}
+                <span class="products-item__price-old">
+                    <s>
+                        {% if perGram > 1 %}
+                            {{ product.old_price | divided_by: perGram | money }}
+                        {% else %}
+                            {{ product.old_price | money }}
+                        {% endif %}
+                    </s>
+                </span>
+            {% endif %}
+        </div>
+    {% endif %}
+    {% if productAvailable %}
+        {%- if product.properties.unit.characteristics.size > 0 -%}
+            {% assign unitProduct = product.properties.unit.characteristics[0].name %}
+        {%- elsif product.unit -%}
+            {% assign unitProduct = product.unit %}
+        {%- else -%}
+            {% assign unitProduct = "шт" %}
+        {%- endif -%}
+        <div class="btn__add btn btn_small" data-product-add="{{ product.variants[0].id }}">
+            <button type="button" class="quantity__button quantity__button_minus" data-btn-minus="">-</button>
+            <span>В корзину</span>
+            <input type="text" class="quantity__input" value
+                data-max-qantity="
+                    {%- if product.properties.limit -%}
+                        {{ firstPropQantity.name }}
+                    {%- else -%}
+                        {{ product.variants[0].quantity }}
+                    {%- endif -%}"
+                data-max-qantity-default="{{ product.variants[0].quantity }}" 
+                data-package-qantity="
+                    {%- if firstPropPackage -%}
+                        {{ firstPropPackage }}
+                    {%- else -%}1{%- endif -%}"
+                data-product-unit="{{ unitProduct }}"
+            >
+            <button type="button" class="quantity__button quantity__button_plus" data-btn-plus>+</button>
+        </div>
+        {% if product.properties.limit %}
+            <div class="product__message-error" style="display:none;">
+                Нельзя добавить больше {{ firstPropQantity.name }}
+                {{ unitProduct }}
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="btn__disbled btn btn_small">
+            <span>Закончился</span>
+        </div>
+    {% endif %}
+</div>

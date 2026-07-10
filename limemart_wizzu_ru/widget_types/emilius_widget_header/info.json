@@ -1,0 +1,19 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Шапка сайта"
+  },
+  "handle": "emilius_widget_header",
+  "description": {
+    "ru": "Шапка сайта"
+  },
+  "page_kinds": [
+    "all"
+  ],
+  "widget_list_kinds": [
+    "header"
+  ],
+  "generation": 4,
+  "widget_category_handle": "headers",
+  "libraries": []
+}

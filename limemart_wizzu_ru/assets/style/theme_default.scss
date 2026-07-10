@@ -1,0 +1,388 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    min-width: 320px;
+}
+
+body {
+    // color: #251e19;
+    line-height: 1;
+    // font-family: Poppins;
+    font-size: 16px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+input[type=email], 
+input[type=tel],
+input[type=text],
+textarea {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+}
+
+input,
+button,
+textarea {
+    // font-family: "TTFors",sans-serif,arial;
+    font-size: inherit;
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+    color: inherit;
+    background-color: inherit;
+}
+
+a {
+    color: inherit;
+}
+
+a:link,
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul li {
+    list-style: none;
+}
+
+img {
+    vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+.lock body {
+    overflow: hidden;
+}
+
+.layout .layout__content {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+// Ins
+.co-input-field, .m-input-field {
+    background-color: #fff;
+    border: none;
+}
+
+a, .co-input-description a:not([class]), .co-menu-link, .co-link, .link {
+    color: inherit;
+}
+
+
+// Формы
+.input-group__wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    min-height: 49px;
+    padding: 0 15px;
+    border-radius: 40px;
+    background-color: #fff;
+    gap: 15px;
+}
+
+.input {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    line-height: 120%;
+    color: #808080;
+}
+
+.quantity__input {
+    display: block;
+    width: 100%;
+    background-color: inherit;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    pointer-events: none;
+}
+
+.quantity__button {
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+
+// Кнопки
+.co-button:not(.co-button--link) {
+    background-color: #2394F0;
+    font-family: inherit;
+}
+
+.btn__wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
+}
+
+.btn {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-radius: 30px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.btn_small {
+    min-height: 46px;
+    padding: 5px 10px;
+    font-size: 16px;
+    line-height: 100%;
+}
+
+.btn_average {
+    min-height: 40px;
+    padding: 8px 30px;
+    font-size: 16px;
+    line-height: 100%;
+}
+
+.btn__add {
+    width: 100%;
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.btn__add:not(.cart-added)>.quantity__button,
+.btn__add:not(.cart-added)>.quantity__input {
+    display: none;
+}
+
+.btn__add.cart-added {
+    background-color: #2394F0;
+}
+
+.btn__add.cart-added>span {
+    display: none;
+}
+
+.btn__disbled {
+    background-color: #FFFFFF;
+    pointer-events: none;
+    opacity: 0.75;
+}
+
+.btn__disabled-grey {
+    width: 100%;
+    pointer-events: none;
+    background-color: #646464;
+    color: #fff;
+}
+
+.btn__clear {
+    font-size: 18px;
+    line-height: 100%;
+    color: #646464;
+}
+
+
+// Для слайдера
+.slider__arrows {
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-left: 16px;
+    gap: 30px;
+}
+
+// Заголовки
+.title__large {
+    font-size: 35px;
+    font-weight: 700;
+}
+
+.title__large:not(:last-child) {
+    margin-bottom: 30px;
+}
+
+.title__medium {
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.title__medium:not(:last-child) {
+    margin-bottom: 25px;
+}
+
+.title__small {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 100%;
+}
+
+// Слайдер
+.swiper {
+    // width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    overflow: hidden;
+    -ms-touch-action: pinch-zoom pan-y;
+    touch-action: pinch-zoom pan-y;
+}
+
+.swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// Лоадер
+.local-loader {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    z-index: 50;
+    width: 100%;
+    min-height: 200px;
+    height: 100%;
+    overflow: visible;
+    text-align: center;
+    background-color: #ffffff59;
+}
+
+.local-loader svg {
+    width: 100%;
+    height: 100%;
+    max-width: 3.125rem;
+    content-visibility: visible;
+    display: inline-block
+}
+
+// Скрытие района
+._app-hide {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    display: none !important;
+}
+
+._app-hide-vis {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+._app-header .header__address {
+    display: none !important;
+}
+
+@media screen and (max-width: 1000px) {
+    ._disabled-mob {
+        display: none !important;
+    }
+
+    ._app-header {
+        height: 0 !important;
+        padding: 0 !important;
+        pointer-events: none !important;
+    }
+
+    ._app-header .header__mob {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    // Заголовки
+    .title__large,
+    .title__medium {
+        font-size: 18px;
+    }
+
+    .title__small {
+        font-size: 16px;
+    }
+
+    .title__medium:not(:last-child),
+    .title__large:not(:last-child) {
+        margin-bottom: 15px;
+    }
+
+    // Формы
+    .input {
+        line-height: 100%;
+    }
+
+    .quantity__input {
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    .btn__wrapper {
+        flex-direction: column;
+    }
+
+    .btn_small {
+        min-height: 36px;
+        font-size: 14px;
+        line-height: 16px;
+    }
+}

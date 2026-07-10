@@ -1,0 +1,18 @@
+{
+  "type": "BlockListWidgetType",
+  "name": {
+    "ru": "Разделы категорий в виде секций"
+  },
+  "handle": "emilius_widget_collections",
+  "page_kinds": [
+    "all",
+    "index"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "collection-subcollections",
+  "libraries": [],
+  "block_template_handle": "system-collection"
+}

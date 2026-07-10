@@ -1,0 +1,412 @@
+{
+  "content": [
+    {
+      "items": [
+        {
+          "name": "logo-img",
+          "label": "{{ messages.logo_img }}",
+          "type": "file",
+          "general": true,
+          "general_position": 1,
+          "only_images": true,
+          "branding_field": "logo",
+          "help": "{{ messages.logo_recommended_width }}"
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-logo-img",
+          "label": "Показать лого и номер телефона",
+          "value": true,
+          "type": "checkbox"
+        },
+        {
+          "class": "range",
+          "name": "logo-max-width",
+          "min": 100,
+          "max": 400,
+          "step": 20,
+          "label": "{{ messages.logo_max_width }} (px)",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.px_helper }}",
+          "unit": "px"
+        },
+        {
+          "class": "text",
+          "name": "phone_number",
+          "label": "{{ messages.phone }}",
+          "value": "",
+          "type": "text",
+          "placeholder": null,
+          "general": true,
+          "general_position": 1,
+          "branding_field": "account_contact_phone"
+        },
+        {
+          "class": "text",
+          "name": "phone-info-1",
+          "label": "{{ messages.phone_signature }}",
+          "value": "",
+          "type": "text",
+          "placeholder": null,
+          "general": true,
+          "general_position": 1
+        },
+        {
+          "class": "text",
+          "name": "phone_number_2",
+          "label": "{{ messages.phone }} 2",
+          "value": "",
+          "type": "text",
+          "placeholder": null,
+          "branding_field": "account_contact_phone2"
+        },
+        {
+          "class": "text",
+          "name": "phone-info-2",
+          "label": "{{ messages.phone_signature }} 2",
+          "value": "",
+          "type": "text",
+          "placeholder": null
+        },
+        {
+          "class": "text",
+          "name": "title-menu-1",
+          "label": "{{ messages.title }} 1",
+          "value": "",
+          "type": "text",
+          "placeholder": null,
+          "general": true,
+          "general_position": 1
+        },
+        {
+          "class": "text",
+          "name": "menu-1",
+          "label": "{{ messages.menu }} 1",
+          "value": "",
+          "type": "navigation",
+          "placeholder": null,
+          "general": true,
+          "general_position": 1
+        },
+        {
+          "class": "text",
+          "name": "title-menu-2",
+          "label": "{{ messages.title }} 2",
+          "value": "",
+          "type": "text",
+          "placeholder": null,
+          "general": true,
+          "general_position": 1
+        },
+        {
+          "class": "text",
+          "name": "menu-2",
+          "label": "{{ messages.menu }} 2",
+          "value": "",
+          "type": "navigation",
+          "placeholder": null,
+          "general": true,
+          "general_position": 1
+        },
+        {
+          "class": "text",
+          "name": "title-menu-3",
+          "label": "{{ messages.title }} 3",
+          "value": "",
+          "type": "text",
+          "placeholder": null,
+          "general": true,
+          "general_position": 1
+        },
+        {
+          "class": "text",
+          "name": "menu-3",
+          "label": "{{ messages.menu }} 3",
+          "value": "",
+          "type": "navigation",
+          "placeholder": null,
+          "general": true,
+          "general_position": 1
+        },
+        {
+          "class": "text",
+          "name": "social-title",
+          "label": "{{ messages.block_header }} {{ messages.social_networks }}",
+          "value": "",
+          "type": "text",
+          "placeholder": null,
+          "general_label": "{{ messages.block_header }} {{ messages.social }}",
+          "general": true,
+          "general_position": 1
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-pay",
+          "label": "{{ messages.hide_block }}  {{ messages.pay }}",
+          "value": null,
+          "type": "checkbox",
+          "general_label": "{{ messages.hide_block }} {{ messages.pay }}",
+          "general": true,
+          "general_position": 100
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-social",
+          "label": "{{ messages.hide_block_social_networks_messengers }}",
+          "value": null,
+          "type": "checkbox",
+          "general_label": "{{ messages.hide_block_social_networks_messengers }}",
+          "general": true,
+          "general_position": 100
+        },
+        {
+          "name": "social-networks-messengers-info",
+          "label": "{{ messages.social_networks_messengers }}",
+          "value": null,
+          "type": "info",
+          "text": "{{ messages.social_networks_messengers_help }}",
+          "general": true,
+          "general_position": 200
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "Иконки в подвале",
+      "items": [
+        {
+          "name": "bottom-logo-1",
+          "label": "Лого 1",
+          "type": "file",
+          "general": true,
+          "general_position": 1,
+          "only_images": true,
+          "branding_field": "logo"
+        },
+        {
+          "class": "text",
+          "name": "bottom-logo-link-1",
+          "label": "Ссылка для лого 1",
+          "value": "",
+          "type": "text",
+          "placeholder": null,
+          "general": true,
+          "general_position": 1
+        },
+        {
+          "name": "bottom-logo-2",
+          "label": "Лого 2",
+          "type": "file",
+          "general": true,
+          "general_position": 1,
+          "only_images": true,
+          "branding_field": "logo"
+        },
+        {
+          "class": "text",
+          "name": "bottom-logo-link-2",
+          "label": "Ссылка для лого 2",
+          "value": "",
+          "type": "text",
+          "placeholder": null,
+          "general": true,
+          "general_position": 1
+        },
+        {
+          "name": "bottom-logo-3",
+          "label": "Лого 3",
+          "type": "file",
+          "general": true,
+          "general_position": 1,
+          "only_images": true,
+          "branding_field": "logo"
+        },
+        {
+          "class": "text",
+          "name": "bottom-logo-link-3",
+          "label": "Ссылка для лого 3",
+          "value": "",
+          "type": "text",
+          "placeholder": null,
+          "general": true,
+          "general_position": 1
+        }
+      ]
+    },
+    {
+      "group_name": "Ссылки в подвале",
+      "items": [
+        {
+          "name": "url_1-href",
+          "label": "Ссылка на WhatsApp",
+          "value": null,
+          "type": "text"
+        },
+        {
+          "name": "url_2-href",
+          "label": "Ссылка на Instagram",
+          "value": null,
+          "type": "text"
+        },
+        {
+          "name": "url_3-href",
+          "label": "Ссылка на VK",
+          "value": null,
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "design": [
+    {
+      "type": "group",
+      "name": "{{ messages.pay }}",
+      "items": [
+        {
+          "name": "pay-img-1",
+          "label": "{{ messages.picture }} 1",
+          "type": "file",
+          "help": "{{ messages.recommended_size }}: 40x25 px"
+        },
+        {
+          "name": "pay-img-2",
+          "label": "{{ messages.picture }} 2",
+          "type": "file",
+          "help": "{{ messages.recommended_size }}: 40x25 px"
+        },
+        {
+          "name": "pay-img-3",
+          "label": "{{ messages.picture }} 3",
+          "type": "file",
+          "help": "{{ messages.recommended_size }}: 40x25 px"
+        },
+        {
+          "name": "pay-img-4",
+          "label": "{{ messages.picture }} 4",
+          "type": "file",
+          "help": "{{ messages.recommended_size }}: 40x25 px"
+        },
+        {
+          "name": "pay-img-5",
+          "label": "{{ messages.picture }} 5",
+          "type": "file"
+        },
+        {
+          "name": "pay-img-6",
+          "label": "{{ messages.picture }} 6",
+          "type": "file",
+          "help": "{{ messages.recommended_size }}: 40x25 px"
+        },
+        {
+          "name": "pay-img-7",
+          "label": "{{ messages.picture }} 7",
+          "type": "file",
+          "help": "{{ messages.recommended_size }}: 40x25 px"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.background }}",
+      "items": [
+        {
+          "name": "bg",
+          "label": "{{ messages.widget_background_color }}",
+          "value": "",
+          "type": "color",
+          "clearable": true
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-wide-bg",
+          "label": "{{ messages.wide_background }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.indentation }}",
+      "items": [
+        {
+          "class": "range",
+          "name": "layout-pt",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.padding_top }} (rem)",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.vw_helper }}",
+          "unit": "vw"
+        },
+        {
+          "class": "range",
+          "name": "layout-pb",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.padding_bottom }} (rem)",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.vw_helper }}",
+          "unit": "vw"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.content }}",
+      "items": [
+        {
+          "class": "number",
+          "name": "layout-content-max-width",
+          "min": 980,
+          "max": 2000,
+          "label": "{{ messages.content_max_width }} (px)",
+          "type": "number",
+          "help": "{{ messages.px_helper }}",
+          "unit": "px",
+          "hide_mobile": true
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-wide-content",
+          "label": "{{ messages.wide_content }}",
+          "value": null,
+          "type": "checkbox",
+          "hide_mobile": true
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-edge",
+          "label": "{{ messages.remove_padding_at_edges }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.adaptive }}",
+      "items": [
+        {
+          "class": "checkbox",
+          "name": "hide-desktop",
+          "label": "{{ messages.hide_desktop }}",
+          "value": null,
+          "type": "checkbox"
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-mobile",
+          "label": "{{ messages.hide_mobile }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    }
+  ]
+}

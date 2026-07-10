@@ -1,0 +1,325 @@
+{% include "system_bnpl-modal" %}
+
+<div class="breadcrumbs">
+  <a href="/collection/all" class="btn__bread-back">
+    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+    <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <span>Назад</span>
+  </a>
+  {% comment %} <ul class="breadcrumbs__list">
+    <li class="breadcrumbs__item">
+        <a href="/collection/all" class="breadcrumbs__link">Каталог</a>
+    </li>
+    <li class="breadcrumbs__item">
+      <span>Корзина</span>
+    </li>
+  </ul> {% endcomment %}
+</div>
+
+{% if widget_settings.page_header and widget_settings.page_header != '' %}
+  <div class="cart__top">
+    <h1 class="title__large filter__back-wrapper">
+      <a href="{%- if collections.aktsii -%}/collection/aktsii{%- else -%}/collection/all{%- endif -%}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+        <path d="M11 3.5L6 9L11 14.5" stroke="#181818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span class="filter__back-span">Назад</span>
+      </a>
+      <span class="title__large-span">{{ widget_settings.page_header | editable }}</span>
+    </h1>
+    <button type="button" class="btn__clear" data-cart-clear-all>Очистить корзину</button>
+  </div>
+{% endif %}
+{% if cart.items.size > 0 %}
+  <form
+    action="{{ cart_items }}"
+    class="cart {% if cart.enable_coupon? %}with-coupon{% endif %}"
+    method="post"
+    data-minimum-items-price="{{ account.minimum_items_price }}"
+  >
+    <input
+      type="text"
+      name="shared-cart-link"
+      class="shared-cart-link hidden" />
+    <div class="cart__area-items">
+
+      {% for item in cart.items %}
+        {% comment %} {% if item.id == 1823943729 %}
+          {% continue %}
+        {% endif %} {% endcomment %}
+
+        {% if item.product.unit == "кг" and item.product.properties.price-gram %}
+          {% assign perGram = item.product.properties.price-gram.characteristics.first.name | to_integer | default: 1 %}
+        {% else %}
+          {% assign perGram = null %}
+        {% endif %}
+        {% if perGram > 10 %}
+            {% assign perGram = 0 %}
+        {% endif %}
+        {% if perGram > 1 %}
+          {% assign firstPropPackage = 1.0 | divided_by: perGram |  round: 3 %}
+        {% else %}
+          {% assign firstPropPackage = item.product.properties.pack.characteristics.first.name %}
+        {% endif %}
+        <div
+          class="cart-item {{ cart_class }}"
+          data-product-id="{{ item.product.id }}"
+          data-product-updated-at="{{ item.product.updated_at }}"
+          data-item-id="{{ item.id }}"
+          data-variant-id="{{ item.id }}"
+          >
+          <div class="item-image">
+            <div class="img-ratio img-ratio_cover">
+              <div class="img-ratio__inner">
+                <img
+                  title="{{ item.title | escape }}"
+                  alt="{{ item.title | escape }}"
+                  src="{{ item.variant.first_image.large_url  }}"
+                  class="item-image">
+              </div>
+            </div>
+          </div>
+          <a href="{{item.product.url | add_param: 'variant_id', item.variant.id }}" class="item-title">
+            {{ item.product.title }}
+            {% if item.variant.title != "" %}<br><span class="variant-title">({{ item.variant.title }})</span>
+            {% endif %}
+          </a>
+          {% if item.product.short_description %}
+            <div class="products-item__descr">{{ item.product.short_description | truncatewords: 4, "" }}</div>
+          {% endif %}
+          {% if item.accessory_lines.size > 0 %}
+            {% assign total_accessories_price = 0 %}
+            {% assign accessories_prices = item.accessory_lines | map: 'accessory_value_price' %}
+            {% for price in accessories_prices %}
+              {% assign total_accessories_price = total_accessories_price | plus: price %}
+            {% endfor %}
+            <div class="item-accessories" data-item-accessories>
+              <div class="item-accessories__header">
+                <button class="item-accessories__expander">
+                  <span class="item-accessories__title">{{ messages.product_options }}</span>
+                  <span class="icon icon-sort-asc hidden"></span>
+                  <span class="icon icon-sort-desc"></span>
+                </button>
+                <span class="item-accessories__total-price">{{ total_accessories_price | money }}</span>
+              </div>
+              <div class="item-accessories__items is-hidden">
+                {% for accessory in item.accessory_lines %}
+                <div class="accessory-item">
+                    <span class="accessory-item__name" data-item-accessory-value-id="{{ accessory.accessory_value_id }}">{{ accessory.accessory_value_name }}</span>
+                    <span class="accessory-item__price">{{ accessory.accessory_value_price | money }}</span>
+                </div>
+              {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+
+          <div class="products-item__prices">
+            <span class="products-item__price{% if item.sale_price < item.variant.old_price %} products-item__price-new{% endif %}" data-cart-item-price2>
+              {% if perGram > 1 %}
+                  {{ item.sale_price | times: 1.0 | divided_by: perGram | round: 1 }} ₽<span class="item__price-step_mini"> за {{ 1000 | divided_by: perGram }}г.</span>
+              {% else %}
+                  {{ item.sale_price | money }}
+              {% endif %}
+            </span>
+            {% if item.sale_price < item.variant.old_price %}
+                <span class="products-item__price-old">
+                    <s>
+                      {% if perGram > 1 %}
+                        {{ item.variant.old_price | times: 1.0  | divided_by: perGram | round: 1 }} ₽
+                      {% else %}
+                        {{ item.variant.old_price | money }}
+                      {% endif %}
+                    </s>
+                </span>
+            {% endif %}
+          </div>
+          <div class="item-counter">
+            <div class="item__price-info">
+              <span data-cart-item-total-price>{{ item.total_price | money }}</span>
+            </div>
+            <div class="counter" data-product-add="{{ item.product.variants[0].id }}">
+              {% assign firstPropQantity = item.product.properties.limit.characteristics | first %}
+              {%- if item.product.properties.unit.characteristics.size > 0 -%}
+                {% assign unitProduct = item.product.properties.unit.characteristics[0].name %}
+              {%- elsif item.product.unit -%}
+                {% assign unitProduct = item.product.unit %}
+              {%- else -%}
+                {% assign unitProduct = "шт" %}
+              {%- endif -%}
+              
+              <button
+                type="button"
+                data-btn-minus
+                class="quantity__button counter-button button button_size-s is-count-down">-
+              </button>
+              {% assign value = item.quantity | plus: 0 %}
+              {% assign rounded = value | round: 1 %}
+              {% assign int_value = rounded | round: 0 %}
+
+              {% if rounded == int_value %}
+                {% assign qantity = int_value %}
+              {% else %}
+                {% assign qantity = rounded %}
+              {% endif %}
+       
+              <input
+                type="text"
+                value="{{ qantity }} {{ unitProduct }}"
+                name="cart[quantity][{{item.id}}]"
+                data-max-qantity="
+                  {%- if item.product.properties.limit -%}
+                    {{ firstPropQantity.name }}
+                  {%- else -%}
+                    {{ item.product.variants[0].quantity }}
+                  {%- endif -%}"
+                data-max-qantity-default="{{ item.product.variants[0].quantity }}" 
+                data-package-qantity="
+                  {%- if firstPropPackage -%}
+                    {{ firstPropPackage }}
+                  {%- else -%}1{%- endif -%}"
+                data-product-unit="{{ unitProduct }}"
+                class="counter-input form-control form-control_size-s" />
+              <button
+                type="button"
+                data-btn-plus
+                class="quantity__button counter-button button button_size-s is-count-up">+
+              </button>
+            </div>
+            {% if item.product.properties.limit %}
+                <div class="product__message-error" style="display:none;">
+                  Вы достигли максимального количества этого товара, которое можно добавить в корзину
+                  {% comment %} (не более {{ firstPropQantity.name }} {{ unitProduct }}) {% endcomment %}
+                  </div>
+            {% endif %}
+          </div>
+          <div class="item-delete">
+            <button type="submit" class="js-item-delete" data-item-delete="{{ item.id }}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="20" viewBox="0 0 19 20" fill="none">
+                <path d="M16.625 5.23421C13.9888 4.97296 11.3367 4.83838 8.6925 4.83838C7.125 4.83838 5.5575 4.91755 3.99 5.07588L2.375 5.23421" stroke="#646464" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.729 4.43426L6.90317 3.39717C7.02984 2.64509 7.12484 2.08301 8.46275 2.08301H10.5369C11.8748 2.08301 11.9778 2.67676 12.0965 3.40509L12.2707 4.43426" stroke="#646464" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14.923 7.73584L14.4084 15.7079C14.3213 16.9508 14.2501 17.9167 12.0413 17.9167H6.95882C4.75007 17.9167 4.67882 16.9508 4.59173 15.7079L4.07715 7.73584" stroke="#646464" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.17773 13.5625H10.814" stroke="#646464" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M7.521 10.3955H11.4793" stroke="#646464" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Удалить</span>
+            </button>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="cart__area-controls">
+      <div class="cart__area-controls-sticky">
+        {% if cart.enable_coupon? %}
+          <div class="cart__area-coupon">
+            <div class="total-description">{{ messages.coupon_caption }}</div>
+            <div class="coupon-notice" data-cart-discounts-error></div>
+            <div class="coupon-content">
+              <div class="coupon-input">
+                <input
+                  type="text"
+                  placeholder="{{ messages.coupon_placeholder }}"
+                  class="form-control form-control_size-m form-control_wide"
+                  name="cart[coupon]"
+                  value="{{ cart.coupon }}" />
+                <button data-remove-coupon>
+                  <span class="icon_close"></span>
+                </button>
+              </div>
+              <button
+                type="submit"
+                class="btn__promo btn btn_small"
+                data-coupon-submit disabled>{{ messages.activate }}</button>
+            </div>
+          </div>
+        {% endif %}
+        <div class="cart__not">
+          <div class="total-description">Если товара не будет в наличии?</div>
+          <div class="cart__not-list">
+            <div class="cart__not-item">
+              <div class="cart__not-item__note">Рекомендуем</div>
+              <input type="radio" name="cart-not-radio" id="cart-not_1" class="cart__not-item__input" value="not-change" hidden>
+              <span class="cart__not-item__icon"></span>
+              <label for="cart-not_1" class="cart__not-item__label">
+                <p class="cart__not-item__title">Заменить самостоятельно</p>
+                <p class="cart__not-item__desc">Сборщик сам подберет аналогичный товар, не беспокоя вас</p>
+              </label>
+            </div>
+            <div class="cart__not-item">
+              <input type="radio" name="cart-not-radio" id="cart-not_2" class="cart__not-item__input" value="change-on-any" hidden>
+              <span class="cart__not-item__icon"></span>
+              <label for="cart-not_2" class="cart__not-item__label">
+                <p class="cart__not-item__title">Позвонить для замены</p>
+                <p class="cart__not-item__desc">Сборщик свяжется с вами, но если не дозвонится с первого раза, то удалит</p>
+              </label>
+            </div>
+            {% comment %} <div class="cart__not-item">
+              <input type="radio" name="cart-not-radio" id="cart-not_3" class="cart__not-item__input" value="change-in-order" hidden>
+              <span class="cart__not-item__icon"></span>
+              <label for="cart-not_3" class="cart__not-item__label">
+                <p class="cart__not-item__title">Заменить на товар из заказа</p>
+                <p class="cart__not-item__desc">Мы заменим на тот товар, что вы уже покупаете, просто увеличив его количество</p>
+              </label>
+            </div> {% endcomment %}
+          </div>
+        </div>
+        <div class="cart-controls">
+          <div class="cart__login" hidden>Авторизируйтесь для оформления заказа</div>
+          {% comment %} [Скрыли] Уже неактуально
+          <div class="input-group__wrapper" data-popup="popup-search">
+            <div class="header__icon icon_address"></div>
+            <input autocomplete="off" type="text" placeholder="Район доставки" class="input-group__input input" data-popup="#popup-delivery" readonly>
+            <button type="button" class="icon_arrow" data-popup="#popup-delivery"></button>
+          </div> {% endcomment %}
+          {% comment %} [Скрыли]
+          <div class="cart__delivery" data-em-deliveries hidden>
+            <div class="total-description">Способ доставки</div>
+            <div class="cart__delivery-list"></div>
+          </div> {% endcomment %}
+          <div class="discount" data-cart-discounts-ajax></div>
+          <div class="total">
+            <span class="total-description">{{ messages.total_caption }}</span>
+            <span class="total-amount" data-cart-total-price></span>
+          </div>
+          <div class="submit-block">
+          <a href="/client_account/session/new" class="btn__auth" hidden>Войти и оформить заказ</a>
+          <button
+            type="submit"
+            class="button button_size-l button_wide"
+            data-cart-submit disabled>Загрузка</button>
+            {% if editor_mode? or widget_settings.shared-cart-enable == true  %}
+                <button type="button" class="button button_size-l button_wide social-button js-copy-url button_second">
+                  <span class="text">{{ widget_messages.share }}</span>
+                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9697 3.2196C12.2626 2.9268 12.7374 2.9268 13.0303 3.2196L16.9678 7.15607C17.2607 7.44892 17.2608 7.9238 16.9679 8.21673C16.675 8.50966 16.2002 8.50972 15.9072 8.21687L13.25 5.56032V14.25C13.25 14.6642 12.9142 15 12.5 15C12.0858 15 11.75 14.6642 11.75 14.25V5.56032L9.09276 8.21687C8.79983 8.50972 8.32496 8.50966 8.0321 8.21673C7.73925 7.9238 7.73931 7.44892 8.03224 7.15607L11.9697 3.2196ZM5 14.25C5 13.8358 4.66421 13.5 4.25 13.5C3.83579 13.5 3.5 13.8358 3.5 14.25V19.5C3.5 19.8978 3.65804 20.2794 3.93934 20.5607C4.22065 20.842 4.60218 21 5 21H20C20.3978 21 20.7794 20.842 21.0607 20.5607C21.342 20.2794 21.5 19.8978 21.5 19.5V14.25C21.5 13.8358 21.1642 13.5 20.75 13.5C20.3358 13.5 20 13.8358 20 14.25V19.5H5V14.25Z" fill="#1F7D63"/>
+                  </svg>
+                </button>
+              {% endif %}
+              <div class="cart__message-error" id="cart__message-error" hidden>Отметьте, что нам делать, если товара не будет в наличии</div>
+            </div>
+          {% if sber_bnpl.payment_gateway_enabled? %}
+            {% if sber_bnpl.show_at_cart == true %}
+              {% include "system_bnpl-cart" %}
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <input
+      type="hidden"
+      name="_method"
+      value="put">
+    <input
+      type="hidden"
+      name="make_order"
+      value="">
+    <input
+      type="hidden"
+      name="lang"
+      value="{{ language.locale }}" />
+  </form>
+  {% assign cart_empty_class = 'hidden' %}
+{% endif %}
+<div class="text-center js-cart-empty {{ cart_empty_class }}">
+  {{ messages.cart_is_empty }}
+</div>

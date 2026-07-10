@@ -1,0 +1,36 @@
+@include background-color(--bg);
+
+&[style*="--article-hide-photo:true"] {
+  .article-photo {
+    display: none!important;
+  }
+}
+
+.article {
+  display: grid;
+  gap: 1rem;
+
+  &._hide-photo .article-photo {
+    display:none;
+  }
+}
+
+.article .title__medium {
+  margin-bottom: 0 !important;
+}
+
+h1 {
+  margin: 0;
+  font-size: calc(var(--font-size) * var(--widget-heading-ratio, 1.5));
+  font-weight: var(--widget-heading-weight, 400);
+  font-family: inherit;
+}
+
+.article-photo {
+  border-radius: var(--img-border-radius);
+}
+
+.article-content {
+  font-size: 1.1rem;
+  min-width: 0;
+}

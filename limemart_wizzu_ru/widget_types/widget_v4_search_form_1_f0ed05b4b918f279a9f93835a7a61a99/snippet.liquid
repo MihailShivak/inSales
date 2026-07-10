@@ -1,0 +1,10 @@
+<div class="search-form">
+	<form action="/search" method="get" class="search-form__form">
+	  <input type="text" autocomplete="off" class="form-control form-control_size-l search-form__field" name="q" value="{{ search.query }}" placeholder="{{ messages.search_placeholder }}"  {% if widget_settings.live-search %} data-search-field {% endif %}>
+	  <button type="submit" class="button button_size-l search-form__submit-btn">
+		<span class="icon icon-search"></span>
+	  </button>
+	  <input type="hidden" name="lang" value="{{ language.locale }}">
+    <div class="search__results" data-search-result2></div>
+	</form>
+</div>

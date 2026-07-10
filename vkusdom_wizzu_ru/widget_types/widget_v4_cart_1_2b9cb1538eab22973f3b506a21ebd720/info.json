@@ -1,0 +1,21 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Корзина"
+  },
+  "handle": "widget_v4_cart_1_2b9cb1538eab22973f3b506a21ebd720",
+  "page_kinds": [
+    "cart"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "cart",
+  "libraries": [
+    "commonjs_v2",
+    "jquery",
+    "my-layout",
+    "micromodal"
+  ]
+}

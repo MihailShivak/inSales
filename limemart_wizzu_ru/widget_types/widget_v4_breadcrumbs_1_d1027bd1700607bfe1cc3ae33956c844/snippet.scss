@@ -1,0 +1,87 @@
+@include background-color(--bg);
+
+&[style*="--delemeter:1"] {
+  .breadcrumb-wrapper ul>*:not(:last-child):after {
+    content: "/";
+  }
+}
+
+&[style*="--delemeter:2"] {
+  .breadcrumb-wrapper ul>*:not(:last-child):after {
+    content: '-';
+    font-size: 1.5rem;
+    vertical-align: middle;
+    line-height: 0;
+    font-family: auto;
+  }
+}
+
+&[style*="--delemeter:3"] {
+  .breadcrumb-wrapper ul>*:not(:last-child):after {
+    content: ">";
+  }
+}
+
+&[style*="--delemeter:4"] {
+  .breadcrumb-wrapper ul>*:not(:last-child):after {
+    content: "\2022";
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .breadcrumb-wrapper ul .button-breadcrumb {
+    display: none;
+  }
+}
+
+.breadcrumb-item.hidden {
+  display: none;
+}
+
+.bttn-hidden-breadcrumbs {
+  border: none;
+  line-height: 1;
+  background: none;
+}
+
+.breadcrumb-wrapper {
+    display: grid;
+    justify-content: var(--align);
+        margin-bottom: 10px;
+}
+
+.breadcrumb-wrapper ul {
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb-wrapper ul li {
+  display: inline-block;
+  vertical-align: top;
+  color: var(--breadcrumb-color, var(--color-text-half-shade));
+}
+
+.breadcrumb-wrapper ul li a {
+  text-decoration: none;
+  color: var(--breadcrumb-color, var(--color-text-half-shade));
+}
+
+.breadcrumb-wrapper ul>*:not(:last-child):after {
+  content: "/";
+  display: inline-block;
+  vertical-align: top;
+  opacity: 0.7;
+  margin: 0 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .breadcrumb-wrapper ul>*:not(:last-child):after {
+    margin: 0 5px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .breadcrumb-wrapper {
+    margin: 20px 0 12px 0;
+  }
+}

@@ -1,0 +1,4784 @@
+{
+  "block_lists": {
+    "block-list-14cbf2cee43e447f-pf95de28be5a7bc364": {
+      "block_template": "system-collection",
+      "title": "Товары из определенной категории - 2 2",
+      "blocks": [
+        "tovary-iz-opredelennoy-kategorii-2-a2-2-3-2-3-2-2-pf95de28be5a7bc364-2-2"
+      ]
+    },
+    "stikers-markom-pf95de28be5a7bc364": {
+      "block_template": "system-text-hex-2",
+      "title": "Цвет стикеров 1",
+      "blocks": [
+        "tsvet-stikerov-2-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "tsvet-stikerov-2-blok-2-2-3-2-3-2-2-pf95de28be5a7bc364-2-2"
+      ]
+    },
+    "block-list-d3d8b37d7517eab6-pf95de28be5a7bc364": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "blocks": [
+        "razdely-kategoriy-v-vide-sektsiy-288b31-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-3ef2ca-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-c81d1f-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-3-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-7751ae-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-f5efe1-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-f85d8b-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-2-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-8a7e57-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-894a8b-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-7705cf-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-cb5b6d-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-335eae-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-31d1c9-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-a99541-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-ed589e-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-19a829-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-152d82-2-2",
+        "razdely-kategoriy-v-vide-sektsiy-b823b6-2-2"
+      ]
+    },
+    "block-list-f5c602aa964c6ac6-pf95de28be5a7bc364": {
+      "block_template": "system-form-constructor-3",
+      "title": "Форма обратной связи",
+      "blocks": [
+        "forma-obratnoy-svyazi-225ccc-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "forma-obratnoy-svyazi-4b3a45-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "forma-obratnoy-svyazi-5a1a2d-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "forma-obratnoy-svyazi-7e84eb-2-3-2-3-2-2-pf95de28be5a7bc364-2-2"
+      ]
+    },
+    "block-list-5dc88b81c4ab0693-pf95de28be5a7bc364": {
+      "block_template": "system-form-constructor-3",
+      "title": "Форма обратной связи",
+      "blocks": [
+        "forma-obratnoy-svyazi-b2986c-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "forma-obratnoy-svyazi-b13205-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "forma-obratnoy-svyazi-c42eec-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "forma-obratnoy-svyazi-1548ba-2-3-2-3-2-2-pf95de28be5a7bc364-2-2"
+      ]
+    },
+    "block-list-1637cbef0ed9169e-pf95de28be5a7bc364": {
+      "block_template": "system-banner-2",
+      "title": "Баннер с категориями",
+      "blocks": [
+        "banner-s-kategoriyami-c0d4da-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "banner-s-kategoriyami-0eac1a-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "banner-s-kategoriyami-882a1e-2-3-2-3-2-2-pf95de28be5a7bc364-2-2",
+        "banner-s-kategoriyami-0d1c2d-2-pf95de28be5a7bc364-2-2"
+      ]
+    },
+    "block-list-a23f99c1539f7081-pf95de28be5a7bc364": {
+      "block_template": "system-form-constructor-3",
+      "title": "Форма обратной связи",
+      "blocks": [
+        "forma-obratnoy-svyazi-b36a3f-2-2-pf95de28be5a7bc364-2-2",
+        "forma-obratnoy-svyazi-a761d0-2-2-pf95de28be5a7bc364-2-2"
+      ]
+    }
+  },
+  "blocks": {
+    "tovary-iz-opredelennoy-kategorii-2-a2-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-collection",
+      "title": "Хит продаж",
+      "collection": ""
+    },
+    "tsvet-stikerov-2-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-text-hex-2",
+      "title": "Цвет  стикеров 1",
+      "name": "Новинка",
+      "hex": "#009688"
+    },
+    "tsvet-stikerov-2-blok-2-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-text-hex-2",
+      "title": "Цвет  стикеров 1 Блок 2",
+      "name": "Распродажа",
+      "hex": "#e44542"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-288b31-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "molochnye-produkty-i-yaytsa"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-3ef2ca-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "ovoschi-i-frukty"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-c81d1f-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "gotovaya-eda"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-3-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "bakaleya"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-7751ae-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "myaso-ptitsa-kolbasa"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-f5efe1-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "ryba-i-moreprodukty"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-f85d8b-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "voda-i-napitki"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-2-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "sladosti"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-8a7e57-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "sneki-i-chipsy"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-894a8b-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "hleb-i-vypechka"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-7705cf-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "dlya-detey"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-cb5b6d-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "zamorozhennye-produkty"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-335eae-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "zdorovyy-vybor"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-31d1c9-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "dlya-detey"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-a99541-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "dlya-detey"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-ed589e-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "dlya-detey"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-19a829-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "krasota-i-gigiena"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-152d82-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "stirka-i-uborka"
+    },
+    "razdely-kategoriy-v-vide-sektsiy-b823b6-2-2": {
+      "block_template": "system-collection",
+      "title": "Разделы категорий в виде секций",
+      "collection": "dlya-doma-i-dachi"
+    },
+    "forma-obratnoy-svyazi-225ccc-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-form-constructor-3",
+      "title": "Форма обратной связи",
+      "type": "text",
+      "label": "Имя",
+      "required": "t"
+    },
+    "forma-obratnoy-svyazi-4b3a45-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-form-constructor-3",
+      "title": "Форма обратной связи",
+      "type": "text",
+      "label": "Должность",
+      "required": "t"
+    },
+    "forma-obratnoy-svyazi-5a1a2d-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-form-constructor-3",
+      "title": "Форма обратной связи",
+      "type": "phone",
+      "label": "Телефон для связи",
+      "required": "t"
+    },
+    "forma-obratnoy-svyazi-7e84eb-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-form-constructor-3",
+      "title": "Форма обратной связи",
+      "type": "text",
+      "label": "Название магазина и адрес",
+      "required": "t"
+    },
+    "forma-obratnoy-svyazi-b2986c-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-form-constructor-3",
+      "title": "Форма обратной связи",
+      "type": "text",
+      "label": "Имя",
+      "required": "t"
+    },
+    "forma-obratnoy-svyazi-b13205-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-form-constructor-3",
+      "title": "Форма обратной связи",
+      "type": "text",
+      "label": "Ваш адрес (населенный пункт, улица, дом)",
+      "required": "t"
+    },
+    "forma-obratnoy-svyazi-c42eec-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-form-constructor-3",
+      "title": "Форма обратной связи",
+      "type": "phone",
+      "label": "Укажите расстояние до ближайшего к вам магазина",
+      "required": "f"
+    },
+    "forma-obratnoy-svyazi-1548ba-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-form-constructor-3",
+      "title": "Форма обратной связи",
+      "type": "textarea",
+      "label": "Какой продуктовый магазин в вашем районе считается лучшим?",
+      "required": "f"
+    },
+    "banner-s-kategoriyami-c0d4da-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-banner-2",
+      "title": "Баннер с категориями",
+      "name": "Избранное",
+      "image": "100221417",
+      "link": "/favorites"
+    },
+    "banner-s-kategoriyami-0eac1a-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-banner-2",
+      "title": "Баннер с категориями",
+      "name": "Уже заказывали",
+      "image": "100221425",
+      "link": "/client_account/orders"
+    },
+    "banner-s-kategoriyami-882a1e-2-3-2-3-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-banner-2",
+      "title": "Баннер с категориями",
+      "name": "Акции",
+      "image": "100221385",
+      "link": "/collection/aktsii"
+    },
+    "banner-s-kategoriyami-0d1c2d-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-banner-2",
+      "title": "Баннер с категориями",
+      "name": "Новинки ",
+      "image": "100221377",
+      "link": "/"
+    },
+    "forma-obratnoy-svyazi-b36a3f-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-form-constructor-3",
+      "title": "Форма обратной связи",
+      "type": "text",
+      "label": "Укажите ваш логин (эл.почта или телефон)",
+      "required": "t"
+    },
+    "forma-obratnoy-svyazi-a761d0-2-2-pf95de28be5a7bc364-2-2": {
+      "block_template": "system-form-constructor-3",
+      "title": "Форма обратной связи",
+      "type": "text",
+      "label": "Укажите причину, если возможно",
+      "required": "f"
+    }
+  },
+  "theme_widgets": {
+    "widget_lists": [
+      {
+        "handle": "collection.system-template-f1250cc75a43aa4af55a-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Категория"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "live-search": true
+            },
+            "widget_type": "system_widget_v4_search_form_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "bg": null,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "border-size": 1,
+              "font-size": 32,
+              "text": {
+                "ru": "Категории",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Título"
+              },
+              "delimeter-type": "solid",
+              "border-color": "#000000"
+            },
+            "widget_type": "system_widget_v4_delimeters_text",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "grid-list-min-width": 220,
+              "grid-list-row-gap": 2,
+              "grid-list-column-gap": 2,
+              "subcollection-border-radius": 0,
+              "img-ratio": 1,
+              "img-fit": "contain",
+              "card-font-size": 20,
+              "text-alignment": "left"
+            },
+            "widget_type": "system_widget_v4_subcollections_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "bg": null,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "border-size": 1,
+              "font-size": "32",
+              "text": {
+                "ru": "Популярные товары",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Título"
+              },
+              "delimeter-type": "solid",
+              "border-color": "#000000"
+            },
+            "widget_type": "system_widget_v4_delimeters_text",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "product-border-radius": 10,
+              "img-ratio": 1,
+              "catalog-grid-list-min-width": 220,
+              "catalog-grid-list-min-width-mobile": 150,
+              "catalog-grid-list-row-gap": 2,
+              "catalog-grid-list-column-gap": 2,
+              "hide-description": true,
+              "hide-variants": false,
+              "hide-variants-title": true,
+              "hide-sku": true,
+              "product-desc-limit": "10",
+              "img-fit": "contain",
+              "sticker-font-size": 0.9,
+              "display-property-color": "text",
+              "switch-img-on-hover": false,
+              "product-info-align": "left",
+              "rating-color": "#ff4100",
+              "product-hide-rating": true
+            },
+            "widget_type": "system_widget_v4_catalog_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "btn-align": "center",
+              "btn-font-size": 2
+            },
+            "widget_type": "system_widget_v4_infinity_products_button_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "collection.system-template-f1250cc75a43aa4af55a-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция категории"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "start",
+              "delemeter": "3",
+              "bg": "#4472C4",
+              "layout-ege": false,
+              "layout-edge": false,
+              "breadcrumb-color": "#FCFCFC"
+            },
+            "widget_type": "system_widget_v4_breadcrumbs_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "sidebar_collection.system-template-32fff4633628213c20c4-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "hide-sorting-on-mobile": false,
+              "font-size-filter": 1.25,
+              "font-weight-filter": 600,
+              "title": {
+                "ru": "Фильтры",
+                "en": "Filters",
+                "ua": "Фільтри",
+                "es": "Filtros"
+              },
+              "display-property-color": "text",
+              "max-filter-item-list-items-visible": 10,
+              "load_all_items_at_once": false,
+              "hide-only-available": true
+            },
+            "widget_type": "system_widget_v4_sidebar_filter_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": true,
+              "hide-desktop": false,
+              "hide-title": true
+            },
+            "widget_type": "system_widget_v4_sidebar_collections_menu_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "collection.system-template-32fff4633628213c20c4-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция категории"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "start",
+              "delemeter": "3",
+              "bg": "#4472C4",
+              "layout-ege": false,
+              "layout-edge": false,
+              "breadcrumb-color": "#FCFCFC"
+            },
+            "widget_type": "system_widget_v4_breadcrumbs_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "collection.system-template-a74198f7424ca1c67f7b-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Категория"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "live-search": true
+            },
+            "widget_type": "system_widget_v4_search_form_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "bg": null,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "border-size": 1,
+              "font-size": 32,
+              "text": {
+                "ru": "Категории",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Título"
+              },
+              "delimeter-type": "solid",
+              "border-color": "#000000"
+            },
+            "widget_type": "system_widget_v4_delimeters_text",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "grid-list-min-width": 220,
+              "grid-list-row-gap": 2,
+              "grid-list-column-gap": 2,
+              "subcollection-border-radius": 0,
+              "img-ratio": 1,
+              "img-fit": "contain",
+              "card-font-size": 20,
+              "text-alignment": "left"
+            },
+            "widget_type": "system_widget_v4_subcollections_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "bg": null,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "border-size": 1,
+              "font-size": "32",
+              "text": {
+                "ru": "Популярные товары",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Título"
+              },
+              "delimeter-type": "solid",
+              "border-color": "#000000"
+            },
+            "widget_type": "system_widget_v4_delimeters_text",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "product-border-radius": 10,
+              "img-ratio": 1,
+              "catalog-grid-list-min-width": 220,
+              "catalog-grid-list-min-width-mobile": 150,
+              "catalog-grid-list-row-gap": 2,
+              "catalog-grid-list-column-gap": 2,
+              "hide-description": true,
+              "hide-variants": false,
+              "hide-variants-title": true,
+              "hide-sku": true,
+              "product-desc-limit": "10",
+              "img-fit": "contain",
+              "sticker-font-size": 0.9,
+              "display-property-color": "text",
+              "switch-img-on-hover": false,
+              "product-info-align": "left",
+              "rating-color": "#ff4100",
+              "product-hide-rating": true
+            },
+            "widget_type": "system_widget_v4_catalog_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "btn-align": "center",
+              "btn-font-size": 2
+            },
+            "widget_type": "system_widget_v4_infinity_products_button_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "collection.system-template-d9f2a06b9d5ee51b9408-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция категории"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "start",
+              "delemeter": "3",
+              "bg": "#4472C4",
+              "layout-ege": false,
+              "layout-edge": false,
+              "breadcrumb-color": "#FCFCFC"
+            },
+            "widget_type": "system_widget_v4_breadcrumbs_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "sidebar_collection.system-template-9cdb169ad02c42003930-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "hide-sorting-on-mobile": false,
+              "font-size-filter": 1.25,
+              "font-weight-filter": 600,
+              "title": {
+                "ru": "Фильтры",
+                "en": "Filters",
+                "ua": "Фільтри",
+                "es": "Filtros"
+              },
+              "display-property-color": "text",
+              "max-filter-item-list-items-visible": 10,
+              "load_all_items_at_once": false,
+              "hide-only-available": true
+            },
+            "widget_type": "system_widget_v4_sidebar_filter_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": true,
+              "hide-desktop": false,
+              "hide-title": true
+            },
+            "widget_type": "system_widget_v4_sidebar_collections_menu_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "collection.system-template-9cdb169ad02c42003930-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция категории"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "start",
+              "delemeter": "3",
+              "bg": "#4472C4",
+              "layout-ege": false,
+              "layout-edge": false,
+              "breadcrumb-color": "#FCFCFC"
+            },
+            "widget_type": "system_widget_v4_breadcrumbs_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "sidebar_collection.system-template-262be8fe59e770800e8f-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "hide-sorting-on-mobile": false,
+              "font-size-filter": 1.25,
+              "font-weight-filter": 600,
+              "title": {
+                "ru": "Фильтры",
+                "en": "Filters",
+                "ua": "Фільтри",
+                "es": "Filtros"
+              },
+              "display-property-color": "text",
+              "max-filter-item-list-items-visible": 10,
+              "load_all_items_at_once": false,
+              "hide-only-available": true
+            },
+            "widget_type": "system_widget_v4_sidebar_filter_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": true,
+              "hide-desktop": false,
+              "hide-title": true
+            },
+            "widget_type": "system_widget_v4_sidebar_collections_menu_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "collection.system-template-262be8fe59e770800e8f-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция категории"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "start",
+              "delemeter": "3",
+              "bg": "#4472C4",
+              "layout-ege": false,
+              "layout-edge": false,
+              "breadcrumb-color": "#FCFCFC"
+            },
+            "widget_type": "system_widget_v4_breadcrumbs_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "page.system-template-1b570190a50c8fea87a0-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Страница"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "1",
+              "layout-pb": "1",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "start",
+              "delemeter": "1",
+              "bg": "",
+              "layout-ege": false
+            },
+            "widget_type": "widget_v4_breadcrumbs_1_d1027bd1700607bfe1cc3ae33956c844",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 2,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false
+            },
+            "widget_type": "widget_v4_page_title_1_d0e9c9c9923f3148286b5c9cfdea55d9",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 2,
+              "hide-mobile": false,
+              "hide-desktop": false
+            },
+            "widget_type": "widget_v4_page_content_1_90559bb3de0b9e1e61be5ce6eff14333",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 680,
+              "align-title": "center",
+              "form_title": {
+                "ru": ".",
+                "en": "Feedback",
+                "ua": "Зворотній зв'язок",
+                "es": "Comentarios"
+              },
+              "submit_btn_title": {
+                "ru": "Отправить",
+                "en": "Send",
+                "ua": "Відправити",
+                "es": "Enviar"
+              },
+              "hide-use-agree": true,
+              "success_message": {
+                "ru": "Заявка успешно отправлена!",
+                "en": "Message sent successfully!",
+                "ua": "Повідомлення успішно відправлено!",
+                "es": "Mensaje enviado exitosamente!"
+              },
+              "bg": "#FFFFFF"
+            },
+            "widget_type": "system_widget_v4_feedback_2",
+            "html_id": null,
+            "data_handle": "block-list-f5c602aa964c6ac6-pf95de28be5a7bc364"
+          }
+        ]
+      },
+      {
+        "handle": "page.system-template-1b570190a50c8fea87a0-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция страницы"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "page.system-template-1b570190a50c8fea87a0-section_bottom-list",
+        "kind": "after_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Нижняя секция страницы"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "sidebar_page.system-template-80d3aaf253c8a6fe5c85-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "search-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Поиск",
+          "en": "Search",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Пошук",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Búsqueda"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "1",
+              "layout-pb": "1",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "start",
+              "delemeter": "1",
+              "bg": "",
+              "layout-ege": false
+            },
+            "widget_type": "widget_v4_breadcrumbs_1_3d7f791c52754e90b91350e084977bf6",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false
+            },
+            "widget_type": "widget_v4_page_title_1_1efbe8c800728ddbee71627c284b0d5b",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "live-search": true
+            },
+            "widget_type": "widget_v4_search_form_1_f0ed05b4b918f279a9f93835a7a61a99",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 2,
+              "layout-pb": 2,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "product-border-radius": 10,
+              "img-ratio": 1,
+              "catalog-grid-list-min-width": 220,
+              "catalog-grid-list-min-width-mobile": 150,
+              "catalog-grid-list-row-gap": 2,
+              "catalog-grid-list-column-gap": 2,
+              "hide-description": true,
+              "hide-variants": false,
+              "hide-variants-title": true,
+              "hide-sku": true,
+              "product-desc-limit": "10",
+              "img-fit": "contain",
+              "sticker-font-size": 0.9,
+              "display-property-color": "text",
+              "switch-img-on-hover": false,
+              "product-info-align": "left"
+            },
+            "widget_type": "widget_v4_catalog_1_a96eb1e644b0c428629b7a8a189a25d6",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 2,
+              "layout-pb": 2,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "btn-align": "center",
+              "btn-font-size": 1.5
+            },
+            "widget_type": "widget_v4_infinity_products_button_1_6c3f0cb5c4bcab727e9bb50379ba6155",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "center",
+              "bg": "",
+              "layout-ege": false
+            },
+            "widget_type": "widget_v4_pagination_1_c01c2a3cca4e0d72d3d7a2f90b807f6a",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "sidebar_collection.system-template-c67971cd58d01473bcf7-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "hide-sorting-on-mobile": false,
+              "font-size-filter": 1.25,
+              "font-weight-filter": 600,
+              "title": {
+                "ru": "Фильтры",
+                "en": "Filters",
+                "ua": "Фільтри",
+                "es": "Filtros"
+              },
+              "display-property-color": "text",
+              "max-filter-item-list-items-visible": 10,
+              "load_all_items_at_once": false,
+              "hide-only-available": true
+            },
+            "widget_type": "system_widget_v4_sidebar_filter_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": true,
+              "hide-desktop": false,
+              "hide-title": true
+            },
+            "widget_type": "system_widget_v4_sidebar_collections_menu_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "sidebar_cart-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар",
+          "en": "Sidebar",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Сайдбар",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Barra lateral"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "sidebar_index-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар",
+          "en": "Sidebar",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Сайдбар",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Barra lateral"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "page-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Страница",
+          "en": "Page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Сторінка",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Página"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "1",
+              "layout-pb": "1",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "start",
+              "delemeter": "1",
+              "bg": "",
+              "layout-ege": false
+            },
+            "widget_type": "widget_v4_breadcrumbs_1_d1027bd1700607bfe1cc3ae33956c844",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 2,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false
+            },
+            "widget_type": "widget_v4_page_title_1_d0e9c9c9923f3148286b5c9cfdea55d9",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 2,
+              "hide-mobile": false,
+              "hide-desktop": false
+            },
+            "widget_type": "widget_v4_page_content_1_90559bb3de0b9e1e61be5ce6eff14333",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": "2.5",
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 680,
+              "align-title": "center",
+              "form_title": {
+                "ru": "",
+                "en": "Feedback",
+                "ua": "Зворотній зв'язок",
+                "es": "Comentarios"
+              },
+              "submit_btn_title": {
+                "ru": "Отправить запрос",
+                "en": "Send",
+                "ua": "Відправити",
+                "es": "Enviar"
+              },
+              "hide-use-agree": true,
+              "success_message": {
+                "ru": "Запрос успешно отправлен!",
+                "en": "Message sent successfully!",
+                "ua": "Повідомлення успішно відправлено!",
+                "es": "Mensaje enviado exitosamente!"
+              }
+            },
+            "widget_type": "widget_v4_feedback_2_87d59382e846462927c83f7eb1a8b5b3",
+            "html_id": null,
+            "data_handle": "block-list-a23f99c1539f7081-pf95de28be5a7bc364"
+          }
+        ]
+      },
+      {
+        "handle": "cart-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Корзина",
+          "en": "Cart",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Кошик",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Carro"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 2,
+              "layout-pb": 2,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "block-background-color": "#fafafa",
+              "page_header": {
+                "ru": "Корзина",
+                "en": "Cart",
+                "ua": "Кошик",
+                "es": "Cesta"
+              },
+              "border-radius": 6,
+              "img-ratio": 1,
+              "img-fit": "contain",
+              "shared-cart-enable": false,
+              "wide_background": true,
+              "wide_content": false,
+              "padding_top": 1,
+              "padding_bottom": 1,
+              "margin_top": 1,
+              "margin_bottom": 1,
+              "content_max_width": 1408,
+              "block_background_color": "#fafafa"
+            },
+            "widget_type": "widget_v4_cart_1_2b9cb1538eab22973f3b506a21ebd720",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 3,
+              "layout-pb": 3,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "product-border-radius": 10,
+              "img-ratio": 1,
+              "slide-width": 200,
+              "slide-width-mobile": 150,
+              "slide-gap": 15,
+              "count_special_products": 12,
+              "hide-description": true,
+              "hide-variants": false,
+              "hide-variants-title": true,
+              "hide-sku": true,
+              "product-desc-limit": 10,
+              "img-fit": "contain",
+              "sticker-font-size": 0.9,
+              "display-property-color": "text",
+              "rating-color": "#ff4100",
+              "product-hide-rating": true,
+              "product-border-color": "#f4f4f4",
+              "hide-counter": true,
+              "product_desc_limit": 20
+            },
+            "widget_type": "system_widget_v4_special_products_1",
+            "html_id": null,
+            "data_handle": "block-list-14cbf2cee43e447f-pf95de28be5a7bc364"
+          }
+        ]
+      },
+      {
+        "handle": "sidebar_page-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар",
+          "en": "Sidebar",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Сайдбар",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Barra lateral"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "footer-list",
+        "kind": "footer",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Подвал",
+          "en": "Footer",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Підвал",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Pie de página"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "bg": "#fafafa",
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": "2.5",
+              "layout-pb": 2,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "logo-max-width": 220,
+              "phone-info-1": {
+                "ru": "",
+                "en": "help desk",
+                "ua": "довідкова служба",
+                "es": "mesa de ayuda"
+              },
+              "menu-1": "footer-menu-1",
+              "menu-2": "footer-menu3",
+              "menu-3": "footer-menu",
+              "hide-pay": false,
+              "hide-social": false,
+              "social-title": {
+                "ru": "Мы в соц. сетях",
+                "en": "We are in social networks",
+                "ua": "Ми в соц. мережі",
+                "es": "Nosotros en redes sociales"
+              },
+              "title-menu-1": {
+                "ru": "Покупателям",
+                "en": "Menu 1",
+                "ua": "Меню 1",
+                "es": "Menú 1"
+              },
+              "title-menu-2": {
+                "ru": "Сотрудничество",
+                "en": "Menu 2",
+                "ua": "Меню 2",
+                "es": "Menú 2"
+              },
+              "title-menu-3": {
+                "ru": "Правовая информация",
+                "en": "Menu 3",
+                "ua": "Меню 3",
+                "es": "Menú 3"
+              },
+              "hide-logo-img": false,
+              "bottom-logo-link-1": {
+                "ru": "https://play.google.com/store/apps/details?id=com.mycompany.wizzu&amp;utm_source=website&amp;utm_medium=store-icons&amp;utm_campaign=own&amp;utm_content=futter-icons&amp;utm_term=store-buttons-gplay"
+              },
+              "bottom-logo-link-2": {
+                "ru": "https://apps.apple.com/ru/app/wizzu/id6747611030?utm_source=website&amp;utm_medium=store-icons&amp;utm_campaign=own&amp;utm_content=futter-icons&amp;utm_term=store-buttons-appstore"
+              },
+              "bottom-logo-link-3": {
+                "ru": "https://www.rustore.ru/catalog/app/com.mycompany.wizzunative?utm_source=website&amp;utm_medium=store-icons&amp;utm_campaign=own&amp;utm_content=futter-icons&amp;utm_term=store-buttons-rustore"
+              },
+              "url_1-href": {
+                "ru": "https://wa.me/9659605060"
+              },
+              "url_2-href": {
+                "ru": "https://www.instagram.com/wizzu.ru?utm_source=website&amp;utm_medium=store-icons&amp;utm_campaign=own&amp;utm_content=futter-icons&amp;utm_term=instagram-button"
+              },
+              "url_3-href": {
+                "ru": "https://vk.com/id1068368508?utm_source=website&amp;utm_medium=store-icons&amp;utm_campaign=own&amp;utm_content=futter-icons&amp;utm_term=vk-button"
+              }
+            },
+            "widget_type": "widget_v4_footer_18_1_968f68c361c04b30358dc33a92bf2359",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "outside-list",
+        "kind": "outside",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Вне контента",
+          "en": "Outside content",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Поза контенту",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Contenido externo"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "hide-desktop": false,
+              "hide-mobile": true,
+              "align": "right",
+              "size": 1.5,
+              "icon-view": "icon-arrow-up",
+              "margin-bottom": 1,
+              "margin-side": 1,
+              "button-view": "bg",
+              "color-btn-bg": "#2394F0"
+            },
+            "widget_type": "system_widget_v4_button_on_top_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-pt": 3,
+              "layout-pb": 3,
+              "layout-content-max-width": 480,
+              "form_title": {
+                "ru": "Предзаказ",
+                "en": "Preorder",
+                "ua": "Передзамовлення",
+                "es": "Hacer un pedido"
+              },
+              "submit_btn_title": {
+                "ru": "Отправить",
+                "en": "Send",
+                "ua": "Відправити",
+                "es": "Enviar"
+              },
+              "hide-use-agree": false,
+              "success_message": {
+                "ru": "Предзаказ успешно отправлен!",
+                "en": "Preorder sent successfully!",
+                "ua": "Передзамовлення успішно відправлен!",
+                "es": "Hacer un pedido enviado correctament!"
+              },
+              "agree_text": {
+                "ru": "Нажимая на кнопку «Отправить», вы принимаете условия оферты",
+                "en": "By clicking on the «Send» button, you accept the terms of the offer",
+                "ua": "Натискаючи на кнопку «Відправити», ви приймаєте умови оферти",
+                "es": "Al hacer clic en el botón 'Enviar', acepta los términos de la oferta"
+              }
+            },
+            "widget_type": "system_widget_v4_preorder_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "success_feedback": {
+                "ru": "✓ Сообщение успешно отправлено",
+                "en": "✓ Message sent successfully",
+                "ua": "✓ Повідомлення успішно відправлено",
+                "es": "✓ Mensaje enviado con éxito"
+              },
+              "success_cart": {
+                "ru": "✓  Товар добавлен в корзину",
+                "en": "✓ Product added to cart",
+                "ua": "✓ Товар доданий в кошик",
+                "es": "✓ Producto añadido al carrito"
+              },
+              "add_item_compares": {
+                "ru": "✓ Товар добавлен в сравнение",
+                "en": "✓ Product added to comparison",
+                "ua": "✓ Товар доданий в порівняння",
+                "es": "✓ Producto agregado para comparación"
+              },
+              "remove_item_compares": {
+                "ru": "Товар удален из сравнения",
+                "en": "Product removed from comparison",
+                "ua": "Товар вилучений з порівняння",
+                "es": "Producto eliminado de la comparación"
+              },
+              "add_item_favorites": {
+                "ru": "✓ Товар добавлен в избранное",
+                "en": "✓ Product added to favorites",
+                "ua": "✓ Товар доданий в обране",
+                "es": "✓ Producto añadido al favoritos"
+              },
+              "remove_item_favorites": {
+                "ru": "Товар удален из избранного",
+                "en": "Product removed from favorites",
+                "ua": "Товар вилучений з обраного",
+                "es": "Producto eliminado de favoritos"
+              },
+              "overload_compares": {
+                "ru": "⚠ Достигнуто максимальное количество товаров для сравнения",
+                "en": "⚠ The maximum number of items for comparison has been reached",
+                "ua": "⚠ Досягнуто максимальну кількість товарів для порівняння",
+                "es": "⚠ Se alcanzó el número máximo de elementos para comparar"
+              },
+              "overload_favorites": {
+                "ru": "⚠ Достигнуто максимальное количество товаров в избранном",
+                "en": "⚠ The maximum number of items for favorites has been reached",
+                "ua": "⚠ Досягнуто максимальну кількість товарів для избранного",
+                "es": "⚠ Se alcanzó el número máximo de elementos para favorites"
+              },
+              "overload_quantity": {
+                "ru": "⚠ Достигнуто максимальное количество единиц товара для заказа",
+                "en": "⚠ The maximum number of items for the order has been reached",
+                "ua": "⚠ Досягнуто максимальну кількість одиниць товару для замовлення",
+                "es": "⚠ Se ha alcanzado el número máximo de artículos para el pedido"
+              },
+              "success_preorder": {
+                "ru": "✓ Предзаказ успешно отправлен",
+                "en": "✓ Preorder sent successfully",
+                "ua": "✓ Передзамовлення успішно відправлен",
+                "es": "✓ Pedido por adelantado enviado con éxito"
+              },
+              "accessories_count_error": {
+                "ru": "Выбрано неверное количество опций",
+                "ua": "Вибрано неправильну кількість опцій",
+                "en": "Incorrect number of accessories selected",
+                "es": "Número incorrecto de accesorios seleccionados"
+              },
+              "copy_link": {
+                "ru": "Ссылка скопирована",
+                "ua": "Посилання скопійовано",
+                "en": "The link has been copied",
+                "es": "Enlace copiado"
+              },
+              "info-color": "#cce5ff",
+              "success-color": "#d4edda",
+              "warning-color": "#fff3cd",
+              "danger-color": "#f8d7da"
+            },
+            "widget_type": "widget_v4_alerts_de914e46a6f108fd5460d39ac05e8483",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 3,
+              "layout-pb": 2,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "cookie_show": false,
+              "cookie_button_text": {
+                "ru": "Понятно",
+                "en": "Understand",
+                "ua": "Зрозуміло",
+                "es": "Entendido"
+              },
+              "cookie_text": {
+                "ru": "<p>Продолжая использовать наш сайт, вы даете согласие на обработку файлов cookie, которые обеспечивают правильную работу сайта и соглашаетесь с нашей <a href='#' target='_blank'>Политикой безопасности</a></p>",
+                "en": "<p>By continuing to use our site, you consent to the processing of cookies that ensure the correct operation of the site and you agree to our <a href='#' target='_blank'>Security Policy</a></p>",
+                "ua": "<p>Продовжуючи використовувати наш сайт, ви даєте згоду на обробку файлів cookie, які забезпечують правильну роботу сайту і погоджуєтеся з нашою <a href='#' target='_blank'>Безпековою</a></p>",
+                "es": "<p>Al continuar usando nuestro sitio, usted acepta el procesamiento de cookies que garantizan el correcto funcionamiento del sitio y acepta nuestra <a href='#' target='_blank'>Política de seguridad</a></p>"
+              }
+            },
+            "widget_type": "system_widget_v4_modal_cookie_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "sticker-sale": "#e44542",
+              "sticker-preorder": "#e44542",
+              "sticker-bg-default": "#ffffff"
+            },
+            "widget_type": "system_widget_v4_stiker_hex_color_2",
+            "html_id": null,
+            "data_handle": "stikers-markom-pf95de28be5a7bc364"
+          },
+          {
+            "settings_data": {
+              "layout-pt": 3,
+              "layout-pb": 3,
+              "layout-content-max-width": 480,
+              "form_title": {
+                "ru": "Обратный звонок",
+                "en": "Back call",
+                "ua": "Зворотний дзвінок",
+                "es": "Llamada de vuelta"
+              },
+              "submit_btn_title": {
+                "ru": "Отправить",
+                "en": "Send",
+                "ua": "Відправити",
+                "es": "Enviar"
+              },
+              "hide-use-agree": false,
+              "success_message": {
+                "ru": "Запрос успешно отправлен!",
+                "en": "Request sent successfully!",
+                "ua": "Запит успішно відправлений!",
+                "es": "¡Solicitud enviada con éxito!"
+              },
+              "hide-field-content": true
+            },
+            "widget_type": "system_widget_v4_callback_modal_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "app_link-1": {
+                "ru": "https://apps.apple.com/ru/app/wizzu/id6747611030?utm_source=website&amp;utm_medium=store-icons&amp;utm_campaign=own&amp;utm_content=futter-icons&amp;utm_term=store-buttons-appstore"
+              },
+              "app_link-2": {
+                "ru": "https://play.google.com/store/apps/details?id=com.mycompany.wizzu&amp;utm_source=website&amp;utm_medium=store-icons&amp;utm_campaign=own&amp;utm_content=futter-icons&amp;utm_term=store-buttons-gplay"
+              }
+            },
+            "widget_type": "emilius_widget_delivery_zones_map",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "sidebar_collection-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар",
+          "en": "Sidebar",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Сайдбар",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Barra lateral"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "hide-sorting-on-mobile": false,
+              "font-size-filter": 1.25,
+              "font-weight-filter": 600,
+              "title": {
+                "ru": "Фильтры",
+                "en": "Filters",
+                "ua": "Фільтри",
+                "es": "Filtros"
+              },
+              "display-property-color": "text",
+              "max-filter-item-list-items-visible": 10,
+              "load_all_items_at_once": false,
+              "hide-only-available": true
+            },
+            "widget_type": "system_widget_v4_sidebar_filter_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": true,
+              "hide-desktop": false,
+              "hide-title": true
+            },
+            "widget_type": "system_widget_v4_sidebar_collections_menu_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "sidebar_blog-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар",
+          "en": "Sidebar",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Сайдбар",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Barra lateral"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "blog-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Блог",
+          "en": "Blog",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Блог",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Blog"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "1",
+              "layout-pb": "1",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "start",
+              "delemeter": "1",
+              "bg": "",
+              "layout-ege": false
+            },
+            "widget_type": "system_widget_v4_breadcrumbs_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "1",
+              "layout-pb": "1",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "tags-background-color": "#fafafa",
+              "item-background-color": "#fafafa",
+              "grid-list-row-gap": "2",
+              "hide-date": false,
+              "blog_desc_limit": "50",
+              "hide-tags": false,
+              "hide-description": false,
+              "hide-article-tags": true,
+              "img-border-radius": "6",
+              "img-ratio": "1.3",
+              "hide-title": false,
+              "img-fit": "cover",
+              "widget-heading-ratio": 1.5,
+              "widget-heading-weight": 600,
+              "bg": "",
+              "layout-ege": false
+            },
+            "widget_type": "system_widget_v4_blog_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 3,
+              "layout-pb": 3,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "center"
+            },
+            "widget_type": "system_widget_v4_pagination_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "article-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Статья",
+          "en": "Article",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Стаття",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Artículo"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "1.5",
+              "layout-pb": "1.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "start",
+              "delemeter": "1",
+              "bg": "",
+              "layout-edge": false
+            },
+            "widget_type": "widget_v4_breadcrumbs_1_88b217ebfea0b8a634db761a35f6b22c",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 3,
+              "layout-pb": 3,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "article-hide-photo": false,
+              "img-border-radius": 6,
+              "img-ratio": 2,
+              "img-fit": "cover",
+              "widget-heading-ratio": 1.5,
+              "widget-heading-weight": 500,
+              "article-max-width": 850
+            },
+            "widget_type": "widget_v4_article_1_830afece563de95ba8c94dba195759e1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 3,
+              "layout-pb": 3,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "grid-list-min-width": 450,
+              "grid-list-row-gap": 0,
+              "grid-list-column-gap": 2,
+              "title": {
+                "ru": "Комментарии",
+                "en": "Comments",
+                "ua": "Відгуки",
+                "es": "Opiniones"
+              }
+            },
+            "widget_type": "system_widget_v4_article_comments_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 3,
+              "layout-pb": 3,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "product-border-radius": 10,
+              "img-ratio": 1,
+              "slide-width": 220,
+              "slide-width-mobile": 150,
+              "slide-gap": 30,
+              "count-special-products": 12,
+              "hide-description": true,
+              "hide-variants": true,
+              "hide-variants-title": true,
+              "hide-sku": true,
+              "product-desc-limit": 10,
+              "img-fit": "contain",
+              "sticker-font-size": 0.9,
+              "align-title": "left",
+              "title": {
+                "ru": "Товары упомянутые в статье",
+                "en": "Products mentioned in the article",
+                "ua": "Товари згадані в статті",
+                "es": "Productos mencionados en el artículo"
+              },
+              "display-property-color": "text",
+              "product-info-align": "left",
+              "switch-img-on-hover": false,
+              "slide-gap-mobile": 15,
+              "product-info-accent": "price",
+              "rating-color": "#ff4100",
+              "product-hide-rating": true
+            },
+            "widget_type": "system_widget_v4_article_products_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "sidebar_collection.system-template-1d261b52f63791d4862c-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "hide-sorting-on-mobile": false,
+              "font-size-filter": 1.25,
+              "font-weight-filter": 600,
+              "title": {
+                "ru": "Фильтры",
+                "en": "Filters",
+                "ua": "Фільтри",
+                "es": "Filtros"
+              },
+              "display-property-color": "text",
+              "max-filter-item-list-items-visible": 10,
+              "load_all_items_at_once": false,
+              "hide-only-available": true
+            },
+            "widget_type": "system_widget_v4_sidebar_filter_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": true,
+              "hide-desktop": false,
+              "hide-title": true
+            },
+            "widget_type": "system_widget_v4_sidebar_collections_menu_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "index-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Контент",
+          "en": "Content",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Контент",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Contenido"
+        },
+        "widgets": [
+          {
+            "settings_data": {},
+            "widget_type": "emilius_widget_slider_promo_stories",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "title": {
+                "ru": ""
+              }
+            },
+            "widget_type": "emilius_widget_banner",
+            "html_id": null,
+            "data_handle": "block-list-1637cbef0ed9169e-pf95de28be5a7bc364"
+          },
+          {
+            "settings_data": {},
+            "widget_type": "emilius_widget_collections",
+            "html_id": null,
+            "data_handle": "block-list-d3d8b37d7517eab6-pf95de28be5a7bc364"
+          }
+        ]
+      },
+      {
+        "handle": "collection.system-template-1d261b52f63791d4862c-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция категории"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-pt": 2,
+              "layout-pb": 2,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "hide-sorting-on-mobile": false,
+              "layout-wide-bg": true
+            },
+            "widget_type": "system_widget_v4_filter_sort_2",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "collection.system-template-bc8bd6b2b836c8e7ef16-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Категория"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "live-search": true
+            },
+            "widget_type": "system_widget_v4_search_form_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "bg": null,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "border-size": 1,
+              "font-size": 32,
+              "text": {
+                "ru": "Категории",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Título"
+              },
+              "delimeter-type": "solid",
+              "border-color": "#000000"
+            },
+            "widget_type": "system_widget_v4_delimeters_text",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "grid-list-min-width": 220,
+              "grid-list-row-gap": 2,
+              "grid-list-column-gap": 2,
+              "subcollection-border-radius": 0,
+              "img-ratio": 1,
+              "img-fit": "contain",
+              "card-font-size": 20,
+              "text-alignment": "left"
+            },
+            "widget_type": "system_widget_v4_subcollections_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "bg": null,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "border-size": 1,
+              "font-size": "32",
+              "text": {
+                "ru": "Популярные товары",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Título"
+              },
+              "delimeter-type": "solid",
+              "border-color": "#000000"
+            },
+            "widget_type": "system_widget_v4_delimeters_text",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "product-border-radius": 10,
+              "img-ratio": 1,
+              "catalog-grid-list-min-width": 220,
+              "catalog-grid-list-min-width-mobile": 150,
+              "catalog-grid-list-row-gap": 2,
+              "catalog-grid-list-column-gap": 2,
+              "hide-description": true,
+              "hide-variants": false,
+              "hide-variants-title": true,
+              "hide-sku": true,
+              "product-desc-limit": "10",
+              "img-fit": "contain",
+              "sticker-font-size": 0.9,
+              "display-property-color": "text",
+              "switch-img-on-hover": false,
+              "product-info-align": "left",
+              "rating-color": "#ff4100",
+              "product-hide-rating": true
+            },
+            "widget_type": "system_widget_v4_catalog_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "btn-align": "center",
+              "btn-font-size": 2
+            },
+            "widget_type": "system_widget_v4_infinity_products_button_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "sidebar_collection.system-template-bc8bd6b2b836c8e7ef16-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "hide-sorting-on-mobile": false,
+              "font-size-filter": 1.25,
+              "font-weight-filter": 600,
+              "title": {
+                "ru": "Фильтры",
+                "en": "Filters",
+                "ua": "Фільтри",
+                "es": "Filtros"
+              },
+              "display-property-color": "text",
+              "max-filter-item-list-items-visible": 10,
+              "load_all_items_at_once": false,
+              "hide-only-available": true
+            },
+            "widget_type": "system_widget_v4_sidebar_filter_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": true,
+              "hide-desktop": false,
+              "hide-title": true
+            },
+            "widget_type": "system_widget_v4_sidebar_collections_menu_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "header-list",
+        "kind": "header",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Шапка",
+          "en": "Header",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Шапка",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Encabezamiento"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "title-top": {
+                "ru": "Часы работы с 11:00 до 21:00"
+              },
+              "url_1-title": {
+                "ru": "8(965)960-50-60"
+              },
+              "url_1-href": {
+                "ru": "tel:+79659605060"
+              },
+              "menu_top": "main-menu",
+              "menu_mob": "mob-header",
+              "url_2-title": {
+                "ru": "Позвонить 8(965)960-50-60"
+              },
+              "url_2-href": {
+                "ru": "tel:+79659605060"
+              },
+              "url_3-title": {
+                "ru": "Написать в WhatsApp"
+              },
+              "url_4-title": {
+                "ru": ""
+              },
+              "url_4-href": {
+                "ru": ""
+              },
+              "url_3-href": {
+                "ru": "https://wa.me/9659605060"
+              },
+              "url_5-title": {
+                "ru": "VK"
+              },
+              "url_6-title": {
+                "ru": "Instagram"
+              },
+              "url_5-href": {
+                "ru": "https://vk.com/id1068368508?utm_source=website&amp;utm_medium=askme-icons&amp;utm_campaign=own&amp;utm_content=askme-icons&amp;utm_term=vk-button"
+              },
+              "url_6-href": {
+                "ru": "https://www.instagram.com/wizzu.ru?utm_source=website&amp;utm_medium=askme-icons&amp;utm_campaign=own&amp;utm_content=askme-icons&amp;utm_term=instagram-button"
+              }
+            },
+            "widget_type": "emilius_widget_header",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "sidebar_favorite-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар",
+          "en": "Sidebar",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Сайдбар",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Barra lateral"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "index-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция страницы",
+          "en": "Top section of the page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхня секція сторінки",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección superior de la página"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "favorite-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Избранное",
+          "en": "Favorites",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Вибране",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Favoritos"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 2,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false
+            },
+            "widget_type": "widget_v4_page_title_1_745254c86d708c78797f9e304b558a93",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "1",
+              "layout-pb": "1",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "product-border-radius": "10",
+              "img-ratio": "1",
+              "catalog-grid-list-min-width": 220,
+              "catalog-grid-list-min-width-mobile": 150,
+              "catalog-grid-list-row-gap": 2,
+              "catalog-grid-list-column-gap": 2,
+              "hide-description": true,
+              "hide-variants": false,
+              "hide-variants-title": true,
+              "hide-sku": true,
+              "product-desc-limit": "20",
+              "img-fit": "contain",
+              "sticker-font-size": 0.9,
+              "display-property-color": "text",
+              "switch-img-on-hover": false,
+              "product-info-align": "left",
+              "grid-list-min-width": "220",
+              "grid-list-row-gap": "2",
+              "grid-list-column-gap": "2",
+              "product-bg": "",
+              "color-border-block": "#f4f4f4",
+              "product-hide-description": true,
+              "product-hide-variants-title": true,
+              "product-hide-counter": true,
+              "bg": "",
+              "layout-ege": false
+            },
+            "widget_type": "widget_v4_catalog_1_bdd56ef06716625009f0c29bb8be8d5c",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "blog-section_bottom-list",
+        "kind": "after_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Нижняя секция страницы блога",
+          "en": "Bottom section of the blog page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція сторінки блогу",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección inferior de la página del blog"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "collection-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Категория",
+          "en": "Category",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Категорія",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Categoría"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-pt": 2,
+              "layout-pb": 2,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "hide-sorting-on-mobile": false
+            },
+            "widget_type": "widget_v4_filter_sort_2_ea2d9be5f52b4eeabf5f3a2832b2cdc3",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "product-border-radius": 0,
+              "img-ratio": 1,
+              "catalog-grid-list-min-width": 220,
+              "catalog-grid-list-min-width-mobile": 150,
+              "catalog-grid-list-row-gap": 2,
+              "catalog-grid-list-column-gap": 2,
+              "hide-description": true,
+              "hide-variants": false,
+              "hide-variants-title": true,
+              "hide-sku": true,
+              "product-desc-limit": "10",
+              "img-fit": "contain",
+              "sticker-font-size": 0.9,
+              "display-property-color": "text",
+              "switch-img-on-hover": false,
+              "product-info-align": "left"
+            },
+            "widget_type": "widget_v4_catalog_1_a96eb1e644b0c428629b7a8a189a25d6",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 2,
+              "layout-pb": 3,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "btn-align": "center",
+              "btn-font-size": "1.4"
+            },
+            "widget_type": "widget_v4_infinity_products_button_1_6c3f0cb5c4bcab727e9bb50379ba6155",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "sidebar_article-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар",
+          "en": "Sidebar",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Сайдбар",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Barra lateral"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "sidebar_page.system-template-1b570190a50c8fea87a0-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "shared_cart-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Поделиться корзиной",
+          "en": "Share a shopping cart",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Поділитися кошиком",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "поделиться корзиной"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 2,
+              "layout-pb": 2,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "block-background-color": "#fafafa",
+              "accent-color": "#E07B16",
+              "layout-content-max-width": 930,
+              "page_header": {
+                "ru": "Состав заказа",
+                "en": "Composition of the order",
+                "ua": "Склад замовлення",
+                "es": "Composición del pedido"
+              },
+              "add_to_cart": {
+                "ru": "Добавить в корзину",
+                "en": "Add to cart",
+                "ua": "Додати в кошик",
+                "es": "Añadir al carrito"
+              },
+              "border-radius": 0,
+              "img-ratio": 1,
+              "img-fit": "contain",
+              "rating-color": "#ff4100",
+              "product-hide-rating": true
+            },
+            "widget_type": "system_widget_v4_shared_cart_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "article-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция статьи",
+          "en": "Top section of the article",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхня секція статті",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección superior del artículo"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "collection.system-template-346950f4ef91d6b8407d-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция категории"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "start",
+              "delemeter": "3",
+              "bg": "#4472C4",
+              "layout-ege": false,
+              "layout-edge": false,
+              "breadcrumb-color": "#FCFCFC"
+            },
+            "widget_type": "system_widget_v4_breadcrumbs_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "page.system-template-80d3aaf253c8a6fe5c85-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция страницы"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "compare-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сравнение",
+          "en": "Comparison",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Порівняння",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Comparación"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "1",
+              "layout-pb": "1",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "start",
+              "delemeter": "1",
+              "bg": "",
+              "layout-ege": false
+            },
+            "widget_type": "system_widget_v4_breadcrumbs_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "sidebar_product-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар",
+          "en": "Sidebar",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Сайдбар",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Barra lateral"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "page-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция страницы",
+          "en": "Top section of the page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхня секція сторінки",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección superior de la página"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "sidebar_compare-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар",
+          "en": "Sidebar",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Сайдбар",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Barra lateral"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "sidebar_search-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар",
+          "en": "Sidebar",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Сайдбар",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Barra lateral"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "cart-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция корзины",
+          "en": "Top section of the cart page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхняя секция корзины",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección superior de la página del carrito"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "search-section_bottom-list",
+        "kind": "after_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Нижняя секция страницы поиска",
+          "en": "Bottom section of the search page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція сторінки пошуку",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección inferior de la página de búsqueda"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "collection.system-template-a74198f7424ca1c67f7b-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция категории"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "start",
+              "delemeter": "3",
+              "bg": "#4472C4",
+              "layout-ege": false,
+              "layout-edge": false,
+              "breadcrumb-color": "#FCFCFC"
+            },
+            "widget_type": "system_widget_v4_breadcrumbs_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "collection.system-template-262be8fe59e770800e8f-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Категория"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "live-search": true
+            },
+            "widget_type": "system_widget_v4_search_form_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "product-border-radius": 10,
+              "img-ratio": 1,
+              "catalog-grid-list-min-width": 220,
+              "catalog-grid-list-min-width-mobile": 150,
+              "catalog-grid-list-row-gap": 2,
+              "catalog-grid-list-column-gap": 2,
+              "hide-description": true,
+              "hide-variants": false,
+              "hide-variants-title": true,
+              "hide-sku": true,
+              "product-desc-limit": "10",
+              "img-fit": "contain",
+              "sticker-font-size": 0.9,
+              "display-property-color": "text",
+              "switch-img-on-hover": false,
+              "product-info-align": "left",
+              "rating-color": "#ff4100",
+              "product-hide-rating": true
+            },
+            "widget_type": "system_widget_v4_catalog_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "btn-align": "center",
+              "btn-font-size": 2
+            },
+            "widget_type": "system_widget_v4_infinity_products_button_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 3,
+              "layout-pb": 3,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "center"
+            },
+            "widget_type": "system_widget_v4_pagination_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "collection-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция категории",
+          "en": "Top section of the category",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхня секція категорії",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección superior de la categoría"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "product-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция страницы товара",
+          "en": "Top section of product page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхня секція сторінки товару",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección superior de la página del producto"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "blog-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция блога",
+          "en": "Top section of the blog",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхня секція блогу",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección superior del blog"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "search-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция поиска",
+          "en": "Upper search section",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхня секція пошуку",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección de búsqueda superior"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "collection.system-template-32fff4633628213c20c4-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Категория"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "live-search": true
+            },
+            "widget_type": "system_widget_v4_search_form_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "bg": null,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "border-size": 1,
+              "font-size": 32,
+              "text": {
+                "ru": "Категории",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Título"
+              },
+              "delimeter-type": "solid",
+              "border-color": "#000000"
+            },
+            "widget_type": "system_widget_v4_delimeters_text",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "grid-list-min-width": 220,
+              "grid-list-row-gap": 2,
+              "grid-list-column-gap": 2,
+              "subcollection-border-radius": 0,
+              "img-ratio": 1,
+              "img-fit": "contain",
+              "card-font-size": 20,
+              "text-alignment": "left"
+            },
+            "widget_type": "system_widget_v4_subcollections_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "bg": null,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "border-size": 1,
+              "font-size": "32",
+              "text": {
+                "ru": "Популярные товары",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Título"
+              },
+              "delimeter-type": "solid",
+              "border-color": "#000000"
+            },
+            "widget_type": "system_widget_v4_delimeters_text",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "product-border-radius": 10,
+              "img-ratio": 1,
+              "catalog-grid-list-min-width": 220,
+              "catalog-grid-list-min-width-mobile": 150,
+              "catalog-grid-list-row-gap": 2,
+              "catalog-grid-list-column-gap": 2,
+              "hide-description": true,
+              "hide-variants": false,
+              "hide-variants-title": true,
+              "hide-sku": true,
+              "product-desc-limit": "10",
+              "img-fit": "contain",
+              "sticker-font-size": 0.9,
+              "display-property-color": "text",
+              "switch-img-on-hover": false,
+              "product-info-align": "left",
+              "rating-color": "#ff4100",
+              "product-hide-rating": true
+            },
+            "widget_type": "system_widget_v4_catalog_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "btn-align": "center",
+              "btn-font-size": 2
+            },
+            "widget_type": "system_widget_v4_infinity_products_button_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "sidebar_collection.system-template-a74198f7424ca1c67f7b-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "hide-sorting-on-mobile": false,
+              "font-size-filter": 1.25,
+              "font-weight-filter": 600,
+              "title": {
+                "ru": "Фильтры",
+                "en": "Filters",
+                "ua": "Фільтри",
+                "es": "Filtros"
+              },
+              "display-property-color": "text",
+              "max-filter-item-list-items-visible": 10,
+              "load_all_items_at_once": false,
+              "hide-only-available": true
+            },
+            "widget_type": "system_widget_v4_sidebar_filter_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": true,
+              "hide-desktop": false,
+              "hide-title": true
+            },
+            "widget_type": "system_widget_v4_sidebar_collections_menu_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "sidebar_collection.system-template-d9f2a06b9d5ee51b9408-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "hide-sorting-on-mobile": false,
+              "font-size-filter": 1.25,
+              "font-weight-filter": 600,
+              "title": {
+                "ru": "Фильтры",
+                "en": "Filters",
+                "ua": "Фільтри",
+                "es": "Filtros"
+              },
+              "display-property-color": "text",
+              "max-filter-item-list-items-visible": 10,
+              "load_all_items_at_once": false,
+              "hide-only-available": true
+            },
+            "widget_type": "system_widget_v4_sidebar_filter_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": true,
+              "hide-desktop": false,
+              "hide-title": true
+            },
+            "widget_type": "system_widget_v4_sidebar_collections_menu_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "compare-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция сравнения",
+          "en": "Top section of the comparison page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Верхня секція порівняння",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección superior de la página de comparación"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "collection-section_bottom-list",
+        "kind": "after_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Нижняя секция категории",
+          "en": "Bottom section of the category",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція категорії",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección inferior de la categoría"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "collection.system-template-c67971cd58d01473bcf7-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Категория"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "live-search": true
+            },
+            "widget_type": "system_widget_v4_search_form_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "bg": null,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "border-size": 1,
+              "font-size": 32,
+              "text": {
+                "ru": "Категории",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Título"
+              },
+              "delimeter-type": "solid",
+              "border-color": "#000000"
+            },
+            "widget_type": "system_widget_v4_delimeters_text",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "grid-list-min-width": 220,
+              "grid-list-row-gap": 2,
+              "grid-list-column-gap": 2,
+              "subcollection-border-radius": 0,
+              "img-ratio": 1,
+              "img-fit": "contain",
+              "card-font-size": 20,
+              "text-alignment": "left"
+            },
+            "widget_type": "system_widget_v4_subcollections_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "bg": null,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "border-size": 1,
+              "font-size": "32",
+              "text": {
+                "ru": "Популярные товары",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Título"
+              },
+              "delimeter-type": "solid",
+              "border-color": "#000000"
+            },
+            "widget_type": "system_widget_v4_delimeters_text",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "product-border-radius": 10,
+              "img-ratio": 1,
+              "catalog-grid-list-min-width": 220,
+              "catalog-grid-list-min-width-mobile": 150,
+              "catalog-grid-list-row-gap": 2,
+              "catalog-grid-list-column-gap": 2,
+              "hide-description": true,
+              "hide-variants": false,
+              "hide-variants-title": true,
+              "hide-sku": true,
+              "product-desc-limit": "10",
+              "img-fit": "contain",
+              "sticker-font-size": 0.9,
+              "display-property-color": "text",
+              "switch-img-on-hover": false,
+              "product-info-align": "left",
+              "rating-color": "#ff4100",
+              "product-hide-rating": true
+            },
+            "widget_type": "system_widget_v4_catalog_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "btn-align": "center",
+              "btn-font-size": 2
+            },
+            "widget_type": "system_widget_v4_infinity_products_button_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "collection.system-template-9cdb169ad02c42003930-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Категория"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "live-search": true
+            },
+            "widget_type": "system_widget_v4_search_form_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "bg": null,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "border-size": 1,
+              "font-size": 32,
+              "text": {
+                "ru": "Категории",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Título"
+              },
+              "delimeter-type": "solid",
+              "border-color": "#000000"
+            },
+            "widget_type": "system_widget_v4_delimeters_text",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "grid-list-min-width": 220,
+              "grid-list-row-gap": 2,
+              "grid-list-column-gap": 2,
+              "subcollection-border-radius": 0,
+              "img-ratio": 1,
+              "img-fit": "contain",
+              "card-font-size": 20,
+              "text-alignment": "left"
+            },
+            "widget_type": "system_widget_v4_subcollections_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "bg": null,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "border-size": 1,
+              "font-size": "32",
+              "text": {
+                "ru": "Популярные товары",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Título"
+              },
+              "delimeter-type": "solid",
+              "border-color": "#000000"
+            },
+            "widget_type": "system_widget_v4_delimeters_text",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "product-border-radius": 10,
+              "img-ratio": 1,
+              "catalog-grid-list-min-width": 220,
+              "catalog-grid-list-min-width-mobile": 150,
+              "catalog-grid-list-row-gap": 2,
+              "catalog-grid-list-column-gap": 2,
+              "hide-description": true,
+              "hide-variants": false,
+              "hide-variants-title": true,
+              "hide-sku": true,
+              "product-desc-limit": "10",
+              "img-fit": "contain",
+              "sticker-font-size": 0.9,
+              "display-property-color": "text",
+              "switch-img-on-hover": false,
+              "product-info-align": "left",
+              "rating-color": "#ff4100",
+              "product-hide-rating": true
+            },
+            "widget_type": "system_widget_v4_catalog_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "btn-align": "center",
+              "btn-font-size": 2
+            },
+            "widget_type": "system_widget_v4_infinity_products_button_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "product-section_bottom-list",
+        "kind": "after_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Нижняя секция страницы товара",
+          "en": "Bottom section of the product page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція сторінки товару",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección inferior de la página del producto"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "sidebar_collection.system-template-346950f4ef91d6b8407d-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "hide-sorting-on-mobile": false,
+              "font-size-filter": 1.25,
+              "font-weight-filter": 600,
+              "title": {
+                "ru": "Фильтры",
+                "en": "Filters",
+                "ua": "Фільтри",
+                "es": "Filtros"
+              },
+              "display-property-color": "text",
+              "max-filter-item-list-items-visible": 10,
+              "load_all_items_at_once": false,
+              "hide-only-available": true
+            },
+            "widget_type": "system_widget_v4_sidebar_filter_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": true,
+              "hide-desktop": false,
+              "hide-title": true
+            },
+            "widget_type": "system_widget_v4_sidebar_collections_menu_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "collection.system-template-bc8bd6b2b836c8e7ef16-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция категории"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "start",
+              "delemeter": "3",
+              "bg": "#4472C4",
+              "layout-ege": false,
+              "layout-edge": false,
+              "breadcrumb-color": "#FCFCFC"
+            },
+            "widget_type": "system_widget_v4_breadcrumbs_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "sidebar_collection.system-template-f1250cc75a43aa4af55a-list",
+        "kind": "sidebar",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Сайдбар"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "hide-sorting-on-mobile": false,
+              "font-size-filter": 1.25,
+              "font-weight-filter": 600,
+              "title": {
+                "ru": "Фильтры",
+                "en": "Filters",
+                "ua": "Фільтри",
+                "es": "Filtros"
+              },
+              "display-property-color": "text",
+              "max-filter-item-list-items-visible": 10,
+              "load_all_items_at_once": false,
+              "hide-only-available": true
+            },
+            "widget_type": "system_widget_v4_sidebar_filter_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-pt": 0,
+              "layout-pb": 1,
+              "hide-mobile": true,
+              "hide-desktop": false,
+              "hide-title": true
+            },
+            "widget_type": "system_widget_v4_sidebar_collections_menu_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "page-section_bottom-list",
+        "kind": "after_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Нижняя секция страницы",
+          "en": "Bottom section of the page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція сторінки",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección inferior de la página"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "index-section_bottom-list",
+        "kind": "after_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Нижняя секция страницы",
+          "en": "Bottom section of the page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція сторінки",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección inferior de la página"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "cart-section_bottom-list",
+        "kind": "after_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Нижняя секция страницы корзина",
+          "en": "Bottom section of the cart page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція сторінки кошик",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección inferior de la página del carrito"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "article-section_bottom-list",
+        "kind": "after_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Нижняя секция статьи",
+          "en": "Bottom section of the article",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція статті",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección inferior del artículo"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "compare-section_bottom-list",
+        "kind": "after_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Нижняя секция страницы сравнения",
+          "en": "Bottom section of the comparison page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Нижня секція сторінки порівняння",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Sección inferior de la página de comparación"
+        },
+        "widgets": []
+      },
+      {
+        "handle": "product-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Страница товара",
+          "en": "Product page",
+          "ee": null,
+          "lv": null,
+          "lt": null,
+          "ua": "Сторінка товару",
+          "fr": null,
+          "de": null,
+          "it": null,
+          "cn": null,
+          "jp": null,
+          "pl": null,
+          "az": null,
+          "he": null,
+          "bg": null,
+          "el": null,
+          "cz": null,
+          "pt": null,
+          "fi": null,
+          "es": "Página del producto"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "1",
+              "layout-pb": "1",
+              "hide-mobile": true,
+              "hide-desktop": false,
+              "align": "start",
+              "delemeter": "3",
+              "bg": "",
+              "layout-ege": false
+            },
+            "widget_type": "widget_v4_breadcrumbs_1_450d97b5f282b94117fed41e2f083fe3",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "2",
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "img-ratio": "1.5",
+              "product-hide-description": true,
+              "product-hide-variants-title": true,
+              "product-hide-compare": true,
+              "product-hide-sku": false,
+              "rating-color": "#ff4100",
+              "sale-bg": "#FF4100",
+              "sticker-font-size": 0.9,
+              "img-fit": "contain",
+              "show-selected-variant-photos": false,
+              "video-before-image": false,
+              "display-property-color": "text",
+              "product-hide-variants": false,
+              "product-hide-counter": false,
+              "bg": "",
+              "layout-ege": false
+            },
+            "widget_type": "widget_v4_product_1_dea98475e01b4b3f080979c157274ae2",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "count": "10",
+              "title": {
+                "ru": "Вам понравится"
+              }
+            },
+            "widget_type": "emilius_widget_favorites_grid",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "count": "15",
+              "title": {
+                "ru": "Раннее смотрели"
+              }
+            },
+            "widget_type": "emilius_widget_viewed_slider",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "collection.system-template-c67971cd58d01473bcf7-section_top-list",
+        "kind": "before_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Верхняя секция категории"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "start",
+              "delemeter": "3",
+              "bg": "#4472C4",
+              "layout-ege": false,
+              "layout-edge": false,
+              "breadcrumb-color": "#FCFCFC"
+            },
+            "widget_type": "system_widget_v4_breadcrumbs_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "collection.system-template-346950f4ef91d6b8407d-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Категория"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "live-search": true
+            },
+            "widget_type": "system_widget_v4_search_form_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "bg": null,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "border-size": 1,
+              "font-size": 32,
+              "text": {
+                "ru": "Категории",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Título"
+              },
+              "delimeter-type": "solid",
+              "border-color": "#000000"
+            },
+            "widget_type": "system_widget_v4_delimeters_text",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "grid-list-min-width": 220,
+              "grid-list-row-gap": 2,
+              "grid-list-column-gap": 2,
+              "subcollection-border-radius": 0,
+              "img-ratio": 1,
+              "img-fit": "contain",
+              "card-font-size": 20,
+              "text-alignment": "left"
+            },
+            "widget_type": "system_widget_v4_subcollections_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "bg": null,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "border-size": 1,
+              "font-size": "32",
+              "text": {
+                "ru": "Популярные товары",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Título"
+              },
+              "delimeter-type": "solid",
+              "border-color": "#000000"
+            },
+            "widget_type": "system_widget_v4_delimeters_text",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "product-border-radius": 10,
+              "img-ratio": 1,
+              "catalog-grid-list-min-width": 220,
+              "catalog-grid-list-min-width-mobile": 150,
+              "catalog-grid-list-row-gap": 2,
+              "catalog-grid-list-column-gap": 2,
+              "hide-description": true,
+              "hide-variants": false,
+              "hide-variants-title": true,
+              "hide-sku": true,
+              "product-desc-limit": "10",
+              "img-fit": "contain",
+              "sticker-font-size": 0.9,
+              "display-property-color": "text",
+              "switch-img-on-hover": false,
+              "product-info-align": "left",
+              "rating-color": "#ff4100",
+              "product-hide-rating": true
+            },
+            "widget_type": "system_widget_v4_catalog_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "btn-align": "center",
+              "btn-font-size": 2
+            },
+            "widget_type": "system_widget_v4_infinity_products_button_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 3,
+              "layout-pb": 3,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "center"
+            },
+            "widget_type": "system_widget_v4_pagination_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "collection.system-template-1d261b52f63791d4862c-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Категория"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "product-border-radius": 10,
+              "img-ratio": 1,
+              "catalog-grid-list-min-width": 220,
+              "catalog-grid-list-min-width-mobile": 150,
+              "catalog-grid-list-row-gap": 2,
+              "catalog-grid-list-column-gap": 2,
+              "hide-description": true,
+              "hide-variants": false,
+              "hide-variants-title": true,
+              "hide-sku": true,
+              "product-desc-limit": "10",
+              "img-fit": "contain",
+              "sticker-font-size": 0.9,
+              "display-property-color": "text",
+              "switch-img-on-hover": false,
+              "product-info-align": "left",
+              "rating-color": "#ff4100",
+              "product-hide-rating": true
+            },
+            "widget_type": "system_widget_v4_catalog_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "btn-align": "center",
+              "btn-font-size": 2
+            },
+            "widget_type": "system_widget_v4_infinity_products_button_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "collection.system-template-d9f2a06b9d5ee51b9408-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Категория"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": "0.5",
+              "layout-pb": "0.5",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "live-search": true
+            },
+            "widget_type": "system_widget_v4_search_form_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "bg": null,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "border-size": 1,
+              "font-size": 32,
+              "text": {
+                "ru": "Категории",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Título"
+              },
+              "delimeter-type": "solid",
+              "border-color": "#000000"
+            },
+            "widget_type": "system_widget_v4_delimeters_text",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "grid-list-min-width": 220,
+              "grid-list-row-gap": 2,
+              "grid-list-column-gap": 2,
+              "subcollection-border-radius": 0,
+              "img-ratio": 1,
+              "img-fit": "contain",
+              "card-font-size": 20,
+              "text-alignment": "left"
+            },
+            "widget_type": "system_widget_v4_subcollections_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "bg": null,
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "border-size": 1,
+              "font-size": "32",
+              "text": {
+                "ru": "Популярные товары",
+                "en": "Title",
+                "ua": "Заголовок",
+                "es": "Título"
+              },
+              "delimeter-type": "solid",
+              "border-color": "#000000"
+            },
+            "widget_type": "system_widget_v4_delimeters_text",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "product-border-radius": 10,
+              "img-ratio": 1,
+              "catalog-grid-list-min-width": 220,
+              "catalog-grid-list-min-width-mobile": 150,
+              "catalog-grid-list-row-gap": 2,
+              "catalog-grid-list-column-gap": 2,
+              "hide-description": true,
+              "hide-variants": false,
+              "hide-variants-title": true,
+              "hide-sku": true,
+              "product-desc-limit": "10",
+              "img-fit": "contain",
+              "sticker-font-size": 0.9,
+              "display-property-color": "text",
+              "switch-img-on-hover": false,
+              "product-info-align": "left",
+              "rating-color": "#ff4100",
+              "product-hide-rating": true
+            },
+            "widget_type": "system_widget_v4_catalog_1",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": true,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": 1,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "btn-align": "center",
+              "btn-font-size": 2
+            },
+            "widget_type": "system_widget_v4_infinity_products_button_1",
+            "html_id": null
+          }
+        ]
+      },
+      {
+        "handle": "page.system-template-80d3aaf253c8a6fe5c85-list",
+        "kind": "content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Страница"
+        },
+        "widgets": [
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": "1",
+              "layout-pb": "1",
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "align": "start",
+              "delemeter": "1",
+              "bg": "",
+              "layout-ege": false
+            },
+            "widget_type": "widget_v4_breadcrumbs_1_d1027bd1700607bfe1cc3ae33956c844",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 2,
+              "layout-pb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false
+            },
+            "widget_type": "widget_v4_page_title_1_d0e9c9c9923f3148286b5c9cfdea55d9",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 0,
+              "layout-pb": 2,
+              "hide-mobile": false,
+              "hide-desktop": false
+            },
+            "widget_type": "widget_v4_page_content_1_90559bb3de0b9e1e61be5ce6eff14333",
+            "html_id": null
+          },
+          {
+            "settings_data": {
+              "layout-wide-bg": false,
+              "layout-wide-content": false,
+              "layout-pt": 1,
+              "layout-pb": "0.5",
+              "layout-mt": 0,
+              "layout-mb": 0,
+              "hide-mobile": false,
+              "hide-desktop": false,
+              "layout-content-max-width": 680,
+              "align-title": "center",
+              "form_title": {
+                "ru": "...",
+                "en": "Feedback",
+                "ua": "Зворотній зв'язок",
+                "es": "Comentarios"
+              },
+              "submit_btn_title": {
+                "ru": "Отправить",
+                "en": "Send",
+                "ua": "Відправити",
+                "es": "Enviar"
+              },
+              "hide-use-agree": true,
+              "success_message": {
+                "ru": "Заявка успешно отправлена!",
+                "en": "Message sent successfully!",
+                "ua": "Повідомлення успішно відправлено!",
+                "es": "Mensaje enviado exitosamente!"
+              },
+              "bg": "#FFFFFF"
+            },
+            "widget_type": "system_widget_v4_feedback_2",
+            "html_id": null,
+            "data_handle": "block-list-5dc88b81c4ab0693-pf95de28be5a7bc364"
+          }
+        ]
+      },
+      {
+        "handle": "page.system-template-80d3aaf253c8a6fe5c85-section_bottom-list",
+        "kind": "after_content",
+        "owner_id": null,
+        "owner_type": null,
+        "custom_template": null,
+        "name": {
+          "ru": "Нижняя секция страницы"
+        },
+        "widgets": []
+      }
+    ],
+    "widget_types": []
+  }
+}

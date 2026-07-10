@@ -1,0 +1,27 @@
+{
+  "type": "BlockListWidgetType",
+  "name": {
+    "ru": "Товары из определенной категории"
+  },
+  "handle": "widget_v4_special_products_1_ca71586f7925f686b92fd3d584c5a786",
+  "description": {
+    "ru": "Вывод товаров из определенной категории в виде слайдера."
+  },
+  "page_kinds": [
+    "all"
+  ],
+  "widget_list_kinds": [
+    "before_content",
+    "content",
+    "after_content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "product-homepage",
+  "libraries": [
+    "commonjs_v2",
+    "jquery",
+    "my-layout",
+    "splide"
+  ],
+  "block_template_handle": "system-collection"
+}

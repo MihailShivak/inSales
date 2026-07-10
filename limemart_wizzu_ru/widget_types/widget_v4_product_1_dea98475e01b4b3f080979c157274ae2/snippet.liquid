@@ -1,0 +1,672 @@
+{% include 'system_bnpl-modal' %}
+
+{% assign perGram = null %}
+{% if product.properties.price-gram %}
+  {% assign perGram = product.properties.price-gram.characteristics.first.name | to_integer | default: 1 %}
+  {% if perGram > 10 %}
+      {% assign perGram = 0 %}
+  {% endif %}
+{% endif %}
+  
+{% comment %} MIN_QUANTITY {% endcomment %}
+{% if product.available and product.variants.first.quantity > 1 %}
+  {% if perGram > 2 %}
+      {% assign firstPropPackage = 1.0 | divided_by: perGram |  round: 3 %}
+  {% else %}
+      {% assign firstPropPackage = product.properties.pack.characteristics.first.name %}
+  {% endif %}
+{% endif %}
+
+<div class="product__top">
+  <div class="product__top-wrapper filter__back-wrapper">
+    <a href="{{ product.canonical_collection.url }}" class="product__top-close">
+      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+      <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span>Назад</span>
+    </a>
+    <div class="title__small">{{ product.canonical_collection.title }}</div>
+    <button type="button" class="product__top-share" data-product-chare="{{ product.url }}">
+      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+      <path d="M16 9.06667L10.1667 3V6.46667C4.33333 7.33333 1.83333 11.6667 1 16C3.08333 12.9667 6 11.58 10.1667 11.58V15.1333L16 9.06667Z" stroke="#181818" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<div class="options">
+  {% for option_name in product.options %}
+    <div class="option">
+      <div class="option-title">
+        {{ option_name.title }}
+      </div>
+      <div class="option-values">
+        {% for option_value in option_name.values %}
+          <div class="option-value">
+            {{ option_value.title }} 
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% assign is_show_marketplace_button  = false %}
+{% if product.show_cart_button == false and product.show_service_button == false and product.show_quick_checkout_button == false and product.show_marketplace_button %}
+  {% assign is_show_marketplace_button  = true %}
+{% endif %}
+
+{% assign hide_all_buttons = false %}
+{% if product.show_cart_button == false and product.show_service_button == false and product.show_quick_checkout_button == false and product.show_marketplace_button == false %}
+  {% assign hide_all_buttons  = true %}
+{% endif %}
+
+{% assign is_buy_button = false %}
+{% if product.show_cart_button or product.show_quick_checkout_button %}
+  {% assign is_buy_button = true %}
+{% endif %}
+
+{% assign first_variant_ozon_with_link = product.variants | where: "ozon_link" | first %}
+{% assign first_variant_wildberries_with_link = product.variants | where: "wildberries_link" | first %}
+{% assign with_marketplace_link = false %}
+{% if first_variant_wildberries_with_link or first_variant_ozon_with_link  %}
+  {% assign with_marketplace_link = true %}
+{% endif %}
+
+{% assign only_buy_one_click = true %}
+{% if product.show_cart_button and product.show_marketplace_button and with_marketplace_link %}
+  {% assign only_buy_one_click = false %}
+{% endif %}
+
+{% capture preorder_button %}
+  <button
+    data-product-card-preorder
+    class="button button_wide product__preorder-btn"
+    type="button">{{ messages.pre_order }}</button>
+{% endcapture %}
+
+{% capture service_button %}
+  <div class="product__service-button">
+    <button
+      type="button"
+      class="button button_wide product__service-button__btn"
+      data-quick-checkout="[data-product-id='{{ product.id }}']"
+      data-quick-checkout-modal-handle="service">
+        <span class="product__service-button__btn-label">{{messages.buy_button_action}}</span>
+    </button>
+  </div>
+{% endcapture %}
+
+{% capture quick_checkout_product_button %}
+  <div class="product__buy-one-click {% if product.show_cart_button %}is-secondary-button{% endif %}">
+    <span class="button button_wide" data-quick-checkout="[data-product-id='{{ product.id }}']">
+      {{ messages.btn_buy_one_click_text }}
+    </span>
+  </div>
+{% endcapture %}
+
+{% capture cart_button %}
+  {% comment %} MIN_QUANTITY {% endcomment %}
+  {% if product.available and product.variants.first.quantity > 1 %}
+    {% assign firstPropQantity = product.properties.limit.characteristics | first %}
+    {%- if product.properties.unit.characteristics.size > 0 -%}
+      {% assign unitProduct = product.properties.unit.characteristics[0].name %}
+    {%- elsif product.unit -%}
+      {% assign unitProduct = product.unit %}
+    {%- else -%}
+      {% assign unitProduct = "шт" %}
+    {%- endif -%}
+
+    <div class="btn__add btn btn_small" data-product-add="{{ product.variants[0].id }}">
+        <button type="button" class="quantity__button quantity__button_minus" data-btn-minus>-</button>
+        <span>В корзину</span>
+          <input type="text" class="quantity__input" value
+            data-max-qantity="
+              {%- if product.properties.limit -%}
+                {{ firstPropQantity.name }}
+              {%- else -%}
+                {{ product.variants[0].quantity }}
+              {%- endif -%}"
+            data-max-qantity-default="{{ product.variants[0].quantity }}" 
+            data-package-qantity="
+              {%- if firstPropPackage -%}
+                  {{ firstPropPackage }}
+              {%- else -%}1{%- endif -%}"
+            data-product-unit="{{ unitProduct }}"
+          >
+        <button type="button" class="quantity__button quantity__button_plus" data-btn-plus>+</button>
+    </div>
+    {% if product.properties.limit %}
+      <div class="product__message-error" style="display:none;">
+        Вы достигли максимального количества этого товара, которое можно добавить в корзину
+        {% comment %} (не более {{ firstPropQantity.name }} {{ unitProduct }}) {% endcomment %}
+      </div>
+    {% endif %}
+  {% else %}
+    <div class="btn__disbled btn btn_small">
+        <span>Закончился</span>
+    </div>
+  {% endif %}
+{% endcapture %}
+
+{% capture marketplace_button %}
+  <a href="" target="_blank" data-product-card-ozon-link class="button button_wide button_wide product__marketplace_button ozon-link" style="display: none;">
+    <span class="button__icon">
+      {% include 'system_svg_icons', name: 'ozon' %}
+    </span>
+    {{ widget_messages.button_ozon }}
+    </a>
+
+  <a href="" target="_blank" data-product-card-wildberries-link class="button button_wide product__marketplace_button wildberries-link" style="display: none;">
+    <span class="button__icon">
+      {% include 'system_svg_icons', name: 'wildberries' %}
+    </span>
+    {{ widget_messages.button_wildberries }}
+  </a>
+{% endcapture %}
+
+{% capture stickers %}
+  <div class="stickers">
+    {% include 'system_stickers', sticker_class: 'sticker', sticker_property: 'label' %}
+    <div class="sticker sticker-preorder" data-sticker-title="sticker-preorder">{{ messages.pre_order }}</div>
+  </div>
+{% endcapture %}
+
+<form
+  action="{{ cart_url }}"
+  method="post"
+  data-product-id="{{ product.id }}"
+  data-product-updated-at="{{ product.updated_at }}"
+  data-video-size="{{ product.video_links.size }}"
+  data-product-json="{{ product|json|escape }}"
+  data-gallery-type="{% if widget_settings.show-selected-variant-photos %}variant-photos{% else %}all-photos{% endif %}"
+  class="product {% if product.is_bundle %}is-bundle{% endif %} {% if settings.product_not_available == "shown" and is_buy_button %} is-zero-count-shown {% endif %} {% if settings.product_not_available == "preorder" and is_buy_button %} is-zero-count-preorder {% endif %} {% if settings.product_not_available == "hidden" or is_buy_button == false %} is-zero-count-hidden {% endif %} {% if product.show_variants? and product.variants.size > 1 %}is-more-variants{% endif %} {% if account.forbid_order_over_existing %}is-forbid-order-over-existing{% endif %} {% if only_buy_one_click %} only-buy-one-click {% endif %} {% if is_show_marketplace_button %} is-show-marketplace-button {% endif %} {% if hide_all_buttons %} hide-all-buttons {% endif %}">
+  <div class="product__area-photo">
+    {% if product.price < product.old_price %}
+      <div class="product-item__sale" data-product-card-sale-value></div>
+    {% endif %}
+    <div class="products-item__actions">
+      <button type="button" class="products-item__action icon_favorite" data-ui-favorites-trigger="{{ product.id }}">
+      </button>
+    </div>
+    {% if product.images.size > 1 or product.video_links.size > 0 %}
+      <div class="product__gallery js-product-gallery">
+        <div style="display:none" class="js-product-all-images {% if widget_settings.video-before-image and product.video_links.size > 0 %}video-first{% endif %}">
+          {% capture images %}
+            {% for image in product.images %}
+              {% assign img_title = product.title | escape %}
+              {% if image.title.size > 0 %}
+                {% assign img_title = image.title | escape %}
+              {% endif %}
+              <div class="splide__slide product__slide-main" data-product-img-id="{{ image.id }}">
+                <a
+                  class="img-ratio img-fit product__photo"
+                  data-fslightbox="product-photos-lightbox"
+                  data-alt="{{ img_title }}"
+                  data-type="image"
+                  href="{{image.original_url}}">
+                  <div class="img-ratio__inner">
+                    {% if image.original_url contains 'no_image' %}
+                      <picture>
+                        <img src="{{ image.original_url  }}" alt="{{ img_title }}">
+                      </picture>
+                    {% else %}
+                      <picture>
+                        <source
+                          srcset="{{ image.original_url | image_url: 1000, format: 'webp', resizing_type: 'fit_width', quality: 100  }}"
+                          type="image/webp"
+                          loading="lazy">
+                        <img
+                          src="{{ image.original_url | image_url: 1000, resizing_type: 'fit_width', quality: 100  }}"
+                          loading="lazy"
+                          alt="{{ img_title }}" />
+                      </picture>
+                    {% endif %}
+                  </div>
+                </a>
+              </div>
+              <div class="splide__slide product__slide-tumbs js-product-gallery-tumbs-slide" data-product-img-id="{{ image.id }}">
+                <div class="img-ratio img-ratio_contain product__photo-tumb">
+                  <div class="img-ratio__inner">
+                    {% if image.original_url contains 'no_image' %}
+                      <picture>
+                        <img src="{{ image.original_url  }}" alt="{{ img_title }}">
+                      </picture>
+                    {% else %}
+                      <picture>
+                        <source
+                          srcset="{{ image.original_url | image_url: 250, format: 'webp', resizing_type: 'fit_width', quality: 100  }}"
+                          type="image/webp"
+                          loading="lazy">
+                        <img
+                          src="{{ image.original_url | image_url: 250, resizing_type: 'fit_width', quality: 100  }}"
+                          loading="lazy"
+                          alt="{{ img_title }}" />
+                      </picture>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% endcapture %}
+          {% capture videos %}
+            {% for link in product.video_links %}
+              {% assign video_id = forloop.index0 | prepend: 'video-' %}
+              <div class="splide__slide product__slide-main play-video" data-product-img-id="{{ forloop.index0 }}">
+                {% if link.url contains "https://static.insales-cdn.com" %}
+                  <a
+                    class="img-ratio img-fit product__photo"
+                    data-fslightbox="product-photos-lightbox"
+                    data-type="video"
+                    href="{{ link.url }}"
+                    >
+                    <div class="img-ratio__inner">
+                    <video
+                      autoplay="true"
+                      oncanplay="this.muted=true"
+                      muted="true"
+                      loop="true"
+                      playsinline="true"
+                      width="100%"
+                      class="lazy"
+                      preload="metadata"
+                      id="w">
+                      <source src="{{ link.url }}" type="video/mp4">
+                    </video>
+                    </div>
+                  </a>
+                {% else %}
+                  <a
+                    class="img-ratio img-fit product__photo"
+                    data-fslightbox="product-photos-lightbox"
+                    data-type="sourse"
+                    href="#{{ video_id }}">
+                    <div class="control play">
+                      <span class="center"></span>
+                    </div>
+                    <div class="img-ratio__inner">
+                      <img src="{{ link.url | video_preview_by_url  }}" style="max-width: 100%" alt="">
+                    </div>
+                    {{ link.url | video_iframe_by_url: width: 600, height: 400, id: video_id }}
+                  </a>
+                {% endif %}
+              </div>
+              {% if link.url contains "https://static.insales-cdn.com" %}
+                <div class="splide__slide product__slide-tumbs js-product-gallery-tumbs-slide play-video" data-product-img-id="{{ forloop.index0 }}">
+
+                  <div class="img-ratio img-ratio_contain product__photo-tumb">
+                    <div class="img-ratio__inner">
+                      <img src="https://static.insales-cdn.com/files/1/4301/24817869/original/play-button.png" style="max-width: 100%" alt="">
+                    </div>
+                  </div>
+                </div>
+              {% else %}
+                <div class="splide__slide product__slide-tumbs js-product-gallery-tumbs-slide play-video" data-product-img-id="{{ forloop.index0 }}">
+                  <div class="control play">
+                    <span class="center"></span>
+                  </div>
+                  <div class="img-ratio img-ratio_contain product__photo-tumb">
+                    <div class="img-ratio__inner">
+                      <img src="{{ link.url | video_preview_by_url  }}" style="max-width: 100%" alt="">
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+
+
+
+            {% endfor %}
+          {% endcapture %}
+          {% if widget_settings.video-before-image and product.video_links.size > 0 %}
+            {{ videos }} {{ images }}
+          {% else %}
+            {{ images }} {{ videos }}
+          {% endif %}
+        </div>
+        <div class="product__gallery-tumbs" style="--img-ratio: 1;">
+          <div class="splide js-product-gallery-tumbs">
+            <div class="splide__track">
+              <div class="splide__list"></div>
+            </div>
+            <div class="splide__arrows">
+              <button type="button" class="splide__arrow splide__arrow--prev">
+                <span class="splide__arrow-icon icon-angle-left"></span>
+              </button>
+              <button type="button" class="splide__arrow splide__arrow--next">
+                <span class="splide__arrow-icon icon-angle-right"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="product__gallery-main">
+          <div class="splide js-product-gallery-main">
+            <div class="splide__track">
+              <div class="splide__list"></div>
+            </div>
+            <div class="splide__arrows">
+              <button type="button" class="splide__arrow splide__arrow--prev">
+                <span class="splide__arrow-icon icon-angle-left"></span>
+              </button>
+              <button type="button" class="splide__arrow splide__arrow--next">
+                <span class="splide__arrow-icon icon-angle-right"></span>
+              </button>
+            </div>
+          </div>
+          <div class="product__available">
+            <span data-product-card-available='{
+                        "availableText": "{{messages.available}}",
+                        "notAvailableText": "{{messages.not_available}}"
+                        }'></span>
+          </div>
+          {{ stickers }}
+        </div>
+      </div>
+    {% else %}
+      {% assign img_title = product.title | escape %}
+      {% if product.first_image.title.size > 0 %}
+        {% assign img_title = product.first_image.title | escape %}
+      {% endif %}
+
+      <div class="product__one-photo">
+        <a
+          class="img-ratio img-ratio_cover product__photo"
+          data-alt="{{ img_title }}"
+          data-fslightbox="product-photos-lightbox-{{ product.first_image.id }}"
+          data-type="image"
+          href="{{ product.first_image.original_url }}">
+          <div class="img-ratio__inner">
+            <picture>
+              <source
+                srcset="{{ product.first_image.original_url | image_url: 1000, format: 'webp', resizing_type: 'fit_width'  }}"
+                type="image/webp"
+                loading="lazy">
+              <img
+                src="{{ product.first_image.original_url | image_url: 1000, resizing_type: 'fit_width'  }}"
+                loading="lazy"
+                alt="{{ img_title }}" />
+            </picture>
+          </div>
+        </a>
+        <div class="product__available">
+          <span data-product-card-available='{
+                    "availableText": "{{messages.available}}",
+                    "notAvailableText": "{{messages.not_available}}"
+                    }'></span>
+        </div>
+        {{ stickers }}
+      </div>
+    {% endif %}
+  </div>
+  <div class="product__area-sku">
+    {% if editor_mode? or widget_settings.product-hide-sku != true %}
+      <div class="product__sku">
+        <span data-product-card-sku='{"skuLabel": "{{messages.sku_label}}"}'></span>
+      </div>
+    {% endif %}
+  </div>
+  <div class="product__area-title">
+    <h1 class="title__large">{{ product.title | editable }}</h1>
+  </div>
+  {% if product.short_description %}
+    <div class="product__short-description">{{ product.short_description }}</div>
+  {% endif %}
+
+   {% comment %} 
+  <div class="test-per-gram">
+    <!-- Проверяем, является ли товар весовым -->
+    {% if product.properties.price-gram %}
+      {% assign perGram = product.properties.price-gram.characteristics.first.name | to_integer | default: 1 %}
+      {% if perGram > 1 %}
+        <div class="product__price-step">
+          Цена в корзине рассчитывается по цене за 
+          {% if product.properties.pack %}
+            {{ firstPropPackage }}кг
+          {%- else -%}1кг{%- endif -%}
+        </div>
+        <div class="price-per-100g">
+          <span class="price-label">Цена за {{ 1000 | divided_by: perGram }}г:</span>
+          <span class="price-value">{{ product.price | divided_by: perGram | money }}</span>
+        </div>
+  
+        <div class="price-per-kg secondary">
+          <small>{{ product.price | money }} за кг</small>
+        </div>
+  
+        <div class="price-per-desc">
+          <span class="price-label">Шаг изменения позиции: 1кг</span>
+        </div> 
+      {% endif %}
+    {% else %}
+      <!-- Обычное отображение цены для не весовых товаров -->
+      <div class="price-standard">
+        {{ product.price | money }}
+      </div>
+    {% endif %}
+  </div>{% endcomment %}
+
+  <div class="product__area-user-controls">
+    <div class="product__user-controls">
+      {% if settings.compare_enabled == null or settings.compare_enabled %}
+        {% if widget_settings.product-hide-compare != true %}
+          {% unless product.is_bundle %}
+            <span data-compare-trigger="{{ product.id }}" class="button-link product__user-btn product__compare-btn">
+              <span class="product__user-btn-icon icon-compare"></span>
+              <span data-compare-trigger-added-text="{{ messages.btn_compare_text_active }}" data-compare-trigger-not-added-text="{{ messages.btn_compare_text }}">
+                {{ messages.btn_compare_text }}
+              </span>
+            </span>
+          {% endunless %}
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+  {% unless product.is_bundle %}
+    <div class="product__area-variants">
+      {% if product.show_variants? %}
+        {% capture product_variants_options %}{ "default": "option-radio"
+          {% if widget_settings.display-property-color == "text" %}, "default": "option-span"
+          {% endif %}
+          {% if widget_settings.display-property-color == "picture" %}, "default": "option-radio"
+          {% endif %}
+          }{% endcapture %}
+        <div class="product__variants">
+          <select
+            class="hide"
+            name="variant_id"
+            data-product-variants='{{ product_variants_options }}'>
+            {% for variant in product.variants %}
+              <option value="{{ variant.id }}">{{ variant.title | escape }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      {% else %}
+        <input
+          type="hidden"
+          name="variant_id"
+          value="{{ product.variants.first.id }}" />
+      {% endif %}
+    </div>
+
+    {% if product.accessories.size > 0 %}
+    <div class="product__area-accessories">
+      <div class="label-accessories">{{ messages.options }}</div>
+      <div data-product-accessories></div>
+    </div>
+
+    <template data-product-accessories-template>
+      <div
+        class="accessory-item"
+        data-product-accessories-item
+      >
+        <div data-product-accessory-count></div>
+
+
+        <div class="accessory-name">
+          <strong>
+            <span data-product-accessory-name></span>
+          </strong>
+
+          <span data-product-accessory-minmax-count='{
+            "minCountMessage": "{{ messages.from }}",
+            "maxCountMessage": "{{ messages.to }}"
+          }'></span>
+        </div>
+
+        <div class="accessory-values" data-product-accessory-values></div>
+
+        <div
+          data-product-accessory-error='{
+            "scrollEnabled": "true"
+          }'
+          class="accessory-item__error"
+        ></div>
+      </div>
+    </template>
+
+    <template data-product-accessory-values-template>
+      <label
+        class="accessory-values__item"
+        data-product-accessory-values-item
+        data-product-accessory-values-item-id
+      >
+        <span data-product-accessory-values-item-name></span> (+<span data-product-accessory-values-item-price></span>)
+      </label>
+    </template>
+    {% endif %}
+  {% endunless %}
+  <div class="product__area-buy">
+    <div
+      class="product__buy
+      {% if sber_bnpl.payment_gateway_enabled? %}
+        {% if sber_bnpl.show_at_product == true %}
+          bnpl-avaliable
+        {% endif %}
+      {% endif %}">
+      <div class="products-item__prices">
+        {% comment %} Выключил data-product-card-price-from-cart {% endcomment %}
+        <span class="products-item__price{% if product.price < product.old_price %} products-item__price-new{% endif %}" data-product-card-price-from-cart2>
+          {% if perGram > 1 %}
+            {{ product.price | times: 1.0 | divided_by: perGram | round: 1 }} ₽<span class="item__price-step">за {{ 1000 | divided_by: perGram }}г.</span>
+          {% else %}
+            {{ product.price | money }}
+          {% endif %}
+          {% comment %} {{ product.price | money }} {% endcomment %}
+        </span>
+        {% if product.price < product.old_price %}
+            <span class="products-item__price-old">
+                <s data-product-card-old-price>
+                  {% if perGram > 1 %}
+                    {{ product.old_price | times: 1.0 | divided_by: perGram | round: 1 }} ₽
+                  {% else %}
+                    {{ product.old_price | money }}
+                  {% endif %}
+                  {% comment %} {{ product.old_price | money }} {% endcomment %}
+                </s>
+            </span>
+        {% endif %}
+      </div>
+      {% if sber_bnpl.payment_gateway_enabled? %}
+        {% if sber_bnpl.show_at_product == true %}
+          {% include "system_bnpl-button" with product, button_class: 'collection', button_type_show: 'collection-price-default', button_type_hide: 'collection-price-varies-hide' %}
+        {% endif %}
+      {% endif %}
+      <div class="product__controls">
+        <div class="product__buy-btn-area" id="product-detail-buy-area">
+          <div class="product__buy-btn-area-inner">
+            {% if product.show_service_button %}
+              {{ service_button }}
+            {% elsif product.show_cart_button %}
+              {{ cart_button }}
+              {% comment %} {{ preorder_button }} {% endcomment %}
+            {% elsif product.show_quick_checkout_button %}
+              {{ quick_checkout_product_button }}
+              {% comment %} {{ preorder_button }} {% endcomment %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      {% comment %} 
+      {% if perGram > 1 %}
+        <div class="product__price-step">
+          *Цена в корзине рассчитывается по цене за 
+          {% if firstPropPackage %}
+            {{ firstPropPackage }}кг
+          {%- else -%}1кг{%- endif -%}
+        </div>
+      {% endif %}
+      {% endcomment %}
+    </div>
+
+    {% if product.show_quick_checkout_button and product.show_cart_button %}
+      {{ quick_checkout_product_button }}
+    {% endif %}
+
+    {% if product.show_marketplace_button %}
+      {{ marketplace_button }}
+    {% endif %}
+
+  </div>
+  {% if product.is_bundle %}
+    <div class="product__area-bundle">
+      <div class="product__bundle">
+        <div class="product__bundle-title">{{ messages.product_bundle_title }}</div>
+        <div class="bundle-list">
+          {% for bundle_component in product.bundle_components %}
+            <div class="bundle-item">
+              <div class="bundle-item__photo">
+                <div class="img-ratio img-ratio_cover product__photo">
+                  <div class="img-ratio__inner">
+                    <a href="{{bundle_component.product.url | add_param: 'variant_id', bundle_component.variant.id }}" target="_blank">
+                      {{ bundle_component.variant.first_image.url | webp_picture_tag: 150 }}
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="bundle-item__info">
+                <div class="bundle-item__name">
+                  <a href="{{bundle_component.product.url | add_param: 'variant_id', bundle_component.variant.id }}" target="_blank">
+                    {{ bundle_component.product.title }}
+                  </a>
+                </div>
+                {% if bundle_component.variant.option_values.size > 0 %}
+                  <div class="bundle-item__property-list">
+                    {% for option_value in bundle_component.variant.option_values %}
+                      <span class="bundle-item__property-item">
+                        {{ option_value.option_name.title }}: {{ option_value.title }}
+                      </span>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+                <div class="bundle-item__price">
+                  {% if bundle_component.is_free %}
+                    {{ bundle_component.quantity }} × {{ messages.product_bundle_gift_text }}
+                  {% else %}
+                    {{ bundle_component.quantity }} × {{ bundle_component.variant.price | money }}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <input
+        type="hidden"
+        name="variant_id"
+        value="{{ product.variants.first.id }}" />
+    </div>
+  {% endif %}
+  <div class="product__area-description">
+    {% if editor_mode? or widget_settings.product-hide-description != true %}
+      <div class="product__description static-text">
+        {{ product.short_description | replace: '<table', '
+         <div class="table-wrapper"><table' | replace: '</table>', '</table></div>
+         ' | editable }}
+      </div>
+    {% endif %}
+  </div>
+  <div class="product__area-calculate-delivery">
+    {% include "system_insales_widget-calculate_delivery" %}
+  </div>
+</form>
+{% assign img_title = null %}

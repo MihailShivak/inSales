@@ -1,0 +1,23 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Пагинация"
+  },
+  "handle": "widget_v4_pagination_1_c01c2a3cca4e0d72d3d7a2f90b807f6a",
+  "description": {
+    "ru": "Пагинация"
+  },
+  "page_kinds": [
+    "collection",
+    "blog",
+    "search"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "pagination",
+  "libraries": [
+    "my-layout"
+  ]
+}

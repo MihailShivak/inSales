@@ -1,0 +1,286 @@
+{
+  "content": [
+    {
+      "items": [
+        {
+          "name": "quick-checkout-info",
+          "label": "{{ messages.order_in_one_click }}",
+          "value": null,
+          "type": "info",
+          "text": "{{ messages.order_in_one_click_help }}",
+          "general": true,
+          "general_position": 101
+        },
+        {
+          "name": "favorites-enable",
+          "label": "{{ messages.enable_favorites }}",
+          "value": null,
+          "type": "info",
+          "text": "{{ messages.favorites_enable_label_help }}",
+          "general": true,
+          "general_position": 200
+        },
+        {
+          "name": "current-page-short-description",
+          "label": "{{ messages.short_description }}",
+          "type": "current-page-short-description",
+          "general": true,
+          "general_position": 200
+        },
+        {
+          "class": "checkbox",
+          "name": "show-selected-variant-photos",
+          "label": "{{ messages.filter_list_images }}",
+          "value": null,
+          "type": "checkbox",
+          "general": true,
+          "general_position": 1,
+          "help": "{{ messages.filter_list_images_help }}. <a href='https://www.insales.ru/collection/doc-products/product/kak-nastroit-vybor-razmera-ili-vesa-pokupatelem-na-stranitse-tovara-v-magazine' target='_blank'>{{ messages.read_more }}</a>"
+        },
+        {
+          "class": "checkbox",
+          "name": "product-hide-variants-title",
+          "label": "{{ messages.product_hide_variants_title }}",
+          "value": null,
+          "type": "checkbox",
+          "general": true,
+          "general_position": 100
+        },
+        {
+          "class": "checkbox",
+          "name": "product-hide-sku",
+          "label": "{{ messages.product_hide_sku }}",
+          "value": null,
+          "type": "checkbox",
+          "general": true,
+          "general_position": 100
+        },
+        {
+          "class": "checkbox",
+          "name": "product-hide-compare",
+          "label": "{{ messages.hide_comparison }}",
+          "value": null,
+          "type": "checkbox",
+          "general": true,
+          "general_position": 100,
+          "help": "{{ messages.hide_compare_help }}",
+          "enable_server_reload": true
+        },
+        {
+          "class": "checkbox",
+          "name": "product-hide-description",
+          "label": "{{ messages.hide_short_description }}",
+          "value": null,
+          "type": "checkbox",
+          "general": true,
+          "general_position": 100
+        }
+      ]
+    }
+  ],
+  "design": [
+    {
+      "type": "group",
+      "name": "{{ messages.stylization }}",
+      "items": [
+        {
+          "name": "display-property-color",
+          "options": [
+            [
+              "{{ messages.text }}",
+              "text"
+            ],
+            [
+              "{{ messages.image_or_text }}",
+              "picture"
+            ]
+          ],
+          "value": null,
+          "label": "{{ messages.display_property_color }}",
+          "type": "select",
+          "general": true,
+          "enable_server_reload": true,
+          "help": "{{ messages.display_property_color_help }}",
+          "edit_admin_link": "product_options",
+          "general_position": 1
+        },
+        {
+          "name": "link-to-widget-stikers",
+          "label": "{{ messages.sticker_colors }}",
+          "type": "link-to-widget",
+          "category_handle": "stiker_hex_color",
+          "icon": "mdi-cat-drugie",
+          "general": true,
+          "general_position": 101
+        },
+        {
+          "name": "rating-color",
+          "label": "{{ messages.rating_color }}",
+          "value": "",
+          "type": "color",
+          "help": "{{ messages.rating_color_help }}"
+        },
+        {
+          "name": "sale-bg",
+          "label": "{{ messages.sale_bg_color }}",
+          "value": "",
+          "type": "color"
+        },
+        {
+          "class": "range",
+          "name": "sticker-font-size",
+          "label": "{{ messages.sticker_font_size }} (rem)",
+          "min": 0.7,
+          "max": 1.5,
+          "step": 0.1,
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.rem_helper }}",
+"unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.gallery_images }}",
+      "items": [
+        {
+          "class": "checkbox",
+          "name": "video-before-image",
+          "label": "{{ messages.video_before_image }}",
+          "value": null,
+          "type": "checkbox",
+          "enable_server_reload": true
+        },
+        {
+          "class": "range",
+          "name": "img-ratio",
+          "label": "{{ messages.image_ratio }}",
+          "min": 0.5,
+          "max": 2,
+          "step": 0.1,
+          "type": "number",
+          "with_btns": true
+        },
+        {
+          "class": "select",
+          "name": "img-fit",
+          "options": [
+            [
+              "{{ messages.maintain_proportions }}",
+              "contain"
+            ],
+            [
+              "{{ messages.stretch_entire_block }}",
+              "cover"
+            ]
+          ],
+          "label": "{{ messages.image_size }}",
+          "type": "select"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.background }}",
+      "items": [
+        {
+          "name": "bg",
+          "label": "{{ messages.widget_background_color }}",
+          "value": "",
+          "type": "color",
+          "clearable": true
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-wide-bg",
+          "label": "{{ messages.wide_background }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.indentation }}",
+      "items": [
+        {
+          "class": "range",
+          "name": "layout-pt",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.padding_top }} (vw)",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.vw_helper }}",
+"unit": "vw"
+        },
+        {
+          "class": "range",
+          "name": "layout-pb",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.padding_bottom }} (vw)",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.vw_helper }}",
+"unit": "vw"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.content }}",
+      "items": [
+        {
+          "class": "number",
+          "name": "layout-content-max-width",
+          "min": 980,
+          "max": 2000,
+          "label": "{{ messages.content_max_width }} (px)",
+          "type": "number",
+          "help": "{{ messages.px_helper }}",
+"unit": "px",
+          "hide_mobile": true
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-wide-content",
+          "label": "{{ messages.wide_content }}",
+          "value": null,
+          "type": "checkbox",
+          "hide_mobile": true
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-edge",
+          "label": "{{ messages.remove_padding_at_edges }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.adaptive }}",
+      "items": [
+        {
+          "class": "checkbox",
+          "name": "hide-desktop",
+          "label": "{{ messages.hide_desktop }}",
+          "value": null,
+          "type": "checkbox"
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-mobile",
+          "label": "{{ messages.hide_mobile }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    }
+  ]
+}

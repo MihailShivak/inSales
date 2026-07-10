@@ -1,0 +1,13 @@
+{% assign with_tag = blog.tags.first.current? %}
+{% assign show_last = show_last | default: true %}
+<div class="breadcrumb-wrapper delemeter_{{ widget_settings.delemeter }}">
+  <a href="/collection/all" class="btn__bread-back">
+    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+    <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <span>Назад</span>
+  </a>
+</div>
+{% assign show_link = null %}
+{% assign path = null %}
+{% assign with_tag = null %}

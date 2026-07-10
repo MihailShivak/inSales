@@ -1,0 +1,14 @@
+{
+    "content": [
+        {
+            "items": [
+                {
+                    "name": "title",
+                    "label": "Заголовок блока",
+                    "value": null,
+                    "type": "text"
+                }
+            ]
+        }
+    ]
+}

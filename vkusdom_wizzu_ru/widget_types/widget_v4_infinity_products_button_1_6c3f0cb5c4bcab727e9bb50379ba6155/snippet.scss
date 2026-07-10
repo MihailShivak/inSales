@@ -1,0 +1,100 @@
+@include background-color(--bg);
+
+&[style*="--btn-align:left"] {
+  .infinity-products-controls {
+    text-align: left;
+  }
+}
+  
+&[style*="--btn-align:right"] {
+  .infinity-products-controls {
+    text-align: right;
+  }
+}
+
+.infinity-products-controls {
+  margin-bottom: 20px;
+  text-align: center;
+
+  &__btn {
+    position: relative;
+    display: inline-flex;
+    line-height: 1;
+    min-height: 2.5rem;
+    align-items: center;
+    background: #2394F0;
+    color: #fff;
+    padding: 5px 40px;
+    border-radius: 15px;
+    font-size: 18px;
+    border: none;
+    text-decoration: none;
+
+    @media (hover: hover) {
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      padding: 5px 35px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      text-decoration: none;
+    }
+
+    &.is-loading {
+      // color: var(--color-text-half-shade);
+      opacity: 0.7;
+
+      .loader {
+        display: block;
+      }
+    }
+  }
+}
+
+.loader {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 100%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  display: none;
+
+  &:before, &:after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: var(--color-text);
+    width: 16px;
+    height: 16px;
+    top: calc(50% - 8px);
+    left: calc(50% - 8px);
+    animation: 2s ease-in-out infinite;
+  }
+
+  &::before {
+    opacity: 0.7;
+    animation-name: loaderUpperDot;
+  }
+
+  &::after {
+    opacity: 0.5;
+    animation-name: loaderLowerDot;
+  }
+}
+
+@keyframes loaderUpperDot {
+  25% { transform: translateX(-50%);}
+  47.5%, 52.5% {transform: translateX(0);}
+  75% { transform: translateX(50%);}
+}
+
+@keyframes loaderLowerDot {
+  25% {transform: translateX(50%);}
+  47.5%, 52.5% {transform: translateX(0);}
+  75% {transform: translateX(-50%);}
+}

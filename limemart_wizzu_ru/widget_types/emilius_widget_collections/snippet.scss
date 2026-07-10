@@ -1,0 +1,14 @@
+.collections {
+    margin-bottom: 40px;
+}
+
+.collection__block {
+    border-radius:	33px;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 760px) {
+    .collection__block {
+        border-radius: 20px;
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "content": [
+        {
+            "group_name": "Выбор категории",
+            "items": [
+                {
+                    "name":"order_url_2",
+                    "label":"Telegram",
+                    "help":"",
+                    "type":"text"
+                },
+                {
+                    "name": "collection",
+                    "label": "Категория для отображения",
+                    "value": null,
+                    "type": "collection"
+                }
+            ]
+        }
+    ]
+}

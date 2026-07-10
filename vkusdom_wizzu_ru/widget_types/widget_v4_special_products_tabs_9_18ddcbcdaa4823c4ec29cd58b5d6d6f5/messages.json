@@ -1,0 +1,48 @@
+{
+  "ru": {
+  	"block_list": "Список категорий",
+    "block": "Категорию",
+    "blocks": "Категории",
+    "hide_rows": "Скрывать строки не заполненные по всей ширине",
+    "favorites_enable_label_help": "Чтобы показать или скрыть избранное, перейдите в настройки шаблона и включите избранное",
+    "hode_rows_help": "Часть товаров может быть скрыта в зависимости от их количества в ряду. Количество товаров на мобильном может отличаться от него же на десктопе. Единственная строка скрываться не будет.",
+    "rounding_button_help": "Настройка отвечает за скругление кнопки добавления товара в корзину/быстрого просмотра",
+    "button_ozon": "Купить на Ozon",
+    "button_wildberries": "Купить на Wildberries"
+  },
+  "ua": {
+  	"block_list": "Список категорій",
+    "block": "Категорію",
+    "blocks": "Категорії",
+    "favorites_enable_label_help": "Щоб показати або приховати обране, перейдіть в Налаштування шаблону і включіть обране",
+    "hide_rows": "Приховувати рядки не заповнені по всій ширині",
+    "hode_rows_help": "Частина товарів може бути прихована залежно від кількості в ряду. Кількість товарів на мобільному може відрізнятися від нього на робочому столі. Єдиний рядок ховатись не буде.",
+    "rounding_button_help": "Налаштування відповідає за заокруглення кнопки додавання товару до кошика/швидкого перегляду",
+    "button_ozon": "Купити на Ozon",
+    "button_wildberries": "Купити на Wildberries"
+  },
+  "en": {
+    "block_list": "Category list",
+    "block": "Category",
+    "blocks": "Categories",
+    "hide_rows": "Hide lines not filled in full width",
+    "favorites_enable_label_help": "To show or hide favorites, go to the template settings and enable favorites",
+    "hode_rows_help": "Some of the goods can be hidden depending on their number in the row. The number of items on the mobile may differ from the same on the desktop. The single line will not be hidden.",
+    "rounding_button_help": "The setting is responsible for the rounding of the add to cart/quick view button",
+    "button_ozon": "Buy on Ozon",
+    "button_wildberries": "Buy on Wildberries"
+  },
+  "es": {
+    "block_list": "Lista de categoría",
+    "block": "Categoría",
+    "blocks": "Categorías",
+    "hide_rows": "Ocultar líneas sin completar en ancho completo",
+    "favorites_enable_label_help": "Щоб показати або приховати обране, перейдіть в Налаштування шаблону і включіть обране",
+    "hode_rows_help": "Algunos de los productos se pueden ocultar según su número en la fila. La cantidad de elementos en el móvil puede diferir de la misma en el escritorio. La línea única no se ocultará.",
+    "rounding_button_help": "La configuración es responsable del redondeo del botón agregar al carrito/vista rápida",
+    "button_ozon": "Comprar en Ozon",
+    "button_wildberries": "Comprar en Wildberries"
+  }
+}
+
+

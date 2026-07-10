@@ -1,0 +1,26 @@
+{
+  "logo-max-width": 180,
+  "header-top-pt": 0.5,
+  "header-top-pb": 0.5,
+  "header-main-pt": 1,
+  "header-main-pb": 1,
+  "hide-mobile": false,
+  "hide-desktop": false,
+  "header-wide-bg": true,
+  "header-wide-content": false,
+  "hide-search": false,
+  "hide-language": false,
+  "hide-compare": false,
+  "hide-personal": false,
+  "hide-top-panel": false,
+  "menu-handle": "main-menu",
+  "working_hours": {
+    "ru": "Доставка с 8:00 до 23:00",
+    "en": "From 8 a.m. to 11 p.m.",
+    "ua": "З 8.00 до 23.00",
+    "es": "Entrega de 8:00 a 23:00"
+  },
+  "bage-bg": "#1B2738",
+  "live-search": false,
+  "hide-total-price": false
+}

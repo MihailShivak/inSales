@@ -1,0 +1,31 @@
+{
+  "layout-wide-bg": true,
+  "layout-wide-content": false,
+  "layout-pt": 2,
+  "layout-pb": 2,
+  "layout-mt": 0,
+  "layout-mb": 0,
+  "hide-mobile": false,
+  "hide-desktop": false,
+  "layout-content-max-width": 680,
+  "align-title": "center",
+  "form_title": {
+    "ru": "Обратная связь",
+    "en": "Feedback",
+    "ua": "Зворотній зв'язок",
+    "es": "Comentarios"
+  },
+  "submit_btn_title": {
+    "ru": "Отправить",
+    "en": "Send",
+    "ua": "Відправити",
+    "es": "Enviar"
+  },
+  "hide-use-agree": false,
+  "success_message": {
+    "ru": "Сообщение успешно отправлено!",
+    "en": "Message sent successfully!",
+    "ua": "Повідомлення успішно відправлено!",
+    "es": "Mensaje enviado exitosamente!"
+  }
+}

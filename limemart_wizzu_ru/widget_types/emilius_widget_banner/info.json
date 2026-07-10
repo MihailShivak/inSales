@@ -1,0 +1,17 @@
+{
+  "type": "BlockListWidgetType",
+  "name": {
+    "ru": "Баннер с категориями"
+  },
+  "handle": "emilius_widget_banner",
+  "page_kinds": [
+    "index"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "banner",
+  "libraries": [],
+  "block_template_handle": "system-banner-2"
+}

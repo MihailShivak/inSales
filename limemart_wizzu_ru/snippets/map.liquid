@@ -1,0 +1,354 @@
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=82b416d9-91cb-4d67-a85c-4a66bbeeb85b&suggest_apikey=376c749f-7294-4a03-bd1e-89660416807e" type="text/javascript"></script>
+
+<div class="btn__open-map">
+    <button type="button" data-popup="#popup-map">Открыть карту</button>
+</div>
+
+<div class="popup popup-map" id="popup-map">
+    <div id="map"></div>
+    <div class="map__panel">
+        <div class="map__panel-marker"></div>
+        <div class="map__panel-address" id="address-define">Определение адреса...</div>
+        <button class="btn__change-address"">Изменить адрес</button>
+        <button class="btn-ready" data-em-ready>Готово</button>
+    </div>
+    <button class="modal-close">
+        <svg width="24" height="24" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M4.11 2.697L2.698 4.11 6.586 8l-3.89 3.89 1.415 1.413L8 9.414l3.89 3.89 1.413-1.415L9.414 8l3.89-3.89-1.415-1.413L8 6.586l-3.89-3.89z" fill="#000"></path>
+        </svg>
+    </button>
+</div>
+<div class="popup popup-address" id="popup-address">
+    <div class="modal__content">
+        <input id="address-input" class="map__input" type="text" placeholder="Введите адрес">
+    </div>
+    <button class="modal-close modal__back-close">
+        <svg width="24" height="24" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M4.11 2.697L2.698 4.11 6.586 8l-3.89 3.89 1.415 1.413L8 9.414l3.89 3.89 1.413-1.415L9.414 8l3.89-3.89-1.415-1.413L8 6.586l-3.89-3.89z" fill="#000"></path>
+        </svg>
+    </button>
+</div>
+
+<style>
+    /* Временно */
+    .btn__open-map {
+        width: 100%;
+    }
+
+    .btn__open-map button {
+        display: block;
+        margin: 10px auto 50px auto;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    input {
+        border: none;
+    }
+
+    html, body, #map {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    button {
+        padding: 5px 10px;
+        border: none;
+        background: #dbdbdb;
+        color: #111;
+        font-weight: 600;
+    }
+
+    .popup-map,
+    .popup-address {
+        background: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .map__panel-address {
+        position: absolute;
+        top: 20px;
+        left: 70px;
+        right: 70px;
+        text-align: center;
+        font-size: 24px;
+        background: rgba(255,255,255,0.6);
+        padding: 10px;
+        z-index: 10;
+    }
+
+    .btn__change-address {
+        position: absolute;
+        top: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        background: white;
+        padding: 8px 15px;
+        border-radius: 12px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        cursor: pointer;
+        border: none;
+        font-size: 16px;
+    }
+
+    .map__panel-marker {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 42px;
+        height: 42px;
+        transform: translate(-50%, -50%);
+        background: url('https://cdn-icons-png.flaticon.com/512/684/684908.png') no-repeat center;
+        background-size: contain;
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    .btn-ready {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        background: #00c853;
+        color: white;
+        padding: 15px 40px;
+        border-radius: 15px;
+        font-size: 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    @media screen and (max-width: 560px) {
+        .btn__change-address {
+            top: 180px;
+        }
+
+        .map__panel-address {
+            font-size: 19px;
+        }
+    }
+</style>
+
+
+<script>
+
+/**
+ * @typedef {Object} OptionsMap
+ * @property {string} ID_MAP - Id контейнера карты
+ * @property {Array} center - Координаты центра карты
+ * @property {Int} zoom - Zoom карты
+ */
+
+/**
+ * @param {Object} map - Объект контейнера карты
+ * @param {OptionsMap} options - Параметры карты
+ */
+class DeliveryZonesMap {
+    constructor(map, options) {
+        this.name = "[DeliveryZonesMap]";
+        this.options = options;
+
+        this.currentCenter = options.center; // Текущий центр карты
+        this.currentAddress = ""; // Текущий адрес
+        // this.suggestView = null;
+
+        this.ymaps = null; // Объект Yandex.Map
+        this.polygons = []; // Полигоны зон
+
+        this.map = map; // Контейнер карты
+        this.adsress = map?.querySelector("#address-define");
+    }
+
+    /**
+     * Инициализация Ynadex.Map
+     * @param {JSON} geoJson - Данные зон в формате GEO JSON, импорт из карты 
+     */
+    init(geoJson) {
+        if (!this.map || !this.adsress) {
+            this.throwException("Ошибка инициализации");
+        }
+
+        this.mapModal = new EM_Module.Modal(this.map);
+        this.mapModal.init();
+
+        this.addressModal = new EM_Module.Modal(document.getElementById("popup-address"));
+        this.addressModal.init(function() {
+            // Открытие модалки
+            this.modal.querySelector('#address-input').value = '';
+            setTimeout(
+                () => this.modal.querySelector('#address-input')?.focus(),
+                250
+            );
+        });
+
+        ymaps.ready(this.initMap.bind(this, this.fixGeoJSON(geoJson)));
+        this.map.addEventListener("click", this.onClick.bind(this));
+    }
+
+    onClick(e) {
+        // Изменить адрес
+        if (e.target.classList.contains("btn__change-address")) {
+            this.addressModal?.open();
+        }
+        else if (e.target.getAttribute("data-em-ready") !== null) {
+            this.searchZone();
+        }
+    }
+
+    initMap(geoJson) {
+        this.ymaps = new ymaps.Map(this.options.ID_MAP, {
+            center: this.options.center,
+            zoom: this.options.zoom,
+            controls: []
+        });
+    
+        this.ymaps.events.add('boundschange', (e) => {
+            if (e.get('newCenter')) {
+                this.currentCoords = e.get('newCenter');
+                this.updateAddressByCoords(this.currentCoords);
+            }
+        });
+    
+        // Отрисовка полигонов
+        geoJson.features.forEach(feature => {
+            if (feature.geometry.type !== "Polygon") return;
+
+            let polygon = new ymaps.Polygon(
+                feature.geometry.coordinates, { 
+                    hintContent : `Зона: ${feature.id}` 
+                }, {
+                    fillColor: feature.properties.fill,
+                    fillOpacity: feature.properties["fill-opacity"],
+                    strokeColor: feature.properties.stroke,
+                    strokeOpacity: feature.properties["stroke-opacity"],
+                    strokeWidth: feature.properties["stroke-width"]
+                }
+            );
+    
+            this.ymaps.geoObjects.add(polygon);
+            this.polygons.push(polygon);
+        });
+    
+        this.updateAddressByCoords(this.currentCoords);
+    
+        // Инициализируем подсказки в модалке
+        let suggestView = new ymaps.SuggestView('address-input', {
+            provider: 'yandex#map',
+            boundedBy: [
+                [43.365897, 45.676333], // верхний левый угол
+                [43.176329, 45.802180]  // нижний правый угол
+            ],
+            strictBounds: true,
+            // noPlacemark: true,
+            size: 'large',
+            placeholderContent: 'Введите адрес в Грозном'
+        });
+
+        // Выбор адреса из предложенных
+        suggestView.events.add('select', (e) => {
+            const selectedAddress = e.get('item').value;
+            if (!selectedAddress) return;
+
+            ymaps.geocode(selectedAddress).then((res) => {
+                let coords = res.geoObjects.get(0).geometry.getCoordinates();
+                this.ymaps.setCenter(coords, 17);
+                this.updateAddressByCoords(coords);
+                this.addressModal.close();
+            });
+        });
+    }
+
+    /**
+     * Проверка принадлежности к зоне
+     * @param {*} res 
+     * @returns 
+     */
+    searchZone() {
+        if (!this.currentAddress || !this.currentCoords) {
+            this.warn("Ошибка определния зоны доставки", {
+                currentAddress: this.currentAddress,
+                currentCoords: this.currentCoords
+            });
+            return;
+        }
+        console.log("[Map] Адрес выбран из поля поиска:", this.currentAddress);
+
+        // Проверяем зону
+        for (var polygon of this.polygons) {
+            if (polygon.geometry.contains(this.currentCoords)) {
+                console.log("[Map] Найдена зона:", polygon.properties.get("hintContent"));
+                alert(`Адрес "${this.currentAddress }"\nвходит в зону: ${polygon.properties.get("hintContent")}`);
+                return;
+            }
+        }
+        alert(`Адрес "${this.currentAddress}"\nне входит ни в одну из зон.`);
+    }
+
+    updateAddressByCoords(coords) {
+        ymaps.geocode(coords).then((res) => {
+            let firstGeoObject = res.geoObjects.get(0);
+            if (firstGeoObject) {
+                this.currentAddress = firstGeoObject.getAddressLine();
+                this.adsress.textContent = this.currentAddress;
+            } else {
+                this.adsress.textContent = "Укажите адрес доставки";
+            }
+        });
+    }
+
+    /**
+     * Смена мест значений долготы и широты 
+     * @param {GeoJSON} json - Данные зон в формате GEO JSON, импорт из карты 
+     * @returns {GeoJSON} - Исправленные данные
+     */
+    fixGeoJSON(geojson) {
+        geojson.features.forEach(feature => {
+            if (feature.geometry.type === "Polygon" || feature.geometry.type === "MultiLineString") {
+                feature.geometry.coordinates = feature.geometry.coordinates.map(ring =>
+                    // Смена
+                    ring.map(coord => [coord[1], coord[0]])
+                );
+            }
+        });
+        return geojson;
+    }
+
+    printWarn(mess, params) {
+        console.warn(this.name, mess, params);
+    }
+
+    printError(mess, params="") {
+        console.error(this.name, mess, params);
+    }
+
+    throwException(mess) {
+        throw `${this.name} ${mess}`;
+    }
+
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("[Map] start...");
+
+    const deliveryZonesMap = new DeliveryZonesMap(
+        document.getElementById("popup-map"), 
+        {
+            ID_MAP: "map",
+            center: [43.193202, 45.785091],
+            zoom :14
+        }
+    );
+        
+    // Данные в формате GEO JSON
+    deliveryZonesMap.init(
+        {"type":"FeatureCollection","metadata":{"name":"Для уртмаркета","creator":"Yandex Map Constructor"},"features":[{"type":"Feature","id":0,"geometry":{"type":"Polygon","coordinates":[[[45.78234466287737,43.18747132045475],[45.78603538248183,43.190321027640174],[45.78737648698927,43.192032357623894],[45.78850301477552,43.191600604617506],[45.79013916227461,43.19409295464434],[45.7841735790589,43.19628331791071],[45.78288880094074,43.19365172400821],[45.780198545298795,43.194375865388274],[45.78012880786437,43.19180502660789],[45.78020944413226,43.188566525408376],[45.77996804532092,43.18838596422345],[45.78234466287737,43.18747132045475]]]},"properties":{"description":"Зона 1","fill":"#ed4543","fill-opacity":0.6,"stroke":"#ed4543","stroke-width":"5","stroke-opacity":0.9}},{"type":"Feature","id":1,"geometry":{"type":"Polygon","coordinates":[[[45.77996938642544,43.18838792689639],[45.78047364172005,43.20565754462299],[45.77407925542854,43.205594758498926],[45.77373593267467,43.199268722855294],[45.77361791547814,43.19043785374732],[45.77996938642544,43.18838792689639]]]},"properties":{"description":"Зона 2","fill":"#82cdff","fill-opacity":0.6,"stroke":"#1e98ff","stroke-width":"5","stroke-opacity":0.9}},{"type":"Feature","id":2,"geometry":{"type":"Polygon","coordinates":[[[45.78288494762419,43.193657323711776],[45.784173078503585,43.19628450223395],[45.78585281189914,43.198454352953554],[45.780386469926775,43.20289487222277],[45.780199667527235,43.194376885201194],[45.78288494762419,43.193657323711776]]]},"properties":{"description":"Зона 2","fill":"#ff931e","fill-opacity":0.6,"stroke":"#e6761b","stroke-width":"5","stroke-opacity":0.9}},{"type":"Feature","id":3,"geometry":{"coordinates":[45.785091,43.193202],"type":"Point"},"properties":{"description":"Чеченская Республика, городской округ Аргун, село Чечен-Аул, улица Сулеймана Губиева, 16","iconCaption":"Самовывоз","marker-color":"#1e98ff"}}]}
+    );
+});
+</script>

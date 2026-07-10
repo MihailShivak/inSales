@@ -1,0 +1,171 @@
+{
+  "content": [
+    {
+      "type": "group",
+      "name": "{{ messages.delimiter }}",
+      "items": [
+        {
+          "name": "delemeter",
+          "options": [
+            [
+              "/",
+              "1"
+            ],
+            [
+              "-",
+              "2"
+            ],
+            [
+              ">",
+              "3"
+            ],
+            [
+             ".",
+             "4"
+           ]
+          ],
+          "value": null,
+          "label": "{{ messages.delimiter }}",
+          "general": true,
+          "type": "select"
+        }
+      ]
+    }
+  ],
+  "design": [
+    {
+      "type": "group",
+      "name": "{{ messages.stylization }}",
+      "items": [
+
+        {
+          "name": "align",
+          "options": [
+            {
+              "value": "start",
+              "title": "{{ messages.align_left }}",
+              "icon": "mdi-text-align-left"
+            },
+            {
+              "value": "center",
+              "title": "{{ messages.align_center }}",
+              "icon": "mdi-text-align-center"
+            },
+            {
+              "value": "end",
+              "title": "{{ messages.align_right }}",
+              "icon": "mdi-text-align-right"
+            }
+          ],
+          "value": null,
+          "label": "{{ messages.align }}",
+          "general": true,
+          "type": "icon_group"
+        },
+        {
+          "name": "breadcrumb-color",
+          "label": "{{ messages.text_color }}",
+          "value": "",
+          "type": "color",
+          "clearable": true
+        },
+        {
+          "name": "bg",
+          "label": "{{ messages.widget_background_color }}",
+          "value": "",
+          "type": "color",
+          "clearable": true
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-wide-bg",
+          "label": "{{ messages.wide_background }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.indentation }}",
+      "items": [
+        {
+          "class": "range",
+          "name": "layout-pt",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.padding_top }} (vw)",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.vw_helper }}",
+"unit": "vw"
+        },
+        {
+          "class": "range",
+          "name": "layout-pb",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.padding_bottom }} (vw)",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.vw_helper }}",
+"unit": "vw"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.content }}",
+      "items": [
+        {
+          "class": "number",
+          "name": "layout-content-max-width",
+          "min": 400,
+          "max": 2000,
+          "label": "{{ messages.content_max_width }} (px)",
+          "type": "number",
+          "help": "{{ messages.px_helper }}",
+"unit": "px",
+          "hide_mobile": true
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-wide-content",
+          "label": "{{ messages.wide_content }}",
+          "value": null,
+          "type": "checkbox",
+          "hide_mobile": true
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-edge",
+          "label": "{{ messages.remove_padding_at_edges }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.adaptive }}",
+      "items": [
+        {
+          "class": "checkbox",
+          "name": "hide-desktop",
+          "label": "{{ messages.hide_desktop }}",
+          "value": null,
+          "type": "checkbox"
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-mobile",
+          "label": "{{ messages.hide_mobile }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    }
+  ]
+}

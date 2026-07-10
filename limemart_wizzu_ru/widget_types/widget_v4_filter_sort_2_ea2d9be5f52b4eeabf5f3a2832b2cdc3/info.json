@@ -1,0 +1,26 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Фильтр товаров c сортировкой"
+  },
+  "handle": "widget_v4_filter_sort_2_ea2d9be5f52b4eeabf5f3a2832b2cdc3",
+  "description": {
+    "ru": "Фильтр товаров категории по характеристикам и свойствам"
+  },
+  "page_kinds": [
+    "collection"
+  ],
+  "widget_list_kinds": [
+    "before_content",
+    "content",
+    "after_content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "filters",
+  "libraries": [
+    "commonjs_v2",
+    "jquery",
+    "my-layout",
+    "nouislider"
+  ]
+}

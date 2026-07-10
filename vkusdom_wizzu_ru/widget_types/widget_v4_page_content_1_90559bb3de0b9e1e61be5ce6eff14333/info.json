@@ -1,0 +1,22 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Контент страницы"
+  },
+  "handle": "widget_v4_page_content_1_90559bb3de0b9e1e61be5ce6eff14333",
+  "description": {
+    "ru": "Выводит контент страницы из бэк-офиса (Контент - Меню и страницы)."
+  },
+  "page_kinds": [
+    "index",
+    "page"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "text",
+  "libraries": [
+    "my-layout"
+  ]
+}

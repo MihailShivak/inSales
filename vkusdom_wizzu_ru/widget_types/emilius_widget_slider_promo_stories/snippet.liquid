@@ -1,0 +1,81 @@
+{% if block_lists.em-stories-slider.blocks.size > 0 %}
+    <script>
+        window.storiesBlocksData = [
+            {% for block in block_lists.em-stories-slider.blocks %}
+                {
+                    preview_title: {{ block.preview_title | json }},
+                    preview_title: {{ block.preview_desc | json }},
+                    preview_image: {{ block.preview_image | json | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }},
+                    story_title: {{ block.story_title | json }},
+                    story_link: {{ block.story_link | json }},
+                    story_description: {{ block.story_description | json }},
+                    images: [
+                        {% if block.story_img_1 != blank %}{{ block.story_img_1 | json | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}{% endif %}
+                        {% if block.story_img_2 != blank %},{{ block.story_img_2 | json | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}{% endif %}
+                        {% if block.story_img_3 != blank %},{{ block.story_img_3 | json | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}{% endif %}
+                        {% if block.story_img_4 != blank %},{{ block.story_img_4 | json | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}{% endif %}
+                        {% if block.story_img_5 != blank %},{{ block.story_img_5 | json | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}{% endif %}
+                        {% if block.story_img_6 != blank %},{{ block.story_img_6 | json | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}{% endif %}
+                    ].filter(Boolean)
+                }{% unless forloop.last %},{% endunless %}
+            {% endfor %}
+        ];
+    </script>
+    
+    <div class="slider">
+        <div class="swiper slider-promo">
+            <div class="swiper-wrapper">
+                {% for block in block_lists.em-stories-slider.blocks %}
+                    <div class="slide-item swiper-slide" 
+                         data-story-index="{{ forloop.index0 }}"
+                         style="background-image: url('{{ block.preview_image | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}');">
+                        <div class="slide__text">
+                            <div class="slide__title">{{ block.preview_title }}</div>
+                            <div class="slide__subtitle">{{ block.preview_desc }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="slider__pagination swiper-pagination"></div>
+        </div>
+    </div>
+
+    <div class="stories" id="stories" aria-hidden="true">
+        <div class="stories__overlay" tabindex="-1" data-modal-close>
+            <div class="stories__modal" role="dialog" aria-modal="true" aria-labelledby="stories-title">
+                <div class="stories__container">
+                    <div class="stories__progress">
+                        <!-- Прогресс-бары будут генерироваться динамически в JS -->
+                    </div>
+                    <button class="stories__close" aria-label="Закрыть" data-modal-close>&times;</button>
+                    <div class="stories__slider swiper-container">
+                        <div class="stories__slider-list swiper-wrapper">
+                            {% for block in block_lists.em-stories-slider.blocks %}
+                                <div class="stories__slide swiper-slide" data-story-block="{{ forloop.index0 }}">
+                                    <div class="stories__slide-content">
+                                        <div class="stories__slide-header">
+                                            <h2 class="stories__slide-title" id="stories-title">{{ block.story_title }}</h2>
+                                        </div>
+                                        <div class="stories__images-container">
+                                            <!-- Изображения будут генерироваться динамически в JS -->
+                                        </div>
+                                        <div class="stories__slide-footer">
+                                            <p class="stories__slide-description">{{ block.story_description }}</p>
+                                            {% if block.story_link != blank %}
+                                                <a href="{{ block.story_link }}" class="stories__slide-link">
+                                                    <span>Перейти</span>
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="stories__nav-area stories__nav-prev" aria-label="Предыдущее изображение"></div>
+                        <div class="stories__nav-area stories__nav-next" aria-label="Следующее изображение"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

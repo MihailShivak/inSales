@@ -1,0 +1,24 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Товары"
+  },
+  "handle": "widget_v4_catalog_1_f090b4a45f7cb849712bdb2438c9b478",
+  "description": {
+    "ru": "Товары"
+  },
+  "page_kinds": [
+    "collection",
+    "search",
+    "favorite"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "collection-products",
+  "libraries": [
+    "commonjs_v2",
+    "my-layout"
+  ]
+}

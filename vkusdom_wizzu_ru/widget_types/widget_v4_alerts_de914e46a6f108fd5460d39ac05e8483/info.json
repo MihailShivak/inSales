@@ -1,0 +1,21 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Уведомления"
+  },
+  "handle": "widget_v4_alerts_de914e46a6f108fd5460d39ac05e8483",
+  "page_kinds": [
+    "all"
+  ],
+  "widget_list_kinds": [
+    "outside"
+  ],
+  "generation": 4,
+  "widget_category_handle": "notices",
+  "libraries": [
+    "commonjs_v2",
+    "jquery",
+    "microalert",
+    "js-cookie"
+  ]
+}

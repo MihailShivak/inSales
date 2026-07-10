@@ -1,0 +1,370 @@
+
+<div class="header _app-header {% unless template == "index" %} _disabled-mob {% endunless %}">
+    <div class="header__top">
+        <div class="header__top-menu">
+            {% for link in linklists[widget_settings['menu_top']].links %}
+                <a href="{{ link.url }}" class="header__menu-item">{{ link.title }}</a>
+            {% endfor %}
+        </div>
+        <div class="header__top-section header__top-text">
+            {{ widget_settings.title-top }}
+        </div>
+        <a href="tel:+{{ widget_settings.url_1-href }}" class="header__top-section" data-em-link="{{ widget_settings.url_1-href }}" data-em-id-order="{{ order.number }}">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="13.0004" cy="12.9994" r="12.9994" fill="#2394F0"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M18.486 7.47562C17.029 6.01677 15.0912 5.21304 13.0266 5.21228C8.77293 5.21228 5.31057 8.67413 5.30904 12.9294C5.30853 14.2896 5.66389 15.6174 6.33911 16.7875L5.24414 20.7868L9.33534 19.7137C10.4625 20.3287 11.7318 20.6526 13.0233 20.6531H13.0264C17.2798 20.6531 20.7422 17.1908 20.744 12.9358C20.7453 10.8733 19.9433 8.93448 18.486 7.47562ZM13.0269 19.3492H13.0243C11.8732 19.3487 10.7442 19.0394 9.75945 18.4551L9.52512 18.3161L7.09722 18.9529L7.74515 16.5858L7.59269 16.3429C6.95068 15.3216 6.61153 14.1414 6.61206 12.9293C6.61334 9.39248 9.49111 6.51521 13.0292 6.51521C14.7425 6.51572 16.353 7.18398 17.5641 8.39639C18.7752 9.60879 19.4417 11.2204 19.4412 12.9344C19.4399 16.4717 16.5623 19.3492 13.0269 19.3492Z" fill="black"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M18.486 7.47562C17.029 6.01677 15.0912 5.21304 13.0266 5.21228C8.77293 5.21228 5.31057 8.67413 5.30904 12.9294C5.30853 14.2896 5.66389 15.6174 6.33911 16.7875L5.24414 20.7868L9.33534 19.7137C10.4625 20.3287 11.7318 20.6526 13.0233 20.6531H13.0264C17.2798 20.6531 20.7422 17.1908 20.744 12.9358C20.7453 10.8733 19.9433 8.93448 18.486 7.47562ZM13.0269 19.3492H13.0243C11.8732 19.3487 10.7442 19.0394 9.75945 18.4551L9.52512 18.3161L7.09722 18.9529L7.74515 16.5858L7.59269 16.3429C6.95068 15.3216 6.61153 14.1414 6.61206 12.9293C6.61334 9.39248 9.49111 6.51521 13.0292 6.51521C14.7425 6.51572 16.353 7.18398 17.5641 8.39639C18.7752 9.60879 19.4417 11.2204 19.4412 12.9344C19.4399 16.4717 16.5623 19.3492 13.0269 19.3492Z" fill="white"/>
+            <path d="M15.2275 13.9177C15.4044 13.982 16.3523 14.4484 16.5452 14.545C16.5825 14.5636 16.6174 14.5805 16.6497 14.5961C16.7848 14.6614 16.8759 14.7055 16.9148 14.7706C16.9629 14.8509 16.9629 15.2372 16.8022 15.6876C16.6415 16.138 15.8713 16.549 15.5007 16.6044C15.1683 16.654 14.748 16.6747 14.286 16.5279C14.0058 16.439 13.6468 16.3206 13.1867 16.1218C11.3783 15.3409 10.1564 13.588 9.92605 13.2576L9.92598 13.2575L9.92392 13.2545C9.90899 13.2331 9.89847 13.218 9.89248 13.21L9.89175 13.2091L9.89172 13.209C9.7924 13.0768 9.10498 12.162 9.10498 11.2153C9.10498 10.3274 9.54099 9.86191 9.74194 9.64737L9.74195 9.64736L9.74345 9.64576C9.75672 9.63159 9.76895 9.61853 9.77992 9.60653C9.95685 9.41337 10.1657 9.36523 10.2942 9.36523C10.4227 9.36523 10.5515 9.36625 10.6637 9.37192C10.6776 9.37263 10.6921 9.37254 10.707 9.37243L10.707 9.37243C10.8194 9.37175 10.9594 9.3709 11.0977 9.70283C11.1504 9.82948 11.2273 10.0168 11.3086 10.2147L11.3116 10.2219L11.315 10.2301C11.4798 10.6312 11.6603 11.0706 11.6923 11.1346C11.7404 11.2312 11.7726 11.3438 11.7082 11.4725C11.6987 11.4916 11.6898 11.5096 11.6814 11.5268L11.6808 11.5281L11.6806 11.5284C11.6325 11.6264 11.597 11.6988 11.5153 11.7941C11.4833 11.8316 11.4501 11.872 11.417 11.9124L11.4166 11.9128C11.3503 11.9936 11.2839 12.0744 11.2262 12.132C11.1296 12.2281 11.0292 12.3324 11.1417 12.5255C11.2542 12.7184 11.6413 13.3498 12.2145 13.8613C12.8304 14.4108 13.3659 14.6431 13.6375 14.7609L13.6377 14.761L13.6396 14.7619C13.6918 14.7845 13.7342 14.8029 13.7653 14.8185C13.9579 14.915 14.0705 14.8991 14.183 14.7703C14.2955 14.6415 14.6651 14.2074 14.7936 14.0142C14.9221 13.8211 15.0508 13.8533 15.2275 13.9177Z" fill="white"/>
+            </svg>
+            <span class="header__top-link">{{ widget_settings.url_1-title }}</span>
+        </a>
+    </div>
+    <div class="header__bottom">
+        <a href="/" class="header__logo">
+            <div class="header__mob-shop__title">Доставим из магазина</div>
+            <img src="{{ widget_settings.logo_img | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}" alt="Логотип">
+        </a>
+        <div class="header__search">
+            <div class="input-group__wrapper" data-js-search>
+                <div class="header__icon icon_search"></div>
+                <input autocomplete="off" type="text" placeholder="Найти нужный товар ..." class="input-group__input input" data-popup="#popup-search" data-search-input>
+                <button type="button" data-js="input-clear" class="input-group__clear"></button>
+            </div>
+        </div>
+        <div class="header__address">
+            <div class="input-group__wrapper">
+                <div class="header__icon icon_address"></div>
+                <input autocomplete="off" type="text"
+                    placeholder="Магазин доставки" 
+                    class="input-group__input input" 
+                    data-popup="#popup-delivery-shop"
+                    readonly>
+                <button type="button" class="icon_arrow" data-popup="#popup-delivery-shop"></button>
+            </div>
+        </div>
+        <div class="header__actions">
+            <a href="/client_account/orders" class="header__icon-big icon_user"></a>
+            <a href="/favorites" class="header__icon-big icon_favorites"></a>
+            <a href="/cart_items" class="header__actions-wrapper" data-btn-cart>
+                <div class="header__icon icon_cart">
+                    <span class="icon-counter" data-em-cart-count>1</span>
+                </div>
+                <span class="header__price" data-em-cart-price></span>
+            </a>
+            {% comment %} <button type="button" class="header__icon icon__cart"></button> {% endcomment %}
+        </div>
+    </div>
+    <div class="header__mob">
+        <div class="header__mob-logo">
+            <a href="/">
+                <div class="header__mob-shop__title">Доставим из магазина</div>
+                <img class="header__mob-logo__img" src="{{ widget_settings.logo_img | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}" alt="Логотип">
+            </a>
+            <button type="button"  class="header__mob-shop__btn" data-popup="#popup-delivery-shop">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="5" viewBox="0 0 25 5" fill="none">
+                <circle cx="2.5" cy="2.5" r="2.5" fill="#2394F0"/>
+                <circle cx="2.5" cy="2.5" r="2.5" fill="#2394F0"/>
+                <circle cx="2.5" cy="2.5" r="2.5" fill="#2394F0"/>
+                <circle cx="2.5" cy="2.5" r="2.5" fill="#2394F0"/>
+                <circle cx="12.5" cy="2.5" r="2.5" fill="#2394F0"/>
+                <circle cx="12.5" cy="2.5" r="2.5" fill="#2394F0"/>
+                <circle cx="12.5" cy="2.5" r="2.5" fill="#2394F0"/>
+                <circle cx="12.5" cy="2.5" r="2.5" fill="#2394F0"/>
+                <circle cx="22.5" cy="2.5" r="2.5" fill="#2394F0"/>
+                <circle cx="22.5" cy="2.5" r="2.5" fill="#2394F0"/>
+                <circle cx="22.5" cy="2.5" r="2.5" fill="#2394F0"/>
+                <circle cx="22.5" cy="2.5" r="2.5" fill="#2394F0"/>
+                </svg>
+            </button>
+        </div>
+        {% comment %} <div class="header__mob-menu">
+            {% for link in linklists[widget_settings['menu_mob']].links %}
+                <a href="{{ link.url }}" class="menu-mob__item">{{ link.title }}</a>
+            {% endfor %}    
+        </div> {% endcomment %}
+        {% comment %} <div class="mob__address _app-hide2" hidden>
+            <div class="input-group__wrapper">
+                <div class="header__icon icon_address"></div>
+                <input autocomplete="off" type="text" 
+                    placeholder="Магазин доставки" 
+                    class="input-group__input input" 
+                    data-popup="#popup-delivery-shop"
+                    readonly>
+                <button type="button" class="icon_arrow" data-popup="#popup-delivery-shop"></button>
+            </div>
+            <button type="button" class="header__icon icon_message" data-popup="#popup-message"></button>
+        </div> {% endcomment %}
+    </div>
+</div>
+
+<div class="header__mob-fix {% unless template == "index" %} _disabled-mob {% endunless %}" data-em-header-fix>
+    <div class="header__mob-logo">
+        <a href="/">
+            <div class="header__mob-shop__title">Доставим из магазина</div>
+            <img class="header__mob-logo__img" src="{{ widget_settings.logo_img | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}" alt="Логотип">
+        </a>
+        <button type="button" class="header__mob-shop__btn" data-popup="#popup-delivery-shop">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="5" viewBox="0 0 25 5" fill="none">
+            <circle cx="2.5" cy="2.5" r="2.5" fill="#2394F0"/>
+            <circle cx="2.5" cy="2.5" r="2.5" fill="#2394F0"/>
+            <circle cx="2.5" cy="2.5" r="2.5" fill="#2394F0"/>
+            <circle cx="2.5" cy="2.5" r="2.5" fill="#2394F0"/>
+            <circle cx="12.5" cy="2.5" r="2.5" fill="#2394F0"/>
+            <circle cx="12.5" cy="2.5" r="2.5" fill="#2394F0"/>
+            <circle cx="12.5" cy="2.5" r="2.5" fill="#2394F0"/>
+            <circle cx="12.5" cy="2.5" r="2.5" fill="#2394F0"/>
+            <circle cx="22.5" cy="2.5" r="2.5" fill="#2394F0"/>
+            <circle cx="22.5" cy="2.5" r="2.5" fill="#2394F0"/>
+            <circle cx="22.5" cy="2.5" r="2.5" fill="#2394F0"/>
+            <circle cx="22.5" cy="2.5" r="2.5" fill="#2394F0"/>
+            </svg>
+        </button>
+    </div>
+    {% comment %} <div class="mob__address">
+        <div class="input-group__wrapper">
+            <div class="header__icon icon_address"></div>
+            <input autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false" 
+                type="search" name="delivery_search" placeholder="Район доставки" 
+                class="input-group__input input" 
+                data-popup="#popup-delivery-shop" 
+                id="head-input-search" readonly>
+            <button type="button" class="icon_arrow" data-popup="#popup-delivery-shop"></button>
+        </div>
+        <button type="button" class="icon_close" data-close-popup="popup-map"></button>
+        <button type="button" class="header__icon icon_message" data-popup="#popup-message"></button>
+    </div>
+    <div class="address__message" data-error-address hidden>Необходимо указать дом</div>
+    <div class="header__mob-message" hidden>
+        <span>Мы пока не доставляем сюда. Хотите узнать почему?</span>
+        <a href="/page/adres-vne-zony-dostavki">Хочу</a>
+    </div> {% endcomment %}
+</div>
+
+<div class="tap-bar">
+    <div class="tap-bar__actions">
+        <a href="/" class="tap-bar__item tap-bar__btn-home">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M7.5165 2.36664L3.02484 5.86664C2.27484 6.44997 1.6665 7.69164 1.6665 8.63331V14.8083C1.6665 16.7416 3.2415 18.325 5.17484 18.325H14.8248C16.7582 18.325 18.3332 16.7416 18.3332 14.8166V8.74997C18.3332 7.74164 17.6582 6.44997 16.8332 5.87497L11.6832 2.26664C10.5165 1.44997 8.6415 1.49164 7.5165 2.36664Z" stroke="#646464" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10 14.9917V12.4917" stroke="#646464" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Главная</span>
+        </a>
+        {% comment %} <button type="button" class="tap-bar__item tap-bar__btn-back" onclick="window.history.back()" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M5.94141 15.2583H12.6081C14.9081 15.2583 16.7747 13.3917 16.7747 11.0917C16.7747 8.79165 14.9081 6.92499 12.6081 6.92499H3.44141" stroke="#646464" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5.35843 9.00837L3.2251 6.87503L5.35843 4.7417" stroke="#646464" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>  
+            <span>Назад</span>
+        </button> {% endcomment %}
+        <button type="button" class="tap-bar__item" data-popup="#popup-search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+            <path d="M8.91716 17.5001C13.2894 17.5001 16.8338 13.9557 16.8338 9.58342C16.8338 5.21116 13.2894 1.66675 8.91716 1.66675C4.5449 1.66675 1.00049 5.21116 1.00049 9.58342C1.00049 13.9557 4.5449 17.5001 8.91716 17.5001Z" stroke="#646464" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M17.667 18.3333L14.667 15.3333" stroke="#646464" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Поиск</span>
+        </button>
+        <a href="/client_account/orders" class="tap-bar__item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+            <path d="M10.6662 10.0001C12.9674 10.0001 14.8328 8.1346 14.8328 5.83341C14.8328 3.53223 12.9674 1.66675 10.6662 1.66675C8.36499 1.66675 6.49951 3.53223 6.49951 5.83341C6.49951 8.1346 8.36499 10.0001 10.6662 10.0001Z" stroke="#646464" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M17.8245 18.3333C17.8245 15.1083 14.6161 12.5 10.6661 12.5C6.71614 12.5 3.50781 15.1083 3.50781 18.3333" stroke="#646464" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Профиль</span>
+        </a>
+        <a href="/cart_items" class="tap-bar__item-btn" data-btn-mob-cart>
+            <div class="tap-bar__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+                <path d="M7.34186 2.1665L4.3252 5.1915" stroke="#646464" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12.6582 2.1665L15.6749 5.1915" stroke="#646464" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M1.6665 7.04167C1.6665 5.5 2.4915 5.375 3.5165 5.375H16.4832C17.5082 5.375 18.3332 5.5 18.3332 7.04167C18.3332 8.83333 17.5082 8.70833 16.4832 8.70833H3.5165C2.4915 8.70833 1.6665 8.83333 1.6665 7.04167Z" stroke="#646464" stroke-width="1.5"/>
+                <path d="M8.1333 12.1665V15.1248" stroke="#646464" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M11.9668 12.1665V15.1248" stroke="#646464" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M2.9165 8.8335L4.0915 16.0335C4.35817 17.6502 4.99984 18.8335 7.38317 18.8335H12.4082C14.9998 18.8335 15.3832 17.7002 15.6832 16.1335L17.0832 8.8335" stroke="#646464" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span class="icon-counter" data-em-cart-count>1</span>
+            </div>
+            <span class="tap-bar__price" data-em-cart-price></span>
+        </a>
+    </div>
+</div>
+
+<div class="popup popup-search" id="popup-search">
+    <div class="search__body">
+        <div class="search__scroll">
+            <div class="search__panel-mob">
+                <div class="popup__input-search input-group__wrapper" data-js-search="">
+                    <div class="header__icon icon_search"></div>
+                    <input autocomplete="off" type="text" placeholder="Найти нужный товар ..." class="input-group__input input" data-popup="#popup-search" data-mob-search-input>
+                    <button class="panel__mob-close icon_close" data-btn-clear-input></button>
+                </div>
+            </div>
+            <div class="search__not-found search__collcetions-title" hidden>По вашему запросу ничего не найдено</div>
+            <div class="search__products-list" data-em-products-list hidden></div>
+            <div class="search__collcetions-list" data-em-collcetions-list>
+                {% if collections.all.subcollections.size > 0 %}
+                    <div class="search__collcetions-title">Категории</div>
+                {% endif %}
+                {% for collection in collections.all.subcollections %}
+                    {% if collection.subcollections.size == 0 %}
+                        {% continue %}
+                    {% endif %}
+                    <a href="{{ collection.url }}" class="search__subcollections-item">
+                        <div class="search__subcollections-img">
+                            <img src="{{ collection.image.large_url }}" class="lazyload" loading="lazy">
+                        </div>
+                        <div class="search__subcollections-title">{{ collection.title }}</div>
+                    </a>
+                {% endfor %}
+            </div>
+            {% comment %} <div class="search__collcetions-list" data-em-collcetions-list>
+                {% for collection in collections.all.subcollections %}
+                    <div class="search__collcetions-item">
+                        <div class="search__collcetions-title">{{ collection.title }}</div>
+                        <div class="search__subcollections">
+                            {% for collection in collection.subcollections %}
+                                <a href="{{ collection.url }}" class="search__subcollections-item">
+                                    <div class="search__subcollections-img">
+                                        <img src="{{ collection.image.large_url }}" alt="">
+                                    </div>
+                                    <div class="search__subcollections-title">{{ collection.title }}</div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div> {% endcomment %}
+        </div>
+    </div>
+    <div class="modal-close modal__back-close"></div>
+</div>
+
+<div class="popup popup-message popup_hide" id="popup-message">
+    <div class="modal__content">
+        <div class="popup__message-list">
+            {% if widget_settings.url_2-href %}
+                <a href="{{ widget_settings.url_2-href}}" class="popup__message-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 578.106 578.106" style="enable-background:new 0 0 578.106 578.106;" xml:space="preserve">
+                    <g><g><path style="fill:#010002;" d="M577.83,456.128c1.225,9.385-1.635,17.545-8.568,24.48l-81.396,80.781    c-3.672,4.08-8.465,7.551-14.381,10.404c-5.916,2.857-11.729,4.693-17.439,5.508c-0.408,0-1.635,0.105-3.676,0.309    c-2.037,0.203-4.689,0.307-7.953,0.307c-7.754,0-20.301-1.326-37.641-3.979s-38.555-9.182-63.645-19.584    c-25.096-10.404-53.553-26.012-85.376-46.818c-31.823-20.805-65.688-49.367-101.592-85.68    c-28.56-28.152-52.224-55.08-70.992-80.783c-18.768-25.705-33.864-49.471-45.288-71.299    c-11.425-21.828-19.993-41.616-25.705-59.364S4.59,177.362,2.55,164.51s-2.856-22.95-2.448-30.294    c0.408-7.344,0.612-11.424,0.612-12.24c0.816-5.712,2.652-11.526,5.508-17.442s6.324-10.71,10.404-14.382L98.022,8.756    c5.712-5.712,12.24-8.568,19.584-8.568c5.304,0,9.996,1.53,14.076,4.59s7.548,6.834,10.404,11.322l65.484,124.236    c3.672,6.528,4.692,13.668,3.06,21.42c-1.632,7.752-5.1,14.28-10.404,19.584l-29.988,29.988c-0.816,0.816-1.53,2.142-2.142,3.978    s-0.918,3.366-0.918,4.59c1.632,8.568,5.304,18.36,11.016,29.376c4.896,9.792,12.444,21.726,22.644,35.802    s24.684,30.293,43.452,48.653c18.36,18.77,34.68,33.354,48.96,43.76c14.277,10.4,26.215,18.053,35.803,22.949    c9.588,4.896,16.932,7.854,22.031,8.871l7.648,1.531c0.816,0,2.145-0.307,3.979-0.918c1.836-0.613,3.162-1.326,3.979-2.143    l34.883-35.496c7.348-6.527,15.912-9.791,25.705-9.791c6.938,0,12.443,1.223,16.523,3.672h0.611l118.115,69.768    C571.098,441.238,576.197,447.968,577.83,456.128z"/></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
+                    </svg>
+                    <span>{{ widget_settings.url_2-title}}</span>
+                </a>
+            {% endif %}
+            {% if widget_settings.url_3-href %}
+                <a href="{{ widget_settings.url_3-href }}" class="popup__message-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M24 48C10.7452 48 0 37.2548 0 24C0 10.7452 10.7452 0 24 0C37.2548 0 48 10.7452 48 24C48 37.2548 37.2548 48 24 48ZM24.7911 37.3525C32.6595 37.3493 39.059 30.9483 39.0621 23.0815C39.0637 19.2683 37.5806 15.6828 34.8862 12.9854C32.1918 10.2879 28.6086 8.80165 24.7909 8.8C16.9248 8.8 10.5228 15.2017 10.5196 23.0702C10.5186 25.5855 11.1757 28.0405 12.4246 30.2048L10.4 37.6L17.9653 35.6155C20.0498 36.7524 22.3967 37.3517 24.7852 37.3525H24.7911Z" fill="black"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18.3159 33.0319L13.8265 34.2096L15.0248 29.8324L14.7428 29.3836C13.5554 27.4951 12.9283 25.3124 12.9292 23.0711C12.9318 16.5311 18.2529 11.2104 24.7958 11.2104C27.964 11.2115 30.9422 12.4469 33.1817 14.689C35.4212 16.9311 36.6538 19.9112 36.6526 23.0807C36.6499 29.6212 31.3289 34.9424 24.7911 34.9424H24.7863C22.6578 34.9415 20.5702 34.3697 18.749 33.289L18.3159 33.0319ZM31.9808 26.4751C31.8917 26.3264 31.654 26.2372 31.2974 26.0586C30.9408 25.8801 29.1877 25.0176 28.8608 24.8985C28.534 24.7795 28.2961 24.7201 28.0585 25.0769C27.8208 25.4339 27.1374 26.2372 26.9294 26.4751C26.7214 26.7131 26.5133 26.7429 26.1569 26.5644C25.8003 26.3859 24.6513 26.0094 23.2893 24.7945C22.2292 23.8489 21.5135 22.6813 21.3055 22.3243C21.0975 21.9673 21.2834 21.7743 21.4619 21.5965C21.6223 21.4367 21.8185 21.1799 21.9968 20.9718C22.1751 20.7636 22.2345 20.6148 22.3533 20.377C22.4722 20.1389 22.4128 19.9307 22.3236 19.7522C22.2345 19.5737 21.5213 17.8185 21.2242 17.1045C20.9347 16.4092 20.6408 16.5034 20.4219 16.4924C20.2141 16.482 19.9762 16.4798 19.7385 16.4798C19.5008 16.4798 19.1144 16.569 18.7876 16.926C18.4607 17.283 17.5395 18.1457 17.5395 19.9008C17.5395 21.656 18.8173 23.3516 18.9956 23.5896C19.1739 23.8276 21.51 27.4293 25.0871 28.9739C25.9379 29.3413 26.602 29.5607 27.12 29.725C27.9742 29.9965 28.7516 29.9582 29.3659 29.8663C30.0511 29.764 31.4756 29.0038 31.7729 28.1709C32.0699 27.3378 32.0699 26.6238 31.9808 26.4751Z" fill="black"/>
+                    </svg>
+                    <span>{{ widget_settings.url_3-title}}</span>
+                </a>
+            {% endif %}
+            {% if widget_settings.url_4-href %}
+                <a href="{{ widget_settings.url_4-href }}" class="popup__message-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                    <path d="M16 0.5c-8.563 0-15.5 6.938-15.5 15.5s6.938 15.5 15.5 15.5c8.563 0 15.5-6.938 15.5-15.5s-6.938-15.5-15.5-15.5zM23.613 11.119l-2.544 11.988c-0.188 0.85-0.694 1.056-1.4 0.656l-3.875-2.856-1.869 1.8c-0.206 0.206-0.381 0.381-0.781 0.381l0.275-3.944 7.181-6.488c0.313-0.275-0.069-0.431-0.482-0.156l-8.875 5.587-3.825-1.194c-0.831-0.262-0.85-0.831 0.175-1.231l14.944-5.763c0.694-0.25 1.3 0.169 1.075 1.219z"/>
+                    </svg>
+                    <span>{{ widget_settings.url_4-title}}</span>
+                </a>
+            {% endif %}
+
+            <div class="popup__message-subtitle">Наши соцсети</div>
+            {% if widget_settings.url_5-href %}
+                <a href="{{ widget_settings.url_5-href }}" class="popup__message-item">
+                    <svg fill="none" height="48" width="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M0 23.04C0 12.179 0 6.748 3.374 3.374S12.18 0 23.04 0h1.92c10.861 0 16.292 0 19.666 3.374C48 6.748 48 12.18 48 23.04v1.92c0 10.861 0 16.292-3.374 19.666C41.252 48 35.82 48 24.96 48h-1.92c-10.861 0-16.292 0-19.666-3.374C0 41.252 0 35.82 0 24.96z" fill="#000000"></path><path d="M25.54 34.58c-10.94 0-17.18-7.5-17.44-19.98h5.48c.18 9.16 4.22 13.04 7.42 13.84V14.6h5.16v7.9c3.16-.34 6.48-3.94 7.6-7.9h5.16c-.86 4.88-4.46 8.48-7.02 9.96 2.56 1.2 6.66 4.34 8.22 10.02h-5.68c-1.22-3.8-4.26-6.74-8.28-7.14v7.14z" fill="#FFFFFF"></path></svg>
+                    <span>{{ widget_settings.url_5-title}}</span>
+                </a>
+            {% endif %}
+            {% if widget_settings.url_6-href %}
+                <a href="{{ widget_settings.url_6-href }}" class="popup__message-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 24C0 10.7452 10.7452 0 24 0C37.2548 0 48 10.7452 48 24C48 37.2548 37.2548 48 24 48C10.7452 48 0 37.2548 0 24ZM24.0012 11.2C20.5249 11.2 20.0886 11.2152 18.7233 11.2773C17.3606 11.3397 16.4305 11.5555 15.6166 11.872C14.7747 12.1989 14.0606 12.6363 13.3491 13.348C12.6371 14.0595 12.1997 14.7736 11.8717 15.6152C11.5544 16.4294 11.3384 17.3598 11.2771 18.7219C11.216 20.0873 11.2 20.5238 11.2 24.0001C11.2 27.4764 11.2155 27.9114 11.2773 29.2767C11.34 30.6394 11.5557 31.5695 11.872 32.3834C12.1992 33.2253 12.6365 33.9394 13.3483 34.6509C14.0595 35.3629 14.7736 35.8013 15.615 36.1283C16.4294 36.4448 17.3598 36.6605 18.7222 36.7229C20.0876 36.7851 20.5236 36.8003 23.9996 36.8003C27.4762 36.8003 27.9111 36.7851 29.2765 36.7229C30.6391 36.6605 31.5703 36.4448 32.3848 36.1283C33.2264 35.8013 33.9394 35.3629 34.6506 34.6509C35.3626 33.9394 35.8 33.2253 36.128 32.3837C36.4427 31.5695 36.6587 30.6391 36.7227 29.277C36.784 27.9116 36.8 27.4764 36.8 24.0001C36.8 20.5238 36.784 20.0876 36.7227 18.7222C36.6587 17.3595 36.4427 16.4294 36.128 15.6155C35.8 14.7736 35.3626 14.0595 34.6506 13.348C33.9386 12.636 33.2266 12.1987 32.384 11.872C31.5679 11.5555 30.6373 11.3397 29.2746 11.2773C27.9092 11.2152 27.4746 11.2 23.9972 11.2H24.0012Z" fill="black"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M22.8529 13.5067C23.1937 13.5062 23.574 13.5067 24.0012 13.5067C27.4188 13.5067 27.8239 13.519 29.1735 13.5803C30.4215 13.6374 31.0989 13.8459 31.5501 14.0211C32.1474 14.2531 32.5733 14.5304 33.021 14.9784C33.469 15.4264 33.7464 15.8531 33.9789 16.4505C34.1541 16.9011 34.3629 17.5785 34.4197 18.8265C34.481 20.1758 34.4944 20.5812 34.4944 23.9972C34.4944 27.4132 34.481 27.8186 34.4197 29.1679C34.3626 30.4159 34.1541 31.0933 33.9789 31.5439C33.7469 32.1413 33.469 32.5666 33.021 33.0144C32.573 33.4624 32.1477 33.7397 31.5501 33.9717C31.0994 34.1477 30.4215 34.3557 29.1735 34.4128C27.8242 34.4741 27.4188 34.4874 24.0012 34.4874C20.5833 34.4874 20.1782 34.4741 18.8289 34.4128C17.5809 34.3552 16.9035 34.1466 16.4521 33.9714C15.8547 33.7394 15.428 33.4621 14.98 33.0141C14.532 32.5661 14.2547 32.1405 14.0222 31.5429C13.847 31.0922 13.6382 30.4149 13.5814 29.1669C13.52 27.8175 13.5078 27.4122 13.5078 23.994C13.5078 20.5758 13.52 20.1726 13.5814 18.8233C13.6384 17.5753 13.847 16.8979 14.0222 16.4467C14.2542 15.8494 14.532 15.4227 14.98 14.9747C15.428 14.5267 15.8547 14.2494 16.4521 14.0168C16.9033 13.8408 17.5809 13.6328 18.8289 13.5755C20.0097 13.5222 20.4673 13.5062 22.8529 13.5035V13.5067ZM30.8338 15.632C29.9858 15.632 29.2978 16.3193 29.2978 17.1675C29.2978 18.0155 29.9858 18.7035 30.8338 18.7035C31.6818 18.7035 32.3698 18.0155 32.3698 17.1675C32.3698 16.3195 31.6818 15.632 30.8338 15.632ZM24.0012 17.4267C20.371 17.4267 17.4278 20.37 17.4278 24.0001C17.4278 27.6303 20.371 30.5722 24.0012 30.5722C27.6314 30.5722 30.5735 27.6303 30.5735 24.0001C30.5735 20.37 27.6314 17.4267 24.0012 17.4267Z" fill="black"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M24.0012 19.7334C26.3575 19.7334 28.2679 21.6436 28.2679 24.0001C28.2679 26.3564 26.3575 28.2668 24.0012 28.2668C21.6446 28.2668 19.7345 26.3564 19.7345 24.0001C19.7345 21.6436 21.6446 19.7334 24.0012 19.7334Z" fill="black"/>
+                    </svg>
+                    <span>{{ widget_settings.url_6-title}}</span>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    <button class="modal-close modal__back-close" data-close-popup="popup-message">
+        <svg width="24" height="24" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M4.11 2.697L2.698 4.11 6.586 8l-3.89 3.89 1.415 1.413L8 9.414l3.89 3.89 1.413-1.415L9.414 8l3.89-3.89-1.415-1.413L8 6.586l-3.89-3.89z" fill="#000"></path>
+        </svg>
+    </button>
+</div>
+
+<div id="modal-order" class="modal__order" style="display:none;">
+    <div class="modal__order-wrapper">
+        <a href="#" class="modal__order-head">
+            <div class="modal__order-text">Загружаем</div>
+            <div class="modal__order-svg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                <path d="M1.5835 1.58334H2.961C3.816 1.58334 4.48891 2.31959 4.41766 3.16667L3.76058 11.0517C3.64975 12.3421 4.67099 13.4504 5.96932 13.4504H14.4006C15.5406 13.4504 16.5381 12.5163 16.6252 11.3842L17.0527 5.44668C17.1477 4.13251 16.1502 3.06375 14.8281 3.06375H4.60767" stroke="#fff" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12.8646 17.4167C13.4111 17.4167 13.8542 16.9736 13.8542 16.4271C13.8542 15.8806 13.4111 15.4375 12.8646 15.4375C12.3181 15.4375 11.875 15.8806 11.875 16.4271C11.875 16.9736 12.3181 17.4167 12.8646 17.4167Z" stroke="#fff" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.53109 17.4167C7.07762 17.4167 7.52067 16.9736 7.52067 16.4271C7.52067 15.8806 7.07762 15.4375 6.53109 15.4375C5.98456 15.4375 5.5415 15.8806 5.5415 16.4271C5.5415 16.9736 5.98456 17.4167 6.53109 17.4167Z" stroke="#fff" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M7.125 6.33334H16.625" stroke="#fff" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </a>
+    </div>
+</div>
+
+<script type="text/template" data-template-id="product-viewed">
+    <div class="product-item swiper-slide <%= avialable ? '' : 'product-item_disabled' %>" data-product-id="<%= product_id %>" data-variant-id="<%= variant_id %>">
+        <div class="products-item__actions">
+            <button type="button" class="products-item__action icon_favorite" 
+                data-ui-favorites-trigger="<%= product_id %>">
+            </button>
+        </div>
+        <a href="<%= url %>">
+            <div class="products-item__img">
+                <img src="<%= image %>" alt="<%= title %>" loading="lazy">
+                <% if(old_price > 0) { %>
+                    <span class="products-item__badge">-<%= deltPrice %>%</span>
+                <% } %>
+            </div>
+            <div class="products-item__info">
+                <div class="products-item__title"><%= title %></div>
+                <div class="products-item__descr"><%= descript %></div>
+            </div>
+        </a>
+        <div class="products-item__prices">
+            <span class="products-item__price<% if(old_price > 0) { %> products-item__price-new<% } %>">
+                <% if(!avialable) { %>
+                    Закончился
+                <% } else if (gram > 0) { %>
+                    <%= (priceNotFormat / gram ).toFixed(1).replace(/\.0$/, '') %> ₽<span class="item__price-step_mini"> за <%= (1000 / gram ).toFixed() %>г.</span>
+                <% } else { %>
+                    <%= price %>
+                <% } %>
+            </span>
+            <% if(avialable & old_price > 0) { %>
+                <span class="products-item__price-old">
+                    <s>
+                        <% if(gram > 0) { %>
+                            <%= (old_price / gram ).toFixed(1).replace(/\.0$/, '') %> ₽
+                        <% } else { %>
+                            <%= Shop.money.format(old_price) %>
+                        <% } %>
+                    </s>
+                </span>
+            <% } %>
+        </div>
+        <% if(avialable) { %>
+            <div class="btn__add btn btn_small<% if(isInCart) { %> cart-added<% } %>" data-product-add="<%= variant_id %>">
+                <button type="button" class="quantity__button quantity__button_minus" data-btn-minus>-</button>
+                <span>В корзину</span>
+                
+                <input type="text" class="quantity__input" value="<% if(isInCart) { %><%= quantity %><%= unit ? ' ' + unit : '' %><% } %>" 
+                    data-max-qantity="<%= maxQuantity.quantity %>"
+                    data-max-qantity-default="<%= maxQuantity.maxQuantityDefault %>" 
+                    data-package-qantity="<%= package %>"
+                    data-product-unit="<%= unit %>"
+                />
+                <button type="button" class="quantity__button quantity__button_plus" data-btn-plus>+</button>
+            </div>
+        <% } %>
+        <% if(maxQuantity.isAccept) { %>
+            <div class="product__message-error" style="display:none;">Нельзя добавить больше <%= maxQuantity.quantity %><%= unit %></div>
+        <% } %>
+    </div>
+</script>

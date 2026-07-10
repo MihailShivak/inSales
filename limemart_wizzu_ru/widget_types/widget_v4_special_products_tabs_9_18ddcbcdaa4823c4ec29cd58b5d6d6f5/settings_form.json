@@ -1,0 +1,503 @@
+{
+  "content": [
+    {
+      "items": [
+        {
+          "class": "text",
+          "name": "product-desc-limit",
+          "label": "{{ messages.product_desc_limit }}",
+          "options": [
+            {
+              "value": "10",
+              "title": "10"
+            },
+            {
+              "value": "20",
+              "title": "20"
+            }
+          ],
+          "value": null,
+          "type": "button_switch",
+          "enable_server_reload": true
+        },
+        {
+          "name": "favorites-enable",
+          "label": "{{ messages.enable_favorites }}",
+          "value": null,
+          "type": "info",
+          "text": "{{ messages.favorites_enable_label_help }}",
+          "general": true,
+          "general_position": 1
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-description",
+          "label": "{{ messages.hide_short_description }}",
+          "value": null,
+          "type": "checkbox",
+          "general": true,
+          "general_position": 100
+        }
+      ]
+    }
+  ],
+  "design": [
+    {
+      "type": "group",
+      "name": "{{ messages.category }}",
+      "items": [
+        {
+          "class": "checkbox",
+          "name": "switch-row-hide-item",
+          "label": "{{ messages.hide_rows }}",
+          "value": null,
+          "type": "checkbox",
+          "help": "{{ messages.hide_rows_help }}"
+        },
+        {
+          "class": "range",
+          "name": "count-special-products",
+          "label": "{{ messages.number_products_displayed }}",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "type": "number",
+          "with_btns": true,
+          "enable_server_reload": true
+        },
+        {
+          "class": "text",
+          "name": "category-link-alignment",
+          "label": "{{ messages.category_link_alignment }}",
+          "options": [
+            {
+              "value": "left",
+              "title": "{{ messages.align_left }}",
+              "icon": "mdi-text-align-left"
+            },
+            {
+              "value": "center",
+              "title": "{{ messages.align_center }}",
+              "icon": "mdi-text-align-center"
+            },
+            {
+              "value": "right",
+              "title": "{{ messages.align_right }}",
+              "icon": "mdi-text-align-right"
+            }
+          ],
+          "value": null,
+          "type": "icon_group"
+        },
+        {
+          "class": "text",
+          "name": "category-title-alignment",
+          "label": "{{ messages.align_menu }}",
+          "options": [
+            {
+              "value": "left",
+              "title": "{{ messages.align_left }}",
+              "icon": "mdi-text-align-left"
+            },
+            {
+              "value": "center",
+              "title": "{{ messages.align_center }}",
+              "icon": "mdi-text-align-center"
+            },
+            {
+              "value": "right",
+              "title": "{{ messages.align_right }}",
+              "icon": "mdi-text-align-right"
+            }
+          ],
+          "value": null,
+          "type": "icon_group"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.title }}",
+      "items": [
+        {
+          "name": "widget-heading-ratio",
+          "label": "{{ messages.font_size_primary }}",
+          "class": "range",
+          "min": 1,
+          "max": 3,
+          "step": 0.25,
+          "type": "number",
+          "with_btns": true
+        },
+        {
+          "name": "widget-heading-weight",
+          "label": "{{ messages.weight_font }}",
+          "class": "range",
+          "min": 100,
+          "max": 900,
+          "step": 100,
+          "type": "number",
+          "with_btns": true
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.group_size }}",
+      "items": [
+        {
+          "class": "range",
+          "name": "catalog-grid-list-min-width",
+          "label": "{{ messages.product_item_min_width }}",
+          "min": 160,
+          "max": 330,
+          "step": 10,
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.product_item_min_width_help }} (px)",
+"unit": "px",
+          "hide_mobile": true,
+          "enable_server_reload": true
+        },
+        {
+          "class": "range",
+          "name": "catalog-grid-list-row-gap",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.vertical_padding_between_cards }} (rem)",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.rem_helper }}",
+"unit": "rem",
+          "hide_mobile": true
+        },
+        {
+          "class": "range",
+          "name": "catalog-grid-list-column-gap",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.horizontal_space_between_cards }} (rem)",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.rem_helper }}",
+"unit": "rem",
+          "hide_mobile": true,
+          "enable_server_reload": true
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.picture }}",
+      "items": [
+        {
+          "name": "product-background",
+          "label": "{{ messages.cat_bg }}",
+          "value": null,
+          "type": "color",
+          "clearable": true
+        },
+        {
+          "class": "range",
+          "name": "img-ratio",
+          "label": "{{ messages.image_ratio }}",
+          "min": 0.5,
+          "max": 2,
+          "step": 0.1,
+          "type": "number",
+          "with_btns": true
+        },
+        {
+          "class": "select",
+          "name": "img-fit",
+          "options": [
+            [
+              "{{ messages.maintain_proportions }}",
+              "contain"
+            ],
+            [
+              "{{ messages.stretch_entire_block }}",
+              "cover"
+            ]
+          ],
+          "label": "{{ messages.image_size }}",
+          "type": "select"
+        },
+        {
+          "class": "checkbox",
+          "name": "switch-img-on-hover",
+          "label": "{{ messages.switch_img_on_hover }}",
+          "value": null,
+          "type": "checkbox",
+          "enable_server_reload": true
+        },
+        {
+          "class": "range",
+          "name": "border-radius",
+          "label": "{{ messages.rounding_corners_image }} (px)",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "help": "{{ messages.px_helper }}",
+"unit": "px",
+          "type": "number",
+          "with_btns": true
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.group_styles }}",
+      "items": [
+        {
+          "class": "checkbox",
+          "name": "rounding-button",
+          "label": "{{ messages.rounding }}",
+          "value": null,
+          "type": "checkbox",
+          "help": "{{ messages.rounding_button_help }}"
+        },
+        {
+          "class": "text",
+          "name": "product-info-accent",
+          "label": "{{ messages.product_info_accent }}",
+          "options": [
+            [
+              "{{ messages.product_accent_title }}",
+              "title"
+            ],
+            [
+              "{{ messages.product_accent_price }}",
+              "price"
+            ],
+            [
+              "{{ messages.product_accent_no }}",
+              "no"
+            ]
+          ],
+          "value": null,
+          "type": "select"
+        },
+        {
+          "class": "text",
+          "name": "product-info-align",
+          "label": "{{ messages.product_info_align }}",
+          "options": [
+            {
+              "value": "left",
+              "title": "{{ messages.align_left }}",
+              "icon": "mdi-text-align-left"
+            },
+            {
+              "value": "center",
+              "title": "{{ messages.align_center }}",
+              "icon": "mdi-text-align-center"
+            },
+            {
+              "value": "right",
+              "title": "{{ messages.align_right }}",
+              "icon": "mdi-text-align-right"
+            }
+          ],
+          "value": null,
+          "type": "icon_group"
+        },
+        {
+          "class": "range",
+          "name": "sticker-font-size",
+          "label": "{{ messages.sticker_font_size }} (rem)",
+          "min": 0.7,
+          "max": 1.5,
+          "step": 0.1,
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.rem_helper }}",
+"unit": "rem"
+        },
+        {
+          "name": "link-to-widget-stikers",
+          "label": "{{ messages.sticker_colors }}",
+          "type": "link-to-widget",
+          "category_handle": "stiker_hex_color",
+          "icon": "mdi-cat-drugie"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.settings_mobile }}",
+      "items": [
+        {
+          "class": "range",
+          "name": "catalog-grid-list-min-width-mobile",
+          "label": "{{ messages.product_item_min_width_mobile }} (px)",
+          "min": 130,
+          "max": 280,
+          "step": 10,
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.px_helper }}",
+"unit": "px",
+          "enable_server_reload": true
+        },
+        {
+          "class": "range",
+          "name": "catalog-grid-list-row-gap-mobile",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.vertical_spacing_cards_mobile }} (rem)",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.rem_helper }}",
+"unit": "rem"
+        },
+        {
+          "class": "range",
+          "name": "catalog-grid-list-column-gap-mobile",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.horizontal_padding_cards_mobile }} (rem)",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.rem_helper }}",
+"unit": "rem",
+          "enable_server_reload": true
+        },
+        {
+          "name": "display-property-color",
+          "options": [
+            [
+              "{{ messages.text }}",
+              "option-span"
+            ],
+            [
+              "{{ messages.image_or_text }}",
+              "option-radio"
+            ]
+          ],
+          "value": null,
+          "label": "{{ messages.display_property_color }}",
+          "type": "select",
+          "enable_server_reload": true,
+          "help": "{{ messages.display_property_color_help }}"
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-mobile-modal-variants",
+          "label": "{{ messages.hide_quick_view_product }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.background }}",
+      "items": [
+        {
+          "name": "bg",
+          "label": "{{ messages.widget_background_color }}",
+          "value": "",
+          "type": "color",
+          "clearable": true
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-wide-bg",
+          "label": "{{ messages.wide_background }}",
+          "value": null,
+          "type": "checkbox",
+          "enable_server_reload": true
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.indentation }}",
+      "items": [
+        {
+          "class": "range",
+          "name": "layout-pt",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.padding_top }} (vw)",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.vw_helper }}",
+"unit": "vw"
+        },
+        {
+          "class": "range",
+          "name": "layout-pb",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.padding_bottom }} (vw)",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.vw_helper }}",
+"unit": "vw"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.content }}",
+      "items": [
+        {
+          "class": "number",
+          "name": "layout-content-max-width",
+          "min": 400,
+          "max": 2000,
+          "label": "{{ messages.content_max_width }} (px)",
+          "type": "number",
+          "help": "{{ messages.px_helper }}",
+"unit": "px",
+          "hide_mobile": true
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-wide-content",
+          "label": "{{ messages.wide_content }}",
+          "value": null,
+          "type": "checkbox",
+          "hide_mobile": true,
+          "enable_server_reload": true
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-edge",
+          "label": "{{ messages.remove_padding_at_edges }}",
+          "value": null,
+          "type": "checkbox",
+          "enable_server_reload": true
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.adaptive }}",
+      "items": [
+        {
+          "class": "checkbox",
+          "name": "hide-desktop",
+          "label": "{{ messages.hide_desktop }}",
+          "value": null,
+          "type": "checkbox"
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-mobile",
+          "label": "{{ messages.hide_mobile }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    }
+  ]
+}

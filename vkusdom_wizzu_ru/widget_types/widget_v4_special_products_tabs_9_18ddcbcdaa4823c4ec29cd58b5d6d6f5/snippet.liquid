@@ -1,0 +1,515 @@
+{% assign single_block_present = true %}
+{% if data.blocks.size == 0 or data.blocks.size == 1 and data.blocks.first.collection.products_count_without_cache == 0 %}
+  {% assign single_block_present = false %}
+{% endif %}
+
+{% if data.blocks.size > 1 or single_block_present %}
+
+{% assign img_width = 300 %}
+{% assign img_width_mobile = 400 %}
+{% if widget_settings.catalog-grid-list-min-width %}
+  {% assign img_width = widget_settings.catalog-grid-list-min-width | to_integer | times: 2 %}
+{% endif %}
+{% if widget_settings.catalog-grid-list-min-width-mobile %}
+  {% assign img_width_mobile = widget_settings.catalog-grid-list-min-width-mobile | to_integer | times: 2 %}
+{% endif %}
+
+<div
+  data-switch-row-hide-item="{{widget_settings.switch-row-hide-item}}"
+  data-catalog-grid-list-column-gap="{{widget_settings.catalog-grid-list-column-gap}}"
+  data-ajax-products
+>
+  {% for block in data.blocks %}
+    {% if block.collection.products_count_without_cache > 0 %}
+      {% unless first_block_index_noempty %}
+        {% assign first_block_index_noempty = forloop.index %}
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+
+  <div class="tabs">
+    <div class="tabs__head">
+      <div class="splide js-tabs-head">
+        <div class="splide__track">
+          <div class="splide__list">
+            {% for block in data.blocks %}
+              {% if block.collection.products_count_without_cache > 0 %}
+                <div class="splide__slide">
+                  <div
+                    class="tabs__head-item {% if forloop.index == first_block_index_noempty %}is-active{% endif %}"
+                    data-tabs-index="{{forloop.index0}}"
+                    data-tabs-item="tab-{{ block.collection.id }}"
+                  >
+                    {% assign block_name = block.name | default: block.collection.title %}
+                    <div class="special-products__head">
+                      <div class="widget_heading tabs__head-label">
+                        <a class="tabs__head-link" href="{{ block.collection.url }}">
+                          {{ block_name }}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tabs__content">
+      {% assign product_unit = 0 %}
+      {% for block in data.blocks %}
+        {% if block.collection.products_count_without_cache > 0 %}
+          {% assign is_active_tab = false %}
+          {% if forloop.index == first_block_index_noempty %}
+            {% assign is_active_tab = true %}
+          {% endif %}
+          <div
+            id="tab-{{ block.collection.id }}"
+            class="tabs__item {% if is_active_tab %}is-active{% endif %}"
+          >
+            <div class="special-products">
+              <div
+                data-ajax-products-list='{
+                  "collection": "{{ block.collection.handle }}",
+                  "limit": "{{ widget_settings.count-special-products }}",
+                  "imageResizingRules": [
+                    {"size":"{{ img_width }}", "format":"webp", "resizing_type":"fit_width", "quality":"100"},
+                    {"size":"{{ img_width_mobile }}", "format":"webp", "resizing_type":"fit_width", "quality":"100"},
+                    {"size":"{{ img_width }}", "resizing_type":"fit_width", "quality":"100"}
+                  ],
+                  "hideVariants": "{{ widget_settings.hide-variants }}",
+                  "switchImages": "{{ widget_settings.switch-img-on-hover }}",
+                  "shortDescriptionWordsCount": "{{ widget_settings.product-desc-limit }}",
+                  "withoutManyVariants": "true"
+                }'
+                class="grid-list"
+              >
+              </div>
+              <div class="special-products__link-all">
+                <a href="{{ block.collection.url }}">
+                  {% comment %}{{messages.see_all}}{% endcomment %}Смотреть все товары
+                  <span class="icon icon-angle-right"></span>
+                </a>
+              </div>
+              <div class="loader"></div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Шаблон превью-карточки товара -->
+  <template data-ajax-products-list-item-template>
+    <div
+      class="product-preview-elem"
+      data-ajax-products-list-item
+    >
+      <form
+        action="/cart_items"
+        method="post"
+        data-ajax-products-list-item-form
+        class="product-preview
+        {% if settings.product_not_available == "shown" %} is-zero-count-shown {% endif %}
+        {% if settings.product_not_available == "preorder" %} is-zero-count-preorder {% endif %}
+        {% if settings.product_not_available == "hidden" %} is-zero-count-hidden {% endif %}
+        {% if account.forbid_order_over_existing %}is-forbid-order-over-existing{% endif%}"
+      >
+        <div class="product-preview__content">
+          <div class="product-preview__area-photo">
+            <div class="product-preview__photo">
+              {% if settings.favorite_enabled %}
+                <span
+                  class="button button_size-s favorites_btn"
+                  data-ui-favorites-trigger=""
+                  data-ajax-products-list-item-favorites-trigger
+                >
+                  <span class="btn-icon icon-favorites-o"></span>
+                  <span class="btn-icon icon-favorites-f"></span>
+                </span>
+              {% endif %}
+              <div class="img-ratio img-fit">
+                <div class="img-ratio__inner">
+                  <a
+                    data-ajax-products-list-item-link
+                    data-ajax-products-list-item-image
+                  >
+                  </a>
+                </div>
+              </div>
+              <div
+                class="product-preview__available"
+                data-product-card-available='{
+                  "availableText": "{{ messages.available }}",
+                  "notAvailableText": "{{ messages.not_available }}"
+                }'
+              >
+              </div>
+              <div
+                class="stickers"
+                data-ajax-products-list-item-stickers
+              >
+                <div
+                  class="sticker sticker-sale"
+                  data-product-card-sale-value
+                  data-sticker-title="sticker-sale"
+                ></div>
+                <div
+                  class="sticker sticker-preorder"
+                  data-sticker-title="sticker-preorder"
+                >{{messages.pre_order}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="product-preview__area-title">
+            <div class="product-preview__title">
+              <a
+                data-ajax-products-list-item-title
+                data-ajax-products-list-item-link
+              ></a>
+            </div>
+          </div>
+
+          <div class="product-preview__area-variants">
+            <div
+              class="product-preview__variants"
+              style="display:none"
+              data-ajax-products-list-item-variants-select-block='{
+                "default": "option-radio",
+                "Цвет": "{{widget_settings.display-property-color }}"
+              }'
+            >
+              <select
+                class="hide"
+                name="variant_id"
+                data-product-variants
+              ></select>
+            </div>
+          </div>
+          {% if editor_mode? or widget_settings.hide-description != true %}
+            <div class="product-preview__area-description">
+              <div
+                class="product-preview__description"
+                data-ajax-products-list-item-short-description
+              ></div>
+            </div>
+          {% endif %}
+          <div class="product-preview__area-bottom">
+            <div class="product-preview__buy">
+              <div class="product-preview__price">
+                <span
+                  class="product-preview__price-label"
+                >{{messages.from }}</span>
+                <span
+                  class="product-preview__price-min"
+                  data-ajax-products-list-item-price-min
+                ></span>
+                <span
+                  class="product-preview__price-old"
+                  data-product-card-old-price
+                ></span>
+                <span
+                  class="product-preview__price-cur"
+                  data-product-card-price-from-cart>
+                </span>
+              </div>
+
+              <div class="product-preview__controls">
+                <div class="product-has-many-variants">
+                  <button type="button" class="button product-preview__show-modal-variants-btn js-show-modal-product">
+                    <span class="button__icon icon-cart"></span>
+                  </button>
+                  <a data-ajax-products-list-item-link class="button product-preview__detail-select-btn">
+                    <span class="button__icon icon-eye"></span>
+                  </a>
+                </div>
+
+                {% if account.buy_button_action == 'quick_checkout' %}
+                  <div class="add-cart-counter product-available-one-variant">
+                     <a data-ajax-products-list-item-link class="button add-cart-counter__btn">
+                      <span class="button__icon icon-eye"></span>
+                    </a>
+                  </div>
+                {% else %}
+                  <div
+                    class="add-cart-counter product-available-one-variant"
+                    data-add-cart-counter
+                    data-ajax-products-list-item-add-cart>
+                    <button type="button" class="button add-cart-counter__btn" data-add-cart-counter-btn>
+                      <span class="add-cart-counter__btn-icon icon-cart"></span>
+                    </button>
+                    <div class="add-cart-counter__controls">
+                      <button data-add-cart-counter-plus class="button add-cart-counter__controls-btn" type="button">
+                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
+                        + 1&nbsp;<span data-ajax-product-unit></span>
+                      </button>
+                    </div>
+                  </div>
+                {% endif %}
+
+                <div class="product-not-available">
+                  {% if account.buy_button_action == 'quick_checkout' %}
+                    <a data-ajax-products-list-item-link class="button buy_button_action">
+                      <span class="button__icon icon-eye"></span>
+                    </a>
+                  {% else %}
+                    {% if account.forbid_order_over_existing %}
+                      <a
+                        data-ajax-products-list-item-link
+                        class="button product-preview__detail-btn"
+                      >
+                        <span class="button__icon icon-eye"></span>
+                      </a>
+                    {% else %}
+                    {% if settings.product_not_available == "shown" %}
+                        <div class="add-cart-counter" data-add-cart-counter>
+                          <button type="button" class="button add-cart-counter__btn" data-add-cart-counter-btn>
+                            <span class="add-cart-counter__btn-icon icon-cart"></span>
+                          </button>
+                          <div class="add-cart-counter__controls">
+                            <button
+                              data-add-cart-counter-plus
+                              class="button add-cart-counter__controls-btn"
+                              type="button"
+                            >
+                              <span
+                                data-add-cart-counter-count
+                                class="add-cart-counter__detail-count"
+                              ></span>+1 <span data-ajax-product-unit></span>
+                            </button>
+                          </div>
+                        </div>
+                      {% endif %}
+
+                    {% if settings.product_not_available == "preorder" %}
+                      <button
+                        data-product-card-preorder
+                        class="button product-preview__preorder-btn"
+                        type="button"
+                      >
+                        <span class="button__icon icon-preorder"></span>
+                      </button>
+                    {% endif %}
+                    {% if settings.product_not_available == "hidden" %}
+                      <a
+                        data-ajax-products-list-item-link
+                        class="button product-preview__detail-btn"
+                      >
+                        <span class="button__icon icon-eye"></span>
+                      </a>
+                    {% endif %}
+                  {% endif %}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </template>
+
+  <!-- Шаблон фото в превью-карточке товара -->
+  <template data-ajax-products-list-item-image-template>
+    <picture data-ajax-products-list-item-picture>
+      <source
+        data-ajax-products-image-resizing-rules-index="0"
+        media="(min-width:768px)"
+        type="image/webp"
+        loading="lazy"
+      >
+      <source
+        data-ajax-products-image-resizing-rules-index="1"
+        media="(max-width:767px)"
+        type="image/webp"
+        loading="lazy"
+      >
+      <img
+        data-ajax-products-image-resizing-rules-index="2"
+        loading="lazy"
+        alt=""
+      >
+    </picture>
+  </template>
+</div>
+
+<!-- PRODUCT MODAL-->
+<div class="hidden-product-preview-modal" data-ajax-product>
+  <!-- Шаблон формы товара -->
+  <template data-ajax-product-template>
+    <form
+      action="{{ cart_url }}"
+      method="post"
+      data-ajax-product-form
+      class="product-preview-modal
+      {% if settings.product_not_available == "shown" %} is-zero-count-shown {% endif %}
+      {% if settings.product_not_available == "preorder" %} is-zero-count-preorder {% endif %}
+      {% if settings.product_not_available == "hidden" %} is-zero-count-hidden {% endif %}
+      {% if account.forbid_order_over_existing %}is-forbid-order-over-existing{% endif %}"
+    >
+      <div class="product-preview-modal__area-photo">
+        <div class="product-preview__photo">
+          <!-- One photo block -->
+          <div
+            class="product__one-photo"
+            data-ajax-product-one-photo
+          ></div>
+        </div>
+      </div>
+      <div class="product-preview-modal__area-title">
+        <div class="product-preview__detail-link">
+          <a
+            data-ajax-product-title
+            data-ajax-product-link
+          ></a>
+        </div>
+      </div>
+      <div class="product-preview-modal__area-variants">
+        <div
+          class="product-preview__variants"
+          data-ajax-product-variants-select-block='{
+            "default": "{% if widget_settings.display-property-color == "option-radio" %}option-radio{% else %}option-span{% endif %}",
+            "Цвет": "{{widget_settings.display-property-color }}"
+          }'
+        >
+          <select
+            class="hide"
+            name="variant_id"
+            data-product-variants
+          ></select>
+        </div>
+      </div>
+
+      <div class="product-preview-modal__area-price">
+        <div class="product-preview__price">
+          <span
+            class="product-preview__price-cur"
+            data-product-card-price-from-cart
+          ></span>
+          <span
+            class="product-preview__price-old"
+            data-product-card-old-price
+          ></span>
+        </div>
+      </div>
+
+      <div class="product-preview-modal__area-controls">
+
+        <div
+          class="product-preview__service-button">
+          <button
+            class="button button_size-l button_wide product-preview__service-button__btn"
+            data-quick-checkout="[data-product-id='{{ product.id }}']"
+            data-quick-checkout-modal-handle="service">
+            <span class="product-preview__service-button__btn-label">{{ messages.buy_button_action }}</span>
+          </button>
+        </div>
+
+        <div
+          class="add-cart-counter"
+          data-add-cart-counter
+        >
+          <button
+            type="button"
+            class="button button_size-l add-cart-counter__btn"
+            data-add-cart-counter-btn
+          >
+            <span class="add-cart-counter__btn-label">{{messages.add_to_cart}}</span>
+          </button>
+          <div class="add-cart-counter__controls">
+            <button
+              data-add-cart-counter-minus
+              class="button button_size-l add-cart-counter__controls-btn"
+              type="button"
+            >- 1 <span data-ajax-product-unit></span></button>
+            <a href="{{cart_url}}" class="button button_size-l add-cart-counter__detail">
+              <span class="add-cart-counter__detail-text">
+                <span class="add-cart-counter__detail-label">{{messages.btn_buy_active_text}}</span>
+                <span data-add-cart-counter-count class="add-cart-counter__detail-count"> <span data-ajax-product-unit></span></span>
+              </span>
+              <span class="add-cart-counter__detail-dop-text">{{messages.btn_buy_active_detail}}</span>
+            </a>
+            <button
+              data-add-cart-counter-plus
+              class="button button_size-l add-cart-counter__controls-btn"
+              type="button"
+            >+ 1 <span data-ajax-product-unit></span></button>
+          </div>
+        </div>
+
+        <button
+          data-product-card-preorder
+          class="button button_size-l button_wide product-preview__preorder-btn"
+          type="button"
+        >{{messages.pre_order}}</button>
+
+        {% if account.quick_checkout.enabled %}
+          <div class="product__buy-one-click">
+            <span
+              class="button button_size-l button_wide"
+              data-quick-checkout="[data-product-id='{{ product.id }}']">
+              {{ messages.btn_buy_one_click_text }}
+            </span>
+          </div>
+        {% endif %}
+
+        <a
+          data-ajax-product-link
+          class="button button_size-l button_wide product-preview__detail-btn"
+        >{{messages.more_details}}</a>
+
+        <a
+          data-ajax-product-link
+          class="button button_size-l button_wide product-preview__detail-select-btn"
+        >{{messages.select}}</a>
+
+        <a data-product-card-ozon-link href="" target="_blank" class="button button_size-l button_wide product-preview__marketplace-button ozon-link" >
+          <span class="marketplace_button-icon ozon-icon"></span>
+          {{ widget_messages.button_ozon }}
+        </a>
+        <a  data-product-card-wildberries-link href="" target="_blank" class="button button_size-l button_wide product-preview__marketplace-button wildberries-link">
+          <span class="marketplace_button-icon wildberries-icon"></span>
+          {{ widget_messages.button_wildberries }}
+        </a>
+      </div>
+    </form>
+  </template>
+
+  <!-- Шаблон с единственным фото товара -->
+  <template data-ajax-product-one-photo-template>
+    <div data-ajax-product-one-photo-item>
+      <a data-ajax-product-image-link>
+        <picture>
+          <source
+            data-ajax-product-image-resizing-rules-index="0"
+            type="image/webp"
+            loading="lazy"
+          >
+          <img
+            data-ajax-product-image-resizing-rules-index="1"
+            loading="lazy"
+            alt=""
+          />
+        </picture>
+      </a>
+      <div class="product__available">
+        <span
+          data-product-card-available='{
+            "availableText": "{{messages.available}}",
+            "notAvailableText": "{{messages.not_available}}"
+          }'
+        >
+        </span>
+      </div>
+    </div>
+  </template>
+</div>
+{% endif %}
+
+{% assign img_width = null %}
+{% assign img_width_mobile = null %}
+{% assign product_unit = null %}
+{% assign block_name = null %}
+{% assign first_block_index_noempty = null %}
+{% assign is_active_tab = null %}

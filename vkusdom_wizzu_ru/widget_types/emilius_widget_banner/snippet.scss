@@ -1,0 +1,36 @@
+.banner {
+    margin-bottom: 40px;
+    
+    @media screen and (max-width: 760px) {
+        margin-bottom: 30px;
+    }
+}
+
+.banner__block-title {
+    position: absolute;
+    top: 20px;
+    // left: 20px;
+    left: 11px;
+    right: 11px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #fff;
+    z-index: 100;
+}
+
+@media screen and (max-width: 760px) {
+    .products-item__img.collection__block-link {
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+    .banner__block-title {
+        position: static;
+        margin-top: 5px;
+        font-size: 10px;
+        font-weight: 400;
+        color: #181818;
+        text-align: center;
+    }
+}

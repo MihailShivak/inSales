@@ -1,0 +1,184 @@
+<div class="breadcrumbs breadcrumbs__client">
+    <a href="/client_account/orders" class="btn__bread-back">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+        <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span>Назад</span>
+    </a>
+</div>
+<div class="panel__top">
+    <div class="panel__top-wrapper filter__back-wrapper">
+        <a href="/client_account/orders" class="panel__top-back">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+            <path d="M11 3.5L6 9L11 14.5" stroke="#181818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Назад</span>
+        </a>
+        <h1 class="title__large orders__title" 
+            data-order-number="{{ order.number }}"
+            data-order-status="{{ order.custom_status_title }}"
+        >Заказ № {{ order.number }}</h1>
+    </div>
+</div>
+<div class="account__wrapper">
+    <div class="account__info-top">
+        <div class="account__info-steps 
+            {% if order.paid? and order.fulfillment_status == "new" %}
+                _status-pay
+            {% elsif order.fulfillment_status == "delivered" %}
+                _status-delivered
+            {% elsif order.fulfillment_status == "new" %}
+                _status-new
+            {% elsif order.fulfillment_status == "accepted" or order.fulfillment_status == "approved" %}
+                _status-accepted
+            {% elsif order.fulfillment_status == "dispatched" %}
+                _status-dispatched
+            {% endif %}"
+        >
+            <div class="account__info-title">
+                {% if order.paid? and order.fulfillment_status == "new" %}
+                    Оплачен
+                {% else %}
+                    {{ order.customer_status }}
+                {% endif %}
+            </div>
+            <div class="account__info-steps__list">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="account__info-date">{{ order.created_at | date: '%d.%m.%Y %H:%M' }}</div>
+        <a href="#" target='_blank' class="account__info-push__mobile" data-em-order-inform>Задать вопрос</a>
+    </div>
+    {% if order.payment_needed? %}
+        <div class="account__info-wrapper">
+            {% if open_in_window? %}
+                <a class="btn__payment btn btn_small" target="_blank" rel="noopener noreferrer" href="{{ order.pay_url }}">\
+                    {% if order.paid_with_bank_bill? %}
+                        Совершить оплату онлайн (распечатать квитанцию)
+                    {% else %}
+                        Совершить оплату онлайн
+                    {% endif %}
+                </a>
+            {% else %}
+                <a class="btn__payment btn btn_small" href="{{ order.pay_url }}">
+                    {% if order.paid_with_bank_bill? %}
+                        Совершить оплату онлайн (распечатать квитанцию)
+                    {% else %}
+                        Совершить оплату онлайн
+                    {% endif %}
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+    {% comment %} <div class="account__info-wrapper">
+        {%- include "system_messengers_notification" -%}
+    </div> {% endcomment %}
+    <div class="account__info-wrapper">
+        <div class="account__info-grid _data-mobile">
+            <div class="grid__item">
+                <div class="grid__item-subtitle">Дата оформления</div>
+                <div class="grid__item-text">{{ order.created_at | date: '%d.%m.%Y %H:%M' }}</div>
+            </div>
+        </div> 
+        <div class="account__info-grid">
+            <div class="grid__item">
+                <div class="grid__item-subtitle">Получатель</div>
+                <div class="grid__item-text">{{ order.shipping_address.full_name }}</div>
+            </div>
+            <div class="grid__item">
+                <div class="grid__item-subtitle">Адрес доставки</div>
+                <div class="grid__item-text">{{ order.shipping_address.full_delivery_address }}</div>
+            </div>
+            <div class="grid__item">
+                <div class="grid__item-subtitle">Способ оплаты</div>
+                <div class="grid__item-text _item-text_big">
+                    <span>{{ order.payment_title }}</span>
+                    {% if order.payment_description != blank %}
+                        <span>{{ order.payment_description | strip_html }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="account__info-grid">
+            <div class="grid__item">
+                <div class="grid__item-subtitle">E-mail</div>
+                <div class="grid__item-text">{{ order.client.email }}</div>
+            </div>
+            <div class="grid__item">
+                <div class="grid__item-subtitle">Уведомления</div>
+                <div class="grid__item-text">{{ order.shipping_address.phone }}</div>
+            </div>
+            <div class="grid__item">
+                <div class="grid__item-subtitle">Способ доставки</div>
+                <div class="grid__item-text _item-text_big">{{ order.delivery_description_with_tariff | strip_html }}</div>
+                {% if order.delivery_info.outlet.address != blank %} 
+                    <div class="grid__item-text">
+                        <div class="grid__item-subtitle">Пункт самовывоза</div>
+                        <a class="grid__item-text" href="{{order.delivery_info.outlet.address | address_to_map_url }}" target='_blank' rel='noopener noreferrer' title='Map'>
+                            {{ order.delivery_info.outlet.address }}
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+            {% if order.all_fields['Если товара не будет в наличии'] %}
+                <div class="grid__item">
+                    <div class="grid__item-subtitle">{{ order.all_fields['Если товара не будет в наличии'].title }}</div>  
+                    <div class="grid__item-text">{{ order.all_fields['Если товара не будет в наличии'].value }}</div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="order__total">
+        <div class="order__total-price">
+            Сумма заказа: <span>{{ order.total_price | money }}</span>
+        </div>
+        <a href="#" target='_blank' class="order__total-push" data-em-order-inform>Задать вопрос оператору</a>
+    </div>
+</div>
+
+
+<div class="block__wrapper">
+    <div class="title__medium">Состав заказа</div>
+    <div class="account__wrapper">
+        <div class="account__info-orders">
+            {% for item in order.items %}
+                <div class="account__info-order">
+                    <div class="account__info-order__title">{{ item.title }}</div>
+                    <div class="dotts"></div>
+    
+                    {% assign value = item.quantity | plus: 0 %}
+                    {% assign rounded = value | round: 1 %}
+                    {% assign int_value = rounded | round: 0 %}
+    
+                    <div class="account__info-order__price">
+                        {% if rounded == int_value %}
+                            {{ int_value }}
+                        {% else %}
+                            {{ rounded }}
+                        {% endif %}
+                        x{{ item.total_price_without_margin | money }}
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="account__info-order">
+                <div class="account__info-order__title _order-active">Итого</div>
+                <div class="dotts"></div>
+                <div class="account__info-order__price">{{ order.items_price | money }}</div>
+            </div>
+            <div class="account__info-order">
+                <div class="account__info-order__title">Доставка</div>
+                <div class="dotts"></div>
+                <div class="account__info-order__price">{{ order.delivery_price | money }}</div>
+            </div>
+            <div class="account__info-order">
+                <div class="account__info-order__title">Итого с учетом доставки</div>
+                <div class="dotts"></div>
+                <div class="account__info-order__price">{{ order.total_price | money }}</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+{
+  "ru": {
+    "switch_img_on_hover_help": "Не работает, если включен показ вариантов"
+  },
+  "ua": {
+    "switch_img_on_hover_help": "Не працює, якщо увімкнено показ варіантів"
+  },
+  "en": {
+    "switch_img_on_hover_help": "Doesn't work if show options is enabled"
+  },
+  "es": {
+    "switch_img_on_hover_help": "No funciona si las opciones están habilitadas"
+  }
+}

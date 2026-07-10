@@ -1,0 +1,74 @@
+{
+  "success_feedback": {
+    "ru": "✓ Сообщение успешно отправлено",
+    "en": "✓ Message sent successfully",
+    "ua": "✓ Повідомлення успішно відправлено",
+    "es": "✓ Mensaje enviado con éxito"
+  },
+  "success_cart": {
+    "ru": "✓ Товар добавлен в корзину",
+    "en": "✓ Product added to cart",
+    "ua": "✓ Товар доданий в кошик",
+    "es": "✓ Producto añadido al carrito"
+  },
+  "add_item_compares": {
+    "ru": "✓ Товар добавлен в сравнение",
+    "en": "✓ Product added to comparison",
+    "ua": "✓ Товар доданий в порівняння",
+    "es": "✓ Producto agregado para comparación"
+  },
+  "remove_item_compares": {
+    "ru": "Товар удален из сравнения",
+    "en": "Product removed from comparison",
+    "ua": "Товар вилучений з порівняння",
+    "es": "Producto eliminado de la comparación"
+  },
+  "add_item_favorites": {
+    "ru": "✓ Товар добавлен в избранное",
+    "en": "✓ Product added to favorites",
+    "ua": "✓ Товар доданий в обране",
+    "es": "✓ Producto añadido al favoritos"
+  },
+  "remove_item_favorites": {
+    "ru": "Товар удален из избранного",
+    "en": "Product removed from favorites",
+    "ua": "Товар вилучений з обраного",
+    "es": "Producto eliminado de favoritos"
+  },
+  "overload_compares": {
+    "ru": "⚠ Достигнуто максимальное количество товаров для сравнения",
+    "en": "⚠ The maximum number of items for comparison has been reached",
+    "ua": "⚠ Досягнуто максимальну кількість товарів для порівняння",
+    "es": "⚠ Se alcanzó el número máximo de elementos para comparar"
+  },
+  "overload_favorites": {
+    "ru": "⚠ Достигнуто максимальное количество товаров в избранном",
+    "en": "⚠ The maximum number of items for favorites has been reached",
+    "ua": "⚠ Досягнуто максимальну кількість товарів для избранного",
+    "es": "⚠ Se alcanzó el número máximo de elementos para favorites"
+  },
+  "overload_quantity": {
+    "ru": "⚠ Достигнуто максимальное количество единиц товара для заказа",
+    "en": "⚠ The maximum number of items for the order has been reached",
+    "ua": "⚠ Досягнуто максимальну кількість одиниць товару для замовлення",
+    "es": "⚠ Se ha alcanzado el número máximo de artículos para el pedido"
+  },
+  "success_preorder": {
+    "ru": "✓ Предзаказ успешно отправлен",
+    "en": "✓ Preorder sent successfully",
+    "ua": "✓ Передзамовлення успішно відправлен",
+    "es": "✓ Pedido por adelantado enviado con éxito"
+  },
+  "accessories_count_error": {
+    "ru": "Выбрано неверное количество опций",
+    "ua": "Вибрано неправильну кількість опцій",
+    "en": "Incorrect number of accessories selected",
+    "es": "Número incorrecto de accesorios seleccionados"
+  },
+  "copy_link": {
+    "ru": "Ссылка скопирована",
+    "ua": "Посилання скопійовано",
+    "en": "The link has been copied",
+    "es": "Enlace copiado"
+  }
+}

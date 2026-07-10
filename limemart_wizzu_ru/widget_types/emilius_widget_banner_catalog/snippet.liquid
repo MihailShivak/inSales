@@ -1,0 +1,27 @@
+{% if data.blocks.size > 0 %}
+    {% for block in data.blocks %}
+        {% if block.collection.handle == collection.handle %}
+            {% assign block_select = block %}
+            {% break %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if block_select %}
+    <div class="banner__cover">
+        <div class="banner__cover-text">
+            <div class="banner__cover-title title__medium">{{ block_select.name }}</div>
+            <div class="banner__cover-desc">{{ block_select.desc }}</div>
+            <a href="{{ block_select.btn-link }}" class="banner__cover-link btn btn_small">{{ block_select.btn-text }}</a>
+        </div>
+        <div class="banner__cover-image">
+            <picture>
+                <source media="(min-width:769px)" srcset="{{ block_select.image | image_url: 800, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}" type="image/webp" loading="lazy">
+                <source media="(max-width:480px)" srcset="{{ block_select.image | image_url: 500, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}" type="image/webp" loading="lazy">
+                <source media="(max-width:768px)" srcset="{{ block_select.image | image_url: 668, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}" type="image/webp" loading="lazy">
+
+                <img src="{{ block_select.image | image_url: 800 | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}" loading="lazy" alt="{{ bblock_select.name | escape}}">
+            </picture>
+        </div>
+    </div>
+{% endif %}

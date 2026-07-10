@@ -1,0 +1,26 @@
+{
+  "ru": {
+    "enable_compare": "Включить сравнение",
+    "button_text": "Узнать подробнее",
+    "banner_text_7": "Как подобрать подарок?",
+    "banner_text_8": "Мы сталкиваемся с этим вопросом каждый раз перед праздниками. Как часто нам дарили подарки, которые мы передаривали или которые просто пылились на полках, что бы никого не обидеть? Чтобы не подарить очередной ненужный подарок, мы подобрали для вас несколько советов."
+  },
+  "ua": {
+    "enable_compare": "Увімкнути порівняння",
+    "button_text": "Детальніше",
+    "banner_text_7": "Як підібрати подарунок?",
+    "banner_text_8": "Ми стикаємося з цим питанням щоразу перед святами. Як часто нам дарували подарунки, які ми передаровували або які просто припадали пилом на полицях, щоб нікого не образити? Щоб не подарувати черговий непотрібний подарунок, ми підібрали кілька порад."
+  },
+  "en": {
+    "enable_compare": "Enable comparison",
+    "button_text": "More",
+    "banner_text_7": "How to choose a gift?",
+    "banner_text_8": "We face this issue every time before the holidays. How often were we given gifts that we re-gifted or that simply gathered dust on the shelves so as not to offend anyone? In order not to give another unnecessary gift, we have selected a few tips for you."
+  },
+  "es": {
+    "enable_compare": "Habilitar comparación",
+    "button_text": "Más detalles",
+    "banner_text_7": "¿Cómo elegir un regalo?",
+    "banner_text_8": "Nos enfrentamos a este problema cada vez antes de las vacaciones. ¿Con qué frecuencia nos dieron regalos que volvimos a regalar o que simplemente acumularon polvo en los estantes para no ofender a nadie? Para no dar otro regalo innecesario, hemos seleccionado algunos consejos para ti."
+  }
+}

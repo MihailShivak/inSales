@@ -1,0 +1,23 @@
+{
+  "type": "BlockListWidgetType",
+  "name": {
+    "ru": "Форма обратной связи"
+  },
+  "handle": "widget_v4_feedback_2_87d59382e846462927c83f7eb1a8b5b3",
+  "page_kinds": [
+    "all"
+  ],
+  "widget_list_kinds": [
+    "before_content",
+    "content",
+    "after_content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "forms",
+  "libraries": [
+    "jquery",
+    "commonjs_v2",
+    "my-layout"
+  ],
+  "block_template_handle": "system-form-constructor-3"
+}

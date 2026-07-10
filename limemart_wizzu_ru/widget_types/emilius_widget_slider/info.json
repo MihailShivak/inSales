@@ -1,0 +1,21 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Товары из определенной категории"
+  },
+  "handle": "emilius_widget_slider",
+  "description": {
+    "ru": "Слайдер товаров из определенной категории"
+  },
+  "page_kinds": [
+    "all"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "product-homepage",
+  "libraries": [
+    "swiper"
+  ]
+}

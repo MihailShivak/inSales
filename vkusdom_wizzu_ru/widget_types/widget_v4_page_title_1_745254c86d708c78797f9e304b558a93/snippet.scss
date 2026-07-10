@@ -1,0 +1,12 @@
+@include background-color(--bg);
+
+.title__large {
+  margin-bottom: 30px;
+  @media screen and (max-width: 760px) {
+    margin-top: 20px;
+  }
+
+  @media screen and (max-width: 760px) {
+    margin-bottom: 15px;
+  }
+}

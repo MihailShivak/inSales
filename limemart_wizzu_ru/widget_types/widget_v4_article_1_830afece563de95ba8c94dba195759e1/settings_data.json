@@ -1,0 +1,14 @@
+{
+  "layout-wide-bg": false,
+  "layout-wide-content": false,
+  "layout-pt": 2,
+  "layout-pb": 2,
+  "hide-mobile": false,
+  "hide-desktop": false,
+  "article-hide-photo": true,
+  "img-border-radius": 6,
+  "img-ratio": 2,
+  "img-fit": "cover",
+  "widget-heading-ratio": 1.5,
+  "widget-heading-weight": 500
+}

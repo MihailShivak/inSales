@@ -1,0 +1,34 @@
+{
+  "ru": {
+    "share": "Поделиться",
+    "enable_shared_cart": "Включить 'Поделиться корзиной'",
+    "items_in_cart": "Товаров в корзине:",
+    "shared_cart": "С вами поделились корзиной в интернет-магазине",
+    "form_word_review_2": "Отзыва",
+    "form_word_review_3": "Отзывов"
+  },
+  "ua": {
+    "share": "Поділитися",
+    "enable_shared_cart": "Включити 'поділитися кошиком'",
+    "items_in_cart": "Товарів у кошику:",
+    "shared_cart": "З вами поділилися кошиком в інтернет-магазині",
+    "form_word_review_2": "Відгуки",
+    "form_word_review_3": "Відгуків"
+  },
+  "en": {
+    "share": "Share",
+    "enable_shared_cart": "Enable 'Share Shopping Cart'",
+    "items_in_cart": "Items in cart:",
+    "shared_cart": "A cart was shared with you in an online store",
+    "form_word_review_2": "Reviews",
+    "form_word_review_3": "Reviews"
+  },
+  "es": {
+    "share": "Compartir",
+    "enable_shared_cart": "Habilitar 'compartir carrito'",
+    "items_in_cart": "Artículos en el carrito:",
+    "shared_cart": "Se compartió un carrito contigo en una tienda en línea",
+    "form_word_review_2": "Reseñas",
+    "form_word_review_3": "Reseñas"
+  }
+}

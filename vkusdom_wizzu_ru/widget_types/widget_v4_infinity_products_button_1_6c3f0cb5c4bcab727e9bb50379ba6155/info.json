@@ -1,0 +1,24 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Подгрузка товаров"
+  },
+  "handle": "widget_v4_infinity_products_button_1_6c3f0cb5c4bcab727e9bb50379ba6155",
+  "description": {
+    "ru": "Подгрузка товаров"
+  },
+  "page_kinds": [
+    "collection",
+    "search"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "navigation",
+  "libraries": [
+    "jquery",
+    "commonjs_v2",
+    "my-layout"
+  ]
+}
