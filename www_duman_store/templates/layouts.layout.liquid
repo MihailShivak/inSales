@@ -29,15 +29,34 @@
         {% endfor %}
       };
     </script>
-
+  </head>
 <script>
   window.__RUM_BASE__ = "https://rum.111-88-153-5.nip.io";
   window.__RUM_ENV__  = "prod";
-</script>
-<script src="{{ 'web-vitals.iife.js' | asset_url }}" defer></script>
-<script src="{{ 'rum.js' | asset_url }}" defer></script>
+  window.__RUM_SITE__ = "duman.store";
 
-  </head>
+  window.__RUM_PATH_MAP__ = [
+    ["Главная", "^/$"],
+    ["Заказ оформлен", "^/orders/"],
+    ["Оформление заказа", "^/new_order"],
+    ["Корзина", "^/cart_items"],
+    ["Карточка товара", "^/collection/.+/product/"],
+    ["Карточка товара", "^/product/"],
+    ["Каталог (все товары)", "^/collection/all"],
+    ["Каталог (категория)", "^/collection/"],
+    ["Личный кабинет", "^/client_account"],
+    ["Поиск", "^/search"],
+    ["Блог", "^/blog"],
+    ["Страница", "^/page/"],
+  ];
+</script>
+<!-- Скрипты с RUM-сервера (рекомендуется — всегда актуальная версия) -->
+<script src="https://rum.111-88-153-5.nip.io/vendor/web-vitals.attribution.iife.js"></script>
+<script src="https://rum.111-88-153-5.nip.io/rum.js" defer></script>
+<!-- /Banana RUM -->
+{% comment %} <script src="{{ 'web-vitals.iife.js' | asset_url }}" defer></script>
+<script src="{{ 'rum.js' | asset_url }}" defer></script> {% endcomment %}
+
   <body data-multi-lang="{{ language.not_default? }}" data-theme-template="{{ template }}" data-sidebar-type="{{ sidebar_type }}" data-sidebar-position="{{ sidebar_position }}">
     {% include "popups" %}
     <div class="preloader">
@@ -130,3 +149,5 @@
   
   {% include "microdata" %}
 </html>
+
+{% comment %} upd {% endcomment %}

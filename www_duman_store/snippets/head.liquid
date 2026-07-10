@@ -1,3 +1,32 @@
+<script>
+  window.__preloader = (function () {
+    var done = false;
+
+    function showPage() {
+      if (done) return;
+      done = true;
+      if (document.body) document.body.classList.add('settings_loaded');
+    }
+
+    function showSlowConnection() {
+      if (done) return;
+      var loading = document.querySelector('.preloader__loading');
+      var slow = document.querySelector('.preloader__slow');
+      if (loading) loading.style.display = 'none';
+      if (slow) slow.classList.add('_visible');
+    }
+
+    var slowTimer = setTimeout(showSlowConnection, 10000);
+
+    return {
+      showPage: showPage,
+      showSlowConnection: showSlowConnection,
+      isDone: function () { return done; },
+      clearSlowTimer: function () { clearTimeout(slowTimer); }
+    };
+  })();
+</script>
+
 <!-- meta -->
 <meta charset="UTF-8" />
 {%- include "system_seo_description" -%}
@@ -46,8 +75,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="https://ibicecdn.com/dumanstore/files/1/3431/30993767/original/favicon.svg" />
 {%- assign canon =  null -%}
 
-{% comment %} ! Уточнияется, скорее всего удалить и выпилить зависимости {% endcomment %}
-{% comment %} <script src="{{ 'popup.js' | asset_url }}"></script> {% endcomment %}
+<script src="{{ 'popup.js' | asset_url }}"></script>
 
 <style media="screen">
   body:not(.settings_loaded) {

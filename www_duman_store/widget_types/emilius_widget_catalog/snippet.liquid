@@ -278,7 +278,50 @@
                 <script>console.log("render catalog filters: {{ 'now' | date: '%s.%L' | minus: catalog_panel_time }}");</script>
 
                 <div class="catalog__error" hidden>Товары не найдены</div>
-                <div class="catalog__list catalog__list_default" data-js="catalog-list" data-ajax-products="{{ products.size }}" data-no-image="{{ 'no_image.svg' | asset_url }}"></div>
+                <div class="catalog__list catalog__list_default" data-js="catalog-list" data-ajax-products="{{ products.size }}" data-no-image="{{ 'no_image.svg' | asset_url }}">
+                    {% for product in products %}
+                        <div class="catalog__list-item products-item" data-ssr-item {% if product.available %}data-js="product-item"{% endif %} data-cust-product-id="{{ product.id }}">
+                            <div class="products-item__img-wrapper">
+                                <a href="{{ product.url }}" class="products-item__img" target="_blank">
+                                    <div class="products-item__img-list">
+                                        {% if product.image %}
+                                            <div>
+                                                <picture>
+                                                    <source srcset="{{ product.image | image_url: '400x400' }} 1x, {{ product.image | image_url: '800x800' }} 2x" type="image/webp">
+                                                    <img src="{{ product.image | image_url: '400x400' }}" alt="{{ product.title }}" class="entered" loading="lazy">
+                                                </picture>
+                                            </div>
+                                        {% else %}
+                                            <div>
+                                                <img src="{{ 'no_image.svg' | asset_url }}" alt="{{ product.title }}" class="image-none entered loading" loading="lazy">
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="products-item__info">
+                                <a href="{{ product.url }}" class="products-item__title" target="_blank">{{ product.title }}</a>
+                                <div class="products-item__properties">
+                                    <div class="products-item__prices">
+                                        {% if product.available == false %}
+                                            <div class="products-item__button btn btn_outline btn_small">Скоро в продаже</div>
+                                        {% else %}
+                                            {% if product.old_price_min and product.old_price_min > product.price_min %}
+                                                <span class="products-item__price products-item__price_new">{{ product.price_min | money }}</span>
+                                                <span class="products-item__price products-item__price_old">{{ product.old_price_min | money }}</span>
+                                            {% else %}
+                                                <span class="products-item__price">{{ product.price_min | money }}</span>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% unless product.available %}
+                                    <div class="products-item__product-ended">Товар закончился</div>
+                                {% endunless %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
 
                 {% comment %} <div class="catalog__btn">
                     <button type="button" class="basket__empty-btn btn btn_primary btn_medium" data-load-more style="margin-top: 40px;"
@@ -587,15 +630,19 @@
             </a>
             <div class="products-item__actions">
                 <button type="button" class="products-item__action products-item__action-whishlist" data-em-favorites-trigger="<%= product.id %>"></button>
-                <% if (product.available) { %>
+                <% if (product.available || isPreorder && !isSoon) { %>
                     <button type="button" 
-                    class="products-item__action products-item__action-addcart<% if (product.variants.length == 1 && Cart.order.getItemByID(product.variants[0]?.id) !== undefined) { %> _active<% } %>" 
+                        class="products-item__action products-item__action-addcart"
                         <% if (product.variants.length > 1) { %>
-                            data-js="product-item-addcard"
+                            data-js="product-item-addcard" 
                             data-add-cart="<%= product.id %>"
                         <% } else { %>
                             data-btn-cart-add="<%= product.variants[0]?.id %>"
                         <% } %>
+                    ></button>
+                <% } else { %>
+                    <button type="button" class="products-item__action products-item__action-subscribe" 
+                        data-popup="#popup-subscribe"
                     ></button>
                 <% } %>
             </div>
@@ -753,3 +800,5 @@
     console.log("render catalog: {{ 'now' | date: '%s.%L' | minus: catalog_time }}");
     console.log("[Log] collection id:", "{{ collection.id }}");
 </script>
+
+{% comment %} upd {% endcomment %}

@@ -35,3 +35,5 @@ document.addEventListener("DOMContentLoaded", function () {
     if (container) container.removeAttribute("hidden");
     // setTimeout(() => window.EM_Module.spollers(wrapper), 150);
 });
+
+// upd

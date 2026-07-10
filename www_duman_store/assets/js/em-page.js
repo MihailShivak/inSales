@@ -3,6 +3,7 @@
  */
 
 
+
 console.log("[EM.Page] Run...");
 
 /*** Страница Контакты ***/
@@ -316,6 +317,13 @@ document.addEventListener("DOMContentLoaded", function() {
  * Вывод оглавления статьи
  */
 document.addEventListener("DOMContentLoaded", function() {
+
+    function initSpollersTitile() {
+        if (window.matchMedia("(max-width: 63.9988em)").matches && this) {
+            window.EM_Module.spollers([this]);
+        }
+    }
+
     /* Форматирование даты */
     for (const el of document.querySelectorAll("[data-em-date]")) {
         const dateStr = el.dataset.emDate;
@@ -339,7 +347,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     /* Вывод оглавления статьи */
-    const $articles = $("[data-table-contents]:first");
+    const $articles = $("[data-table-contents]");
     if (!$articles.length) return;
 
     const offset = window.matchMedia("(max-width: 63.9988em)").matches ? 30 : 70;
@@ -355,6 +363,16 @@ document.addEventListener("DOMContentLoaded", function() {
     if (titlesHTML.length) {
         $articles.find(".article__block-contents:first").html(titlesHTML);
         $articles.removeAttr("hidden");
+
+        if (window?.EM_Module?.spollers) {
+            initSpollersTitile.call( $articles.filter(".article__block-mob").get(0) );
+        }
+        else {
+            EventBus.subscribe(
+                'eventLoader', 
+                initSpollersTitile.bind( $articles.filter(".article__block-mob").get(0) )
+            );
+        }
     }
 
     $(document).on('click', '.article__block-link', function (e) {

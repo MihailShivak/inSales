@@ -4,7 +4,7 @@ $(document).ready(() => {
         productId = Shop.config.getProductId();
 
     var $product = $widget,
-        $buttonAdd = isMobile ? $(".tap-bar [data-card-product-add]:first") : $product.find("[data-card-product-add]:first"),
+        $buttonAdd = isMobile ? $(".tap-bar [data-em-select-variant]:first") : $product.find("[data-em-select-variant]:first"),
         $titleLast = $product.find(".options__title-last:first"),
         isInit = false,
         actionVariantId = 0,

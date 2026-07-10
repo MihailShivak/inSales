@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         try {
             const response = await $.ajax({
-                url: window.location.pathname + ".json",
+                url: `https://dumansto.re/front-api${window.location.pathname}.asp`,
                 method: "GET",
                 dataType: "json",
                 data: requestData,
@@ -468,3 +468,5 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+// upd

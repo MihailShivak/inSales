@@ -14,7 +14,7 @@ exports.default = {
     http: true
   },
   theme: {
-    id: '11248713',
+    id: '11305001',
     root: '.',
     backup: true,
     assetsSync: true,

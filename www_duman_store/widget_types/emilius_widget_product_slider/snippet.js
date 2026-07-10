@@ -163,9 +163,12 @@
     }
 
     function setIcons(renderedSliders) {
-        EM_Module.Wishlist.forceUpdate();
+        try {
+            EM_Module.Wishlist.forceUpdate();
 
-        (new EM_Module.Colors( $(renderedSliders) )).drawColors();
+            (new EM_Module.Colors( $(renderedSliders) )).drawColors();
+        }
+        catch(_) {}
         setIconInCart();
     }
 

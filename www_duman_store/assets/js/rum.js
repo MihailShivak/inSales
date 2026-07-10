@@ -362,3 +362,6 @@ window.addEventListener("visibilitychange", () => {
 window.addEventListener("pagehide", () => void flushWithFetch("pagehide"));
 
 logLine("ready");
+
+// upd
+;
