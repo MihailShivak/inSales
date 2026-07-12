@@ -156,12 +156,7 @@
                                 {% assign isPreorder = true %}
     
                                 {% if product.properties.skoro-v-prodazhe.characteristics.first.name == "Да" %}
-                                    {% for collection in product.collections %}
-                                        {% if collection.handle == "skoro-v-prodazhe" %}
-                                            {% assign isSoon = true %}
-                                            {% break %}
-                                        {% endif %}
-                                    {% endfor %}
+                                    {% assign isSoon = true %}
                                 {% else %}
                                     {% assign isSoon = false %}
                                 {% endif %}

@@ -16,10 +16,26 @@
                 </ul>
                 <h1 class="article__title">{{ article.title }}</h1>
                 <div class="article__details">
-                    <span data-em-date="{{ article.created_at | date: "%d.%m.%Y" }}">{{ article.created_at | date: "%d %b %Y" }}</span>
-                    {% assign readingTime = article.content.size | plus: article.preview.size | times: 1.0 %}
-                    <span>{{ readingTime | divided_by: 1500 | round: 1 }} мин чтения</span>
-                    <span>{{ article.author }}</span>
+                    <div class="article__details-time">
+                        <span data-em-date="{{ article.created_at | date: "%d.%m.%Y" }}">{{ article.created_at | date: "%d %b %Y" }}</span>
+                        {% assign readingTime = article.content.size | plus: article.preview.size | times: 1.0 %}
+                        <span>{{ readingTime | divided_by: 1500 | round: 1 }} мин чтения</span>
+                        <span>{{ article.author }}</span>
+                    </div>
+                    <div class="article__block article__block-mob" 
+                        data-spollers data-one-spoller    
+                        data-table-contents hidden
+                    >
+                        <button type="button"
+                            class="article__block-subtitle filters__title-wrapper"
+                            data-spoller data-spoller-fade data-spoller-close
+                        >
+                            <span class="filters__title">Содержание статьи</span>
+                        </button>
+                        <div class="filters__body">
+                            <div class="article__block-contents"></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="article__preview article__text">{{ article.preview }}</div>
                 {% if article.image %}
@@ -97,12 +113,7 @@
                             {% assign isPreorder = true %}
 
                             {% if product.properties.skoro-v-prodazhe.characteristics.first.name == "Да" %}
-                                {% for collection in product.collections %}
-                                    {% if collection.handle == "skoro-v-prodazhe" %}
-                                        {% assign isSoon = true %}
-                                        {% break %}
-                                    {% endif %}
-                                {% endfor %}
+                                {% assign isSoon = true %}
                             {% else %}
                                 {% assign isSoon = false %}
                             {% endif %}

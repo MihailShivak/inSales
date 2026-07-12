@@ -100,19 +100,21 @@ $(document).ready(() => {
     }
 
     function setCookies(newCountry, newCity) {
-        if (newCountry === country && newCity === city) return;
+      if (newCountry === country && newCity === city) return;
+      Cookies.set("rev-country-location", newCountry);
+      Cookies.set("rev-current-location", newCity);
+      country = newCountry;
+      city = newCity;
 
-        Cookies.set('rev-country-location', newCountry);
-        Cookies.set('rev-current-location', newCity);
-        country = newCountry;
-        city = newCity;
-        
-        if (indexKladr) fetchDeliveryCalculate(kladr[indexKladr]);
-        if (location.pathname === '/new_order') {
-            setTimeout(() => {
-                window.location.reload();
-            }, 350);
-        }
+      // Обновляем название города в шапке
+      $("[data-city-name]").text(newCity);
+
+      if (indexKladr) fetchDeliveryCalculate(kladr[indexKladr]);
+      if (location.pathname === "/new_order") {
+        setTimeout(() => {
+          window.location.reload();
+        }, 350);
+      }
     }
 
     function getProductIdInCart() {
@@ -379,3 +381,5 @@ $(document).ready(() => {
     // Установить доставку
     if ((isProduct || isCart) && city && country) inputCity(city, country, true);
 });
+
+// upd

@@ -20,43 +20,37 @@
 
 <script>
   (function () {
-    var done = false;
-
-    function showPage() {
-      if (done) return;
-      done = true;
-      document.body.classList.add('settings_loaded');
-    }
-
-    function showSlowConnection() {
-      if (done) return;
-      var loading = document.querySelector('.preloader__loading');
-      var slow = document.querySelector('.preloader__slow');
-      if (loading) loading.style.display = 'none';
-      if (slow) slow.classList.add('_visible');
-    }
+    var preloader = window.__preloader || {
+      // Фолбэк на случай, если head.liquid по какой-то причине не выполнился
+      showPage: function () {
+        document.body.classList.add('settings_loaded');
+      },
+      isDone: function () { return false; }
+    };
 
     // Ждём загрузки всех <link rel="stylesheet"> в DOM.
     // link.sheet становится не-null только после применения CSS.
     function waitForCSS() {
+      if (preloader.isDone()) return;
+
       var links = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
 
       if (links.length === 0) {
-        showPage();
+        preloader.showPage();
         return;
       }
 
       const pending = links.filter((l) => !l.sheet);
 
       if (pending.length === 0) {
-        showPage();
+        preloader.showPage();
         return;
       }
 
       var remaining = pending.length;
       const onDone = () => {
         remaining--;
-        if (remaining <= 0) showPage();
+        if (remaining <= 0) preloader.showPage();
       };
 
       pending.forEach((link) => {
@@ -64,9 +58,6 @@
         link.addEventListener('error', onDone);
       });
     }
-
-    // Через 10 секунд показываем сообщение о плохом соединении
-    setTimeout(showSlowConnection, 10000);
 
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', waitForCSS);

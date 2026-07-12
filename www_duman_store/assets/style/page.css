@@ -642,10 +642,13 @@ p {
 }
 
 .article__details {
+    margin-bottom: 2rem;
+}
+
+.article__details-time {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 2rem;
     font-size: 0.875rem;
     line-height: 1.2;
     color: #7C7875;
@@ -838,6 +841,10 @@ p {
         margin-left: auto;
         overflow-y: auto;
     }
+
+    .article__block-mob {
+        display: none;
+    }
 }
 
 @media (max-width: 63.9988em) {
@@ -896,6 +903,16 @@ p {
 
     .article__about {
         flex-direction: column;
+    }
+
+    .article__block-mob {
+        position: relative;
+        margin-top: 0.5rem;
+        padding: 0.75rem;
+    }
+
+    .article__block-mob .article__block-subtitle {
+        margin-bottom: 0;
     }
 }
 
@@ -981,6 +998,11 @@ p {
     }
 
     .page__reviews-item {
+        width: 100%;
+    }
+    
+    /*** Стили блога ***/
+    .article__block-mob .filters__body {
         width: 100%;
     }
 }

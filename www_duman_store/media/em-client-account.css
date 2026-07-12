@@ -1,7 +1,15 @@
-/* Общие */
+/*** Фикс появления попапа ***/
+
+.popup {
+    visibility: hidden;
+}
+
+.popup.popup_show {
+    visibility: visible;
+}
 
 
-
+/*** Общие ***/
 .login__container {
     max-width: 75rem;
     padding-top: 1.25rem;
