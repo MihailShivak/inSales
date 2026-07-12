@@ -2,6 +2,12 @@
 $(document).ready(() => { 
     const isMobile = sessionStorage.getItem('isMobile') === 'true';
     const prefix = isMobile ? "last" : "first";
+
+    const currentCity = Cookies.get('rev-current-location');
+    if (currentCity) {
+        $('[data-city-name]').text(currentCity);
+    }
+
     const className = {
         btnClear: isMobile ? "mob-popup__form-clear" : "submit__clear",
     };
@@ -1201,3 +1207,5 @@ $(document).ready(() => {
 
 // 	timeObj.init();
 // })();
+
+// upd
