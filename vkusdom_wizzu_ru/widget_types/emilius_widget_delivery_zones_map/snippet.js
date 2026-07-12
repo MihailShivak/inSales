@@ -588,6 +588,7 @@ class DeliveryZoneSelector {
         if (!start || !end) return false;
 
         const now = new Date();
+
         const currentTotalMinutes = now.getHours() * 60 + now.getMinutes();
 
         const [startHour, startMin] = start.split(':').map(Number);
@@ -623,45 +624,63 @@ class DeliveryZoneSelector {
 
     // вывод попапа предупреждения, что магазин закрыт
     openModalWarningTime() {
-        const lastVisitTime = localStorage.getItem("lastVisitTime");
-        const shopOpening = this.shops.shops.find(
-            shop => window.location.host === shop.shop_url
-        )?.opening?.split("—");
-        
-        if (
-            !shopOpening || shopOpening.length != 2
-            || shopOpening.status !== "available"
-            || this.isTimeInRange(
-                shopOpening[0].replaceAll(" ", ""),
-                shopOpening[1].replaceAll(" ", "")
-            )
+    const lastVisitTime = localStorage.getItem("lastVisitTime");
 
-        ) {
-            if (lastVisitTime !== "false") {
-                localStorage.setItem("lastVisitTime", "false");
-            }
-            this.openModalApp();
-            return; 
-        }
+    // Находим текущий магазин
+    const currentShop = this.shops.shops.find((shop) => {
+      const shopUrl = (shop.shop_url || "").trim();
+      return (
+        window.location.host === shopUrl ||
+        window.location.host.includes(shopUrl)
+      );
+    });
 
-        if (!this.checkAndUpdateLastVisit(lastVisitTime)) {
-            this.openModalApp();
-            return;
-        }
-        
-        const warningModal = new EM_Module.Modal( document.getElementById("popup-warning-time") );
-
-        warningModal.init(undefined, () => {
-            this.checkAndUpdateLastVisit(lastVisitTime, true);
-        });
-
-        const modalTextSpan = warningModal.modal.querySelector(".modal__text span");
-        if (modalTextSpan) {
-            modalTextSpan.innerText = shopOpening[0] ?? "10:00";
-        }
-        warningModal.open();
-        this.openModalApp();
+    if (!currentShop) {
+      this.openModalCustomWarning();
+      return;
     }
+
+    // Получаем статус и время работы
+    const shopStatus = (currentShop.status || "").trim();
+    const openingStr = (currentShop.opening || "").trim();
+
+    // Разделяем время
+    const shopOpening = openingStr.split(/[—\-–]/).map((time) => time.trim());
+
+    // Проверяем условия
+    if (
+      !shopOpening ||
+      shopOpening.length < 2 ||
+      shopStatus !== "available" || // ИСПРАВЛЕНО: проверяем статус самого магазина
+      this.isTimeInRange(shopOpening[0], shopOpening[1]) // Если время входит в диапазон (магазин открыт)
+    ) {
+      if (lastVisitTime !== "false") {
+        localStorage.setItem("lastVisitTime", "false");
+      }
+      this.openModalCustomWarning();
+      return;
+    }
+
+    // магазин ЗАКРЫТ
+    if (!this.checkAndUpdateLastVisit(lastVisitTime, false, "lastVisitTime")) {
+      this.openModalCustomWarning();
+      return;
+    }
+
+    const warningModal = new EM_Module.Modal(
+      document.getElementById("popup-warning-time"),
+    );
+    warningModal.init(undefined, () => {
+      this.checkAndUpdateLastVisit(lastVisitTime, true, "lastVisitTime");
+    });
+
+    const modalTextSpan = warningModal.modal.querySelector(".modal__text span");
+    if (modalTextSpan) {
+      modalTextSpan.innerText = shopOpening[0] ?? "10:00";
+    }
+    warningModal.open();
+    this.openModalApp();
+  }
 
     openModalApp() {
         if (

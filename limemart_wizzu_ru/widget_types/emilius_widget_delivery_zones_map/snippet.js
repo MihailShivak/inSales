@@ -297,479 +297,536 @@ class MapZones {
  * @author Разработано для insales
  */
 class DeliveryZoneSelector {
-    constructor($container, options = {}) {
-        this.$container = $container;
-        this.options = {
-            mapCenter: [43.345, 45.678], // Центр Грозного
-            mapZoom: 12,
-            ...options
-        };
+  constructor($container, options = {}) {
+    this.$container = $container;
+    this.options = {
+      mapCenter: [43.345, 45.678], // Центр Грозного
+      mapZoom: 12,
+      ...options,
+    };
 
-        // Ключи для сохранения данных в памяти
-        this.key = {
-            shops: "em_shops",
-            selectShop: "em_select_shop_id",
-            appHide: "app_hide",
-            openPopup: "popup-count"
-        }
+    // Ключи для сохранения данных в памяти
+    this.key = {
+      shops: "em_shops",
+      selectShop: "em_select_shop_id",
+      appHide: "app_hide",
+      openPopup: "popup-count",
+    };
 
-        this.shops = {};
-        this.selectShop = null;
+    this.shops = {};
+    this.selectShop = null;
 
-        this.map = null;
-        // this.isShopSelected = false;
-        this.polygons = [];
-        this._initMap = false;
-        this._isOpen = false;
+    this.map = null;
+    // this.isShopSelected = false;
+    this.polygons = [];
+    this._initMap = false;
+    this._isOpen = false;
 
-        // DOM элементы
-        this.$popupShops = null; // Попап выбора магазина
-        this.$btnRedirect = null;
+    // DOM элементы
+    this.$popupShops = null; // Попап выбора магазина
+    this.$btnRedirect = null;
 
-        // this.demoModal = null;
-        this.deliveryModal = null;
-        this.deliveryModalSuccess = null;
+    // this.demoModal = null;
+    this.deliveryModal = null;
+    this.deliveryModalSuccess = null;
 
-        if (this.options.isApp) this.initForApp();
-        else this.init();
+    if (this.options.isApp) this.initForApp();
+    else this.init();
+  }
+
+  /**
+   * Инициализация системы
+   */
+  init() {
+    // if (window.location.pathname !== "/") {
+    //     this.demoModal = new EM_Module.Modal(document.getElementById("popup-warning"));
+    //     this.demoModal.init(undefined, (function() {
+    //         Cookies.set(this, "true");
+    //     }).bind(this.options.demoCookiesKey));
+    // }
+
+    this.$popupShops = this.$container.find("#popup-delivery-shop");
+
+    if (!this.$popupShops.length) {
+      console.warn("[Shops] Попап выбора магазина не найден");
+      return;
     }
+    this.deliveryModal = new EM_Module.Modal(this.$popupShops.get(0));
+    this.deliveryModal.init(
+      this.openDeliveryModal.bind(this),
+      // this.closeDeliveryModal.bind(this)
+    );
 
-    /**
-     * Инициализация системы
-     */
-    init() {
-        // if (window.location.pathname !== "/") {
-        //     this.demoModal = new EM_Module.Modal(document.getElementById("popup-warning"));
-        //     this.demoModal.init(undefined, (function() {
-        //         Cookies.set(this, "true");
-        //     }).bind(this.options.demoCookiesKey));
-        // }
+    this.loadShops()
+      .then(() => {
+        this.initDOM();
+        this.initEvents();
+      })
+      .catch((error) => {
+        this.printError("Ошибка инициализации системы доставки");
+        console.error("Ошибка инициализации системы доставки:", error);
+        this.$btnRedirect.addClass("btn__disabled-grey");
+      });
 
-        this.$popupShops = this.$container.find("#popup-delivery-shop");
-
-        if (!this.$popupShops.length) {
-            console.warn("[Shops] Попап выбора магазина не найден");
-            return;
-        }
-        this.deliveryModal = new EM_Module.Modal(this.$popupShops.get(0));
-        this.deliveryModal.init(
-            this.openDeliveryModal.bind(this)
-            // this.closeDeliveryModal.bind(this)
-        );
-
-        this.loadShops()
-            .then(() => {
-                this.initDOM();
-                this.initEvents();
-            })
-            .catch(error => {
-                this.printError("Ошибка инициализации системы доставки");
-                console.error('Ошибка инициализации системы доставки:', error);
-                this.$btnRedirect.addClass("btn__disabled-grey");
-            });
-
-        const count = Number(Cookies.get(this.key.openPopup) ?? "0");
-        if (window.location.pathname === "/" && (isNaN(count) || count < 3)) {
-            Cookies.set(this.key.openPopup, isNaN(count) ? 1 : count + 1);
-            this.deliveryModal.open();
-        }
+    const count = Number(Cookies.get(this.key.openPopup) ?? "0");
+    if (window.location.pathname === "/" && (isNaN(count) || count < 3)) {
+      Cookies.set(this.key.openPopup, isNaN(count) ? 1 : count + 1);
+      this.deliveryModal.open();
     }
+  }
 
-    initForApp() {
-        this.loadShops()
-            .then(() => {
-                setTimeout(() => this.openModalWarningTime(), 200);
-            })
-            .catch(error => {
-                console.error('Ошибка инициализации системы доставки:', error);
-            });
-    }
-
-    /**
-     * Инициализация DOM элементов
-     */
-    initDOM() {
-        this.$btnRedirect = this.$popupShops.find("[data-change-store]:first");
-    }
-
-    /**
-     * Привязка событий
-     */
-    initEvents() {
-        this.$popupShops.on("click", "[data-select-shop]", this.clickShop.bind(this));
-
-        // Кнопка "Перейти в магазин"
-        this.$btnRedirect.on("click", this.openNewShop.bind(this));
-
+  initForApp() {
+    this.loadShops()
+      .then(() => {
         setTimeout(() => this.openModalWarningTime(), 200);
+      })
+      .catch((error) => {
+        console.error("Ошибка инициализации системы доставки:", error);
+      });
+  }
+
+  /**
+   * Инициализация DOM элементов
+   */
+  initDOM() {
+    this.$btnRedirect = this.$popupShops.find("[data-change-store]:first");
+  }
+
+  /**
+   * Привязка событий
+   */
+  initEvents() {
+    this.$popupShops.on(
+      "click",
+      "[data-select-shop]",
+      this.clickShop.bind(this),
+    );
+
+    // Кнопка "Перейти в магазин"
+    this.$btnRedirect.on("click", this.openNewShop.bind(this));
+
+    setTimeout(() => this.openModalWarningTime(), 200);
+  }
+
+  /**
+   * Выбор магазина
+   * !! Дописать
+   */
+  clickShop(e) {
+    const selectShopID = Number(
+      e.currentTarget.getAttribute("data-select-shop") ?? "0",
+    );
+    if (isNaN(selectShopID)) {
+      this.printError("Не удалось загрузить информацию о магазинах");
+      this.$btnRedirect.addClass("btn__disabled-grey");
+      return;
     }
 
-    /**
-     * Выбор магазина
-     * !! Дописать
-     */
-    clickShop(e) {
-        const selectShopID = Number(e.currentTarget.getAttribute("data-select-shop") ?? "0");
-        if (isNaN(selectShopID)) {
-            this.printError("Не удалось загрузить информацию о магазинах");
-            this.$btnRedirect.addClass("btn__disabled-grey");
-            return;
-        }
+    const selectShop = this.shops.shops.find((shop) => shop.id == selectShopID);
 
-        const selectShop = this.shops.shops.find(shop => shop.id == selectShopID);
+    $(e.currentTarget.parentElement).find("> ._active").removeClass("_active");
+    if (selectShop) {
+      Cookies.set(this.key.openPopup, 4);
 
-        $(e.currentTarget.parentElement).find("> ._active").removeClass("_active");
-        if (selectShop) {
-            Cookies.set(this.key.openPopup, 4);
+      this.selectShopID = selectShopID;
+      this.selectShop = selectShop;
 
-            this.selectShopID = selectShopID;
-            this.selectShop = selectShop;
-
-            if (window.innerWidth < 550 && window.innerHeight < 690) {
-                const $block = this.$popupShops.find(".modal__content:first");
-                $block.animate({
-                    scrollTop: $block.get(0).scrollHeight - 200
-                }, 600);
-            }
-
-            e.currentTarget.classList.add("_active");
-
-            this.MapZones.clearAllPolygons();
-            this.MapZones.addDistrictPolygon(selectShop);
-            this.MapZones.addDistrictMarker(selectShop);
-            this.MapZones.centerMapOnDistrict(selectShop.polygon.center);
-
-            this.MapZones.setUserLocation();
-
-            this.$popupShops
-                .find(".modal__map-descript:first")
-                .html("Вы можете увеличивать и двигать карту, чтобы детальнее изучить зону доставки");
-                // .html(`<span>Адрес магазина:</span> ${selectShop.address}`);
-
-            const isCurrentShop = window.location.origin.includes(`https://${selectShop.shop_url}`);
-            this.$btnRedirect
-                .text(isCurrentShop ? "Остаться" : "Перейти в магазин")
-                .removeClass("btn__disabled-grey");
-
-            if (!isCurrentShop && Cart.order.items_count > 0) {
-                this.printError("В вашей корзине уже есть товары. Если вы измените магазин, то все товары из корзины придется собирать заново");
-            }
-            else {
-                this.visibleError();
-            }
-        }
-        else {
-            this.printError("Не удалось загрузить информацию о магазинах");
-            this.$btnRedirect.text("Перейти в магазин").addClass("btn__disabled-grey");
-            this.$popupShops
-                .find(".modal__map-descript:first")
-                .html("<span>Выберите магазин</span>, чтобы увидеть его зону доставки");
-        }
-    }
-
-    /**
-     * Перенаправление в выбранный магазин
-     */
-    openNewShop() {
-        if (this.selectShop && this.selectShop.shop_url) {
-            setTimeout(
-                () => this.redirectToZoneStore(this.selectShop),
-                150
-            );
-        }
-        else {
-           this.printError("Вы не выбрали магазин"); 
-           this.$btnRedirect.addClass("btn__disabled-grey");
-        }
-    }
-
-    /**
-     * Перенаправление в магазин зоны
-     */
-    redirectToZoneStore(shop) {
-        const shop_url = `https://${shop.shop_url}`;
-        if (window.location.origin.includes(shop_url)) {
-            if (window.location.pathname.includes("/new_order")) {
-                window.location.reload();
-            }
-            else {
-                // $("input[data-popup='#popup-delivery']").val(shop.name);
-                this.deliveryModal.close();
-            }
-        }
-        else if (shop.shop_url) {
-            window.location.href = shop_url;
-        }
-    }
-
-    // Открытие модалки
-    async openDeliveryModal() {
-        this._isOpen = true;
-        if (this._initMap || !this.shops?.shops) {
-            return;
-        }
-
-        this._initMap = true;
-        this._isOpen = false;
-
-        this.MapZones = new MapZones(
-            this.$popupShops.find("[data-show-deliveries]:first").get(0)
+      if (window.innerWidth < 550 && window.innerHeight < 690) {
+        const $block = this.$popupShops.find(".modal__content:first");
+        $block.animate(
+          {
+            scrollTop: $block.get(0).scrollHeight - 200,
+          },
+          600,
         );
-        await this.MapZones.initMap();
+      }
 
-        if (this.selectShop) {
-            this.MapZones.addDistrictMarker(this.selectShop);
-            this.MapZones.addDistrictPolygon(this.selectShop);
-            this.MapZones.centerMapOnDistrict(this.selectShop.polygon.center);
-        }
-        else {
-            for (const key in this.shops.shops) {
-                this.MapZones.addDistrictPolygon(this.shops.shops[key]);
-                this.MapZones.centerMapOnDistrict(this.MapZones.MAP_CENTER);
-            }
-        }
-        const $btns = this.$popupShops.find(".modal__delivery-select:first");
-        for (const shop of this.shops.shops) {
-            if (!shop.opening) continue;
-            $btns.find(`[data-select-shop="${shop.id}"]:first span`).text(shop.opening);
-        }
-        this.MapZones.setUserLocation();
+      e.currentTarget.classList.add("_active");
+
+      this.MapZones.clearAllPolygons();
+      this.MapZones.addDistrictPolygon(selectShop);
+      this.MapZones.addDistrictMarker(selectShop);
+      this.MapZones.centerMapOnDistrict(selectShop.polygon.center);
+
+      this.MapZones.setUserLocation();
+
+      this.$popupShops
+        .find(".modal__map-descript:first")
+        .html(
+          "Вы можете увеличивать и двигать карту, чтобы детальнее изучить зону доставки",
+        );
+      // .html(`<span>Адрес магазина:</span> ${selectShop.address}`);
+
+      const isCurrentShop = window.location.origin.includes(
+        `https://${selectShop.shop_url}`,
+      );
+      this.$btnRedirect
+        .text(isCurrentShop ? "Остаться" : "Перейти в магазин")
+        .removeClass("btn__disabled-grey");
+
+      if (!isCurrentShop && Cart.order.items_count > 0) {
+        this.printError(
+          "В вашей корзине уже есть товары. Если вы измените магазин, то все товары из корзины придется собирать заново",
+        );
+      } else {
+        this.visibleError();
+      }
+    } else {
+      this.printError("Не удалось загрузить информацию о магазинах");
+      this.$btnRedirect
+        .text("Перейти в магазин")
+        .addClass("btn__disabled-grey");
+      this.$popupShops
+        .find(".modal__map-descript:first")
+        .html("<span>Выберите магазин</span>, чтобы увидеть его зону доставки");
+    }
+  }
+
+  /**
+   * Перенаправление в выбранный магазин
+   */
+  openNewShop() {
+    if (this.selectShop && this.selectShop.shop_url) {
+      setTimeout(() => this.redirectToZoneStore(this.selectShop), 150);
+    } else {
+      this.printError("Вы не выбрали магазин");
+      this.$btnRedirect.addClass("btn__disabled-grey");
+    }
+  }
+
+  /**
+   * Перенаправление в магазин зоны
+   */
+  redirectToZoneStore(shop) {
+    const shop_url = `https://${shop.shop_url}`;
+    if (window.location.origin.includes(shop_url)) {
+      if (window.location.pathname.includes("/new_order")) {
+        window.location.reload();
+      } else {
+        // $("input[data-popup='#popup-delivery']").val(shop.name);
+        this.deliveryModal.close();
+      }
+    } else if (shop.shop_url) {
+      window.location.href = shop_url;
+    }
+  }
+
+  // Открытие модалки
+  async openDeliveryModal() {
+    this._isOpen = true;
+    if (this._initMap || !this.shops?.shops) {
+      return;
     }
 
-    closeDeliveryModal() {
-        Cookies.set(this.key.openPopup, 4);
+    this._initMap = true;
+    this._isOpen = false;
+
+    this.MapZones = new MapZones(
+      this.$popupShops.find("[data-show-deliveries]:first").get(0),
+    );
+    await this.MapZones.initMap();
+
+    if (this.selectShop) {
+      this.MapZones.addDistrictMarker(this.selectShop);
+      this.MapZones.addDistrictPolygon(this.selectShop);
+      this.MapZones.centerMapOnDistrict(this.selectShop.polygon.center);
+    } else {
+      for (const key in this.shops.shops) {
+        this.MapZones.addDistrictPolygon(this.shops.shops[key]);
+        this.MapZones.centerMapOnDistrict(this.MapZones.MAP_CENTER);
+      }
+    }
+    const $btns = this.$popupShops.find(".modal__delivery-select:first");
+    for (const shop of this.shops.shops) {
+      if (!shop.opening) continue;
+      $btns
+        .find(`[data-select-shop="${shop.id}"]:first span`)
+        .text(shop.opening);
+    }
+    this.MapZones.setUserLocation();
+  }
+
+  closeDeliveryModal() {
+    Cookies.set(this.key.openPopup, 4);
+  }
+
+  /**
+   * Приводит новую схему /webapp (shop.features: GeoJSON Feature[])
+   * к внутреннему формату shop.polygon.{coordinates,properties,center},
+   * который уже понимают addDistrictPolygon/addDistrictMarker/centerMapOnDistrict
+   */
+  normalizeShopFeatures(shop) {
+    if (!Array.isArray(shop.features)) return shop;
+
+    const polygonFeatures = shop.features.filter(
+      (f) => f.geometry.type === "Polygon",
+    );
+    const pointFeature = shop.features.find((f) => f.geometry.type === "Point");
+
+    shop.polygon = {
+      coordinates: polygonFeatures.map((f) => f.geometry.coordinates[0]),
+      properties: polygonFeatures[0]?.properties ?? {},
+      center: pointFeature ? pointFeature.geometry.coordinates : undefined,
+    };
+
+    return shop;
+  }
+
+  /**
+   * Загрузка данных о зонах доставки
+   */
+  async loadShops() {
+    if (this.getSaveShops()) {
+      if (this._isOpen) this.openDeliveryModal();
+      return;
+    }
+    try {
+      const response = await fetch(this.options.zonesDataUrl);
+      const data = await response.json();
+
+      data.shops = data.shops.map((shop) => this.normalizeShopFeatures(shop));
+      this.shops = data;
+      this.saveShops();
+      if (this._isOpen) this.openDeliveryModal();
+      // this.popularZones = data.popular_zones || [];
+    } catch (error) {
+      console.error("[DeliveryZone] Ошибка загрузки зон доставки:", error);
+      // ! Дописать вывод ошибок
+    }
+  }
+
+  // [Edits] Перенос
+  isTimeInRange(start, end) {
+    if (!start || !end) return false;
+
+    const now = new Date();
+
+    // // CLOSED TIME FOR TESTING
+    // now.setHours(0, 0, 0, 0); // Устанавливаем время на 00:00 для тестирования
+
+    const currentTotalMinutes = now.getHours() * 60 + now.getMinutes();
+
+    const [startHour, startMin] = start.split(":").map(Number);
+    const [endHour, endMin] = end.split(":").map(Number);
+
+    const startTotalMinutes = startHour * 60 + startMin;
+    const endTotalMinutes = endHour * 60 + endMin;
+
+    return (
+      currentTotalMinutes >= startTotalMinutes &&
+      currentTotalMinutes <= endTotalMinutes
+    );
+  }
+
+  // Проверить сколько прошло с прошлого открытия попапа "Доставка уже не работает"
+  checkAndUpdateLastVisit(valueStorage, isSetTime, keyStorage) {
+    const HALF_DAY_MS = 60 * 60 * 1000; // 1 час
+    const now = Date.now();
+
+    if (!valueStorage || valueStorage === "false") {
+      if (isSetTime) localStorage.setItem(keyStorage, String(now));
+      return true;
     }
 
-    /**
-     * Приводит новую схему /webapp (shop.features: GeoJSON Feature[])
-     * к внутреннему формату shop.polygon.{coordinates,properties,center},
-     * который уже понимают addDistrictPolygon/addDistrictMarker/centerMapOnDistrict
-     */
-    normalizeShopFeatures(shop) {
-        if (!Array.isArray(shop.features)) return shop;
+    const lastTime = Number(valueStorage);
 
-        const polygonFeatures = shop.features.filter(f => f.geometry.type === 'Polygon');
-        const pointFeature = shop.features.find(f => f.geometry.type === 'Point');
-
-        shop.polygon = {
-            coordinates: polygonFeatures.map(f => f.geometry.coordinates[0]),
-            properties: polygonFeatures[0]?.properties ?? {},
-            center: pointFeature ? pointFeature.geometry.coordinates : undefined
-        };
-
-        return shop;
+    if (isNaN(lastTime) || now - lastTime >= HALF_DAY_MS) {
+      // прошло больше пол суток
+      if (isSetTime) localStorage.setItem(keyStorage, String(now));
+      return true;
     }
 
-    /**
-     * Загрузка данных о зонах доставки
-     */
-    async loadShops() {
-        if (this.getSaveShops()) {
-            if (this._isOpen) this.openDeliveryModal();
-            return;
-        }
-        try {
-            const response = await fetch(this.options.zonesDataUrl);
-            const data = await response.json();
+    // меньше пол суток
+    return false;
+  }
 
-            data.shops = data.shops.map(shop => this.normalizeShopFeatures(shop));
-            this.shops = data;
-            this.saveShops();
-            if (this._isOpen) this.openDeliveryModal();
-            // this.popularZones = data.popular_zones || [];
-        }
-        catch (error) {
-            console.error('[DeliveryZone] Ошибка загрузки зон доставки:', error);
-            // ! Дописать вывод ошибок
-        }
+  // вывод попапа предупреждения, что магазин закрыт
+  openModalWarningTime() {
+    const lastVisitTime = localStorage.getItem("lastVisitTime");
+
+    // Находим текущий магазин
+    const currentShop = this.shops.shops.find((shop) => {
+      const shopUrl = (shop.shop_url || "").trim();
+      return (
+        window.location.host === shopUrl ||
+        window.location.host.includes(shopUrl)
+      );
+    });
+
+    if (!currentShop) {
+      this.openModalCustomWarning();
+      return;
     }
 
+    // Получаем статус и время работы
+    const shopStatus = (currentShop.status || "").trim();
+    const openingStr = (currentShop.opening || "").trim();
 
-    // [Edits] Перенос
-    isTimeInRange(start, end) {
-        if (!start || !end) return false;
+    // Разделяем время
+    const shopOpening = openingStr.split(/[—\-–]/).map((time) => time.trim());
 
-        const now = new Date();
-        const currentTotalMinutes = now.getHours() * 60 + now.getMinutes();
-
-        const [startHour, startMin] = start.split(':').map(Number);
-        const [endHour, endMin] = end.split(':').map(Number);
-
-        const startTotalMinutes = startHour * 60 + startMin;
-        const endTotalMinutes = endHour * 60 + endMin;
-        
-        return currentTotalMinutes >= startTotalMinutes && currentTotalMinutes <= endTotalMinutes;
+    // Проверяем условия
+    if (
+      !shopOpening ||
+      shopOpening.length < 2 ||
+      shopStatus !== "available" || // ИСПРАВЛЕНО: проверяем статус самого магазина
+      this.isTimeInRange(shopOpening[0], shopOpening[1]) // Если время входит в диапазон (магазин открыт)
+    ) {
+      if (lastVisitTime !== "false") {
+        localStorage.setItem("lastVisitTime", "false");
+      }
+      this.openModalCustomWarning();
+      return;
     }
 
-    // Проверить сколько прошло с прошлого открытия попапа "Доставка уже не работает"
-    checkAndUpdateLastVisit(valueStorage, isSetTime, keyStorage) {
-        const HALF_DAY_MS = 60 * 60 * 1000; // 1 час
-        const now = Date.now();
+    // магазин ЗАКРЫТ
+    if (!this.checkAndUpdateLastVisit(lastVisitTime, false, "lastVisitTime")) {
+      this.openModalCustomWarning();
+      return;
+    }
 
-        if (!valueStorage || valueStorage === "false") {
-            if (isSetTime) localStorage.setItem(keyStorage, String(now));
-            return true;
-        }
+    const warningModal = new EM_Module.Modal(
+      document.getElementById("popup-warning-time"),
+    );
+    warningModal.init(undefined, () => {
+      this.checkAndUpdateLastVisit(lastVisitTime, true, "lastVisitTime");
+    });
 
-        const lastTime = Number(valueStorage);
+    const modalTextSpan = warningModal.modal.querySelector(".modal__text span");
+    if (modalTextSpan) {
+      modalTextSpan.innerText = shopOpening[0] ?? "10:00";
+    }
+    warningModal.open();
+    this.openModalApp();
+  }
 
-        if (isNaN(lastTime) || (now - lastTime) >= HALF_DAY_MS) {
-            // прошло больше пол суток
-            if (isSetTime) localStorage.setItem(keyStorage, String(now));
-            return true;
-        }
+  openModalCustomWarning() {
+    const popup = document.getElementById("popup-message-warning");
+    if (!popup) {
+      this.openModalApp();
+      return;
+    }
 
-        // меньше пол суток
+    const lastVisitTimeWarning = localStorage.getItem("lastVisitTimeWarning");
+
+    if (
+      !this.checkAndUpdateLastVisit(
+        lastVisitTimeWarning,
+        false,
+        "lastVisitTimeWarning",
+      )
+    ) {
+      this.openModalApp();
+      return;
+    }
+
+    const warningModal = new EM_Module.Modal(popup);
+
+    warningModal.init(undefined, () => {
+      this.checkAndUpdateLastVisit(
+        lastVisitTimeWarning,
+        true,
+        "lastVisitTimeWarning",
+      );
+    });
+    warningModal.open();
+  }
+
+  openModalApp() {
+    if (
+      window.location.pathname === "/" &&
+      Cookies.get("show_modal_notice_app") !== "true" &&
+      Cookies.get("app_hide") !== "true" &&
+      new URLSearchParams(window.location.search).get("app") !== "true"
+    ) {
+      setTimeout(() => {
+        const noticeModal = new EM_Module.Modal(
+          document.getElementById("popup-notice-app"),
+        );
+
+        noticeModal.init(
+          undefined,
+          function () {
+            Cookies.set(this, "true");
+          }.bind("show_modal_notice_app"),
+        );
+        noticeModal.open();
+      }, 150);
+    }
+  }
+
+  /**
+   * Сохранения в пямяти данных
+   * @param {String} type Тип данных для сохранения: all - все, select - ID выбранного магазина, shops - магазины
+   * @returns {Boolean} Успех выполнения операции
+   */
+  saveShops(type = "all") {
+    try {
+      if (type == "select" || type == "all") {
+        localStorage.setItem(this.key.selectShop, this.selectShopID);
+      }
+      if (type == "shops" || type == "all") {
+        localStorage.setItem(
+          this.key.shops,
+          JSON.stringify({
+            shops: this.shops,
+            timestamp: Date.now(),
+          }),
+        );
+      }
+      return true;
+    } catch (err) {
+      console.warn("[Shops] Ошибка сохранения данный в памяти:", err);
+      return false;
+    }
+  }
+
+  /**
+   * Получить данные из памяти
+   */
+  getSaveShops() {
+    const sixHourMs = 1000 * 60 * 60 * 6; // 6 часов
+    let isSuccess = false;
+
+    try {
+      const shops = localStorage.getItem(this.key.shops);
+      const selectShopID = Number(
+        localStorage.getItem(this.key.selectShop) ?? "",
+      );
+
+      const shopsJSON = shops ? JSON.parse(shops) : null;
+
+      if (!shopsJSON?.timestamp || Date.now() - shopsJSON.timestamp > sixHourMs)
         return false;
+      if (shopsJSON) {
+        this.shops = shopsJSON.shops;
+        isSuccess = true;
+      }
+      if (selectShopID && !isNaN(selectShopID)) {
+        this.selectShopID = selectShopID;
+        this.selectShop = shopsJSON.shops.shops.find(
+          (shop) => shop.id == selectShopID,
+        );
+      }
+    } catch (err) {
+      console.warn("[Shops] Ошибка сохранения данный в памяти:", err);
     }
+    return isSuccess;
+  }
 
-    // вывод попапа предупреждения, что магазин закрыт
-    openModalWarningTime() {
-        const lastVisitTime = localStorage.getItem("lastVisitTime");
-        const shopOpening = this.shops.shops.find(
-            shop => window.location.host === shop.shop_url
-        )?.opening?.split("—");
-        
-        if (
-            !shopOpening || shopOpening.length != 2
-            || shopOpening.status !== "available"
-            || this.isTimeInRange(
-                shopOpening[0].replaceAll(" ", ""),
-                shopOpening[1].replaceAll(" ", "")
-            )
-        ) {
-            if (lastVisitTime !== "false") {
-                localStorage.setItem("lastVisitTime", "false");
-            }
-            this.openModalCustomWarning();
-            return; 
-        }
+  printError(message) {
+    this.$popupShops
+      .find(".message__delivery-error:first")
+      .text(message)
+      .removeAttr("hidden");
+  }
 
-        if (!this.checkAndUpdateLastVisit(lastVisitTime, false, "lastVisitTime")) {
-            this.openModalCustomWarning();
-            return;
-        }
-        
-        const warningModal = new EM_Module.Modal( document.getElementById("popup-warning-time") );
-
-        warningModal.init(undefined, () => {
-            this.checkAndUpdateLastVisit(lastVisitTime, true, "lastVisitTime");
-        });
-
-        const modalTextSpan = warningModal.modal.querySelector(".modal__text span");
-        if (modalTextSpan) {
-            modalTextSpan.innerText = shopOpening[0] ?? "10:00";
-        }
-        warningModal.open();
-        this.openModalApp();
-    }
-
-    openModalCustomWarning() {
-        const popup = document.getElementById("popup-message-warning");
-        if (!popup) {
-            this.openModalApp();
-            return;
-        }
-
-        const lastVisitTimeWarning = localStorage.getItem("lastVisitTimeWarning");
-
-        if (!this.checkAndUpdateLastVisit(lastVisitTimeWarning, false, "lastVisitTimeWarning")) {
-            this.openModalApp();
-            return;
-        }
-        
-        const warningModal = new EM_Module.Modal(popup);
-
-        warningModal.init(undefined, () => {
-            this.checkAndUpdateLastVisit(lastVisitTimeWarning, true, "lastVisitTimeWarning");
-        });
-        warningModal.open();
-    }
-
-    openModalApp() {
-        if (
-            window.location.pathname === "/"  && 
-            Cookies.get("show_modal_notice_app") !== "true" &&
-            Cookies.get("app_hide") !== "true" && 
-            (new URLSearchParams(window.location.search)).get("app") !== "true"
-        ) {
-            setTimeout(() => {
-                const noticeModal = new EM_Module.Modal(document.getElementById("popup-notice-app"));
-        
-                noticeModal.init(undefined, (function() {
-                    Cookies.set(this, "true");
-                }).bind("show_modal_notice_app"));
-                noticeModal.open();
-            }, 150);
-        }
-    }
-
-    /**
-     * Сохранения в пямяти данных
-     * @param {String} type Тип данных для сохранения: all - все, select - ID выбранного магазина, shops - магазины
-     * @returns {Boolean} Успех выполнения операции
-     */
-    saveShops(type="all") {
-        try {
-            if (type == "select" || type == "all") {
-                localStorage.setItem(this.key.selectShop, this.selectShopID);
-            }
-            if (type == "shops" || type == "all") {
-                localStorage.setItem(
-                    this.key.shops, 
-                    JSON.stringify({
-                        shops: this.shops,
-                        timestamp: Date.now()
-                    })
-                );
-            }
-            return true;
-        }
-        catch (err) {
-            console.warn("[Shops] Ошибка сохранения данный в памяти:", err);
-            return false;
-        }
-    }
-
-    /**
-     * Получить данные из памяти
-     */
-    getSaveShops() {
-        const sixHourMs = 1000 * 60 * 60 * 6; // 6 часов
-        let isSuccess = false;
-
-        try {
-            const shops = localStorage.getItem(this.key.shops);
-            const selectShopID = Number(localStorage.getItem(this.key.selectShop) ?? "");
-
-            const shopsJSON = shops ? JSON.parse(shops) : null;
-
-            if (!shopsJSON?.timestamp || Date.now() - shopsJSON.timestamp > sixHourMs) return false;
-            if (shopsJSON) {
-                this.shops = shopsJSON.shops;
-                isSuccess = true;
-            }
-            if (selectShopID && !isNaN(selectShopID)) {
-                this.selectShopID = selectShopID;
-                this.selectShop = shopsJSON.shops.shops.find(shop => shop.id == selectShopID);
-            }
-        }
-        catch (err) {
-            console.warn("[Shops] Ошибка сохранения данный в памяти:", err);
-        }
-        return isSuccess;
-    }
-
-    printError(message) {
-        this.$popupShops.find(".message__delivery-error:first")
-            .text(message)
-            .removeAttr("hidden");
-    }
-
-    // Скрыть / показать сообщение об ошибке
-    visibleError(isHidden=true) {
-        this.$popupShops.find(".message__delivery-error:first").attr("hidden", isHidden);
-    }
+  // Скрыть / показать сообщение об ошибке
+  visibleError(isHidden = true) {
+    this.$popupShops
+      .find(".message__delivery-error:first")
+      .attr("hidden", isHidden);
+  }
 }
 
 (function() {
