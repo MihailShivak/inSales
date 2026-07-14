@@ -368,11 +368,11 @@ class DeliveryZoneSelector {
                 this.$btnRedirect.addClass("btn__disabled-grey");
             });
 
-        const count = Number(Cookies.get(this.key.openPopup) ?? "0");
-        if (window.location.pathname === "/" && (isNaN(count) || count < 3)) {
-            Cookies.set(this.key.openPopup, isNaN(count) ? 1 : count + 1);
-            this.deliveryModal.open();
-        }
+        // const count = Number(Cookies.get(this.key.openPopup) ?? "0");
+        // if (window.location.pathname === "/" && (isNaN(count) || count < 3)) {
+        //     Cookies.set(this.key.openPopup, isNaN(count) ? 1 : count + 1);
+        //     this.deliveryModal.open();
+        // }
     }
 
     initForApp() {
