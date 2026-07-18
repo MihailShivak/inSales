@@ -1,136 +1,135 @@
 /* Уведомление о городе */
 .city-notice {
-    position: fixed;
-    top: calc(var(--notice-add-top, 0px) + 4.5rem);
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    max-width: 25rem;
-    width: calc(100% - 1.5rem);
-    animation: cityNoticeSlideIn 0.3s ease-out;
+  position: fixed;
+  top: calc(var(--notice-add-top, 0px) + 4.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  max-width: 28rem;
+  width: calc(100% - 1.5rem);
+  animation: cityNoticeSlideIn 0.3s ease-out;
 }
 
 @keyframes cityNoticeSlideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-1rem);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 .city-notice__body {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 1rem 1.25rem;
-    background-color: #fff;
-    border-radius: 0.75rem;
-    box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.15);
 }
 
-.city-notice__text {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    font-size: 0.875rem;
-    line-height: 120%;
-    color: #251e19;
-    
-    span {
-        opacity: 0.8;
-    }
-    
-    strong {
-        font-weight: 500;
-        font-size: 1rem;
-    }
+.city-notice__header {
+  margin-bottom: 0.05rem;
+}
+
+.city-notice__label {
+  font-size: 1.15rem;
+  line-height: 120%;
+  color: #605b57;
+}
+
+.city-notice__city {
+  margin-bottom: 0.5rem;
+}
+
+.city-notice__city-name {
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 120%;
+  color: #251e19;
 }
 
 .city-notice__buttons {
-    display: flex;
-    gap: 0.5rem;
-    flex-shrink: 0;
+  display: flex;
+  gap: 0.75rem;
 }
 
-.city-notice .btn_small {
-    min-width: 4rem;
+.city-notice__btn {
+  flex: 1;
+  padding: 0.875rem 1.5rem;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 120%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
 }
 
-/* Список результатов поиска городов */
-.city-search-results {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    margin-top: 0.5rem;
-    max-height: 15rem;
-    overflow-y: auto;
-    background-color: #fff;
-    border: 0.0625rem solid #d3d2d1;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.12);
-    z-index: 10;
+.city-notice__btn_confirm {
+  background-color: #40332b;
+  color: #ffffff;
+
+  &:hover {
+    background-color: #251e19;
+  }
 }
 
-.city-search-results__scroll {
-    max-height: 15rem;
-    overflow-y: auto;
-}
+.city-notice__btn_change {
+  background-color: #f3f0ee;
+  color: #9c603b;
 
-.city-search-results .select__option {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    line-height: 120%;
-    text-align: left;
-    cursor: pointer;
-    color: #251e19;
-    background-color: transparent;
-    border: none;
-    transition: background-color 0.2s ease;
-    
-    &:hover {
-        background-color: #f3f0ee;
-    }
-    
-    &:not(:last-child) {
-        border-bottom: 0.0625rem solid #f3f0ee;
-    }
+  &:hover {
+    background-color: #fbfbfb;
+  }
 }
 
 /* Адаптив */
 @media (max-width: 63.99875em) {
-    .city-notice {
-        top: calc(var(--notice-add-top, 0px) + 3.5rem);
-        max-width: calc(100% - 1.5rem);
-    }
-    
-    .city-notice__body {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.75rem;
-        padding: 1rem;
-    }
-    
-    .city-notice__text {
-        text-align: center;
-    }
-    
-    .city-notice__buttons {
-        width: 100%;
-    }
-    
-    .city-notice .btn_small {
-        flex: 1;
-    }
+  .city-notice {
+    top: calc(var(--notice-add-top, 0px) + 3.5rem);
+    max-width: calc(100% - 1.5rem);
+  }
+
+  .city-notice__body {
+    padding: 1.25rem;
+  }
+
+  .city-notice__city-name {
+    font-size: 1.25rem;
+  }
+
+  .city-notice__btn {
+    padding: 0.75rem 1.25rem;
+  }
 }
 
 @media (max-width: 47.99875em) {
-    .city-notice {
-        top: calc(var(--notice-add-top, 0px) + 3rem);
-    }
+  .city-notice {
+    top: calc(var(--notice-add-top, 0px) + 3rem);
+  }
+
+  .city-notice__body {
+    padding: 1rem;
+    gap: 0.875rem;
+  }
+
+  .city-notice__city-name {
+    font-size: 1.125rem;
+  }
+
+  .city-notice__buttons {
+    flex-direction: column;
+  }
+
+  .city-notice__btn {
+    width: 100%;
+  }
+}
+
+.btn_accept_city {
+  width: 100%;
 }

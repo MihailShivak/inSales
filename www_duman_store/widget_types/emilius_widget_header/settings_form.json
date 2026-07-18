@@ -487,5 +487,17 @@
         }
       ]
     }
+  ],
+  "Кнопка выбора города": [
+    {
+      "items": [
+        {
+          "name": "show_city_button_in_menu",
+          "label": "Показать кнопку выбора города",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    }
   ]
 }

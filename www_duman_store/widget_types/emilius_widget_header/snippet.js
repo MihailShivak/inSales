@@ -3,9 +3,47 @@ $(document).ready(() => {
     const isMobile = sessionStorage.getItem('isMobile') === 'true';
     const prefix = isMobile ? "last" : "first";
 
-    const currentCity = Cookies.get('rev-current-location');
+    const CITY_BY_SUBDOMAIN = {
+        'spb': 'Санкт-Петербург',
+        'nn': 'Нижний Новгород',
+        'krasnoyarsk': 'Красноярск',
+        'ekaterinburg': 'Екатеринбург',
+        'kazan': 'Казань',
+        'chelyabinsk': 'Челябинск',
+        'samara': 'Самара',
+        'omsk': 'Омск',
+        'rostov': 'Ростов-на-Дону',
+        'ufa': 'Уфа',
+        'voronezh': 'Воронеж',
+        'perm': 'Пермь',
+        'kemerovo': 'Кемерово',
+        'tolyatti': 'Тольятти',
+        'moscow': 'Москва'
+    };
+    
+    function getCityByDomain() {
+        const parts = window.location.hostname.split('.');
+        if (parts.length >= 3 && parts[0] !== 'www') {
+            return CITY_BY_SUBDOMAIN[parts[0]] || 'Новосибирск';
+        }
+        return 'Новосибирск';
+    }
+    
+    // Читаем город: сначала куксы, потом fallback по домену
+    let currentCity = Cookies.get('rev-current-location');
+    if (!currentCity) {
+        currentCity = getCityByDomain();
+        // Записываем в куксы, чтобы в следующий раз читалось оттуда
+        Cookies.set('rev-current-location', currentCity, { expires: 365, path: '/' });
+        if (!Cookies.get('rev-country-location')) {
+            Cookies.set('rev-country-location', 'Россия', { expires: 365, path: '/' });
+        }
+    }
+    
     if (currentCity) {
-        $('[data-city-name]').text(currentCity);
+        // Делаем первую букву заглавной
+        const displayCity = currentCity.charAt(0).toUpperCase() + currentCity.slice(1);
+        $('[data-city-name]').text(displayCity);
     }
 
     const className = {

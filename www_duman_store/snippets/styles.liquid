@@ -84,11 +84,11 @@
 <link href="{{ 'theme_default.css' | asset_url }}" rel="stylesheet" type="text/css" />
 
 {% comment %} CSS default {% endcomment %}
-{% comment %} <link href="{{ 'theme.css' | asset_url }}" rel="stylesheet" type="text/css" /> {% endcomment %}
+<link href="{{ 'theme.css' | asset_url }}" rel="stylesheet" type="text/css" />
 <link href="{{ 'icons.css' | asset_url }}" rel="stylesheet" type="text/css" />
 
 {% comment %} Минификация CSS {% endcomment %}
-<link href="{{ 'theme.min.css' | asset_url }}" rel="stylesheet" type="text/css" />
+{% comment %} <link href="{{ 'theme.min.css' | asset_url }}" rel="stylesheet" type="text/css" /> {% endcomment %}
 {% comment %} <link href="{{ 'icons.min.css' | asset_url }}" rel="stylesheet" type="text/css" /> {% endcomment %}
 
 {% if template contains "page" or template contains "blog" or template contains "article" %}

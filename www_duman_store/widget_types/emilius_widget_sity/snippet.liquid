@@ -1,91 +1,66 @@
 <!-- Уведомление о городе -->
 <div id="city-notice" class="city-notice" hidden>
-    <div class="city-notice__body">
-        <div class="city-notice__text">
-            <span>Это ваш город ?</span>
-            <strong data-city-notice-name>Москва</strong>
-        </div>
-        <div class="city-notice__buttons">
-            <button type="button" class="btn btn_small btn_primary" data-city-confirm>Да</button>
-            <button type="button" class="btn btn_small btn_outline" data-city-change>Нет</button>
-        </div>
+  <div class="city-notice__body">
+    <div class="city-notice__header">
+      <span class="city-notice__label">Адрес доставки</span>
     </div>
+    <div class="city-notice__city">
+      <strong class="city-notice__city-name" data-city-notice-name>Москва</strong>
+    </div>
+    <div class="city-notice__buttons">
+      <button type="button" class="city-notice__btn city-notice__btn_confirm" data-city-confirm>Да, верно</button>
+      <button type="button" class="city-notice__btn city-notice__btn_change" data-city-change>Нет, другой</button>
+    </div>
+  </div>
 </div>
 
-<!-- Popup выбора города (в стиле popup-right как у login) -->
-<div id="popup-city" aria-hidden="true" class="popup popup-right" data-em-city>
-    <div class="popup__wrapper popup-right__wrapper">
-        <div class="popup__content popup-right__content">
-            <div class="popup-right__head">
-                <button data-close type="button" class="popup-right__close"></button>
+<div id="popup-city" aria-hidden="true" class="popup">
+  <div class="popup__wrapper">
+    <div class="popup__content">
+      <button data-close type="button" class="popup__close"></button>
+      <div class="popup__body">
+        <div class="popup__title">Адрес доставки</div>
+        <form action="" data-dev class="popup__form form-popup">
+          <div class="form-popup__group">
+            <div class="form-popup__input-group">
+              <div class="form-popup__input-wrapper">
+                <select name="country" class="form" data-speed="350">
+                  <option value="AZ">Азербайджан</option>
+                  <option value="AM">Армения</option>
+                  <option value="BY">Беларусь</option>
+                  <option value="GE">Грузия</option>
+                  <option value="KZ">Казахстан</option>
+                  <option value="KG">Кыргызстан</option>
+                  <option value="RU" selected>Россия</option>
+                  <option value="TJ">Таджикистан</option>
+                  <option value="UZ">Узбекистан</option>
+                </select>
+              </div>
             </div>
-            <div class="popup-right__body">
-                <form action="" data-dev class="popup-right__form">
-                    <div class="popup-right__form-body-wrapper">
-                        <div class="popup-right__form-body">
-                            <div class="popup__from-wrapper__title">
-                                <div class="popup-right__form-title">Выберите город</div>
-                                <div class="popup__form-message" hidden>
-                                    <span>Укажите ваш город для расчета доставки</span>
-                                </div>
-                            </div>
-
-                            <div class="popup-right__form-group">
-                                <!-- Страна -->
-                                <div class="popup-right__input-group input-group">
-                                    <div class="input-group__label">Страна</div>
-                                    <div class="input-group__wrapper">
-                                        <select name="country" class="input" data-speed="350">
-                                            <option value="AZ">Азербайджан</option>
-                                            <option value="AM">Армения</option>
-                                            <option value="BY">Беларусь</option>
-                                            <option value="GE">Грузия</option>
-                                            <option value="KZ">Казахстан</option>
-                                            <option value="KG">Кыргызстан</option>
-                                            <option value="RU" selected>Россия</option>
-                                            <option value="TJ">Таджикистан</option>
-                                            <option value="UZ">Узбекистан</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <!-- Город -->
-                                <div class="popup-right__input-group input-group">
-                                    <div class="input-group__label">Город</div>
-                                    <div class="input-group__wrapper" data-js="input-wrapper">
-                                        <input
-                                            autocomplete="off"
-                                            type="text"
-                                            name="name-city"
-                                            data-error=""
-                                            placeholder="Начните вводить название города"
-                                            class="input-group__input input"
-                                        >
-                                        <button type="button" data-js="input-clear" class="input-group__clear"></button>
-                                    </div>
-                                    <div class="input-group__capture">Выберите город из списка</div>
-
-                                    <!-- Выпадающий список городов -->
-                                    <div class="city-search-results" data-select-container-sity hidden>
-                                        <div data-simplebar="init" class="city-search-results__scroll">
-                                            <div class="simplebar-content" data-select-sity-list></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="form-popup__input-group">
+              <div class="form-popup__input-wrapper">
+                <input 
+                  autocomplete="off" 
+                  type="text" 
+                  name="name-city" 
+                  data-error="" 
+                  placeholder="Начните вводить название города" 
+                  class="form-popup__input input"
+                >
+                <button type="button" data-js="input-clear" class="form-popup__input-clear"></button>
+                <div class="select__body">
+                  <div class="select__options" data-select-container-sity hidden>
+                    <div data-simplebar="init" class="select__scroll">
+                      <div class="simplebar-content" data-select-sity-list></div>
                     </div>
-
-                    <div class="popup-right__form-button-wrapper">
-                        <button type="button" class="popup-right__form-button btn btn_medium btn_primary" data-city-save disabled>
-                            Выбрать город
-                        </button>
-                        <div class="popup-right__form-policy">
-                            Выбранный город будет использоваться для расчета доставки
-                        </div>
-                    </div>
-                </form>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
+        </form>
+        <button type="button" data-city-save class="popup__button btn btn_medium btn_primary btn_accept_city" disabled>Сохранить</button>
+      </div>
     </div>
+  </div>
 </div>
