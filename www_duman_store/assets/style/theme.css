@@ -2810,6 +2810,32 @@ textarea.input {
   color: #251e19;
 }
 
+/* Мобильная кнопка города в меню */
+.mob-popup__list-link_city {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: inherit;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  justify-content: start;
+
+  svg {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+  }
+  
+  span {
+    font-weight: 500;
+  }
+}
+
 .mob-popup__list-subtitle {
   font-size: 0.875rem;
   color: #7c7875;

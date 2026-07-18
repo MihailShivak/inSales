@@ -3,6 +3,16 @@ $(document).ready(() => {
     const isMobile = sessionStorage.getItem('isMobile') === 'true';
     const prefix = isMobile ? "last" : "first";
 
+    function getRootDomain() {
+        const hostname = window.location.hostname;
+        const parts = hostname.split('.');
+        if (parts.length >= 2) {
+            return '.' + parts.slice(-2).join('.');
+        }
+        return hostname;
+    }
+    const rootDomain = getRootDomain();
+
     const CITY_BY_SUBDOMAIN = {
         'spb': 'Санкт-Петербург',
         'nn': 'Нижний Новгород',
@@ -33,15 +43,14 @@ $(document).ready(() => {
     let currentCity = Cookies.get('rev-current-location');
     if (!currentCity) {
         currentCity = getCityByDomain();
-        // Записываем в куксы, чтобы в следующий раз читалось оттуда
-        Cookies.set('rev-current-location', currentCity, { expires: 365, path: '/' });
+        // ИСПРАВЛЕНО: добавлен domain: rootDomain
+        Cookies.set('rev-current-location', currentCity, { expires: 365, path: '/', domain: rootDomain });
         if (!Cookies.get('rev-country-location')) {
-            Cookies.set('rev-country-location', 'Россия', { expires: 365, path: '/' });
+            Cookies.set('rev-country-location', 'Россия', { expires: 365, path: '/', domain: rootDomain });
         }
     }
     
     if (currentCity) {
-        // Делаем первую букву заглавной
         const displayCity = currentCity.charAt(0).toUpperCase() + currentCity.slice(1);
         $('[data-city-name]').text(displayCity);
     }

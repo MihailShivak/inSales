@@ -72,7 +72,6 @@
 .city-notice__btn_confirm {
   background-color: #40332b;
   color: #ffffff;
-
   &:hover {
     background-color: #251e19;
   }
@@ -81,7 +80,6 @@
 .city-notice__btn_change {
   background-color: #f3f0ee;
   color: #9c603b;
-
   &:hover {
     background-color: #fbfbfb;
   }
@@ -90,8 +88,14 @@
 /* Адаптив */
 @media (max-width: 63.99875em) {
   .city-notice {
-    top: calc(var(--notice-add-top, 0px) + 3.5rem);
-    max-width: calc(100% - 1.5rem);
+    // ИСПРАВЛЕНО: на мобильных позиционируем снизу
+    top: auto;
+    bottom: calc(var(--tap-bar-height, 55px) + 2rem); // Отступ от нижней панели
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 2rem);
+    max-width: calc(100% - 2rem);
+    margin: 0;
   }
 
   .city-notice__body {
@@ -109,7 +113,26 @@
 
 @media (max-width: 47.99875em) {
   .city-notice {
-    top: calc(var(--notice-add-top, 0px) + 3rem);
+    // ИСПРАВЛЕНО: на мобильных позиционируем снизу
+    top: auto;
+    bottom: calc(var(--tap-bar-height, 55px) + 2rem); // Отступ от нижней панели
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 2rem);
+    max-width: calc(100% - 2rem);
+    margin: 0;
+  }
+
+  // Анимация появления снизу
+  @keyframes cityNoticeSlideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
   }
 
   .city-notice__body {
