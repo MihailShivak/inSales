@@ -610,7 +610,7 @@
           class="product-card-info__button btn-icon btn-icon_large btn-icon_secondary btn-icon_whishlist favorites-not-added"
           data-em-favorites-trigger="{{ product.id }}"
         ></button>
-        <button
+        {% comment %} <button
           type="button"
           class="buy-one-click product-card-info__button btn btn_large btn_primary button__hide"
           data-card-product-add
@@ -619,8 +619,8 @@
           data-variant-id="{{ product.selected_or_first_available_variant.id }}"
           data-product-title="{{ product.title | escape }}"
         >
-          Купить в 1 клик тест
-        </button>
+          Купить в 1 клик
+        </button> {% endcomment %}
       </div>
     </div>
   {% endif %}

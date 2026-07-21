@@ -237,6 +237,9 @@ $(document).ready(() => {
 
     EventBus.subscribe('update_items:insales:cart', function(data) {
         console.log("[Cart.Update]", data.action.method, data);
+        if (window.__bocOrderInProgress) {
+          return;
+        }
         if (data.action.method == "add_items" || data.action.method == "delete_items") {
             for (const product of data.action.currentItems) {
                 if (product.product_id == productId) {

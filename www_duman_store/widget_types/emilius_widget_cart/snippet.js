@@ -684,6 +684,7 @@ $(document).ready(() => {
 
     function updateCart(cart) {
         // console.log("updateCart", cart);
+        if (window.__bocOrderInProgress) return;
         if (countUpdate < 2) countUpdate++;
         
         setTimeout(() => {

@@ -298,6 +298,16 @@
                 class="product-card-info__button btn-icon btn-icon_large btn-icon_secondary btn-icon_whishlist"
                 data-em-favorites-trigger="{{ product.id }}"
               ></button>
+              <button
+                type="button"
+                class="buy-one-click product-card-info__button btn btn_large btn_secondary"
+                data-popup="#popup-buy-one-click"
+                data-boc-trigger
+                data-variant-id="{{ product.selected_or_first_available_variant.id | default: product.variants.first.id }}"
+                data-product-title="{{ product.title | escape }}"
+              >
+                Купить в 1 клик
+              </button>
             </div>
             {% if product.available or product.properties['skoro-v-prodazhe'].characteristics.first.name != 'Да' %}
               {% assign payment_share = product.price | divided_by: 4 | round: 0 %}
@@ -681,38 +691,42 @@
 </script>
 
 <script>
-(function() {
-  const $ = window.jQuery;
-  if (!$) return;
-  
-  const $bocBtn = $('.buy-one-click[data-card-product-add]');
-  
-  // Наблюдаем за изменениями в форме товара
-  const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-        const $selectVariantBtn = $('[data-em-select-variant]');
-        if (!$selectVariantBtn.hasClass('button__hide')) {
-          // Кнопка "Выберите размер" скрыта - значит размер выбран
-          const variantId = $('[data-product-variants-list]').data('selected-variant-id') ||
-                           $('input[name="id"]:checked').val() ||
-                           $('input[name="id"]').val();
-          
-          if (variantId) {
-            $bocBtn.attr('data-variant-id', variantId);
-            $bocBtn.removeClass('button__hide');
+  (function () {
+    const $ = window.jQuery;
+    if (!$) return;
+
+    const $bocBtn = $('.buy-one-click[data-card-product-add]');
+
+    // Наблюдаем за изменениями в форме товара
+    const observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          const $selectVariantBtn = $('[data-em-select-variant]');
+          if (!$selectVariantBtn.hasClass('button__hide')) {
+            // Кнопка "Выберите размер" скрыта - значит размер выбран
+            const variantId =
+              $('[data-product-variants-list]').data('selected-variant-id') ||
+              $('input[name="id"]:checked').val() ||
+              $('input[name="id"]').val();
+
+            if (variantId) {
+              $bocBtn.attr('data-variant-id', variantId);
+              $bocBtn.removeClass('button__hide');
+            }
+          } else {
+            $bocBtn.addClass('button__hide');
           }
-        } else {
-          $bocBtn.addClass('button__hide');
         }
-      }
+      });
     });
-  });
-  
-  // Начинаем наблюдение
-  const $selectVariantBtn = $('[data-em-select-variant]');
-  if ($selectVariantBtn.length) {
-    observer.observe($selectVariantBtn[0], { attributes: true });
-  }
-})();
+
+    // Начинаем наблюдение
+    const $selectVariantBtn = $('[data-em-select-variant]');
+    if ($selectVariantBtn.length) {
+      observer.observe($selectVariantBtn[0], { attributes: true });
+    }
+  })();
 </script>
+
+
+{% comment %} upd {% endcomment %}

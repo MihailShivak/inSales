@@ -17,11 +17,17 @@
     margin-left: -0.1875rem;
     color: #B60017;
 }
-.buy-one-click{
-    width: 100%;
+.buy-one-click {
+  width: 100%;
+  
+  &:hover {
+    background-color: #e8e1dc;
+  }
 }
-.product-card-info__buttons{
-    flex-wrap: wrap;
+
+.product-card-info__buttons {
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 @media (min-width: 63.9988em) {
