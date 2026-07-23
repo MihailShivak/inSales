@@ -1,0 +1,156 @@
+<div id="popup-buy-one-click" aria-hidden="true" class="popup popup-right" data-boc-popup>
+  <div class="popup__wrapper popup-right__wrapper">
+    <div class="popup__content popup-right__content">
+      <div class="popup-right__head">
+        <button type="button" class="popup-right__back _disabled-back"></button>
+        <button data-close type="button" class="popup-right__close"></button>
+      </div>
+      <div class="popup-right__body">
+        <form class="popup-right__form" data-boc-form>
+          <div class="popup-right__form-body-wrapper">
+            <div class="popup-right__form-body">
+              <div class="popup__from-wrapper__title">
+                <div class="popup-right__form-title">Заказ в один клик</div>
+                <div
+                  class="popup-right__form-subtitle"
+                  data-boc-product-title
+                  style="font-size: 0.875rem; color: #7c7875; margin-top: 0.5rem;"
+                ></div>
+              </div>
+              <div class="order__note" id="data-client-login" style="display: none;">
+                <div class="order__note-text">
+                  Для оформления заказа 
+                  <button data-popup="#popup-login" type="button" class="order__note-link">войдите</button> или 
+                  <button data-popup="#popup-login" type="button" class="order__note-link">зарегистрируйтесь</button>
+                </div>
+              </div>
+              <div class="popup-right__form-error form-error" hidden></div>
+              <div class="popup-right__form-success form-success" hidden></div>
+
+              <!-- Имя -->
+              <div class="popup-right__form-group" style="margin-top: 0.5rem;">
+                <div class="popup-right__input-group input-group">
+                  <div class="input-group__label">Ваше имя *</div>
+                  <div class="input-group__wrapper">
+                    <input
+                      data-required
+                      autocomplete="name"
+                      type="text"
+                      name="name"
+                      data-error="Введите ваше имя"
+                      placeholder=""
+                      class="input-group__input input"
+                    >
+                    <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="popup-right__form-group">
+                <div class="popup-right__input-group input-group">
+                  <div class="input-group__label">Фамилия *</div>
+                  <div class="input-group__wrapper">
+                    <input
+                      data-required
+                      autocomplete="family-name"
+                      type="text"
+                      name="surname"
+                      data-error="Введите вашу фамилию"
+                      placeholder=""
+                      class="input-group__input input"
+                    >
+                    <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Телефон -->
+              <div class="popup-right__form-group">
+                <div class="popup-right__input-group input-group">
+                  <div class="input-group__label">Телефон *</div>
+                  <div class="input-group__wrapper">
+                    <input
+                      data-required="tel"
+                      autocomplete="tel"
+                      type="text"
+                      name="phone"
+                      data-error="Введите ваш телефон"
+                      data-mask-phone
+                      placeholder="+7 (999) 999-99-99"
+                      class="input-group__input input"
+                    >
+                    <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Email (опционально) -->
+              <div class="popup-right__form-group">
+                <div class="popup-right__input-group input-group">
+                  <div class="input-group__label">Email</div>
+                  <div class="input-group__wrapper">
+                    <input
+                      autocomplete="email"
+                      type="email"
+                      name="email"
+                      placeholder="example@mail.ru"
+                      class="input-group__input input"
+                    >
+                    <button type="button" data-js="input-clear" class="input-group__clear"></button>
+                  </div>
+                  {% comment %} <div class="input-group__capture">Отправим подтверждение заказа на почту</div> {% endcomment %}
+                </div>
+              </div>
+
+              <!-- Комментарий -->
+              <div class="popup-right__form-group">
+                <div class="popup-right__input-group input-group">
+                  <div class="input-group__label">Комментарий к заказу</div>
+                  <div class="input-group__wrapper">
+                    <textarea
+                      autocomplete="off"
+                      name="comment"
+                      placeholder="Дополнительная информация"
+                      class="input-group__input input"
+                      style="min-height: 5rem; resize: vertical;"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Согласие на обработку данных -->
+              <div class="popup-right__checkbox checkbox">
+                <label class="checkbox__label checkbox__label_filter">
+                  <input
+                    data-required
+                    data-error="Необходимо согласие"
+                    class="checkbox__input"
+                    type="checkbox"
+                    value="1"
+                    name="personal_data_agree"
+                    checked
+                  >
+                  <span class="checkbox__text-wrapper">
+                    <span class="checkbox__point"></span>
+                    <span class="checkbox__text">Согласие на обработку персональных данных *</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="popup-right__form-button-wrapper">
+            <button type="submit" class="popup-right__form-button btn btn_medium btn_primary" data-boc-submit>
+              Оформить заказ
+            </button>
+            <div class="popup-right__form-policy">
+              Нажимая на кнопку «Оформить заказ», я принимаю условия
+              <a href="/page/oferta">публичной оферты</a> и
+              <a href="/page/privacy">политики конфиденциальности</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

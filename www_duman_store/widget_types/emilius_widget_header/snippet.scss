@@ -81,3 +81,23 @@
         cursor: pointer;
     }
 }
+
+.buy-one-click {
+    width: 100%;
+
+    &:hover {
+        background-color: #e8e1dc;
+    }
+}
+
+.product-card-info__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.fav_boc_btns{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}

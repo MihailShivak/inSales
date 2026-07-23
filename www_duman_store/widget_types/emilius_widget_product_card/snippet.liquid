@@ -293,21 +293,23 @@
               >
                 <span>Выберите размер</span>
               </button>
-              <button
-                type="button"
-                class="product-card-info__button btn-icon btn-icon_large btn-icon_secondary btn-icon_whishlist"
-                data-em-favorites-trigger="{{ product.id }}"
-              ></button>
-              <button
-                type="button"
-                class="buy-one-click product-card-info__button btn btn_large btn_secondary"
-                data-popup="#popup-buy-one-click"
-                data-boc-trigger
-                data-variant-id="{{ product.selected_or_first_available_variant.id | default: product.variants.first.id }}"
-                data-product-title="{{ product.title | escape }}"
-              >
-                Купить в 1 клик
-              </button>
+              <div class="fav_boc_btns">
+                <button
+                  type="button"
+                  class="product-card-info__button btn-icon btn-icon_large btn-icon_secondary btn-icon_whishlist favorites-not-added"
+                  data-em-favorites-trigger="{{ product.id }}"
+                ></button>
+                <button
+                  type="button"
+                  class="buy-one-click product-card-info__button btn btn_large btn_secondary"
+                  data-popup="#popup-buy-one-click"
+                  data-boc-trigger
+                  data-variant-id="{{ product.selected_or_first_available_variant.id | default: product.variants.first.id }}"
+                  data-product-title="{{ product.title | escape }}"
+                >
+                  Купить в 1 клик
+                </button>
+              </div>
             </div>
             {% if product.available or product.properties['skoro-v-prodazhe'].characteristics.first.name != 'Да' %}
               {% assign payment_share = product.price | divided_by: 4 | round: 0 %}
@@ -727,6 +729,5 @@
     }
   })();
 </script>
-
 
 {% comment %} upd {% endcomment %}

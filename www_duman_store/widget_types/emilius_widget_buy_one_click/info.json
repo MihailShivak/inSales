@@ -1,0 +1,16 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "[emilius] Buy One Click Popup"
+  },
+  "handle": "emilius_widget_buy_one_click",
+  "page_kinds": [
+    "all"
+  ],
+  "widget_list_kinds": [
+    "outside"
+  ],
+  "generation": 4,
+  "widget_category_handle": "modals",
+  "libraries": []
+}

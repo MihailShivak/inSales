@@ -15,19 +15,27 @@
 
 .options__title-last {
     margin-left: -0.1875rem;
-    color: #B60017;
+    color: #b60017;
 }
+
 .buy-one-click {
-  width: 100%;
-  
-  &:hover {
-    background-color: #e8e1dc;
-  }
+    width: 100%;
+
+    &:hover {
+        background-color: #e8e1dc;
+    }
 }
 
 .product-card-info__buttons {
-  flex-wrap: wrap;
-  gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.fav_boc_btns{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
 }
 
 @media (min-width: 63.9988em) {

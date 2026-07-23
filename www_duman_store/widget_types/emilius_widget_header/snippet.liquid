@@ -605,22 +605,23 @@
           <span>Выберите размер</span>
           <span data-product-card-price data-card-product-price></span>
         </button>
-        <button
-          type="button"
-          class="product-card-info__button btn-icon btn-icon_large btn-icon_secondary btn-icon_whishlist favorites-not-added"
-          data-em-favorites-trigger="{{ product.id }}"
-        ></button>
-        {% comment %} <button
-          type="button"
-          class="buy-one-click product-card-info__button btn btn_large btn_primary button__hide"
-          data-card-product-add
-          data-popup="#popup-buy-one-click"
-          data-boc-trigger
-          data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-          data-product-title="{{ product.title | escape }}"
-        >
-          Купить в 1 клик
-        </button> {% endcomment %}
+        <div class="fav_boc_btns">
+          <button
+            type="button"
+            class="product-card-info__button btn-icon btn-icon_large btn-icon_secondary btn-icon_whishlist favorites-not-added"
+            data-em-favorites-trigger="{{ product.id }}"
+          ></button>
+          <button
+            type="button"
+            class="buy-one-click product-card-info__button btn btn_large btn_secondary"
+            data-popup="#popup-buy-one-click"
+            data-boc-trigger
+            data-variant-id="{{ product.selected_or_first_available_variant.id | default: product.variants.first.id }}"
+            data-product-title="{{ product.title | escape }}"
+          >
+            Купить в 1 клик
+          </button>
+        </div>
       </div>
     </div>
   {% endif %}
@@ -688,7 +689,12 @@
         <div class="mob-popup__list">
           {% if widget_settings.show_city_button_in_menu %}
             <div class="mob-popup__list-item">
-              <button type="button" data-city-open class="mob-popup__list-link mob-popup__list-link_city" style="justify-content: start;">
+              <button
+                type="button"
+                data-city-open
+                class="mob-popup__list-link mob-popup__list-link_city"
+                style="justify-content: start;"
+              >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.9951 5.09618C12.9936 5.30746 12.9242 5.51265 12.7971 5.68146C12.6701 5.85028 12.4921 5.97376 12.2895 6.03368L12.277 6.03743L7.40198 7.40243L6.03698 12.2774L6.03323 12.2899C5.97322 12.4925 5.84971 12.6704 5.68092 12.7974C5.51213 12.9245 5.30698 12.9939 5.09573 12.9956H5.07698C4.86981 12.9975 4.66731 12.9341 4.49823 12.8144C4.32915 12.6947 4.20209 12.5247 4.1351 12.3287L0.0576014 1.33555C0.0562817 1.33231 0.0552365 1.32897 0.0544765 1.32555C-0.00645929 1.14857 -0.0165011 0.958045 0.0254936 0.775641C0.0674883 0.593236 0.159834 0.42628 0.292024 0.293764C0.424215 0.161247 0.590944 0.0684917 0.773244 0.0260484C0.955545 -0.0163949 1.1461 -0.00682168 1.32323 0.0536785L1.33323 0.0568035L12.3282 4.13555C12.5273 4.2036 12.6994 4.33354 12.8194 4.50637C12.9394 4.6792 13.0009 4.88587 12.9951 5.09618Z" fill="currentColor"/>
                 </svg>
