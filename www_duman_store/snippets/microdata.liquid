@@ -60,4 +60,155 @@
   {%- endif -%}
 }
 </script>
+
+{%- comment -%} BreadcrumbList для товара {%- endcomment -%}
+  {%- assign root_collection = nil -%}
+  {%- for col in product.collections -%}
+    {%- if col.level == 1 -%}
+      {%- assign root_collection = col -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- unless root_collection -%}
+    {%- assign sorted_cols = product.collections | sort: 'level' -%}
+    {%- assign root_collection = sorted_cols.first -%}
+  {%- endunless -%}
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Главная",
+        "item": {{ shop.url | append: '/' | json }}
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Каталог",
+        "item": {{ shop.url | append: '/collection/all' | json }}
+      }{%- if root_collection -%},
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": {{ root_collection.title | json }},
+        "item": {{ shop.url | append: root_collection.url | json }}
+      }{%- endif -%},
+      {
+        "@type": "ListItem",
+        "position": {% if root_collection %}4{% else %}3{% endif %},
+        "name": {{ product.title | json }},
+        "item": {{ shop.url | append: product.url | json }}
+      }
+    ]
+  }
+  </script>
+
+  {%- elsif template contains 'collection' -%}
+  {%- comment -%} === BreadcrumbList для категории === {%- endcomment -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Главная",
+        "item": {{ shop.url | append: '/' | json }}
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Каталог",
+        "item": {{ shop.url | append: '/collection/all' | json }}
+      }{%- if collection.handle != 'all' -%},
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": {{ collection.title | json }},
+        "item": {{ shop.url | append: collection.url | json }}
+      }{%- endif -%}
+    ]
+  }
+  </script>
+
+{%- elsif template contains 'article' -%}
+  {%- comment -%} === BreadcrumbList для статьи блога === {%- endcomment -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Главная",
+        "item": {{ shop.url | append: '/' | json }}
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Блог",
+        "item": {{ shop.url | append: '/blogs/blog' | json }}
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": {{ article.title | json }},
+        "item": {{ shop.url | append: article.url | json }}
+      }
+    ]
+  }
+  </script>
+
+{%- elsif template contains 'blog' -%}
+  {%- comment -%} === BreadcrumbList для страницы блога === {%- endcomment -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Главная",
+        "item": {{ shop.url | append: '/' | json }}
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Блог",
+        "item": {{ shop.url | append: '/blogs/blog' | json }}
+      }
+    ]
+  }
+  </script>
+
+{%- elsif template contains 'page' -%}
+  {%- comment -%} === BreadcrumbList для информационной страницы === {%- endcomment -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Главная",
+        "item": {{ shop.url | append: '/' | json }}
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ page.title | json }},
+        "item": {{ shop.url | append: page.url | json }}
+      }
+    ]
+  }
+  </script>
+
 {%- endif -%}

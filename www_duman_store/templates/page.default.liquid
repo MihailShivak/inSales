@@ -1,16 +1,31 @@
 <!-- info -->
 <section class="info">
-    <div class="info__container info__container_alt">
-        <div class="info__body">
-            {% if page.url contains 'agreement' or page.url contains 'oferta' %}	
-                <a href="/page/legal-information" class="info__back">
-                    <span>Правовые документы</span>
-                </a>
-            {% endif %}
-            <h1 class="info__title">{{ page.title }}</h1>
-            <div class="info__text">
-                {{ page.content }}
-            </div>
+  <div class="info__container info__container_alt">
+    <div class="info__body">
+      {% comment %} === Хлебные крошки === {% endcomment %}
+      <div class="breadcrumbs">
+        <div class="breadcrumbs__container">
+          <div class="breadcrumbs__body">
+            <ul class="breadcrumbs__list">
+              <li class="breadcrumbs__item">
+                <a href="/" class="breadcrumbs__link">Главная</a>
+              </li>
+              <li class="breadcrumbs__item breadcrumbs__item--current">
+                <span>{{ page.title }}</span>
+              </li>
+            </ul>
+          </div>
         </div>
+      </div>
+      {% if page.url contains 'agreement' or page.url contains 'oferta' %}
+        <a href="/page/legal-information" class="info__back">
+          <span>Правовые документы</span>
+        </a>
+      {% endif %}
+      <h1 class="info__title">{{ page.title }}</h1>
+      <div class="info__text">
+        {{ page.content }}
+      </div>
     </div>
+  </div>
 </section>

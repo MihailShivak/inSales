@@ -1,81 +1,106 @@
-{% assign blog_size = settings.blog_size | default: "12" %}
+{% assign blog_size = settings.blog_size | default: '12' %}
 {% paginate articles by blog_size %}
-
-<div class="article__container">
+  <div class="article__container">
     <h1 class="article__subtitle">{{ blog.title | editable }}</h1>
     <ul class="article__breadcrumbs">
-        <li class="breadcrumbs__item">
-            <a href="/" class="breadcrumbs__link">Главная</a>
-        </li>
-        <li class="breadcrumbs__item">
-            <a href="/blogs/blog" class="breadcrumbs__link">Блог</a>
-        </li>
+      <li class="breadcrumbs__item">
+        <a href="/" class="breadcrumbs__link">Главная</a>
+      </li>
+      <li class="breadcrumbs__item breadcrumbs__item--current">
+        <span>Блог</span>
+      </li>
     </ul>
     {% unless blog.tags == empty %}
-        <div class="article__tags">
-            {% for tag in blog.tags %}
-                <a href="{{ tag.url }}" class="article__tag {% if tag.current? %}is-active{% endif %}">{{ tag.title }}</a>
-            {% endfor %}
-        </div>
+      <div class="article__tags">
+        {% for tag in blog.tags %}
+          <a href="{{ tag.url }}" class="article__tag {% if tag.current? %}is-active{% endif %}">{{ tag.title }}</a>
+        {% endfor %}
+      </div>
     {% endunless %}
     <div class="page__from-grid">
-        {% for article in articles %}
-            <div class="page__from-item">
-                <div class="from-item__img-wrapper">
-                    <a href="{{ article.url }}">
-                        <picture>
-                            <source media="(max-width:1200px)" 
-                                srcset="{{ article.image | image_url: 900, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" 
-                                type="image/webp" data-ll-status="loaded" class="entered">
-                            <source
-                                srcset="{{ article.image | image_url: 1500, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" 
-                                type="image/webp" data-ll-status="loaded" class="entered">
+      {% for article in articles %}
+        <div class="page__from-item">
+          <div class="from-item__img-wrapper">
+            <a href="{{ article.url }}">
+              <picture>
+                <source
+                  media="(max-width:1200px)"
+                  srcset="{{ article.image | image_url: 900, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}"
+                  type="image/webp"
+                  data-ll-status="loaded"
+                  class="entered"
+                >
+                <source
+                  srcset="{{ article.image | image_url: 1500, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}"
+                  type="image/webp"
+                  data-ll-status="loaded"
+                  class="entered"
+                >
 
-                            <source media="(max-width:1200px)" 
-                                srcset="{{ article.image | image_url: 900 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" data-ll-status="loaded" class="entered">
+                <source
+                  media="(max-width:1200px)"
+                  srcset="{{ article.image | image_url: 900 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}"
+                  data-ll-status="loaded"
+                  class="entered"
+                >
 
-                            <img src="{{ article.image | image_url: 1500 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" 
-                                alt="{{ article.title }}" title="{{ article.title }}"
-                                data-ll-status="loaded" class="entered">
-                        </picture>
-                    </a>
-                    {% unless article.tags == empty %}
-                        <div class="from-item__tags">
-                            {% for tag in article.tags %}
-                                <a href="{{ tag.url }}">{{ tag.title }}</a>
-                            {% endfor %}
-                        </div>
-                    {% endunless %}
-                </div>
-                <div class="from-item__info">
-                    <a href="{{ article.url }}" class="from-item__info-title">{{ article.title }}</a>
-                    <div class="from-item__info-subtitle" data-em-date="{{ article.created_at | date: "%d.%m.%Y" }}">{{ article.created_at | data: "%d %b %Y" }}</div>
-                </div>
+                <img
+                  src="{{ article.image | image_url: 1500 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}"
+                  alt="{{ article.title }}"
+                  title="{{ article.title }}"
+                  data-ll-status="loaded"
+                  class="entered"
+                >
+              </picture>
+            </a>
+            {% unless article.tags == empty %}
+              <div class="from-item__tags">
+                {% for tag in article.tags %}
+                  <a href="{{ tag.url }}">{{ tag.title }}</a>
+                {% endfor %}
+              </div>
+            {% endunless %}
+          </div>
+          <div class="from-item__info">
+            <a href="{{ article.url }}" class="from-item__info-title">{{ article.title }}</a>
+            <div class="from-item__info-subtitle" data-em-date="{{ article.created_at | date: "%d.%m.%Y" }}">
+              {{ article.created_at | data: '%d %b %Y' }}
             </div>
-        {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
     </div>
     {%- if paginate.pages > 1 -%}
-        <div class="pagin__body">
-            {% if paginate.pages > 5 %}
-                <a href="{{ paginate.previous.url }}" class="pagin__btn {% unless paginate.previous %}pagin__disabled{% endunless %}"></a>
-            {% endif %}
-            <div class="pagin__wrapper">
-                <div class="pagin__slider">
-                    {% for part in paginate.parts %}
-                        <a href="{{ part.url }}" class="pagin__number {% if part.title == paginate['current_page'] %}pagin__action{% endif %}">
-                            {{ part.title }}
-                        </a>
-                    {% endfor %}
-                </div>
-            </div>
-            {% if paginate.pages > 5 %}
-                <a href="{{ paginate.next.url }}" class="pagin__btn {% unless paginate.next %}pagin__disabled{% endunless %}"></a>
-            {% endif %}
+      <div class="pagin__body">
+        {% if paginate.pages > 5 %}
+          <a
+            href="{{ paginate.previous.url }}"
+            class="pagin__btn {% unless paginate.previous %}pagin__disabled{% endunless %}"
+          ></a>
+        {% endif %}
+        <div class="pagin__wrapper">
+          <div class="pagin__slider">
+            {% for part in paginate.parts %}
+              <a
+                href="{{ part.url }}"
+                class="pagin__number {% if part.title == paginate['current_page'] %}pagin__action{% endif %}"
+              >
+                {{ part.title }}
+              </a>
+            {% endfor %}
+          </div>
         </div>
+        {% if paginate.pages > 5 %}
+          <a
+            href="{{ paginate.next.url }}"
+            class="pagin__btn {% unless paginate.next %}pagin__disabled{% endunless %}"
+          ></a>
+        {% endif %}
+      </div>
     {%- endif -%}
-</div>
+  </div>
 
-{% for widgetDrop in widget_lists.blog-list.widgets %}
+  {% for widgetDrop in widget_lists['blog-list'].widgets %}
     {% widget widgetDrop %}
-{% endfor %}
+  {% endfor %}
 {% endpaginate %}

@@ -1,24 +1,39 @@
 {% capture product_time %}{{'now' | date: '%s.%L' }}{% endcapture %}
 
 <!-- breadcrumbs -->
-{% assign collection_back_url = collection.url %}
+{% assign root_collection = nil %}
+{% for col in product.collections %}
+  {% if col.level == 1 %}
+    {% assign root_collection = col %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% unless root_collection %}
+  {% assign sorted_collections = product.collections | sort: 'level' %}
+  {% assign root_collection = sorted_collections.first %}
+{% endunless %}
+
+{% assign collection_back_url = root_collection.url | default: '/collection/all' %}
+
 {% capture breadcrumbs %}
 <div class="breadcrumbs__body">
-    <ul class="breadcrumbs__list">
-        <li class="breadcrumbs__item">
-            <a href="/" class="breadcrumbs__link">{{ messages.home }}</a>
-        </li>
-        {% assign root = product.collections | sort: 'level' %}
-        {% assign path = root.last.current_collections %}
-        {% for collection in path %}
-            {% if collection.last? %}
-                {% assign collection_back_url = collection.url %}
-            {% endif %}
-            <li class="breadcrumbs__item">
-                <a href="{{ collection.url }}" class="breadcrumbs__link">{{ collection.title }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+  <ul class="breadcrumbs__list">
+    <li class="breadcrumbs__item">
+      <a href="/" class="breadcrumbs__link">Главная</a>
+    </li>
+    <li class="breadcrumbs__item">
+      <a href="/collection/all" class="breadcrumbs__link">Каталог</a>
+    </li>
+    {% if root_collection %}
+    <li class="breadcrumbs__item">
+      <a href="{{ root_collection.url }}" class="breadcrumbs__link">{{ root_collection.title }}</a>
+    </li>
+    {% endif %}
+    <li class="breadcrumbs__item breadcrumbs__item--current">
+      <span>{{ product.title }}</span>
+    </li>
+  </ul>
 </div>
 {% endcapture %}
 <!-- breadcrumbs end -->
