@@ -2,44 +2,30 @@
   "use strict";
   
   window.__bocOrderInProgress = false;
-  let cartStateBeforeBOC = null;
-  let notificationObserver = null;
 
   document.addEventListener("DOMContentLoaded", function () {
     initBuyOneClick();
-    console.log("v2.3.9.10");
+    console.log("v2.3.9.11");
   });
 
   function initBuyOneClick() {
+    // Слушаем открытие попапа (только один раз)
     document.addEventListener("afterPopupOpen", function (e) {
       if (e.detail && e.detail.popup && e.detail.popup.hash === "#popup-buy-one-click") {
         handlePopupOpen(e.detail.popup);
       }
-    });
+    }, { once: true });
 
-    document.addEventListener("afterPopupClose", function (e) {
-      if (e.detail && e.detail.popup && e.detail.popup.hash === "#popup-buy-one-click") {
-        handlePopupClose();
-      }
-    });
-
+    // Слушаем добавление товара в корзину
     if (typeof EventBus !== "undefined") {
       EventBus.subscribe("add_items:insales:cart", function (data) {
         if (window.__bocOrderInProgress) {
-          console.log("[BOC] Товар добавлен, оформляем заказ");
           handleCartUpdated(data);
-        }
-      });
-
-      EventBus.subscribe("login:insales:client", function () {
-        const popup = document.querySelector("#popup-buy-one-click.popup_show");
-        if (popup) {
-          const form = popup.querySelector("[data-boc-form]");
-          if (form) checkAuthAndToggle(form);
         }
       });
     }
 
+    // Перехватываем отправку формы
     document.addEventListener("submit", function (e) {
       const form = e.target;
       
@@ -55,6 +41,7 @@
           return;
         }
 
+        // Валидация
         const errors = validateForm(form);
         if (errors.length > 0) {
           showError(popup, errors[0]);
@@ -69,11 +56,8 @@
           submitBtn.textContent = "Добавление в корзину...";
         }
 
-        // Включаем режим BOC
+        // Устанавливаем флаг
         window.__bocOrderInProgress = true;
-        
-        // Запускаем наблюдение за уведомлением
-        startNotificationHider();
 
         // Добавляем товар в корзину
         if (typeof Cart !== "undefined") {
@@ -85,7 +69,6 @@
             });
           } catch (err) {
             console.error("[BOC] Ошибка при вызове Cart.add:", err);
-            stopNotificationHider();
             window.__bocOrderInProgress = false;
             if (submitBtn) {
               submitBtn.disabled = false;
@@ -94,7 +77,6 @@
             showError(popup, "Ошибка инициализации корзины");
           }
         } else {
-          stopNotificationHider();
           window.__bocOrderInProgress = false;
           if (submitBtn) {
             submitBtn.disabled = false;
@@ -104,65 +86,6 @@
         }
       }
     });
-  }
-
-  // Скрывает уведомление о добавлении в корзину
-  function startNotificationHider() {
-    console.log("[BOC] Запускаем скрытие уведомлений");
-    
-    // Сразу скрываем все возможные уведомления
-    hideAllNotifications();
-    
-    // Создаем MutationObserver для отслеживания появления новых уведомлений
-    notificationObserver = new MutationObserver(function(mutations) {
-      hideAllNotifications();
-    });
-    
-    // Начинаем наблюдение за body
-    notificationObserver.observe(document.body, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['style', 'class']
-    });
-    
-    // Дополнительная страховка - проверяем каждые 100мс в течение 3 секунд
-    let checkInterval = setInterval(function() {
-      if (!window.__bocOrderInProgress) {
-        clearInterval(checkInterval);
-        return;
-      }
-      hideAllNotifications();
-    }, 100);
-    
-    // Останавливаем интервал через 3 секунды
-    setTimeout(function() {
-      clearInterval(checkInterval);
-    }, 3000);
-  }
-
-  function hideAllNotifications() {
-    // Ищем и скрываем все возможные уведомления
-    const notifications = document.querySelectorAll(
-      '[data-notice-product], .notice__product, .notice, #notice, .cart-notification, .js-cart-notification'
-    );
-    
-    notifications.forEach(function(notice) {
-      if (notice.style.display !== 'none') {
-        console.log("[BOC] Скрываем уведомление:", notice);
-        notice.style.display = 'none';
-        notice.style.visibility = 'hidden';
-        notice.style.opacity = '0';
-      }
-    });
-  }
-
-  function stopNotificationHider() {
-    if (notificationObserver) {
-      notificationObserver.disconnect();
-      notificationObserver = null;
-      console.log("[BOC] Останавливаем скрытие уведомлений");
-    }
   }
 
   function handlePopupOpen(popupObj) {
@@ -205,20 +128,13 @@
       titleElement.textContent = productTitle;
     }
 
-    if (form) checkAuthAndToggle(form);
+    // Проверяем авторизацию и заполняем данные
+    if (form) {
+      checkAuthAndFill(form);
+    }
   }
 
-  function handlePopupClose() {
-    window.__bocOrderInProgress = false;
-    cartStateBeforeBOC = null;
-    stopNotificationHider();
-    hideAllNotifications(); // На всякий случай скрываем остатки
-  }
-
-  function checkAuthAndToggle(form) {
-    const loginBlock = form.querySelector("#data-client-login");
-    const submitBtn = form.querySelector("[data-boc-submit]");
-
+  function checkAuthAndFill(form) {
     fetch("/client_account/contacts.json", {
       method: "GET",
       headers: { "X-Requested-With": "XMLHttpRequest" },
@@ -229,9 +145,7 @@
       })
       .then((data) => {
         const client = data.client;
-        if (loginBlock) loginBlock.style.display = "none";
-        if (submitBtn) submitBtn.disabled = false;
-
+        
         const fields = [
           { key: "name", input: form.querySelector('input[name="name"]') },
           { key: "surname", input: form.querySelector('input[name="surname"]') },
@@ -246,14 +160,16 @@
         });
       })
       .catch(() => {
-        if (loginBlock) loginBlock.style.display = "";
-        if (submitBtn) submitBtn.disabled = false;
+        // Клиент не авторизован — ничего не делаем
       });
   }
 
   function handleCartUpdated(data) {
     const popup = document.querySelector("#popup-buy-one-click.popup_show");
-    if (!popup) return;
+    if (!popup) {
+      window.__bocOrderInProgress = false;
+      return;
+    }
 
     const form = popup.querySelector("[data-boc-form]");
     const variantId = popup.dataset.variantId;
@@ -266,7 +182,6 @@
 
     if (!addedItem) {
       console.warn("[BOC] Товар НЕ найден в корзине!");
-      stopNotificationHider();
       window.__bocOrderInProgress = false;
       if (submitBtn) {
         submitBtn.disabled = false;
@@ -276,7 +191,6 @@
       return;
     }
 
-    console.log("[BOC] Товар найден, переходим к оформлению");
     submitOrder(popup, form, variantId, originalText);
   }
 
@@ -316,21 +230,15 @@
     })
       .then((response) => response.json())
       .then((order) => {
-        // Останавливаем скрытие уведомлений только после успешного заказа
-        stopNotificationHider();
         window.__bocOrderInProgress = false;
         
         if (order.status === "ok" || order.id) {
-          showSuccess(popup, "Заказ успешно оформлен!");
-          
-          setTimeout(() => {
-            const closeBtn = popup.querySelector("[data-close]");
-            if (closeBtn) {
-              closeBtn.click();
-            } else {
-              document.dispatchEvent(new CustomEvent('closePopup', { detail: { hash: '#popup-buy-one-click' } }));
-            }
-          }, 1500);
+          // Редирект на страницу заказа
+          if (order.location) {
+            window.location.href = order.location;
+          } else {
+            showSuccess(popup, "Заказ успешно оформлен!");
+          }
         } else {
           console.error("[BOC] Ошибка в ответе сервера:", order);
           showError(popup, order.errors?.base || order.errors?.client || "Ошибка при оформлении заказа");
@@ -343,7 +251,6 @@
       .catch((error) => {
         console.error("[BOC] Ошибка сети:", error);
         showError(popup, "Ошибка сети при оформлении заказа");
-        stopNotificationHider();
         window.__bocOrderInProgress = false;
         if (submitBtn) {
           submitBtn.disabled = false;
@@ -354,12 +261,29 @@
 
   function validateForm(form) {
     const errors = [];
-    if (!form.querySelector('input[name="name"]')?.value.trim()) errors.push("Введите имя");
-    if (!form.querySelector('input[name="surname"]')?.value.trim()) errors.push("Введите фамилию");
-    if (!form.querySelector('input[name="phone"]')?.value.trim()) errors.push("Введите телефон");
+    
+    const name = form.querySelector('input[name="name"]')?.value.trim();
+    if (!name) errors.push("Введите имя");
+
+    const surname = form.querySelector('input[name="surname"]')?.value.trim();
+    if (!surname) errors.push("Введите фамилию");
+
+    const phone = form.querySelector('input[name="phone"]')?.value.trim();
+    if (!phone) {
+      errors.push("Введите телефон");
+    } else if (typeof EM_Module !== "undefined" && EM_Module?.phoneMask?.validatePhone && !EM_Module.phoneMask.validatePhone(phone)) {
+      errors.push("Введите корректный номер телефона");
+    }
+
+    const email = form.querySelector('input[name="email"]')?.value.trim();
+    if (email && !/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email)) {
+      errors.push("Введите корректный email");
+    }
     
     const agree = form.querySelector('input[name="personal_data_agree"]');
-    if (agree && !agree.checked) errors.push("Необходимо согласие на обработку персональных данных");
+    if (agree && !agree.checked) {
+      errors.push("Необходимо согласие на обработку персональных данных");
+    }
 
     return errors;
   }
