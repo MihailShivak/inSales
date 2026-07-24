@@ -373,7 +373,13 @@ $(document).ready(() => {
       : $("[data-popup-notice]:first");
 
   function noticeAddInCart(data) {
-    window.__bocOrderInProgress = false;
+    console.log("[Header][DEBUG] noticeAddInCart вызван. Флаг __bocOrderInProgress =", window.__bocOrderInProgress);
+
+    if (window.__bocOrderInProgress) {
+      console.log("[Header][DEBUG] Флаг BOC активен — уведомление НЕ показываем.");
+      return;
+    }
+
     if (!$notice.length) return;
 
     let title = "";

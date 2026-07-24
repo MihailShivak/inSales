@@ -1,0 +1,453 @@
+<section class="order">
+    <div class="order__container order__container_alt">
+        <form action="#" class="order__form" data-em-order onsubmit="return false;">
+            <div class="order__head">
+                <a href="/cart_items" class="order__link-back">Вернуться в корзину</a>
+                {% unless client %}
+                    <div class="order__note">
+                        <div class="order__note-text">
+                            <button type="button" class="order__note-link" data-popup="#popup-login">Авторизуйтесь</button>, 
+                            чтобы получить 5% бонусных баллов с покупки
+                        </div>
+                    </div>
+                {% endunless %}
+                <div class="message-form" data-em-order-message hidden>
+                    <span></span>
+                    <button type="button" class="message-form__close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path fill="#fff" d="M16.2426 2.90447C16.0224 2.90967 15.8132 3.00183 15.6608 3.16082L9.99995 8.82162L4.33914 3.16082C4.26139 3.08089 4.16839 3.01738 4.06564 2.97404C3.9629 2.93071 3.85251 2.90844 3.741 2.90854C3.57529 2.90874 3.4134 2.95834 3.27602 3.051C3.13864 3.14366 3.032 3.27516 2.96972 3.42872C2.90744 3.58228 2.89235 3.75092 2.92638 3.9131C2.9604 4.07528 3.04201 4.22363 3.16076 4.3392L8.82156 10L3.16076 15.6608C3.08078 15.7376 3.01693 15.8296 2.97294 15.9314C2.92895 16.0331 2.90571 16.1427 2.90458 16.2535C2.90346 16.3644 2.92446 16.4744 2.96637 16.577C3.00828 16.6797 3.07024 16.7729 3.14864 16.8513C3.22704 16.9297 3.3203 16.9917 3.42294 17.0336C3.52559 17.0755 3.63557 17.0965 3.74644 17.0954C3.8573 17.0942 3.96683 17.071 4.06861 17.027C4.17038 16.983 4.26235 16.9192 4.33914 16.8392L9.99995 11.1784L15.6608 16.8392C15.7375 16.9192 15.8295 16.983 15.9313 17.027C16.0331 17.071 16.1426 17.0942 16.2535 17.0954C16.3643 17.0965 16.4743 17.0755 16.577 17.0336C16.6796 16.9917 16.7729 16.9297 16.8513 16.8513C16.9297 16.7729 16.9916 16.6797 17.0335 16.577C17.0754 16.4744 17.0964 16.3644 17.0953 16.2535C17.0942 16.1427 17.0709 16.0331 17.027 15.9314C16.983 15.8296 16.9191 15.7376 16.8391 15.6608L11.1783 10L16.8391 4.3392C16.9604 4.22292 17.0437 4.07271 17.0781 3.90827C17.1125 3.74383 17.0964 3.57283 17.0319 3.4177C16.9674 3.26257 16.8575 3.13055 16.7167 3.03897C16.5758 2.94738 16.4106 2.9005 16.2426 2.90447Z" fill="#A8A5A3"/>
+                        <script xmlns=""/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="order__body">
+                <div class="order__group">
+                    <div class="order__row-wrapper" data-one-select data-em-form-city>
+                        <div class="order__row">
+                            <div class="order__title">1. Доставка</div>
+                        </div>
+                        <div class="order__row">
+                            <div class="order__label">Страна</div>
+                            <div class="order__input-group">
+                                <div class="order__input-wrapper">
+                                    <select class="em-select__country form" data-em-select-country>
+                                        <option value="AU">Австралия</option><option value="AT">Австрия</option><option value="AZ">Азербайджан</option><option value="AL">Албания</option><option value="DZ">Алжир</option><option value="AS">Американское Самоа</option><option value="AI">Ангилья</option><option value="AO">Ангола</option><option value="AD">Андорра</option><option value="AQ">Антарктида</option><option value="AG">Антигуа и Барбуда</option><option value="AR">Аргентина</option><option value="AM">Армения</option><option value="AW">Аруба</option><option value="AF">Афганистан</option><option value="BS">Багамы</option><option value="BD">Бангладеш</option><option value="BB">Барбадос</option><option value="BH">Бахрейн</option><option value="BY">Беларусь</option><option value="BZ">Белиз</option><option value="BE">Бельгия</option><option value="BJ">Бенин</option><option value="BM">Бермудские острова</option><option value="BG">Болгария</option><option value="BO">Боливия</option><option value="BA">Босния и Герцеговина</option><option value="BW">Ботсвана</option><option value="BR">Бразилия</option><option value="IO">Британская территория в Индийском океане</option><option value="BN">Бруней-Даруссалам</option><option value="BF">Буркина-Фасо</option><option value="BI">Бурунди</option><option value="BT">Бутан</option><option value="VU">Вануату</option><option value="GB">Великобритания</option><option value="HU">Венгрия</option><option value="VE">Венесуэла</option><option value="VG">Виргинские острова, Британские</option><option value="VI">Виргинские острова, США</option><option value="VN">Вьетнам</option><option value="GA">Габон</option><option value="HT">Гаити</option><option value="GY">Гайана</option><option value="GM">Гамбия</option><option value="GH">Гана</option><option value="GP">Гваделупа</option><option value="GT">Гватемала</option><option value="GN">Гвинея</option><option value="GW">Гвинея-Бисау</option><option value="DE">Германия</option><option value="GG">Гернси</option><option value="GI">Гибралтар (Великобритания)</option><option value="HN">Гондурас</option><option value="HK">Гонконг</option><option value="GD">Гренада</option><option value="GL">Гренландия</option><option value="GR">Греция</option><option value="GE">Грузия</option><option value="GU">Гуам</option><option value="DK">Дания</option><option value="JE">Джерси</option><option value="DJ">Джибути</option><option value="DM">Доминика</option><option value="DO">Доминиканская Республика</option><option value="EG">Египет</option><option value="ZM">Замбия</option><option value="EH">Западная Сахара</option><option value="ZW">Зимбабве</option><option value="IL">Израиль</option><option value="IN">Индия</option><option value="ID">Индонезия</option><option value="JO">Иордания</option><option value="IQ">Ирак</option><option value="IR">Иран, Исламская Республика</option><option value="IE">Ирландия</option><option value="IS">Исландия</option><option value="ES">Испания</option><option value="IT">Италия</option><option value="YE">Йемен</option><option value="CV">Кабо-Верде</option><option value="KZ">Казахстан</option><option value="KH">Камбоджа</option><option value="CM">Камерун</option><option value="CA">Канада</option><option value="QA">Катар</option><option value="KE">Кения</option><option value="CY">Кипр</option><option value="KG">Киргизия</option><option value="KI">Кирибати</option><option value="CN">Китай</option><option value="CC">Кокосовые (Килинг) острова</option><option value="CO">Колумбия</option><option value="KM">Коморы</option><option value="CG">Конго</option><option value="CD">Конго, Демократическая Республика</option><option value="CR">Коста-Рика</option><option value="CI">Кот д'Ивуар</option><option value="CU">Куба</option><option value="KW">Кувейт</option><option value="LA">Лаос</option><option value="LV">Латвия</option><option value="LS">Лесото</option><option value="LR">Либерия</option><option value="LB">Ливан</option><option value="LY">Ливийская Арабская Джамахирия</option><option value="LT">Литва</option><option value="LI">Лихтенштейн</option><option value="LU">Люксембург</option><option value="MU">Маврикий</option><option value="MR">Мавритания</option><option value="MG">Мадагаскар</option><option value="YT">Майотта</option><option value="MO">Макао</option><option value="MW">Малави</option><option value="MY">Малайзия</option><option value="ML">Мали</option><option value="UM">Малые Тихоокеанские отдаленные острова Соединенных Штатов</option><option value="MV">Мальдивы</option><option value="MT">Мальта</option><option value="MA">Марокко</option><option value="MQ">Мартиника</option><option value="MH">Маршалловы острова</option><option value="MX">Мексика</option><option value="FM">Микронезия, Федеративные Штаты</option><option value="MZ">Мозамбик</option><option value="MD">Молдова, Республика</option><option value="MC">Монако</option><option value="MN">Монголия</option><option value="MS">Монтсеррат</option><option value="MM">Мьянма</option><option value="NA">Намибия</option><option value="NR">Науру</option><option value="NP">Непал</option><option value="NE">Нигер</option><option value="NG">Нигерия</option><option value="AN">Нидерландские Антилы</option><option value="NL">Нидерланды</option><option value="NI">Никарагуа</option><option value="NU">Ниуэ</option><option value="NZ">Новая Зеландия</option><option value="NC">Новая Каледония</option><option value="NO">Норвегия</option><option value="AE">Объединенные Арабские Эмираты</option><option value="OM">Оман</option><option value="BV">Остров Буве</option><option value="IM">Остров Мэн</option><option value="NF">Остров Норфолк</option><option value="CX">Остров Рождества</option><option value="HM">Остров Херд и острова Макдональд</option><option value="KY">Острова Кайман</option><option value="CK">Острова Кука</option><option value="TC">Острова Теркс и Кайкос</option><option value="PK">Пакистан</option><option value="PW">Палау</option><option value="PS">Палестинская территория, оккупированная</option><option value="PA">Панама</option><option value="VA">Папский Престол (Государство — город Ватикан)</option><option value="PG">Папуа-Новая Гвинея</option><option value="PY">Парагвай</option><option value="PE">Перу</option><option value="PN">Питкерн</option><option value="PL">Польша</option><option value="PT">Португалия</option><option value="PR">Пуэрто-Рико</option><option value="MK">Республика Македония</option><option value="RE">Реюньон</option><option value="RU" selected>Россия</option><option value="RW">Руанда</option><option value="RO">Румыния</option><option value="WS">Самоа</option><option value="SM">Сан-Марино</option><option value="ST">Сан-Томе и Принсипи</option><option value="SA">Саудовская Аравия</option><option value="SZ">Свазиленд</option><option value="SH">Святая Елена</option><option value="KP">Северная Корея</option><option value="MP">Северные Марианские острова</option><option value="SC">Сейшелы</option><option value="PM">Сен-Пьер и Микелон</option><option value="SN">Сенегал</option><option value="VC">Сент-Винсент и Гренадины</option><option value="KN">Сент-Китс и Невис</option><option value="LC">Сент-Люсия</option><option value="RS">Сербия</option><option value="SG">Сингапур</option><option value="SY">Сирийская Арабская Республика</option><option value="SK">Словакия</option><option value="SI">Словения</option><option value="US">Соединенные Штаты</option><option value="SB">Соломоновы острова</option><option value="SO">Сомали</option><option value="SD">Судан</option><option value="SR">Суринам</option><option value="SL">Сьерра-Леоне</option><option value="TJ">Таджикистан</option><option value="TH">Таиланд</option><option value="TW">Тайвань (Китай)</option><option value="TZ">Танзания, Объединенная Республика</option><option value="TL">Тимор-Лесте</option><option value="TG">Того</option><option value="TK">Токелау</option><option value="TO">Тонга</option><option value="TT">Тринидад и Тобаго</option><option value="TV">Тувалу</option><option value="TN">Тунис</option><option value="TM">Туркмения</option><option value="TR">Турция</option><option value="UG">Уганда</option><option value="UZ">Узбекистан</option><option value="UA">Украина</option><option value="WF">Уоллис и Футуна</option><option value="UY">Уругвай</option><option value="FO">Фарерские острова</option><option value="FJ">Фиджи</option><option value="PH">Филиппины</option><option value="FI">Финляндия</option><option value="FK">Фолклендские острова (Мальвинские)</option><option value="FR">Франция</option><option value="GF">Французская Гвиана</option><option value="PF">Французская Полинезия</option><option value="TF">Французские Южные территории</option><option value="HR">Хорватия</option><option value="CF">Центрально-Африканская Республика</option><option value="TD">Чад</option><option value="ME">Черногория</option><option value="CZ">Чешская Республика</option><option value="CL">Чили</option><option value="CH">Швейцария</option><option value="SE">Швеция</option><option value="SJ">Шпицберген и Ян Майен</option><option value="LK">Шри-Ланка</option><option value="EC">Эквадор</option><option value="GQ">Экваториальная Гвинея</option><option value="AX">Эландские острова</option><option value="SV">Эль-Сальвадор</option><option value="ER">Эритрея</option><option value="EE">Эстония</option><option value="ET">Эфиопия</option><option value="GS">Южная Джорджия и Южные Сандвичевы острова</option><option value="KR">Южная Корея</option><option value="ZA">Южно-Африканская Республика</option><option value="JM">Ямайка</option><option value="JP">Япония</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order__row">
+                            <div class="order__label">Населенный пункт</div>
+                            <div class="order__input-group" data-em-wrapper>
+                                <div class="order__input-wrapper" data-js="input-wrapper">
+                                    <input autocomplete="off" 
+                                        type="text" name="shipping_address[full_locality_name]" 
+                                        data-error="Введите город" placeholder=""
+                                        data-em-input-city
+                                        class="em-input__city order__input input">
+                                    <div class="select__body city-select__body">
+                                        <div class="select__options" data-em-select-container-city hidden>
+                                            <div data-simplebar="init" class="select__scroll">
+                                                <div class="simplebar-content" data-em-select-sity></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% comment %} <button type="button" data-em-input-clear class="order__input-clear"></button> {% endcomment %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order__row-wrapper">
+                        <div class="order__row">
+                            <div class="order__label">Способы доставки</div>
+                            <div class="order__input-group">
+                                <div class="order__options order-options" data-em-deliveries></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order__row-wrapper">
+                        <div class="order__row">
+                            <div class="order__label">Адрес</div>
+                            <div class="order__input-group">
+                                <div class="order__input-wrapper" data-em-wrapper>
+                                    <textarea autocomplete="off" placeholder="" 
+                                        name="address" class="order__input input" 
+                                        data-em-address
+                                    ></textarea>
+                                    {% comment %} <input 
+                                        autocomplete="off" type="text" name="form[]" 
+                                        data-error="Введите название улицы и номер дома" placeholder="Улица и дом" 
+                                        class="order__input input"
+                                        data-em-address> {% endcomment %}
+                                    <button type="button" data-em-input-clear class="order__input-clear"></button>
+                                </div>
+                                <div class="order__input-grid order__input-grid_adress">
+                                    {% comment %} <div class="order__input-wrapper">
+                                        <input autocomplete="off" type="text" name="form[]" data-error="" placeholder="Квартира" class="order__input input">
+                                    </div> {% endcomment %}
+                                    <div class="order__input-wrapper" data-em-wrapper>
+                                        <input autocomplete="off" placeholder="Подъезд" 
+                                            type="number" min="1" max="1000"
+                                            name="entrance"
+                                            data-em-entrance
+                                            class="order__input input">
+                                    </div>
+                                    <div class="order__input-wrapper" data-em-wrapper>
+                                        <input autocomplete="off" placeholder="Этаж"
+                                            type="number" min="1" max="1500"
+                                            name="floor" 
+                                            data-em-floor
+                                            class="order__input input">
+                                    </div>
+                                    {% comment %} <div class="order__input-wrapper">
+                                        <input autocomplete="off" type="text" name="form[]" data-error="" placeholder="Домофон" class="order__input input">
+                                    </div> {% endcomment %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order__row-wrapper">
+                        <div class="order__row">
+                            <div class="order__label">Комментарий к&nbsp;заказу</div>
+                            <div class="order__input-group">
+                                <div class="order__input-wrapper">
+                                    <textarea autocomplete="off" placeholder="" 
+                                        class="order__input input" data-em-comment
+                                    ></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order__group">
+                    <div class="order__row-wrapper">
+                        <div class="order__row">
+                            <div class="order__title">2. Покупатель</div>
+                        </div>
+                        <div class="order__row">
+                            <div class="order__label">Имя</div>
+                            <div class="order__input-group" data-em-wrapper>
+                                <div class="order__input-wrapper">
+                                    <input autocomplete="off" type="text" name="name"
+                                        placeholder="" 
+                                        class="order__input input"
+                                        data-em-name
+                                    >
+                                    <button type="button" data-em-input-clear class="order__input-clear"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order__row">
+                            <div class="order__label">Фамилия</div>
+                            <div class="order__input-group" data-em-wrapper>
+                                <div class="order__input-wrapper">
+                                    <input autocomplete="off" type="text" name="surname" data-error="Введите фамилию" 
+                                        placeholder="" 
+                                        class="order__input input"
+                                        data-em-surname
+                                    >
+                                    <button type="button" data-em-input-clear class="order__input-clear"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order__row">
+                            <div class="order__label">Дата рождения</div>
+                            <div class="order__input-group" data-em-wrapper>
+                                <div class="order__input-wrapper">
+                                    <input 
+                                        type="date" name="birthday" type="text" 
+                                        class="order__input input input_datepicker"
+                                        data-em-birthday
+                                    >
+                                </div>
+                                <div class="order__input-note">
+                                    Пришлем персональные предложения ко дню рождения
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order__row-wrapper">
+                        <div class="order__row">
+                            <div class="order__label">Телефон</div>
+                            <div class="order__input-group" data-em-wrapper>
+                                <div class="order__input-wrapper">
+                                    <!-- placeholder="+7 (999) 999-99-99" -->
+                                    <input 
+                                        autocomplete="off" type="text" name="phone" 
+                                        class="order__input input"
+                                        data-em-phone data-mask-phone
+                                    >
+                                    <button type="button" data-em-input-clear class="order__input-clear"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order__row">
+                            <div class="order__label">Email</div>
+                            <div class="order__input-group" data-em-wrapper>
+                                <div class="order__input-wrapper">
+                                    <input 
+                                        autocomplete="off" type="text" 
+                                        name="email" placeholder="" 
+                                        class="order__input input"
+                                        data-em-email>
+                                    <button type="button" data-em-input-clear class="order__input-clear"></button>
+                                </div>
+                                <div class="order__input-note">
+                                    Необходимо для отправки чека
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="order__row">
+                            <div class="order__label">Удобный канал связи</div>
+                            <div class="order__input-group" data-em-wrapper>
+                                <div class="order__input-wrapper">
+                                    <select class="em-select__channel form" data-em-select-channel>
+                                        <option value="MAX">MAX</option>
+                                        <option value="Telegram">Telegram</option>
+                                        <option value="Email">Email</option>
+                                    </select>
+                                </div>
+                                <div class="order__input-note">
+                                    Где вам удобнее всего получать сообщения?
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order__row-wrapper">
+                        <div class="order__row">
+                            <div class="order__checkbox checkbox">
+                                <label class="checkbox__label checkbox__label_filter">
+                                    <input class="checkbox__input" 
+                                        type="checkbox" value 
+                                        name="subscribe">
+                                    <span class="checkbox__text-wrapper">
+                                        <span class="checkbox__point"></span>
+                                        <span class="checkbox__text">Получать новости и узнавать о специальных предложениях в числе первых</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order__group">
+                    <div class="order__row-wrapper">
+                        <div class="order__row">
+                            <div class="order__title">3. Оплата</div>
+                            <div class="order__input-group">
+                                <div class="order__options order-options" data-em-payments></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order__row-wrapper">
+                        <div class="order__row">
+                            <div class="order__title"></div>
+                            <div class="order__input-group">
+                                <div class="order__checkbox checkbox">
+                                    <label class="checkbox__label checkbox__label_filter">
+                                        <input class="checkbox__input" type="checkbox" value name="messenger_subscription">
+                                        <span class="checkbox__text-wrapper">
+                                            <span class="checkbox__point"></span>
+                                            <span class="checkbox__text">Получать уведомления о заказе</span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order__row">
+                            <div class="order__title"></div>
+                            <div class="order__input-group">
+                                <div class="order__checkbox checkbox">
+                                    <label class="checkbox__label checkbox__label_filter">
+                                        <input class="checkbox__input" type="checkbox" value name="consent_to_personal_data">
+                                        <span class="checkbox__text-wrapper">
+                                            <span class="checkbox__point"></span>
+                                            <span class="checkbox__text">
+                                                <span class="checkbox__text-first">Согласие на обработку персональных данных (включить в бэк-офисе после публикации)</span>
+                                                <span class="order__input-note">
+                                                    Настоящим подтверждаю, что я ознакомлен и согласен с условиями
+                                                    <a href="/page/oferta">оферты</a> и 
+                                                    <a href="/page/oferta">политики конфиденциальности</a>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="order__sidebar">
+                <div class="order__sidebar-title">
+                    Ваш заказ
+                    <span class="order__sidebar-title-count" data-cart-item-count>{{ cart.items_count }}</span>
+                </div>
+                <div class="order__sidebar-products-list" data-em-basket-items></div>
+                <div class="order__sidebar-total" data-em-order-total>
+                    <div class="order__sidebar-total-item order__sidebar-total-item_discount" data-em-sale-price hidden>
+                        <span>Скидка</span>
+                        <span class="dotts"></span>
+                        <span data-em-value></span>
+                    </div>
+                    <div class="order__sidebar-total-item" data-em-items-price hidden>
+                        <span>Сумма заказа</span>
+                        <span class="dotts"></span>
+                        <span data-em-value></span>
+                    </div>
+                    <div class="order__sidebar-total-item" data-em-delivery-price hidden>
+                        <span>Доставка</span>
+                        <span class="dotts"></span>
+                        <span data-em-value></span>
+                    </div>
+                    <div class="order__sidebar-total-item order__sidebar-total-item_total" data-em-total-price>
+                        <span>Итого</span>
+                        <span class="dotts"></span>
+                        <span data-em-value>Считаем рубли...</span>
+                    </div>
+                </div>
+                <div class="order__sidebar-button-wrapper">
+                    <button type="button" 
+                        class="order__sidebar-button btn btn_primary btn_large" 
+                        data-em-btn-submit disabled
+                    >
+                        Оформить заказ
+                    </button>
+                    <div class="order__sidebar-policy">
+                        Нажимая на кнопку «Оформить заказ», я принимаю условия <a href="/page/oferta">публичной оферты</a> и <a href="/page/oferta">политики конфиденциальности</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карта ПВЗ через яндекс -->
+            <div id="popup-ym-pickup-map" aria-hidden="false" class="popup">
+                <div class="popup__wrapper">
+                    <div class="popup__content">
+                        <button data-close type="button" class="popup__close">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2.75 2.04297L2.04297 2.75L2.39844 3.10156L7.29297 8L2.04297 13.25L2.75 13.957L8 8.70703L12.8945 13.6055L13.25 13.957L13.957 13.25L13.6055 12.8945L8.70703 8L13.957 2.75L13.25 2.04297L8 7.29297L3.10156 2.39844L2.75 2.04297Z" fill="#111111"></path>
+                            </svg>
+                        </button>
+                        <div class="popup__body">
+                            <div class="popup__title popup__title-bottom">Пункты самовывоза</div>
+                            {% comment %} <div class="popup__text popup__text_sub">
+                                <p>Описание</p>
+                            </div> {% endcomment %}
+                            <div id="em-pickup-map"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Блок товара -->
+<script type="text/template" data-template-id="order-item">
+    <div class="order__sidebar-products-item popup-basket-item" data-em-order-id="<%= variant_id %>">
+        <div class="popup-basket-item__image-wrapper">
+            <img title="<%= title %>" alt="<%= title %>" data-ll-status="loaded" class="entered _lazy-loaded" src="<%= image %>">
+        </div>
+        <div class="popup-basket-item__body">
+            <div class="popup-basket-item__name-wrapper">
+                <a href="#" class="popup-basket-item__name"><%= title %></a>
+                <% if(isDiscount) { %>
+                    <div class="products-item__prices" data-is-discount="true">
+                        <span class="products-item__price products-item__price_new"><%= priceFormat %></span>
+                        <span class="products-item__price products-item__price_old"><%= priceOld %></span>
+                    </div>
+                <% } else { %>
+                    <div class="products-item__price"
+                        data-custom-price="<%= price %>" 
+                        data-is-discount="false"
+                    ><%= priceFormat %></div>
+                <% } %>
+            </div>
+            <div class="popup-basket-item__size" data-em-item-quantity="<%= quantity %>"><%= quantity %> шт, размер L (подумать)</div>
+        </div>
+    </div>
+</script>
+
+<!-- Блок доставки -->
+<script type="text/template" data-template-id="delivery-item">
+    <div class="order-options__item">
+        <label class="order-options__item-label">
+            <input id="item-delivery_<%= elementId %>" 
+                class="order-options__item-input" type="radio" 
+                <%= delivery.selected ? "checked" : "" %>
+                value="<%= elementId %>"
+                data-original-id="<%= delivery.id %>"
+                name="em-deliveries"
+                <%= delivery.isError ? "disabled" : "" %>
+                hidden
+            >
+            <span class="order-options__item-body">
+                <span class="order-options__item-point"></span>
+                <span class="order-options__item-info">
+                    <span class="order-options__item-title-wrapper">
+                        <span class="order-options__item-title"><%= delivery.title %></span>
+                        <span class="order-options__item-price" data-em-<%= deliveryItemPrice %>>
+                            <%= price %>
+                        </span>
+                    </span>
+                    <%= delivery.isError ? `<span class="order__options-error">${delivery.message}</span>` : "" %>
+                    <% if(delivery.customer_pickup) { %>
+                        <%= pickupLabelHTML %>
+                        <button type="button" data-popup="#popup-ym-pickup-map" class="order-options__item-link">
+                            Выбрать на карте
+                        </button>
+                    <% } else if (delivery?.charge_up_to && delivery.charge_up_to > 0) { %>
+                        <span class="order-options__item-note">Бесплатная доставка от <%= delivery.charge_up_to %>р</span>
+                    <% } else { %>
+                        <span class="order-options__item-note">Доставка бесплатная</span>
+                    <% } %>
+                </span>
+            </span>
+        </label>
+    </div>
+</script>
+
+<!-- Блок оплаты -->
+<script type="text/template" data-template-id="payment-item">
+</script>
+
+<!-- Блок оплаты -->
+<script type="text/template" data-template-id="payment-item">
+    <div class="order-options__item">
+        <label class="order-options__item-label">
+            <input id="order-pay_<%= key %>" class="order-options__item-input" 
+                <%= payment.selected ? "checked" : "" %>
+                value="<%= key %>" 
+                name="em-payments" 
+                type="radio"
+                hidden
+            >
+            <span class="order-options__item-body">
+                <span class="order-options__item-point"></span>
+                <span class="order-options__item-info">
+                    <% if(key == 6156350) { %>
+                        <!-- Оплата через СБП -->
+                        <span class="order-options__item-info-label">Удобно!</span>
+                    <% } %>
+                    <span class="order-options__item-title-wrapper">
+                        <% if(key == 11901145) { %>
+                            <!-- Иконка плайта -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="12" viewBox="0 0 23 12" fill="none">
+                            <path d="M22.8805 11.4403H17.8656C17.8656 9.73616 17.1887 8.10185 15.9837 6.89686C14.7787 5.69187 13.1444 5.01491 11.4403 5.01491C9.73616 5.01491 8.10185 5.69187 6.89686 6.89686C5.69187 8.10185 5.01491 9.73616 5.01491 11.4403H0C0 8.40612 1.20531 5.49624 3.35078 3.35078C5.49624 1.20531 8.40612 0 11.4403 0C14.4744 0 17.3843 1.20531 19.5298 3.35078C21.6752 5.49624 22.8805 8.40612 22.8805 11.4403Z" fill="#6969FF"></path>
+                            </svg>
+                        <% } %>
+                        <span class="order-options__item-title"><%= payment.title %></span>
+                    </span>
+                    <span class="order-options__note"><%= payment.description %></span>
+                </span>
+            </span>
+        </label>
+    </div>
+</script>
+
+<link href="{{ 'em-new-order.css' | asset_url }}" rel="stylesheet" type="text/css" />
+<script src="{{ 'em-new-order.js' | asset_url }}" charset="utf-8"></script>
+
+<script src="https://api-maps.yandex.ru/2.1.73/?lang=ru_RU&apikey=da075648-b27c-46b2-bd1f-6561c7bead53" type="text/javascript"></script>
+
+{% comment %} <script src="https://api-maps.yandex.ru/2.1.73/?lang=ru_RU&ns=insYmaps&coordorder=longlat&apikey=da075648-b27c-46b2-bd1f-6561c7bead53" type="text/javascript"></script> {% endcomment %}

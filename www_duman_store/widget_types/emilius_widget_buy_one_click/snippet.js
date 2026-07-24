@@ -1,31 +1,43 @@
 (function () {
   "use strict";
   
+  // Глобальный флаг для координации между boc и header
   window.__bocOrderInProgress = false;
+  let cartStateBeforeBOC = null;
+  let bocTimeoutId = null; // Страховка от вечного зависания
 
   document.addEventListener("DOMContentLoaded", function () {
     initBuyOneClick();
-    console.log("v2.3.9.11");
+    console.log("v2.3.9.13");
   });
 
   function initBuyOneClick() {
-    // Слушаем открытие попапа (только один раз)
     document.addEventListener("afterPopupOpen", function (e) {
       if (e.detail && e.detail.popup && e.detail.popup.hash === "#popup-buy-one-click") {
         handlePopupOpen(e.detail.popup);
       }
-    }, { once: true });
+    });
 
-    // Слушаем добавление товара в корзину
+    document.addEventListener("afterPopupClose", function (e) {
+      if (e.detail && e.detail.popup && e.detail.popup.hash === "#popup-buy-one-click") {
+        handlePopupClose();
+      }
+    });
+
     if (typeof EventBus !== "undefined") {
       EventBus.subscribe("add_items:insales:cart", function (data) {
+        console.log("[BOC][DEBUG] add_items:insales:cart получен. Флаг __bocOrderInProgress =", window.__bocOrderInProgress, "data =", data);
         if (window.__bocOrderInProgress) {
+          clearTimeout(bocTimeoutId); 
           handleCartUpdated(data);
+        } else {
+          console.warn("[BOC][DEBUG] Флаг уже false в момент прихода события — кто-то сбросил его раньше нас.");
         }
       });
+    } else {
+      console.error("[BOC][DEBUG] EventBus не определён на момент инициализации!");
     }
 
-    // Перехватываем отправку формы
     document.addEventListener("submit", function (e) {
       const form = e.target;
       
@@ -56,8 +68,17 @@
           submitBtn.textContent = "Добавление в корзину...";
         }
 
-        // Устанавливаем флаг
         window.__bocOrderInProgress = true;
+        document.body.classList.add("boc-order-in-progress");
+        console.log("[BOC][DEBUG] Флаг выставлен в true, variantId =", variantId, "вызываем Cart.add");
+        
+        bocTimeoutId = setTimeout(() => {
+          if (window.__bocOrderInProgress) {
+            console.warn("[BOC] Таймаут 20 сек: товар не добавился в корзину");
+            resetBOCState(form, popup, originalText);
+            showError(popup, "Не удалось добавить товар. Попробуйте еще раз.");
+          }
+        }, 20000);
 
         // Добавляем товар в корзину
         if (typeof Cart !== "undefined") {
@@ -69,19 +90,13 @@
             });
           } catch (err) {
             console.error("[BOC] Ошибка при вызове Cart.add:", err);
-            window.__bocOrderInProgress = false;
-            if (submitBtn) {
-              submitBtn.disabled = false;
-              submitBtn.textContent = originalText;
-            }
+            clearTimeout(bocTimeoutId);
+            resetBOCState(form, popup, originalText);
             showError(popup, "Ошибка инициализации корзины");
           }
         } else {
-          window.__bocOrderInProgress = false;
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
-          }
+          clearTimeout(bocTimeoutId);
+          resetBOCState(form, popup, originalText);
           showError(popup, "Модуль корзины не загружен");
         }
       }
@@ -128,13 +143,17 @@
       titleElement.textContent = productTitle;
     }
 
-    // Проверяем авторизацию и заполняем данные
-    if (form) {
-      checkAuthAndFill(form);
-    }
+    if (form) checkAuthAndToggle(form);
   }
 
-  function checkAuthAndFill(form) {
+  function handlePopupClose() {
+    resetBOCState();
+  }
+
+  function checkAuthAndToggle(form) {
+    const loginBlock = form.querySelector("#data-client-login");
+    const submitBtn = form.querySelector("[data-boc-submit]");
+
     fetch("/client_account/contacts.json", {
       method: "GET",
       headers: { "X-Requested-With": "XMLHttpRequest" },
@@ -145,7 +164,9 @@
       })
       .then((data) => {
         const client = data.client;
-        
+        if (loginBlock) loginBlock.style.display = "none";
+        if (submitBtn) submitBtn.disabled = false;
+
         const fields = [
           { key: "name", input: form.querySelector('input[name="name"]') },
           { key: "surname", input: form.querySelector('input[name="surname"]') },
@@ -160,14 +181,16 @@
         });
       })
       .catch(() => {
-        // Клиент не авторизован — ничего не делаем
+        if (loginBlock) loginBlock.style.display = "";
+        if (submitBtn) submitBtn.disabled = false;
       });
   }
 
   function handleCartUpdated(data) {
     const popup = document.querySelector("#popup-buy-one-click.popup_show");
     if (!popup) {
-      window.__bocOrderInProgress = false;
+      console.warn("[BOC][DEBUG] Попап не найден открытым (popup_show) в момент прихода события — сбрасываем флаг и выходим.");
+      resetBOCState();
       return;
     }
 
@@ -176,21 +199,21 @@
     const submitBtn = form.querySelector("[data-boc-submit]");
     const originalText = submitBtn ? submitBtn.textContent : "Оформить заказ";
 
-    const addedItem = data.action?.currentItems?.find(
+    const currentItems = data?.action?.currentItems;
+    console.log("[BOC][DEBUG] Ищем variantId =", variantId, "среди currentItems =", currentItems);
+
+    const addedItem = currentItems?.find(
       (item) => String(item.variant_id) === String(variantId)
     );
 
     if (!addedItem) {
       console.warn("[BOC] Товар НЕ найден в корзине!");
-      window.__bocOrderInProgress = false;
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-      }
+      resetBOCState(form, popup, originalText);
       showError(popup, "Товар не добавлен в корзину. Попробуйте еще раз.");
       return;
     }
 
+    console.log("[BOC] Товар найден, переходим к оформлению");
     submitOrder(popup, form, variantId, originalText);
   }
 
@@ -230,12 +253,11 @@
     })
       .then((response) => response.json())
       .then((order) => {
-        window.__bocOrderInProgress = false;
+        resetBOCState(); // Сбрасываем флаг и классы
         
         if (order.status === "ok" || order.id) {
-          // Редирект на страницу заказа
           if (order.location) {
-            window.location.href = order.location;
+            window.location.href = order.location; // Редирект на страницу заказа
           } else {
             showSuccess(popup, "Заказ успешно оформлен!");
           }
@@ -251,12 +273,25 @@
       .catch((error) => {
         console.error("[BOC] Ошибка сети:", error);
         showError(popup, "Ошибка сети при оформлении заказа");
-        window.__bocOrderInProgress = false;
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalText;
-        }
+        resetBOCState(form, popup, originalText);
       });
+  }
+
+  function resetBOCState(form = null, popup = null, originalText = "Оформить заказ") {
+    window.__bocOrderInProgress = false;
+    clearTimeout(bocTimeoutId);
+    
+    setTimeout(() => {
+      document.body.classList.remove("boc-order-in-progress");
+    }, 500);
+
+    if (form) {
+      const submitBtn = form.querySelector("[data-boc-submit]");
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    }
   }
 
   function validateForm(form) {

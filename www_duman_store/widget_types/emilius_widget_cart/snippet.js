@@ -438,6 +438,8 @@ $(document).ready(() => {
 
         // UnavailableProducts.save();
         UnavailableProducts.removeCart();
+        
+        $cartCountItem.text(cart.positions_count + UnavailableProducts.count);
 
         if (method == "update_items") $cart.find("[data-disabled-list]").html(html);
         else $cart.find("[data-disabled-list]").append(html);

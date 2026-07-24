@@ -3756,26 +3756,33 @@ document.addEventListener("DOMContentLoaded", function () {
         // checkRequsts = false;
 
         // cart_items#popup-cart registered
-        if (response.status !== "ok") {
+        if (response.status === "ok") {
+          console.log("[Login] Успех", response.client.registered);
+          redirect(response.redirect_to, response.client.name);
+        }
+        else {
           console.log("[Request Login Code] Ошибка", response);
-          // $popup.find(".cart-popup__promocode-error").attr("hidden", false).text( response.errors[0] );
-          const errorTitle = response.errors.join(", ");
+          
+          const errorTitle = (
+            response?.responseJSON?.errors ?? response?.errors ?? ["Непредвиденная ошибка, попробуйте позже"]
+          ).join(", ");
+
           formError.set(
             $popup.find("[data-login-code]"),
             errorTitle.includes("неверный код")
               ? "Введён неверный код"
               : errorTitle,
           );
-        } else {
-          console.log("[Login] Успех", response.client.registered);
-          redirect(response.redirect_to, response.client.name);
         }
       })
       .fail(function (fail) {
+        const errorTitle = (
+          fail?.responseJSON?.errors ?? fail?.errors ?? ["Непредвиденная ошибка, попробуйте позже"]
+        ).join(", ");
         messageError("Ошибка получения кода", fail);
         formError.set(
           $popup.find("[data-login-code]"),
-          "Непредвиденная ошибка, попробуйте позже",
+          errorTitle,
         );
         // checkRequsts = false;
       });

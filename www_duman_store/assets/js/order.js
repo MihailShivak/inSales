@@ -233,6 +233,9 @@ $(document).ready(() => {
 
     moveEl("[data-delivery-variants]", "[data-delivery-methods]");
     moveEl("#payment_gateways", "[data-new-payment-list]");
+
+    // [Перенос]    
+    moveEl(".co-input--order-channel", "[data-new-select-channel]");
     
     moveElAttr("[name='order[comment]']", "[data-form-comment]", ["order__input", "input"]);
     moveElAttr("#client_messenger_subscription", "[data-form-subscription]", "checkbox__input");
