@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html
+    class="{{ default_checkout2_layout_class }}"
+    style="{% include "system_v4_required_styles" %}"
+>
+    <head>
+        {% include "head" %}
+        <style>
+        [for="client_password"]{
+            margin-top: 20px;
+        }
+        </style>
+        {% comment %} <link href="{{ 'theme_order.css' | asset_url }}" rel="stylesheet" type="text/css"/> {% endcomment %}
+    </head>
+    <body class="adaptive" data-multi-lang="{{ language.not_default? }}">
+        {% include "system_no_js_alert" %}
+        <div class="page_layout page_layout-clear">
+            <header>
+                {% for widgetDrop in widget_lists.header-list.widgets %}
+                    {% widget widgetDrop %}
+                {% endfor %}
+            </header>
+            <main>
+                <div class="layout">
+                    <div class="layout__content">
+                        <div class="order__head">
+                         <div class="breadcrumbs">
+                                <a href="/cart_items" class="btn__bread-back">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+                                    <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                    <span>Назад</span>
+                                </a>
+                            </div>
+                            <div class="panel__top">
+								<div class="panel__top-wrapper filter__back-wrapper">
+									<a href="/cart_items" class="panel__top-back">
+										<svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+										<path d="M11 3.5L6 9L11 14.5" stroke="#181818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+										</svg>
+                                        <span>Назад</span>
+									</a>
+									<h1 class="title__large order__title">{% yield 'title' %}</h1>
+								</div>
+							</div>
+                            
+                        </div>
+                        <div class="checkout-v2-wrapper co-section--checkout_content">
+                            <div class='co-section--checkout_order co-section--checkout_order_sided'>
+                                {% comment %} <div class='co-section--checkout_header co-checkout-block--padded'>
+                                    <div class="decorated-title-wrapper co-checkout-title">
+                                        <h1 class='decorated-title co-title co-title--h1'>
+                                        {% yield 'title' %}
+                                        </h1>
+                                    </div>
+                                </div>
+                                {% yield %}
+                                {% yield 'sidebar' %} {% endcomment %}
+                                {% yield %}
+                            </div>
+                            <div class="order__sidebar">
+                                <div class="order__sidebar-body">
+                                    <div class="order__sidebar-title">Сумма заказа</div>
+                                    <div class="order__total">
+                                        <div class="order__total-item _item-bold">
+                                            <span>Сумма по товарам</span>
+                                            <span id="items_price">{{ cart.items_price | money }}</span>
+                                        </div>
+                                        <div class="order__total-item">
+                                            <span>Стоимость доставки</span>
+                                            <span id="delivery_price"></span>
+                                        </div>
+                                        <div class="order__total-item" id="em-price__door" hidden>
+                                            <span>Опция до двери</span>
+                                            <span>{{ "0" | money }}</span>
+                                        </div>
+                                        <div class="order__total-item" hidden>
+                                            <span>Способ оплаты</span>
+                                            <span id="totla_type_pay"></span>
+                                        </div>
+                                        <div class="order__total-item _item-bold">
+                                            <span>Итого</span>
+                                            <span id="total_price"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer>
+                {% for widgetDrop in widget_lists.footer-list.widgets %}
+                    {% widget widgetDrop %}
+                {% endfor %}
+            </footer>
+        </div>
+        <div class="outside-widgets">
+        {% for widgetDrop in widget_lists.outside-list.widgets %}
+            {% widget widgetDrop %}
+        {% endfor %}
+        </div>
+    </body>
+    {{ 'checkout2.core' | global_stylesheet_tag }}
+
+    {%- capture css_js_lists -%}header-list, footer-list, sidebar-list, outside-list, {{ template }}-list, {{ template }}-section_top-list, {{ template }}-section_bottom-list{%- endcapture -%}
+
+    {% if sidebar_show %}
+        {% if template contains 'blog' or template contains 'article' %}
+            {% assign css_js_lists = css_js_lists | append: ', sidebar_blog-list' %}
+        {% else %}
+            {% assign css_js_lists = css_js_lists | append: ', sidebar-list' %}
+        {% endif %}
+    {% endif %}
+
+    {% widgets_assets css_js_lists %}
+
+    {% include "styles" %}
+    
+    {% comment %} <!-- Live Script  -->
+    <script src="{{ 'live-script.js' | asset_url }}" charset="utf-8"></script> {% endcomment %}
+
+    <link href="{{ 'em_order.css' | asset_url }}" rel="stylesheet" type="text/css"/>
+    <script src="{{ 'emilius_modules.js' | asset_url }}" charset="utf-8"></script>
+    <script src="{{ 'new_order.js' | asset_url }}" charset="utf-8"></script>
+    {% comment %} <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=82b416d9-91cb-4d67-a85c-4a66bbeeb85b&suggest_apikey=376c749f-7294-4a03-bd1e-89660416807e" type="text/javascript"></script>
+    <script>
+    $("#order_form > div.co-delivery_method-list.co-checkout-block > div.co-checkout-block.co-contact-fields").after($('#customer-fields'));
+    
+
+    $('[for="client_password"]').parent().prepend($("#order_form > div.co-delivery_method-list.co-checkout-block > div.co-checkout-block.co-contact-fields > div.co-input.co-input--text.co-input--email.co-input--nested.co-input--empty_nested"))
+
+    {% comment %}
+    $('[for="client_password_confirmation"]').parent().append($("#order_form > div.co-delivery_method-list.co-checkout-block > div.co-checkout-block.co-contact-fields > div.co-input.co-input--text.co-input--email.co-input--nested.co-input--empty_nested"))
+    {% endcomment %}
+    </script>
+    {% endcomment %}
+</html>

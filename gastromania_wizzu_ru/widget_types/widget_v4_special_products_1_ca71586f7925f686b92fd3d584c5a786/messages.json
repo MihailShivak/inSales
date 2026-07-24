@@ -1,0 +1,22 @@
+{
+  "ru": {
+  	"block_list": "Список категорий",
+    "block": "Категорию",
+    "blocks": "Категории"
+  },
+  "ua": {
+  	"block_list": "Список категорій",
+    "block": "Категорію",
+    "blocks": "Категорії"
+  },
+  "en": {
+    "block_list": "Category list",
+    "block": "Category",
+    "blocks": "Categories"
+  },
+  "es": {
+    "block_list": "Lista de categoría",
+    "block": "Categoría",
+    "blocks": "Categorías"
+  }
+}

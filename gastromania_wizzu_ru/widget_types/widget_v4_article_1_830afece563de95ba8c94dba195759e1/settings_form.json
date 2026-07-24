@@ -1,0 +1,190 @@
+{
+  "content": [
+    {
+      "items": [
+        {
+          "name": "current-page-description",
+          "label": "{{ messages.article_text }}",
+          "type": "current-page-description",
+          "general": true,
+          "general_position": 1
+        },
+        {
+          "class": "checkbox",
+          "name": "article-hide-photo",
+          "label": "{{ messages.hide_image }}",
+          "value": null,
+          "type": "checkbox",
+          "general": true,
+          "general_position": 100
+        }
+      ]
+    }
+  ],
+  "design": [
+    {
+      "type": "group",
+      "name": "{{ messages.article }}",
+      "items": [
+     {
+          "name": "widget-heading-ratio",
+          "label": "Размер шрифта заголовка",
+          "class": "range",
+          "min": 1,
+          "max": 3,
+          "step": 0.25,
+          "type": "number",
+          "with_btns": true,
+          "general": true,
+          "general_position": 1
+        },
+        {
+          "name": "widget-heading-weight",
+          "label": "Вес шрифта заголовка",
+          "class": "range",
+          "min": 100,
+          "max": 900,
+          "step": 100,
+          "type": "number",
+          "with_btns": true,
+          "general": true,
+          "general_position": 1
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.image }}",
+      "items": [
+        {
+          "class": "select",
+          "name": "img-fit",
+          "options": [
+            [
+              "{{ messages.maintain_proportions }}",
+              "contain"
+            ],
+            [
+              "{{ messages.stretch_entire_block }}",
+              "cover"
+            ]
+          ],
+          "label": "{{ messages.image_size }}",
+          "type": "select"
+        },
+        {
+          "class": "range",
+          "name": "img-ratio",
+          "label": "{{ messages.image_ratio }}",
+          "min": 0.5,
+          "max": 2.5,
+          "step": 0.1,
+          "type": "number",
+          "with_btns": true
+        },
+        {
+          "class": "range",
+          "name": "img-border-radius",
+          "label": "{{ messages.rounding_corners_image }} (px)",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "help": "{{ messages.px_helper }}",
+"unit": "px",
+          "type": "number",
+          "with_btns": true
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.widget }}",
+      "items": [
+        {
+          "name": "bg",
+          "label": "{{ messages.widget_background_color }}",
+          "value": "",
+          "type": "color",
+          "clearable": true
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-wide-bg",
+          "label": "{{ messages.wide_background }}",
+          "value": null,
+          "type": "checkbox"
+        },
+        {
+          "class": "range",
+          "name": "layout-pt",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.padding_top }} (vw)",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.vw_helper }}",
+"unit": "vw"
+        },
+        {
+          "class": "range",
+          "name": "layout-pb",
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "label": "{{ messages.padding_bottom }} (vw)",
+          "type": "number",
+          "with_btns": true,
+          "help": "{{ messages.vw_helper }}",
+"unit": "vw"
+        },
+        {
+          "class": "number",
+          "name": "layout-content-max-width",
+          "min": 600,
+          "max": 2000,
+          "label": "{{ messages.content_max_width }} (px)",
+          "type": "number",
+          "help": "{{ messages.px_helper }}",
+"unit": "px",
+          "hide_mobile": true
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-wide-content",
+          "label": "{{ messages.wide_content }}",
+          "value": null,
+          "type": "checkbox",
+          "hide_mobile": true
+        },
+        {
+          "class": "checkbox",
+          "name": "layout-edge",
+          "label": "{{ messages.remove_padding_at_edges }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "{{ messages.adaptive }}",
+      "items": [
+        {
+          "class": "checkbox",
+          "name": "hide-desktop",
+          "label": "{{ messages.hide_desktop }}",
+          "value": null,
+          "type": "checkbox"
+        },
+        {
+          "class": "checkbox",
+          "name": "hide-mobile",
+          "label": "{{ messages.hide_mobile }}",
+          "value": null,
+          "type": "checkbox"
+        }
+      ]
+    }
+  ]
+}

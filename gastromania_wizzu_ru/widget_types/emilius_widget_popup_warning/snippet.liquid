@@ -1,0 +1,11 @@
+{% if widget_settings.show_popup %}
+    <div class="modal popup-warning popup_hide" id="popup-message-warning">
+        <div class="modal__content">
+            <div class="modal__title">{{ widget_settings.title }}</div>
+            <div class="modal__text">{{ widget_settings.desc }}</div>
+            <div class="btn__wrapper">
+                <button type="button" class="btn btn_average btn_warning-accept" data-close-popup="popup-message-warning">{{ widget_settings.btn-text }}</button>
+            </div>
+        </div>
+    </div>
+{% endif %}

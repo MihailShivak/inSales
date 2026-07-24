@@ -1,0 +1,277 @@
+{% capture phone_block %}
+  {% if widget_settings.phone_number and widget_settings.phone_number != '' %}
+    <div class="header__phone">
+      <a class="header__phone-value" href="tel:{{widget_settings.phone_number | strip_html | remove: '(' | remove: ')' | remove: '-' | remove: ' ' | lstrip }}">{{widget_settings.phone_number}}</a>
+    </div>
+  {% endif %}
+  {% if widget_settings.phone_number_2 and widget_settings.phone_number_2 != '' %}
+    <div class="header__phone _phone-2">
+      <a class="header__phone-value" href="tel:{{widget_settings.phone_number_2 | strip_html | remove: '(' | remove: ')' | remove: '-' | remove: ' ' | lstrip }}">{{widget_settings.phone_number_2}}</a>
+    </div>
+  {% endif %}
+{% endcapture %}
+
+{% capture logo_block %}
+  {% if widget_settings.logo-img %}
+    {% if template contains 'index' %}
+      <span class="header__logo">
+        <img src="{{ widget_settings.logo-img }}" alt="{{ account.title }}" title="{{ account.title | strip_html }}">
+      </span>
+    {% else %}
+      <a href="{% if language.not_default? %}
+      /?lang={{ language.locale }} {% else %} / {% endif %}" class="header__logo">
+        <img src="{{ widget_settings.logo-img }}" alt="{{ account.title }}" title="{{ account.title | strip_html }}">
+      </a>
+    {% endif %}
+  {% else %}
+    {% if template contains 'index' %}
+      <span class="header__logo">
+        {% default_logo %}
+      </span>
+    {% else %}
+      <a href="{% if language.not_default? %}
+      /?lang={{ language.locale }} {% else %} / {% endif %}" class="header__logo">
+        {% default_logo %}
+      </a>
+    {% endif %}
+  {% endif %}
+{% endcapture %}
+
+
+<div class="header {% if languages.size <= 1 %}header_no-languages{% endif %}">
+  <div class="header__mobile-head">
+    <div class="header__mobile-head-content">
+      <button type="button" class="button button_size-l header__hide-mobile-menu-btn js-hide-mobile-menu">
+        <span class="icon icon-times"></span>
+      </button>
+
+      {% if languages.size > 1 %}
+        {% if editor_mode? or widget_settings.hide-language != true %}
+          <div class="header__mobile-languages">
+            {% for lang in languages %}
+            <a href="?lang={{lang.locale}}" class="header__language {% if language.locale == lang.locale %}is-active{%endif%}">{{ lang.locale }}</a>
+            {% endfor %}
+           </div>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="header__content">
+    <div class="header-part-top">
+      <div class="header-part-top__inner">
+        <div class="header__area-menu">
+          <ul class="header__menu js-cut-list" data-navigation data-menu-handle="{{ widget_settings.menu-handle }}">
+            {% for link in linklists[widget_settings.menu-handle].links %}
+              <li class="header__menu-item" data-navigation-item data-menu-item-id="{{ link.id}}">
+                <div class="header__menu-controls">
+                  <a href="{{ link.url }}" class="header__menu-link" data-navigation-link="{{ link.url }}">
+                    {{ link.title }}
+                  </a>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="header__area-text">
+          {% if widget_settings.working_hours and widget_settings.working_hours != ''%}
+          <div class="header__work-time">{{ widget_settings.working_hours | strip_htm }}</div>
+          {% endif %}
+        </div>
+
+        <div class="header__area-contacts">
+          {{phone_block}}
+        </div>
+
+        {% if languages.size > 1 %}
+          {% if editor_mode? or widget_settings.hide-language != true %}
+            <div class="header__area-language">
+              {% for lang in languages %}
+                <a href="?lang={{lang.locale}}" class="header__language {% if language.locale == lang.locale %}is-active{%endif%}">{{ lang.locale }}</a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="header-part-main">
+      <div class="header-part-main__inner">
+        <div class="header__area-logo">
+          {{ logo_block }}
+        </div>
+
+        <div class="header__area-search">
+          <div class="header__search">
+            <form action="/search" method="get" class="header__search-form">
+              <input type="text" autocomplete="off" class="form-control form-control_size-l header__search-field" name="q" value="" placeholder="{{ messages.search_placeholder }}" {% if widget_settings.live-search %} data-search-field {% endif %}>
+              <button type="submit" class="button button_size-l header__search-btn">
+                <span class="icon icon-search"></span>
+              </button>
+              <input type="hidden" name="lang" value="{{ language.locale }}">
+              <div class="header__search__results" data-search-result2></div>
+            </form>
+            <button type="button" class="button button_size-l header__search-mobile-btn js-show-mobile-search">
+                <span class="icon icon-search _show"></span>
+              <span class="icon icon-times _hide"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="header__area-controls">
+          {% if editor_mode? or widget_settings.hide-personal != true %}
+            <a href="/client_account/orders" class="header__control-btn header__cabinet">
+              <span class="icon icon-user"></span>
+            </a>
+          {% endif %}
+
+          {% if settings.compare_enabled == null or settings.compare_enabled %}
+            {% if widget_settings.hide-compare != true %}
+            <a href="/compares" class="header__control-btn header__compare" data-compare-counter-btn>
+              <span class="icon icon-compare">
+                <span class="header__control-bage" data-compare-counter>0</span>
+              </span>
+            </a>
+            {% endif %}
+          {% endif %}
+
+          {% if settings.favorite_enabled == true and widget_settings.hide-favorite != true %}
+            <a href="/favorites" class="header__control-btn header__favorite">
+              <span class="icon icon-favorites">
+                <span class="header__control-bage" data-ui-favorites-counter>0</span>
+              </span>
+            </a>
+          {% endif %}
+
+          {% if account.show_cart? %}
+            <a href="{{cart_url}}" class="header__control-btn header__cart">
+              <span class="icon icon-cart">
+                <span class="header__control-bage" data-cart-positions-count></span>
+              </span>
+              <span class="header__control-text" data-cart-total-price></span>
+            </a>
+        {% endif %}
+        </div>
+
+
+        <div class="header__area-collections">
+          {% assign level_limit = 3 %}
+
+          {% capture cache_menu_key %}cache_menu_key_hc1_{{ collections.last_updated_at }}_{{ language.locale }}_{{ level_limit }}{% endcapture %}
+
+          {% assign prev_link_level = 1 %}
+
+          <div class="header__collections-head">{{messages.catalog}}</div>
+
+          <ul class="header__collections js-cut-list-collections" data-navigation>
+            {% cache cache_menu_key %}
+            {% assign root_level = collections.root_category.level %}
+            {% for link in collections.root_category.flatten_branch %}
+              {% assign node_level = link.level | minus: root_level %}
+              {% assign _in_limit = level_limit | minus: node_level %}
+              {% assign _next_level_in_limit = _in_limit | minus: 1 %}
+
+              {% assign show_level = false %}
+              {% if _in_limit >= 0 %}
+                {% assign show_level = true %}
+              {% endif %}
+
+              {% assign show_next_level = false %}
+              {% if link.subcollections.size > 0 and  _next_level_in_limit >= 0 %}
+                {% assign show_next_level = true %}
+              {% endif %}
+
+              {% if show_level %}
+                {% assign level_difference = prev_link_level | minus: link.level | plus: root_level %}
+
+                {% if level_difference > 0 %}
+                  {% for i in (1..level_difference) %}
+                    {% unless forloop.first %}
+                      </li>
+                    {% endunless %}
+                      </div>
+                    </ul>
+                  {% endfor %}
+
+                  </li>
+                {% endif %}
+
+                <li class="header__collections-item" data-navigation-item>
+                  <div class="header__collections-controls">
+                    <a href="{{ link.url }}" class="header__collections-link {% if show_next_level %} with-arrow{% endif %}" data-navigation-link="{{ link.url }}" >
+                      {{ link.title }}
+
+                      {% if show_next_level %}
+                        <span class="icon icon-angle-down"></span>
+                      {% endif %}
+                    </a>
+
+                    {% if show_next_level %}
+                      <button class="button button_size-s header__collections-show-submenu-btn js-show-touch-submenu" type="button">
+                      <span class="icon icon-angle-down"></span>
+                    </button>
+                    {% endif %}
+                  </div>
+
+                  {% if show_next_level %}
+                    <ul class="header__collections-submenu" data-navigation-submenu>
+                      <div class="header__collections-submenu-content">
+                  {% endif %}
+
+                  {% assign prev_link_level = node_level %}
+
+                  {% unless show_next_level %}
+                    </li>
+                  {% endunless %}
+              {% endif %}
+              {% if forloop.last %}
+                {% assign prev_link_level = node_level | minus: 1 %}
+                  {% for i in (1..prev_link_level) %}
+                    </ul>
+                  {% endfor %}
+              {% endif %}
+            {% endfor %}
+            {% endcache %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="header-mobile-panel">
+  <div class="header-mobile-panel__content {% if account.show_cart? == false %}no-cart{% endif %}">
+    {% comment %}
+      <button type="button" class="button button_size-l header-mobile-panel__show-menu-btn js-show-mobile-menu">
+        <span class="icon icon-bars"></span>
+      </button>
+    {% endcomment %}
+    <div class="header-mobile-panel__logo">
+      {{ logo_block }}
+    </div>
+    <div class="header-mobile-panel__controls">
+      {% if editor_mode? or widget_settings.hide-personal != true %}
+        <a href="/client_account/orders" class="header__control-btn header__cabinet">
+          <span class="icon icon-user"></span>
+        </a>
+      {% endif %}
+
+      {% if settings.favorite_enabled == true and widget_settings['hide-favorite'] != true %}
+        <a href="/favorites" class="header__control-btn header__favorite">
+          <span class="icon icon-favorites">
+            <span class="header__control-bage" data-ui-favorites-counter>0</span>
+          </span>
+        </a>
+      {% endif %}
+
+      {% if account.show_cart? %}
+        <a href="{{cart_url}}" class="header__control-btn header__mobile-cart">
+          <span class="icon icon-cart">
+            <span class="header__control-bage" data-cart-positions-count></span>
+          </span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>

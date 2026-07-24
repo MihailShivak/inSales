@@ -1,0 +1,30 @@
+{
+  "ru": {
+    "phone_signature": "Подпись под телефоном",
+    "icon_pay": "Иконка платежной системы",
+    "icon_social": "Иконка социальной сети",
+    "title": "Заголовок для меню",
+    "logo_recommended_width": "Рекомендуемая ширина изображения: 512 px"
+  },
+  "ua": {
+    "phone_signature": "Підпис під телефоном",
+    "icon_pay": "Піктограма платіжної системи",
+    "icon_social": "Значок соціальної мережі",
+    "title": "Заголовок для меню",
+    "logo_recommended_width": "Рекомендована ширина зображення: 512 px"
+  },
+  "en": {
+    "phone_signature": "Phone signature",
+    "icon_pay": "Payment system icon",
+    "icon_social": "Social network icon",
+    "title": "Title for the menu",
+    "logo_recommended_width": "Recommended image width: 512 px"
+  },
+  "es": {
+    "phone_signature": "Firma del teléfono",
+    "icon_pay": "Icono del sistema de pago",
+    "icon_social": "Icono de red social",
+    "title": "Título para el menú",
+    "logo_recommended_width": "Ancho de imagen recomendado: 512 px"
+  }
+}

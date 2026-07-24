@@ -1,0 +1,19 @@
+{% if data.blocks.size > 0 %}
+    <div class="slider">
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                {% for block in data.blocks %}
+                    <div class="slide-item swiper-slide" style="background-image: url('{{ block.image }}');">
+                        <div class="slide__text">
+                            <div class="slide__title">{{ block.name }}</div>
+                            <div class="slide__subtitle">{{ block.subtitle }}</div>
+                        </div>
+                        <div class="slide__description">{{ block.description }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="slider__pagination swiper-pagination"></div>
+        </div>
+    </div>
+{% endif %}
+    

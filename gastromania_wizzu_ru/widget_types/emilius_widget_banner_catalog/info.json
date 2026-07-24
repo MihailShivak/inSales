@@ -1,0 +1,17 @@
+{
+  "type": "BlockListWidgetType",
+  "name": {
+    "ru": "Баннер с настройкой под категории"
+  },
+  "handle": "emilius_widget_banner_catalog",
+  "page_kinds": [
+    "collection"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "banner",
+  "libraries": [],
+  "block_template_handle": "em_banner_template"
+}

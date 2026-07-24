@@ -1,0 +1,125 @@
+{
+    "content": [
+        {
+            "group_name": "Основной контент",
+            "items": [
+                {
+                    "name": "logo_img",
+                    "label": "Логотип",
+                    "value": null,
+                    "type": "file",
+                    "general": true,
+                    "general_position": 1,
+                    "with_generate_logo": true
+                  }
+            ]
+        },
+        {
+            "group_name": "Основной контент",
+            "items": [
+                {
+                    "name": "title-top",
+                    "label": "Вверхний заголовок",
+                    "value": null,
+                    "type": "text"
+                },
+                {
+                    "name": "url_1-title",
+                    "label": "Заголовок ссылки",
+                    "value": null,
+                    "type": "text"
+                },
+                {
+                    "name": "url_1-href",
+                    "label": "Ссылка без +",
+                    "value": null,
+                    "type": "text"
+                }
+            ]
+        },
+        {
+            "group_name": "Меню",
+            "items": [
+                {
+                    "name": "menu_top",
+                    "label": "Выбор меню для отображения",
+                    "value": null,
+                    "type": "navigation"
+                },
+                {
+                    "name": "menu_mob",
+                    "label": "Выбор меню для мобилок",
+                    "value": null,
+                    "type": "navigation"
+                }
+            ]
+        },
+        {
+            "group_name": "Ссылки",
+            "items": [
+                {
+                    "name": "url_2-title",
+                    "label": "Номер телефона",
+                    "value": null,
+                    "type": "text"
+                },
+                {
+                    "name": "url_2-href",
+                    "label": "Ссылка",
+                    "value": null,
+                    "type": "text"
+                },
+                {
+                    "name": "url_3-title",
+                    "label": "WhatsApp",
+                    "value": null,
+                    "type": "text"
+                },
+                {
+                    "name": "url_3-href",
+                    "label": "Ссылка",
+                    "value": null,
+                    "type": "text"
+                },
+                {
+                    "name": "url_4-title",
+                    "label": "Telegram",
+                    "value": null,
+                    "type": "text"
+                },
+                {
+                    "name": "url_4-href",
+                    "label": "Ссылка",
+                    "value": null,
+                    "type": "text"
+                },
+
+                {
+                    "name": "url_5-title",
+                    "label": "VK",
+                    "value": null,
+                    "type": "text"
+                },
+                {
+                    "name": "url_5-href",
+                    "label": "Ссылка",
+                    "value": null,
+                    "type": "text"
+                },
+
+                {
+                    "name": "url_6-title",
+                    "label": "Instagram ",
+                    "value": null,
+                    "type": "text"
+                },
+                {
+                    "name": "url_6-href",
+                    "label": "Ссылка",
+                    "value": null,
+                    "type": "text"
+                }
+            ]
+        }
+    ]
+}

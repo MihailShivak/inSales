@@ -1,0 +1,22 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Шапка со строкой категорий"
+  },
+  "handle": "widget_v4_header_2_be1ce1d43f1fb40acbbe59c0e5516155",
+  "page_kinds": [
+    "all"
+  ],
+  "widget_list_kinds": [
+    "header"
+  ],
+  "generation": 4,
+  "widget_category_handle": "headers",
+  "libraries": [
+    "commonjs_v2",
+    "cut-list",
+    "jquery",
+    "my-layout",
+    "body-scroll-lock"
+  ]
+}

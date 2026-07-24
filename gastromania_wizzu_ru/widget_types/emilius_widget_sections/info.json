@@ -1,0 +1,16 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Разделы категорий в виде секций"
+  },
+  "handle": "emilius_widget_sections",
+  "page_kinds": [
+    "index"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "collection-description",
+  "libraries": []
+}

@@ -1,184 +1,388 @@
 <div class="breadcrumbs breadcrumbs__client">
-    <a href="/client_account/orders" class="btn__bread-back">
-        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
-        <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-        </svg>
-        <span>Назад</span>
-    </a>
+  <a href="/client_account/orders" class="btn__bread-back">
+    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+      <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <span>Назад</span>
+  </a>
 </div>
 <div class="panel__top">
-    <div class="panel__top-wrapper filter__back-wrapper">
-        <a href="/client_account/orders" class="panel__top-back">
-            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
-            <path d="M11 3.5L6 9L11 14.5" stroke="#181818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span>Назад</span>
-        </a>
-        <h1 class="title__large orders__title" 
-            data-order-number="{{ order.number }}"
-            data-order-status="{{ order.custom_status_title }}"
-        >Заказ № {{ order.number }}</h1>
-    </div>
+  <div class="panel__top-wrapper filter__back-wrapper">
+    <a href="/client_account/orders" class="panel__top-back">
+      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+        <path d="M11 3.5L6 9L11 14.5" stroke="#181818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Назад</span>
+    </a>
+    <h1
+      class="title__large orders__title"
+      data-order-number="{{ order.number }}"
+      data-order-status="{{ order.custom_status_title }}"
+    >
+      Заказ № {{ order.number }}
+    </h1>
+  </div>
 </div>
 <div class="account__wrapper">
-    <div class="account__info-top">
-        <div class="account__info-steps 
-            {% if order.paid? and order.fulfillment_status == "new" %}
-                _status-pay
-            {% elsif order.fulfillment_status == "delivered" %}
-                _status-delivered
-            {% elsif order.fulfillment_status == "new" %}
-                _status-new
-            {% elsif order.fulfillment_status == "accepted" or order.fulfillment_status == "approved" %}
-                _status-accepted
-            {% elsif order.fulfillment_status == "dispatched" %}
-                _status-dispatched
-            {% endif %}"
-        >
-            <div class="account__info-title">
-                {% if order.paid? and order.fulfillment_status == "new" %}
-                    Оплачен
-                {% else %}
-                    {{ order.customer_status }}
-                {% endif %}
-            </div>
-            <div class="account__info-steps__list">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-        <div class="account__info-date">{{ order.created_at | date: '%d.%m.%Y %H:%M' }}</div>
-        <a href="#" target='_blank' class="account__info-push__mobile" data-em-order-inform>Задать вопрос</a>
+  <div class="account__info-top">
+    <div
+      class="
+        account__info-steps
+        {% if order.paid? and order.fulfillment_status == "new" %}
+            _status-pay
+        {% elsif order.fulfillment_status == "delivered" %}
+            _status-delivered
+        {% elsif order.fulfillment_status == "new" %}
+            _status-new
+        {% elsif order.fulfillment_status == "accepted" or order.fulfillment_status == "approved" %}
+            _status-accepted
+        {% elsif order.fulfillment_status == "dispatched" %}
+            _status-dispatched
+        {% endif %}
+      "
+    >
+      <div class="account__info-title">
+        {% if order.paid? and order.fulfillment_status == 'new' %}
+          Оплачен
+        {% else %}
+          {{ order.customer_status }}
+        {% endif %}
+      </div>
+      <div class="account__info-steps__list">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
-    {% if order.payment_needed? %}
-        <div class="account__info-wrapper">
-            {% if open_in_window? %}
-                <a class="btn__payment btn btn_small" target="_blank" rel="noopener noreferrer" href="{{ order.pay_url }}">\
-                    {% if order.paid_with_bank_bill? %}
-                        Совершить оплату онлайн (распечатать квитанцию)
-                    {% else %}
-                        Совершить оплату онлайн
-                    {% endif %}
-                </a>
-            {% else %}
-                <a class="btn__payment btn btn_small" href="{{ order.pay_url }}">
-                    {% if order.paid_with_bank_bill? %}
-                        Совершить оплату онлайн (распечатать квитанцию)
-                    {% else %}
-                        Совершить оплату онлайн
-                    {% endif %}
-                </a>
-            {% endif %}
-        </div>
-    {% endif %}
-    {% comment %} <div class="account__info-wrapper">
-        {%- include "system_messengers_notification" -%}
-    </div> {% endcomment %}
+    <div class="account__info-date">{{ order.created_at | date: '%d.%m.%Y %H:%M' }}</div>
+    <a href="#" target="_blank" class="account__info-push__mobile" data-em-order-inform>Задать вопрос</a>
+  </div>
+  {% if order.payment_needed? %}
     <div class="account__info-wrapper">
-        <div class="account__info-grid _data-mobile">
-            <div class="grid__item">
-                <div class="grid__item-subtitle">Дата оформления</div>
-                <div class="grid__item-text">{{ order.created_at | date: '%d.%m.%Y %H:%M' }}</div>
-            </div>
-        </div> 
-        <div class="account__info-grid">
-            <div class="grid__item">
-                <div class="grid__item-subtitle">Получатель</div>
-                <div class="grid__item-text">{{ order.shipping_address.full_name }}</div>
-            </div>
-            <div class="grid__item">
-                <div class="grid__item-subtitle">Адрес доставки</div>
-                <div class="grid__item-text">{{ order.shipping_address.full_delivery_address }}</div>
-            </div>
-            <div class="grid__item">
-                <div class="grid__item-subtitle">Способ оплаты</div>
-                <div class="grid__item-text _item-text_big">
-                    <span>{{ order.payment_title }}</span>
-                    {% if order.payment_description != blank %}
-                        <span>{{ order.payment_description | strip_html }}</span>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        <div class="account__info-grid">
-            <div class="grid__item">
-                <div class="grid__item-subtitle">E-mail</div>
-                <div class="grid__item-text">{{ order.client.email }}</div>
-            </div>
-            <div class="grid__item">
-                <div class="grid__item-subtitle">Уведомления</div>
-                <div class="grid__item-text">{{ order.shipping_address.phone }}</div>
-            </div>
-            <div class="grid__item">
-                <div class="grid__item-subtitle">Способ доставки</div>
-                <div class="grid__item-text _item-text_big">{{ order.delivery_description_with_tariff | strip_html }}</div>
-                {% if order.delivery_info.outlet.address != blank %} 
-                    <div class="grid__item-text">
-                        <div class="grid__item-subtitle">Пункт самовывоза</div>
-                        <a class="grid__item-text" href="{{order.delivery_info.outlet.address | address_to_map_url }}" target='_blank' rel='noopener noreferrer' title='Map'>
-                            {{ order.delivery_info.outlet.address }}
-                        </a>
-                    </div>
-                {% endif %}
-            </div>
-            {% if order.all_fields['Если товара не будет в наличии'] %}
-                <div class="grid__item">
-                    <div class="grid__item-subtitle">{{ order.all_fields['Если товара не будет в наличии'].title }}</div>  
-                    <div class="grid__item-text">{{ order.all_fields['Если товара не будет в наличии'].value }}</div>
-                </div>
-            {% endif %}
-        </div>
+      {% if open_in_window? %}
+        <a class="btn__payment btn btn_small" target="_blank" rel="noopener noreferrer" href="{{ order.pay_url }}"
+          >\
+          {% if order.paid_with_bank_bill? %}
+            Совершить оплату онлайн (распечатать квитанцию)
+          {% else %}
+            Совершить оплату онлайн
+          {% endif %}
+        </a>
+      {% else %}
+        <a class="btn__payment btn btn_small" href="{{ order.pay_url }}">
+          {% if order.paid_with_bank_bill? %}
+            Совершить оплату онлайн (распечатать квитанцию)
+          {% else %}
+            Совершить оплату онлайн
+          {% endif %}
+        </a>
+      {% endif %}
     </div>
-    <div class="order__total">
-        <div class="order__total-price">
-            Сумма заказа: <span>{{ order.total_price | money }}</span>
-        </div>
-        <a href="#" target='_blank' class="order__total-push" data-em-order-inform>Задать вопрос оператору</a>
+  {% endif %}
+  {% comment %}
+    <div class="account__info-wrapper">
+        {%- include "system_messengers_notification" -%}
     </div>
+  {% endcomment %}
+  <div class="account__info-wrapper">
+    <div class="account__info-grid _data-mobile">
+      <div class="grid__item">
+        <div class="grid__item-subtitle">Дата оформления</div>
+        <div class="grid__item-text">{{ order.created_at | date: '%d.%m.%Y %H:%M' }}</div>
+      </div>
+    </div>
+    <div class="account__info-grid">
+      <div class="grid__item">
+        <div class="grid__item-subtitle">Получатель</div>
+        <div class="grid__item-text">{{ order.shipping_address.full_name }}</div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-subtitle">Адрес доставки</div>
+        <div class="grid__item-text">{{ order.shipping_address.full_delivery_address }}</div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-subtitle">Способ оплаты</div>
+        <div class="grid__item-text _item-text_big">
+          <span>{{ order.payment_title }}</span>
+          {% if order.payment_description != blank %}
+            <span>{{ order.payment_description | strip_html }}</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="account__info-grid">
+      <div class="grid__item">
+        <div class="grid__item-subtitle">E-mail</div>
+        <div class="grid__item-text">{{ order.client.email }}</div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-subtitle">Уведомления</div>
+        <div class="grid__item-text">{{ order.shipping_address.phone }}</div>
+      </div>
+      <div class="grid__item">
+        <div class="grid__item-subtitle">Способ доставки</div>
+        <div class="grid__item-text _item-text_big">{{ order.delivery_description_with_tariff | strip_html }}</div>
+        {% if order.delivery_info.outlet.address != blank %}
+          <div class="grid__item-text">
+            <div class="grid__item-subtitle">Пункт самовывоза</div>
+            <a
+              class="grid__item-text"
+              href="{{order.delivery_info.outlet.address | address_to_map_url }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Map"
+            >
+              {{ order.delivery_info.outlet.address }}
+            </a>
+          </div>
+        {% endif %}
+      </div>
+      {% if order.all_fields['Если товара не будет в наличии'] %}
+        <div class="grid__item">
+          <div class="grid__item-subtitle">{{ order.all_fields['Если товара не будет в наличии'].title }}</div>
+          <div class="grid__item-text">{{ order.all_fields['Если товара не будет в наличии'].value }}</div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="order__total">
+    <div class="order__total-price">
+      Сумма заказа: <span>{{ order.total_price | money }}</span>
+    </div>
+    <a href="#" target="_blank" class="order__total-push" data-em-order-inform>Задать вопрос оператору</a>
+  </div>
 </div>
-
 
 <div class="block__wrapper">
-    <div class="title__medium">Состав заказа</div>
-    <div class="account__wrapper">
-        <div class="account__info-orders">
-            {% for item in order.items %}
-                <div class="account__info-order">
-                    <div class="account__info-order__title">{{ item.title }}</div>
-                    <div class="dotts"></div>
-    
-                    {% assign value = item.quantity | plus: 0 %}
-                    {% assign rounded = value | round: 1 %}
-                    {% assign int_value = rounded | round: 0 %}
-    
-                    <div class="account__info-order__price">
-                        {% if rounded == int_value %}
-                            {{ int_value }}
-                        {% else %}
-                            {{ rounded }}
-                        {% endif %}
-                        x{{ item.total_price_without_margin | money }}
-                    </div>
-                </div>
-            {% endfor %}
-            <div class="account__info-order">
-                <div class="account__info-order__title _order-active">Итого</div>
-                <div class="dotts"></div>
-                <div class="account__info-order__price">{{ order.items_price | money }}</div>
-            </div>
-            <div class="account__info-order">
-                <div class="account__info-order__title">Доставка</div>
-                <div class="dotts"></div>
-                <div class="account__info-order__price">{{ order.delivery_price | money }}</div>
-            </div>
-            <div class="account__info-order">
-                <div class="account__info-order__title">Итого с учетом доставки</div>
-                <div class="dotts"></div>
-                <div class="account__info-order__price">{{ order.total_price | money }}</div>
-            </div>
+  <div class="title__medium">Состав заказа</div>
+  <div class="account__wrapper">
+    <div class="account__info-orders">
+      {% for item in order.items %}
+        <div class="account__info-order">
+          <div class="account__info-order__title">{{ item.title }}</div>
+          <div class="dotts"></div>
+
+          {% assign value = item.quantity | plus: 0 %}
+          {% assign rounded = value | round: 1 %}
+          {% assign int_value = rounded | round: 0 %}
+
+          <div class="account__info-order__price">
+            {% if rounded == int_value %}
+              {{ int_value }}
+            {% else %}
+              {{ rounded }}
+            {% endif %}
+            x{{ item.total_price_without_margin | money }}
+          </div>
         </div>
+      {% endfor %}
+      <div class="account__info-order">
+        <div class="account__info-order__title _order-active">Итого</div>
+        <div class="dotts"></div>
+        <div class="account__info-order__price">{{ order.items_price | money }}</div>
+      </div>
+      <div class="account__info-order">
+        <div class="account__info-order__title">Доставка</div>
+        <div class="dotts"></div>
+        <div class="account__info-order__price">{{ order.delivery_price | money }}</div>
+      </div>
+      <div class="account__info-order">
+        <div class="account__info-order__title">Итого с учетом доставки</div>
+        <div class="dotts"></div>
+        <div class="account__info-order__price">{{ order.total_price | money }}</div>
+      </div>
     </div>
+  </div>
 </div>
+
+<!-- Модалка подтверждения заказа в WhatsApp -->
+<div class="modal popup-warning popup_hide" id="popup-order-confirm">
+  <div class="modal__content modal__content_order_confirm">
+    <div class="modal__title modal__title_order_confirm">Осталось подтвердить свой заказ ✍️</div>
+    <div class="modal__text modal__text_order_confirm">
+      Чтобы мы приняли в работу ваш заказ, подтвердите его в WhatsApp, нажав кнопку ниже
+    </div>
+    <div class="btn__wrapper">
+      <button
+        type="button"
+        class="btn btn_average btn_warning-accept btn_order_confirm"
+        data-close-popup="popup-order-confirm"
+        data-confirm-order-wa
+      >
+        Подтвердить
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function detectApp() {
+    try {
+      const ua = navigator.userAgent || '';
+      const isApp =
+        // Cookie от приложения
+        document.cookie.indexOf('app_hide=true') !== -1 ||
+        // URL параметр
+        new URLSearchParams(window.location.search).get('app') === 'true' ||
+        // WebView Android
+        /wv/.test(ua) ||
+        // WebView iOS (приложение без Safari)
+        (/iPhone|iPad|iPod/.test(ua) && !/Safari/.test(ua)) ||
+        // Специфичные маркеры приложений
+        /LimeMart|limemart|wizzu/i.test(ua);
+
+      if (isApp) {
+        document.documentElement.classList.add('is-app');
+        console.log('[AppDetect] Приложение обнаружено, класс is-app добавлен');
+      } else {
+        console.log('[AppDetect] Приложение не обнаружено, UA:', ua);
+      }
+    } catch (e) {
+      console.warn('[AppDetect] Ошибка:', e);
+    }
+  })();
+
+  (function initOrderConfirmPopup() {
+    const WA_PHONE = '79659605060';
+
+    function getOrderNumber() {
+      const title = document.querySelector('.orders__title');
+      if (title && title.dataset.orderNumber) return title.dataset.orderNumber;
+      const match = ((title && title.textContent) || '').match(/№\s*(\d+)/);
+      return match ? match[1] : '';
+    }
+
+    // Проверяем, подтверждал ли пользователь этот заказ
+    function isOrderConfirmed(orderNumber) {
+      if (!orderNumber) return false;
+      return localStorage.getItem('orderConfirmed_' + orderNumber) === 'true';
+    }
+
+    // Ставим флаг, что заказ подтверждён
+    function markOrderConfirmed(orderNumber) {
+      if (!orderNumber) return;
+      localStorage.setItem('orderConfirmed_' + orderNumber, 'true');
+    }
+
+    function openConfirmPopup() {
+      const popup = document.getElementById('popup-order-confirm');
+      if (!popup) {
+        console.warn('[OrderConfirm] Попап #popup-order-confirm не найден');
+        return;
+      }
+      if (!window._orderConfirmModal) {
+        window._orderConfirmModal = new EM_Module.Modal(popup);
+        window._orderConfirmModal.init();
+      }
+      window._orderConfirmModal.open();
+    }
+
+    // Обработчики кликов
+    document.addEventListener('click', function (e) {
+      const informBtn = e.target.closest('[data-em-order-inform]');
+      if (informBtn) {
+        e.preventDefault();
+        openConfirmPopup();
+        return;
+      }
+
+      const confirmBtn = e.target.closest('[data-confirm-order-wa]');
+      if (confirmBtn) {
+        const orderNumber = getOrderNumber();
+        if (!orderNumber) {
+          console.warn('[OrderConfirm] Не удалось определить номер заказа');
+          return;
+        }
+
+        // Помечаем заказ как подтверждённый
+        markOrderConfirmed(orderNumber);
+
+        const text =
+          'Подтверждаю свой заказ #' + orderNumber + ' и соглашаюсь получать уведомления об изменениях статуса заказа';
+        const waUrl = 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text);
+        window.location.href = waUrl;
+      }
+    });
+
+    // Автооткрытие попапа, если заказ ещё не подтверждён
+    function autoOpenPopup() {
+      if (window.location.pathname.indexOf('/orders/') === -1) return;
+
+      const orderNumber = getOrderNumber();
+      if (!orderNumber) return;
+
+      // Если уже подтверждал — не открываем
+      if (isOrderConfirmed(orderNumber)) {
+        console.log('[OrderConfirm] Заказ #' + orderNumber + ' уже подтверждён');
+        return;
+      }
+
+      setTimeout(() => {
+        openConfirmPopup();
+      }, 500);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', autoOpenPopup);
+    } else {
+      autoOpenPopup();
+    }
+  })();
+</script>
+
+<style>
+  .is-app #popup-order-confirm {
+    top: auto !important;
+    bottom: 40px !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: 100vh !important;
+    max-height: calc(var(--vh2, 1vh) * 100) !important;
+    background-color: transparent !important;
+    z-index: 49 !important;
+    align-items: flex-end !important;
+  }
+
+  .is-app #popup-order-confirm > .modal__content {
+    max-width: 100% !important;
+    width: 100% !important;
+    border-radius: 30px 30px 0 0 !important;
+    padding: 50% 20px 50% 20px !important;
+    padding-top: calc(40% + env(safe-area-inset-top, 0px)) !important;
+    box-sizing: border-box;
+    position: relative;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .is-app #popup-order-confirm > .modal__content::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 4px;
+    width: 30px;
+    border-radius: 2px;
+    background-color: #eae9e8;
+  }
+
+  .is-app .modal__title_order_confirm {
+    font-size: 24px;
+  }
+
+  .is-app .modal__text_order_confirm {
+    font-size: 18px;
+  }
+
+  .is-app .btn_order_confirm {
+    max-width: 400px;
+    width: 100%;
+  }
+</style>

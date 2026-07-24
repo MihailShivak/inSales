@@ -1,0 +1,19 @@
+{% if data.blocks.size > 0 %}
+
+{% for block in data.blocks %}
+    <div class="collections">
+        <div class="title__medium">{{ block.collection.title }}</div>
+        <div class="collections__body">
+            {% for collection in block.collection.subcollections %}
+                <a href="{{ collection.url }}" class="collection__block">
+                    <div class="collection__block-title">{{ collection.title }}</div>
+                    <div class="products-item__img collection__block-link">
+                        <img src="{{ collection.image.large_url | replace: "static.insales-cdn.com", "ibicecdn.com/gastromania" }}" alt="{{ collection.title }}" class="lazyload" loading="lazy">
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
+
+{% endif %}

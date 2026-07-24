@@ -1,0 +1,86 @@
+.header__icon,
+.header__icon-big,
+.icon_arrow,
+.icon_arrow-black,
+.icon_favorite {
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;   
+}
+
+.header__icon,
+.icon_favorite {
+    width: 19px;
+    height: 19px;
+}
+
+.header__icon-big {
+    width: 41px;
+    height: 41px;
+    background-size: 19px 19px;
+}
+
+.icon_favorite {
+    background-image: var(--icon-favorite);
+}
+
+.icon_favorite.favorites-added {
+    background-image: var(--icon-favorite-red);
+}
+
+.icon_favorite._active  {
+    background-image: var(--icon-favorite-blue);
+}
+
+.icon_user {
+    background-image: var(--icon-user-white);
+}
+
+.icon_favorites {
+    background-image: var(--icon-heart-white);
+}
+
+.icon_cart {
+    position: relative;
+    background-image: var(--icon-cart-white);
+}
+
+.icon_search {
+    background-image: var(--icon-search);
+}
+
+.icon_address {
+    background-image: var(--icon-address);
+}
+
+.icon_message {
+    background-image: var(--icon-message);
+}
+
+.icon_message-new {
+    background-image: var(--icon-message-new);
+}
+
+.icon_arrow {
+    width: 17px;
+    height: 17px;
+    background-image: var(--icon-arrow);
+}
+
+.modal__delivery-item._accept .icon_arrow {
+    background-image: var(--icon-arrow-accept);
+}
+
+.icon_arrow-black {
+    width: 19px;
+    height: 19px;
+    background-image: var(--icon-arrow-black);
+}
+
+.icon_close {
+    width: 17px;
+    height: 17px;
+    background-image: var(--icon-close);
+}

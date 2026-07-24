@@ -1,0 +1,18 @@
+{
+  "ru": {
+    "button_ozon": "Купить на Ozon",
+    "button_wildberries": "Купить на Wildberries"
+  },
+  "ua": {
+    "button_ozon": "Купити на Ozon",
+    "button_wildberries": "Купити на Wildberries"
+  },
+  "en": {
+    "button_ozon": "Buy on Ozon",
+    "button_wildberries": "Buy on Wildberries"
+  },
+  "es": {
+    "button_ozon": "Comprar en Ozon",
+    "button_wildberries": "Comprar en Wildberries"
+  }
+}

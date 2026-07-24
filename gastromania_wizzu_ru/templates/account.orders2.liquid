@@ -1,0 +1,95 @@
+<div class="title__medium" id="orders_list">История заказов</div>
+<div class="client__wrapper client__orders">
+    {% if orders == empty  %}
+        <div class="client__order">Вы не сделали ещё ни одного заказа</div>
+    {% else %}
+        {% paginate orders by 4 %}
+        {% for order in orders %}
+            <div class="client__order">
+                <div class="client__order-top">
+                    <a href="{{ order.url }}" class="client__order-title">№ {{ order.number }}</a>
+                    {% capture order_btns %}
+                        <div class="order__pay-btns">
+                            <div class="order__pay-btn
+                                {% if order.paid? -%}
+                                    _order-pay
+                                {% elsif order.fulfillment_status == "delivered" -%}
+                                    _order-delivered
+                                {% elsif order.fulfillment_status == "new" -%}
+                                    _order-new
+                                {% elsif order.fulfillment_status == "accepted" or order.fulfillment_status == "approved" -%}
+                                    _order-accepted
+                                {% elsif order.fulfillment_status == "dispatched" -%}
+                                    _order-dispatched
+                                {% endif -%}"
+                            >
+                                {{ order.customer_status }}
+                            </div>
+                        </div>
+                    {% endcapture %}
+                    {{ order_btns }}
+                    <div class="client__info-date">{{ order.creation_date | date: '%d.%m.%Y %H:%M' }}</div>
+                </div>
+                <div class="client__order-items">
+                    {% for item in order.items %}
+                        <div class="order__item">
+                            <a href="{{ item.product.url }}">{{ item.title }}</a>
+                            {% assign value = item.quantity | plus: 0 %}
+                            {% assign rounded = value | round: 1 %}
+                            {% assign int_value = rounded | round: 0 %}
+                            <span>
+                                {%- if rounded == int_value -%}
+                                    {{ int_value }}
+                                {%- else -%}
+                                    {{ rounded }}
+                                {%- endif -%} x {{ item.sale_price | money -}}
+                            </span>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="client__total">
+                    <div class="client__order-price">
+                        Сумма заказа: <span>{{ order.total_price | money }}</span>
+                    </div>
+                    {{ order_btns }}
+                    <a href="{{ order.url }}" target="_blank" class="client__order-link">Подробнее</a>
+                </div>
+            </div>
+        {% endfor %}
+
+        {% if paginate.pages > 1 %}
+            <div class="client__pagination">
+                {% if paginate.current_page > 1 %}
+                    <a class="pagin__arrow" href="{{ paginate.previous.url }}">
+                        <span class="icon_arrow"></span>
+                    </a>
+                {% endif %}
+                {% for button in paginate.parts %}
+                    {% assign previous_index = forloop.index0 | minus: 1 %}
+    
+                    {% if button.url == null %}
+                        {% assign url = paginate.parts[previous_index].title | to_integer | plus: 1 | string | prepend: '?page=' %}
+                    {% else %}
+                        {% assign url = button.url %}
+                    {% endif %}
+                    {% if button.title == paginate['current_page'] %}
+                        <div class="pagin__btn _active">
+                            <span>{{ button.title }}</span>
+                        </div>
+                    {% else %}
+                        <a href="{{ url }}" class="pagin__btn">
+                            <span>{{ button.title }}</span>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+                {% if paginate.current_page < paginate.pages %}
+                    <a class="pagin__arrow" href="{{ paginate.next.url }}">
+                        <span class="icon_arrow"></span>
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% endpaginate %}
+    {% endif %}
+</div>

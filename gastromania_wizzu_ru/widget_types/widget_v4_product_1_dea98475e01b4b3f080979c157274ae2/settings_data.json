@@ -1,0 +1,20 @@
+{
+  "layout-wide-bg": false,
+  "layout-wide-content": false,
+  "layout-pt": 2,
+  "layout-pb": 2,
+  "hide-mobile": false,
+  "hide-desktop": false,
+  "img-ratio": 1,
+  "product-hide-description": false,
+  "product-hide-variants-title": false,
+  "product-hide-compare": false,
+  "product-hide-sku": false,
+  "rating-color": "#ff4100",
+  "sale-bg": "#FF4100",
+  "sticker-font-size": 0.9,
+  "img-fit": "contain",
+  "show-selected-variant-photos": false,
+  "video-before-image": false,
+  "display-property-color": "text"
+}

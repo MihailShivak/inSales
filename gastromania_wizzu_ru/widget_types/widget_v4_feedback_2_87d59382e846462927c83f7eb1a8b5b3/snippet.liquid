@@ -1,0 +1,75 @@
+{% if page.handle == "acccount_delete" %}
+<div class="feedback">
+  {% if widget_settings.form_title != ''%}
+  <div class="feedback__title heading">{{ widget_settings.form_title | editable }}</div>
+  {% endif %}
+  <form method="post" action="/client_account/feedback" data-feedback-form-wrapper class="feedback__form" name="feedback">
+    <div data-feedback-form-success='{"showTime": 10000}' class="h4 feedback__success-message">{{ widget_settings.success_message }}</div>
+    <div class="feedback__fields">
+      {% for block in data.blocks %}
+      {% if block.type == "phone" %}
+      <div  class="feedback__field-area">
+        <input name="tel" type="tel" value="" placeholder="{{ block.label }}{% if block.required %}*{% endif %}" class="phone form-control form-control_size-l form-control_wide  js-form-field {% if block.required %}required{% endif %}">
+        <div class="feedback__field-error">{{messages.phone_error | escape }}</div>
+      </div>
+      {% elsif block.type == "email" %}
+        <div  class="feedback__field-area">
+          <input name="email" type="email" value="" placeholder="{{ block.label }}{% if block.required %}*{% endif %}" class="email form-control form-control_size-l form-control_wide  js-form-field {% if block.required %}required{% endif %}">
+          <div class="feedback__field-error">{{messages.email_error | escape }}</div>
+        </div>
+     {% elsif block.type == "textarea" %}
+      <div class="feedback__field-area">
+        <textarea name="text"  placeholder="{{ block.label }}{% if block.required %}*{% endif %}" class="form-control form-control_wide  js-form-field {% if block.required %}required{% endif %}" ></textarea>
+        <div class="feedback__field-error">{{ messages.clear_field_error | escape }}</div>
+      </div>
+     {% else %}
+      <div  class="feedback__field-area">
+        <input name="text_{{ block.id }}" type="text" value="" placeholder="{{ block.label }}{% if block.required %}*{% endif %}" class="form-control form-control_size-l form-control_wide js-form-field {% if block.required %}required{% endif %}">
+        <div class="feedback__field-error">{{ messages.clear_field_error | escape }}</div>
+      </div>
+     {% endif %}
+
+      {% endfor %}
+
+      {% if widget_settings.hide-use-agree != true %}
+        <div data-feedback-form-field-area class="feedback__field-area agree">
+          <label class="agree__checkbox">
+            <input data-feedback-form-agree='{"errorMessage": "{{messages.agree_error | escape }}"}' name="agree" type="checkbox" value="" autocomplete="off" class="agree__field">
+            <span class="agree__content">
+              <span class="agree__btn icon-check"></span>
+                <span class="agree__label">
+                  {{messages.agree_text_part_1}}
+                  {% if widget_settings.agree-link and widget_settings.agree-link != ''%}
+                    <a href="{{widget_settings.agree-link}}" target="_blank">{{messages.agree_text_part_2}}</a>
+                  {% else %}
+                    {{messages.agree_text_part_2}}
+                  {% endif %}
+                  *
+                </span>
+            </span>
+          </label>
+          <div data-feedback-form-field-error class="feedback__field-error"></div>
+        </div>
+      {% endif %}
+      <input type="hidden" value="Нет данных" data-feedback-form-field name="content" class="js-form-content">
+      <input type="hidden" value="{{ messages.feedback_form }}" data-feedback-form-field name="subject">
+        {% if account.captcha_type == 'google' %}
+        <div data-feedback-form-field-area class="feedback__field-area">
+          <div data-recaptcha-type="invisible" data-feedback-form-recaptcha='{"isRequired": true, "errorMessage": "{{messages.recaptcha_error | escape }}"}' class="feedback__recaptcha"></div>
+          <div data-feedback-form-field-error class="feedback__field-error"></div>
+        </div>
+        {% elsif account.captcha_type == 'yandex' %}
+        <div data-feedback-form-field-area class="feedback__field-area">
+          <div data-yandex-captcha-type="invisible" data-feedback-form-yandex-captcha='{"isRequired": true, "errorMessage": "{{widget_messages.yandex_captcha_error | escape }}"}' class="feedback__yandex-captcha"></div>
+          <div data-feedback-form-field-error class="feedback__field-error"></div>
+        </div>
+        {% endif %}
+      <div class="feedback__submit">
+        <button
+          class="button button_size-l feedback__submit-btn"
+          type="submit" >{{ widget_settings.submit_btn_title }}</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endif %}

@@ -1,0 +1,14 @@
+{
+  "ru": {
+    "logo_recommended_width": "Рекомендуемая ширина изображения: 512 px"
+  },
+  "ua": {
+    "logo_recommended_width": "Рекомендована ширина зображення: 512 px"
+  },
+  "en": {
+    "logo_recommended_width": "Recommended image width: 512 px"
+  },
+  "es": {
+    "logo_recommended_width": "Ancho de imagen recomendado: 512 px"
+  }
+}

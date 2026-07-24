@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html
+	class="{{ default_checkout2_layout_class }}"
+	style="
+		{% include "system_v4_required_styles" %}
+	">
+	<head>
+		{% include "head" %}
+	</head>
+	<body class="adaptive" data-multi-lang="{{ language.not_default? }}">
+		{% include "system_no_js_alert" %}
+		<div class="page_layout page_layout-clear">
+			<header>
+				{% for widgetDrop in widget_lists.header-list.widgets %}
+					{% widget widgetDrop %}
+				{% endfor %}
+			</header>
+			<main>
+				<div class="layout {% if template contains 'order2' %}_orders{% endif %}">
+					<div class="layout__content">
+						{% unless client %}
+							{% if template != "order2" %}
+								<div class="panel__top">
+									<div class="panel__top-wrapper filter__back-wrapper">
+										<a href="/" class="panel__top-back">
+											<svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+											<path d="M11 3.5L6 9L11 14.5" stroke="#181818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+											<span>Главная</span>
+										</a>
+										<h1 class="title__large">Вход или регистрация</h1>
+									</div>
+								</div>
+							{% endif %}
+						{% elsif template != "order2" %}
+							<div class="breadcrumbs breadcrumbs__client">
+								 {% if template == "account.orders2" %}
+									<a href="/" class="btn__bread-back">
+										<svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+										<path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+										</svg>
+										<span>Главная</span>
+									</a>
+								{% else %}
+									<a href="/client_account/orders" class="btn__bread-back">
+										<svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+										<path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+										</svg>
+										<span>Назад</span>
+									</a>
+								{% endif %}
+							</div>
+							<div class="panel__top">
+								<div class="panel__top-wrapper filter__back-wrapper">
+									<a href="{%- if template == "account.orders2" -%}/{%- else -%}/client_account/orders{%- endif -%}" class="panel__top-back">
+										<svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+										<path d="M11 3.5L6 9L11 14.5" stroke="#181818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+										<span>{%- if template == "account.orders2" -%}Главная{%- else -%}Назад{%- endif -%}</span>
+									</a>
+									{% if template == "account.orders2" %}
+										<h1 class="title__large orders__title">Личный кабинет</h1>
+									{% elsif client and template != "order2" %}
+										{% comment %} <div class="title__medium">{% yield 'title' %}</div> {% endcomment %}
+										<h1 class="title__large orders__title">{% yield 'title' %}</h1>
+									{% else %}
+										<h1 class="title__large orders__title">Личный кабинет</h1>
+									{% endif %}
+								</div>
+							</div>
+							{% if template contains 'account.orders2' %}
+								<div class="client__wrapper client__grid">
+									<div class="client__grid-item">
+										<div class="item__svg">
+											<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+											<path d="M13.9997 14.0011C17.2214 14.0011 19.8331 11.3895 19.8331 8.16781C19.8331 4.94615 17.2214 2.33447 13.9997 2.33447C10.7781 2.33447 8.16641 4.94615 8.16641 8.16781C8.16641 11.3895 10.7781 14.0011 13.9997 14.0011Z" stroke="#2394F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M24.0215 25.6667C24.0215 21.1517 19.5298 17.5 13.9998 17.5C8.46981 17.5 3.97815 21.1517 3.97815 25.6667" stroke="#2394F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+										</div>
+										<div class="item__info">
+											<div class="item__info-title">{{ client.full_name }}</div>
+											<div class="item__info-descript">{{ client.phone }}</div>
+											<a href="/client_account/exit" class="item__info-exit">Выход</a>
+											<a href="/page/acccount_delete" class="item__info-remove">Удаление аккаунта</a>
+										</div>
+									</div>
+									<a href="/client_account/addresses" class="client__grid-item _wrapper-img">
+										<div class="item__info">
+											<div class="item__info-subtitle">Адрес доставки</div>
+										</div>
+										<div class="item__img">
+											<img src="{{ "acc_home.png" | asset_url  }}" alt="">
+										</div>
+									</a>
+									<a href="/client_account/contacts" class="client__grid-item _wrapper-img">
+										<div class="item__info">
+											<div class="item__info-subtitle">Контактные данные</div>
+										</div>
+										<div class="item__img">
+											<img src="{{ "acc_doc.png" | asset_url  }}" alt="">
+										</div>
+									</a>
+									<a href="#" data-href-scroll="orders_list" class="client__grid-item _wrapper-img">
+										<div class="item__info">
+											<div class="item__info-subtitle">История заказов</div>
+										</div>
+										<div class="item__img">
+											<img class="client__img-cart" src="{{ "icon-cart-blue.svg" | asset_url }}" alt="">
+										</div>
+									</a>
+									<a href="/client_account/discounts" class="client__grid-item _wrapper-img _disabled">
+										<div class="item__info">
+											<div class="item__info-subtitle">Скидки и бонусы</div>
+											<div class="item__info-message">Скоро появится</div>
+										</div>
+										<div class="item__img">
+											<img src="{{ "acc_fire.png" | asset_url  }}" alt="">
+										</div>
+									</a>
+									<a href="#" target="_blank" class="client__grid-item _wrapper-img" data-em-order-inform>
+										<div class="item__info">
+											<div class="item__info-subtitle">Служба поддержки</div>
+										</div>
+										<div class="item__img">
+											<img src="{{ "acc_phone.png" | asset_url  }}" alt="">
+										</div>
+									</a>
+									<div class="client__grid-item">
+										<div class="item__info">
+											<div class="item__info-subtitle">Мы в соц. сетях</div>
+										</div>
+										<div class="item__imgs">
+											<a href="https://vk.com/id1068368508?utm_source=website&utm_medium=askme-icons&utm_campaign=own&utm_content=askme-icons&utm_term=vk-button" target="_blank">
+												<svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 101 100" fill="none">
+												<g clip-path="url(#clip0_2_40)">
+												<path d="M0.5 48C0.5 25.3726 0.5 14.0589 7.52944 7.02944C14.5589 0 25.8726 0 48.5 0H52.5C75.1274 0 86.4411 0 93.4706 7.02944C100.5 14.0589 100.5 25.3726 100.5 48V52C100.5 74.6274 100.5 85.9411 93.4706 92.9706C86.4411 100 75.1274 100 52.5 100H48.5C25.8726 100 14.5589 100 7.52944 92.9706C0.5 85.9411 0.5 74.6274 0.5 52V48Z" fill="#0077FF"/>
+												<path d="M53.7085 72.042C30.9168 72.042 17.9169 56.417 17.3752 30.417H28.7919C29.1669 49.5003 37.5834 57.5836 44.25 59.2503V30.417H55.0004V46.8752C61.5837 46.1669 68.4995 38.667 70.8329 30.417H81.5832C79.7915 40.5837 72.2915 48.0836 66.9582 51.1669C72.2915 53.6669 80.8336 60.2086 84.0836 72.042H72.2499C69.7082 64.1253 63.3754 58.0003 55.0004 57.1669V72.042H53.7085Z" fill="white"/>
+												</g>
+												<defs>
+												<clipPath id="clip0_2_40">
+												<rect width="100" height="100" fill="white" transform="translate(0.5)"/>
+												</clipPath>
+												</defs>
+												</svg>
+												{% comment %} <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" fill="none">
+												<rect width="38" height="38" rx="19" fill="#0DC143"/>
+												<path d="M27.5109 10.4597C25.474 8.3629 22.6582 7.22461 19.7826 7.22461C13.6717 7.22461 8.75913 12.1971 8.81904 18.248C8.81904 20.1651 9.35823 22.0224 10.2569 23.6998L8.69922 29.3913L14.5105 27.8935C16.128 28.7922 17.9253 29.2115 19.7226 29.2115C25.7735 29.2115 30.6862 24.239 30.6862 18.1881C30.6862 15.2525 29.5479 12.4967 27.5109 10.4597ZM19.7826 27.3543C18.165 27.3543 16.5474 26.935 15.1695 26.0962L14.81 25.9165L11.3353 26.8151L12.2339 23.4003L11.9943 23.0408C9.35823 18.7872 10.6163 13.1557 14.9298 10.5197C19.2434 7.88362 24.815 9.14173 27.451 13.4552C30.0871 17.7688 28.829 23.3404 24.5154 25.9764C23.1375 26.8751 21.46 27.3543 19.7826 27.3543ZM25.0546 20.7043L24.3956 20.4048C24.3956 20.4048 23.4371 19.9854 22.838 19.6859C22.778 19.6859 22.7181 19.626 22.6582 19.626C22.4785 19.626 22.3587 19.6859 22.2389 19.7458C22.2389 19.7458 22.179 19.8057 21.3402 20.7642C21.2803 20.8841 21.1605 20.944 21.0407 20.944H20.9808C20.9208 20.944 20.801 20.8841 20.7411 20.8242L20.4416 20.7043C19.7826 20.4048 19.1835 20.0453 18.7042 19.566C18.5844 19.4462 18.4046 19.3264 18.2848 19.2066C17.8654 18.7872 17.4461 18.3079 17.1465 17.7688L17.0866 17.6489C17.0267 17.589 17.0267 17.5291 16.9668 17.4093C16.9668 17.2895 16.9668 17.1697 17.0267 17.1097C17.0267 17.1097 17.2663 16.8102 17.4461 16.6305C17.5659 16.5106 17.6258 16.3309 17.7456 16.2111C17.8654 16.0314 17.9253 15.7917 17.8654 15.612C17.8055 15.3124 17.0866 13.6949 16.9069 13.3354C16.7871 13.1557 16.6672 13.0958 16.4875 13.0359H16.3078C16.188 13.0359 16.0082 13.0359 15.8285 13.0359C15.7087 13.0359 15.5889 13.0958 15.469 13.0958L15.4091 13.1557C15.2893 13.2156 15.1695 13.3354 15.0497 13.3953C14.9299 13.5151 14.8699 13.635 14.7501 13.7548C14.3308 14.294 14.0911 14.953 14.0911 15.612C14.0911 16.0913 14.2109 16.5706 14.3907 16.9899L14.4506 17.1697C14.9898 18.3079 15.7087 19.3264 16.6672 20.2251L16.9069 20.4647C17.0866 20.6444 17.2663 20.7642 17.3862 20.944C18.6443 22.0224 20.0821 22.8012 21.6997 23.2206C21.8794 23.2805 22.119 23.2805 22.2988 23.3404C22.4785 23.3404 22.7181 23.3404 22.8979 23.3404C23.1974 23.3404 23.5569 23.2206 23.7965 23.1007C23.9762 22.9809 24.0961 22.9809 24.2159 22.8611L24.3357 22.7413C24.4555 22.6215 24.5753 22.5615 24.6952 22.4417C24.815 22.3219 24.9348 22.2021 24.9947 22.0823C25.1145 21.8426 25.1744 21.5431 25.2344 21.2435C25.2344 21.1237 25.2344 20.944 25.2344 20.8242C25.2344 20.8242 25.1744 20.7642 25.0546 20.7043Z" fill="white"/>
+												</svg> {% endcomment %}
+											</a>
+											<a href="https://www.instagram.com/wizzu.ru?utm_source=website&utm_medium=store-icons&utm_campaign=own&utm_content=futter-icons&utm_term=instagram-button" target="_blank">
+												<svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" fill="none">
+												<rect width="38" height="38" rx="19" fill="url(#paint0_linear_500_317)"/>
+												<path d="M15.0428 19C15.0428 16.814 16.8144 15.0413 19.0005 15.0413C21.1865 15.0413 22.9591 16.814 22.9591 19C22.9591 21.186 21.1865 22.9586 19.0005 22.9586C16.8144 22.9586 15.0428 21.186 15.0428 19ZM12.9028 19C12.9028 22.3677 15.6327 25.0977 19.0005 25.0977C22.3682 25.0977 25.0982 22.3677 25.0982 19C25.0982 15.6322 22.3682 12.9023 19.0005 12.9023C15.6327 12.9023 12.9028 15.6322 12.9028 19ZM23.9146 12.6606C23.9144 12.9424 23.9979 13.2179 24.1544 13.4523C24.3109 13.6867 24.5334 13.8695 24.7937 13.9774C25.054 14.0854 25.3406 14.1137 25.617 14.0589C25.8934 14.004 26.1474 13.8684 26.3468 13.6692C26.5461 13.4699 26.682 13.2161 26.7371 12.9397C26.7922 12.6633 26.764 12.3768 26.6563 12.1163C26.5485 11.8559 26.366 11.6333 26.1317 11.4766C25.8974 11.3199 25.622 11.2362 25.3401 11.2361H25.3396C24.9618 11.2363 24.5995 11.3864 24.3323 11.6535C24.0651 11.9206 23.9149 12.2828 23.9146 12.6606ZM14.203 28.666C13.0452 28.6132 12.4159 28.4204 11.9978 28.2575C11.4433 28.0416 11.0478 27.7846 10.6318 27.3692C10.2159 26.9539 9.95848 26.5587 9.74359 26.0043C9.58057 25.5863 9.38772 24.9568 9.33509 23.799C9.27752 22.5473 9.26603 22.1713 9.26603 19.0001C9.26603 15.8289 9.27847 15.4539 9.33509 14.2012C9.38782 13.0434 9.58209 12.4152 9.74359 11.9959C9.95943 11.4415 10.2165 11.0459 10.6318 10.63C11.0472 10.2141 11.4424 9.95667 11.9978 9.74178C12.4158 9.57876 13.0452 9.3859 14.203 9.33327C15.4547 9.2757 15.8307 9.26421 19.0005 9.26421C22.1703 9.26421 22.5466 9.27665 23.7994 9.33327C24.9572 9.386 25.5854 9.58028 26.0046 9.74178C26.5591 9.95667 26.9546 10.2147 27.3706 10.63C27.7865 11.0454 28.043 11.4415 28.2588 11.9959C28.4218 12.4139 28.6147 13.0434 28.6673 14.2012C28.7249 15.4539 28.7364 15.8289 28.7364 19.0001C28.7364 22.1713 28.7249 22.5463 28.6673 23.799C28.6146 24.9568 28.4208 25.5861 28.2588 26.0043C28.043 26.5587 27.7859 26.9543 27.3706 27.3692C26.9552 27.7842 26.5591 28.0416 26.0046 28.2575C25.5866 28.4205 24.9572 28.6133 23.7994 28.666C22.5477 28.7235 22.1717 28.735 19.0005 28.735C15.8293 28.735 15.4543 28.7235 14.203 28.666ZM14.1047 7.19692C12.8405 7.25448 11.9767 7.45493 11.2223 7.74848C10.441 8.05163 9.7796 8.45832 9.11868 9.11819C8.45777 9.77806 8.05212 10.4405 7.74897 11.2218C7.45542 11.9766 7.25497 12.84 7.1974 14.1042C7.13888 15.3703 7.12549 15.7751 7.12549 19C7.12549 22.2249 7.13888 22.6297 7.1974 23.8958C7.25497 25.1601 7.45542 26.0233 7.74897 26.7782C8.05212 27.559 8.45786 28.2222 9.11868 28.8818C9.7795 29.5414 10.441 29.9475 11.2223 30.2515C11.9781 30.5451 12.8405 30.7455 14.1047 30.8031C15.3715 30.8607 15.7756 30.875 19.0005 30.875C22.2254 30.875 22.6302 30.8616 23.8963 30.8031C25.1606 30.7455 26.0238 30.5451 26.7787 30.2515C27.5595 29.9475 28.2214 29.5417 28.8823 28.8818C29.5432 28.2219 29.948 27.559 30.252 26.7782C30.5456 26.0233 30.747 25.16 30.8036 23.8958C30.8611 22.6287 30.8745 22.2249 30.8745 19C30.8745 15.7751 30.8611 15.3703 30.8036 14.1042C30.746 12.8399 30.5456 11.9762 30.252 11.2218C29.948 10.441 29.5422 9.77911 28.8823 9.11819C28.2224 8.45728 27.5595 8.05163 26.7797 7.74848C26.0238 7.45493 25.1605 7.25354 23.8973 7.19692C22.6311 7.13935 22.2263 7.125 19.0014 7.125C15.7766 7.125 15.3715 7.1384 14.1047 7.19692Z" fill="white"/>
+												<defs>
+												<linearGradient id="paint0_linear_500_317" x1="1.7724e-06" y1="-1.35714" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+												<stop offset="0.166482" stop-color="#F5AE42"/>
+												<stop offset="0.500022" stop-color="#EF2E79"/>
+												<stop offset="0.859592" stop-color="#8326BF"/>
+												</linearGradient>
+												</defs>
+												</svg>
+											</a>
+										</div>
+									</div>
+								</div>
+							{% else %}
+								<div class="breadcrumbs">
+									<ul class="breadcrumbs__list">
+										<li class="breadcrumbs__item">
+											<a href="/client_account/orders" class="breadcrumbs__link">Личный кабинет</a>
+										</li>
+										<li class="breadcrumbs__item">{% yield 'title' %}</li>
+									</ul>
+								</div>
+							{% endif %}
+						{% endunless %}
+						{% yield %}
+						{% comment %} Старый код 
+						<div class='checkout-v2-wrapper co-section--content_wrapper'>
+							{% if client %}
+								{% yield 'menu' %}
+							{% endif %}
+							<div class='co-section--content'>
+								<div class='co-section--checkout_header co-checkout-block--padded'>
+								<h1 class='co-checkout-title co-title co-title--h1'>
+									{% yield 'title' %}
+								</h1>
+								</div>
+								{% yield %}
+							</div>
+						</div>
+						{% endcomment %}
+					</div>
+				</div>
+			</main>
+			<footer>
+				{% for widgetDrop in widget_lists.footer-list.widgets %}
+					{% widget widgetDrop %}
+				{% endfor %}
+			</footer>
+		</div>
+		<div class="outside-widgets">
+			{% for widgetDrop in widget_lists.outside-list.widgets %}
+				{% widget widgetDrop %}
+			{% endfor %}
+		</div>
+	</body>
+  {{ 'checkout2.core' | global_stylesheet_tag }}
+
+  {%- capture css_js_lists -%}header-list, footer-list, sidebar-list, outside-list, {{ template }}-list, {{ template }}-section_top-list, {{ template }}-section_bottom-list{%- endcapture -%}
+
+  {% if sidebar_show %}
+    {% if template contains 'blog' or template contains 'article' %}
+        {% assign css_js_lists = css_js_lists | append: ', sidebar_blog-list' %}
+    {% else %}
+        {% assign css_js_lists = css_js_lists | append: ', sidebar-list' %}
+    {% endif %}
+  {% endif %}
+
+	<script>
+		// Костыль, чтоб сменить стандартные заголовки в форме аторизации
+		document.addEventListener("DOMContentLoaded", function() {
+			if (window.location.pathname.includes("/client_account/session/new")) {
+				const label = document.querySelector("form.co-form--login .co-input-label[for='email']");
+				if (label) {
+					label.innerText = "E-mail";
+				}
+			}
+		});
+	</script>
+
+  {% widgets_assets css_js_lists %}
+
+  {% include "styles" %}
+
+  <link href="{{ 'em_login.css' | asset_url }}" rel="stylesheet" type="text/css" />
+  <script src="{{ 'emilius_modules.js' | asset_url }}" charset="utf-8"></script>
+  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=82b416d9-91cb-4d67-a85c-4a66bbeeb85b&suggest_apikey=376c749f-7294-4a03-bd1e-89660416807e" type="text/javascript"></script>
+
+</html>

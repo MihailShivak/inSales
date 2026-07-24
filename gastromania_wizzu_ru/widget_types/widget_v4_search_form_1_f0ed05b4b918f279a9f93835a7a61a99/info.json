@@ -1,0 +1,24 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Форма поиска"
+  },
+  "handle": "widget_v4_search_form_1_f0ed05b4b918f279a9f93835a7a61a99",
+  "description": {
+    "ru": "Форма поиска"
+  },
+  "page_kinds": [
+    "all"
+  ],
+  "widget_list_kinds": [
+    "before_content",
+    "content",
+    "after_content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "forms",
+  "libraries": [
+    "commonjs_v2",
+    "my-layout"
+  ]
+}

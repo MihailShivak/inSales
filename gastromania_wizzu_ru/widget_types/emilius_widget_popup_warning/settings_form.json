@@ -1,0 +1,33 @@
+{
+    "content": [
+        {
+            "items": [
+				{
+					"name":"show_popup",
+					"label":"Показывать попап",
+					"value":false,
+					"help":"",
+					"type":"checkbox"
+				},
+                {
+                    "name": "title",
+                    "label": "Заголовок",
+                    "value": null,
+                    "type": "text"
+                },
+                {
+                    "name": "desc",
+                    "label": "Описание",
+                    "value": null,
+                    "type": "text"
+                },
+                {
+                    "name": "btn-text",
+                    "label": "Текст кнопки",
+                    "value": null,
+                    "type": "text"
+                }
+            ]
+        }
+    ]
+}
