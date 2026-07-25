@@ -40,31 +40,47 @@ $(document).ready(() => {
   }
 
   // Определяем город по поддомену
-  const subdomainCity = getCityByDomain();
-  // Читаем город из куксов
+  const subdomainCity = getCityByDomain(); // Вернет 'Москва' для moscow, 'Новосибирск' для www
   let currentCity = Cookies.get("rev-current-location");
 
-  // Если города нет в куксах ИЛИ он не совпадает с городом поддомена - перезаписываем
-  if (
-    !currentCity ||
-    currentCity.toLowerCase() !== subdomainCity.toLowerCase()
-  ) {
-    currentCity = subdomainCity;
+  if (subdomainCity !== "Новосибирск") {
+    // СТРОГАЯ ЛОГИКА: Мы на специфичном домене (spb, moscow и т.д.)
+    // Домен всегда главнее куки. Принудительно ставим город домена и обновляем кукс.
+    currentCity = subdomainCity.toLowerCase();
     Cookies.set("rev-current-location", currentCity, {
       expires: 365,
       path: "/",
       domain: rootDomain,
     });
-    if (!Cookies.get("rev-country-location")) {
+    Cookies.set("rev-country-location", "Россия", {
+      expires: 365,
+      path: "/",
+      domain: rootDomain,
+    });
+  } else {
+    // МЯГКАЯ ЛОГИКА: Мы на www.duman.store
+    if (!currentCity) {
+      // Случай 1: Куксы пусты (первое посещение). Дефолтный город - Новосибирск.
+      currentCity = "новосибирск";
+      // Записываем, чтобы зафиксировать дефолтное состояние
+      Cookies.set("rev-current-location", currentCity, {
+        expires: 365,
+        path: "/",
+        domain: rootDomain,
+      });
       Cookies.set("rev-country-location", "Россия", {
         expires: 365,
         path: "/",
         domain: rootDomain,
       });
+    } else {
+      // Случай 2 и 3: Кукс уже существует (Краснодар, Новосибирск или что-то еще).
+      // МЫ НИЧЕГО НЕ СТИРАЕМ И НЕ ПЕРЕЗАПИСЫВАЕМ. Просто используем значение из куки.
+      currentCity = currentCity.toLowerCase();
     }
-    console.log("[Header] Город синхронизирован с поддоменом:", currentCity);
   }
 
+  // Отображаем город в шапке
   if (currentCity) {
     const displayCity =
       currentCity.charAt(0).toUpperCase() + currentCity.slice(1);
@@ -373,10 +389,15 @@ $(document).ready(() => {
       : $("[data-popup-notice]:first");
 
   function noticeAddInCart(data) {
-    console.log("[Header][DEBUG] noticeAddInCart вызван. Флаг __bocOrderInProgress =", window.__bocOrderInProgress);
+    console.log(
+      "[Header][DEBUG] noticeAddInCart вызван. Флаг __bocOrderInProgress =",
+      window.__bocOrderInProgress,
+    );
 
     if (window.__bocOrderInProgress) {
-      console.log("[Header][DEBUG] Флаг BOC активен — уведомление НЕ показываем.");
+      console.log(
+        "[Header][DEBUG] Флаг BOC активен — уведомление НЕ показываем.",
+      );
       return;
     }
 

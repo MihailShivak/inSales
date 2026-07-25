@@ -50,10 +50,14 @@ $(document).ready(() => {
   function redirectToCityDomain(cityName) {
     const targetDomain = getDomainByCity(cityName);
     const currentHostname = window.location.hostname;
-    if (currentHostname !== targetDomain) {
+
+    // Если домены совпадают - просто перезагружаем страницу для обновления всех данных
+    if (currentHostname === targetDomain) {
+      window.location.reload();
+    } else {
+      // Если домены разные - переходим на другой домен
       const protocol = window.location.protocol;
       const newUrl = `${protocol}//${targetDomain}${window.location.pathname}${window.location.search}`;
-      console.log("[City] Редирект на домен:", targetDomain);
       window.location.href = newUrl;
     }
   }
@@ -283,25 +287,28 @@ $(document).ready(() => {
     Cookies.set("city-notice-shown", "1", { expires: 365, path: "/" });
     $("#city-notice").prop("hidden", true);
 
-    const domainCity = getCityByDomain(window.location.hostname);
+    const confirmCity = city || getCityByDomain(window.location.hostname);
+
     Cookies.set("rev-country-location", "Россия", {
       expires: 365,
       path: "/",
       domain: rootDomain,
     });
-    Cookies.set("rev-current-location", domainCity, {
+    Cookies.set("rev-current-location", confirmCity, {
       expires: 365,
       path: "/",
       domain: rootDomain,
     });
 
     country = "Россия";
-    city = domainCity;
+    city = confirmCity;
     updateCityInHeader(city);
 
     if (isProduct || isCart) {
       inputCity(city, country, true);
     }
+
+    console.log("[City Confirm] Город подтверждён:", city);
   });
 
   $("[data-city-change]").on("click", (e) => {
@@ -543,13 +550,17 @@ $(document).ready(() => {
       $popup.find("[data-city-save]").focus();
     });
 
-  // Сохранение города
+  // Сохранение города и редирект
   $popup.find("[data-city-save]").on("click", async function () {
     const newCountry = $popup.find('[name="country"]').val();
-    const newCityName = $popup.find('[name="name-city"]').val().trim();
+    const newCityName = $popup
+      .find('[name="name-city"]')
+      .val()
+      .trim()
+      .toLowerCase();
     if (!newCityName) return;
 
-    // Находим корректные данные Kladr
+    // 1. Находим корректные данные Kladr
     let targetKladr = null;
     if (indexKladr !== undefined && kladr[indexKladr]) {
       const kladrCityName = (
@@ -557,23 +568,19 @@ $(document).ready(() => {
         kladr[indexKladr].last_level ||
         ""
       ).toLowerCase();
-      if (kladrCityName === newCityName.toLowerCase()) {
+      if (kladrCityName === newCityName) {
         targetKladr = kladr[indexKladr];
       }
     }
-
     if (!targetKladr && kladr.length > 0) {
       const matchIndex = kladr.findIndex(
-        (k) =>
-          (k.city || k.last_level || "").toLowerCase() ===
-          newCityName.toLowerCase(),
+        (k) => (k.city || k.last_level || "").toLowerCase() === newCityName,
       );
       if (matchIndex !== -1) {
         targetKladr = kladr[matchIndex];
         indexKladr = matchIndex;
       }
     }
-
     if (!targetKladr) {
       try {
         const cities = await $.ajax({
@@ -593,12 +600,12 @@ $(document).ready(() => {
       }
     }
 
-    // Сохраняем на бэкенде, чтобы он запомнил район
+    // 2. Сохраняем на бэкенде, чтобы он запомнил район (для оформления заказа)
     if (targetKladr) {
       await setDeliveryInfo(targetKladr);
     }
 
-    // Обновляем куки и переменные
+    // 3. МЯГКОЕ СОХРАНЕНИЕ КУКИ
     Cookies.set("rev-country-location", newCountry, {
       expires: 365,
       path: "/",
@@ -609,14 +616,16 @@ $(document).ready(() => {
       path: "/",
       domain: rootDomain,
     });
-    country = newCountry;
-    city = newCityName;
 
-    // Обновляем шапку
-    updateCityInHeader(city);
+    // 4. Обновляем шапку мгновенно для UX
+    updateCityInHeader(newCityName);
 
-    // Закрываем popup и делаем редирект
+    // 5. Закрываем popup и делаем редирект
     Cookies.set("city-notice-shown", "1", { expires: 365, path: "/" });
+
+    // Нативное закрытие через триггер крестика темы + страховка классами
+    $popup.find("[data-close]").trigger("click");
+    $popup.removeClass("popup_show");
     $("body").removeClass("popup_open");
     $popup.attr("aria-hidden", "true");
 
@@ -624,9 +633,9 @@ $(document).ready(() => {
       setTimeout(() => {
         window.location.reload();
       }, 350);
+    } else {
+      redirectToCityDomain(newCityName); // Эта функция сама решит, нужен ли редирект
     }
-
-    redirectToCityDomain(newCityName);
   });
 
   $popup.find('[name="country"]').on("change", function () {
@@ -679,27 +688,8 @@ $(document).ready(() => {
       },
     });
   } else {
-    const subdomainCity = getCityByDomain(window.location.hostname);
-    if (city.toLowerCase() !== subdomainCity.toLowerCase()) {
-      console.log(
-        "[City] Город в cookie не совпадает с поддоменом. Обновляем:",
-        subdomainCity,
-      );
-      city = subdomainCity;
-
-      // Обновляем cookie под текущий поддомен
-      Cookies.set("rev-country-location", country, {
-        expires: 365,
-        path: "/",
-        domain: rootDomain,
-      });
-      Cookies.set("rev-current-location", city, {
-        expires: 365,
-        path: "/",
-        domain: rootDomain,
-      });
-    }
-
+    // МЯГКАЯ ЛОГИКА
+    console.log("[City] Город успешно прочитан из cookie:", city);
     updateCityInHeader(city);
   }
 
