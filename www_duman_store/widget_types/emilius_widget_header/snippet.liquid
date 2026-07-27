@@ -1,6 +1,6 @@
 {% capture header_time %}{{'now' | date: '%s.%L' }}{% endcapture %}
 <div id="collectionID" data-collection-handle="{{ collection.handle }}" hidden></div>
-{% if isOrder %}
+{% if isOrder or template contains 'page' and page.url contains 'new-order' %}
   <header class="header header_order" data-lp="">
     <div class="header__wrapper">
       <div class="header__container header__container_alt">

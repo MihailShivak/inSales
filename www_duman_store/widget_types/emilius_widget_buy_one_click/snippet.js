@@ -38,6 +38,20 @@
       console.error("[BOC][DEBUG] EventBus не определён на момент инициализации!");
     }
 
+    // Крестики очистки полей формы (были в разметке, но не были подключены)
+    document.addEventListener("click", function (e) {
+      const clearBtn = e.target.closest('#popup-buy-one-click [data-js="input-clear"]');
+      if (!clearBtn) return;
+
+      const wrapper = clearBtn.closest(".input-group__wrapper");
+      const input = wrapper ? wrapper.querySelector("input, textarea") : null;
+      if (!input) return;
+
+      input.value = "";
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+      input.focus();
+    });
+
     document.addEventListener("submit", function (e) {
       const form = e.target;
       
@@ -47,10 +61,13 @@
         const popup = form.closest("#popup-buy-one-click");
         if (!popup) return;
         
-        const variantId = popup.dataset.variantId;
+        const variantId = popup.dataset.variantId ?? document.querySelector('[name="variant_id"]')?.value; 
         if (!variantId) {
           showError(popup, "Ошибка: не выбран вариант товара");
           return;
+        }
+        if (!popup.dataset.variantId) {
+          popup.dataset.variantId = variantId;
         }
 
         // Валидация
@@ -154,6 +171,9 @@
     const loginBlock = form.querySelector("#data-client-login");
     const submitBtn = form.querySelector("[data-boc-submit]");
 
+    // Блокируем кнопку на время проверки, чтобы не было "мигания" доступности
+    if (submitBtn) submitBtn.disabled = true;
+
     fetch("/client_account/contacts.json", {
       method: "GET",
       headers: { "X-Requested-With": "XMLHttpRequest" },
@@ -181,8 +201,9 @@
         });
       })
       .catch(() => {
+        // Клиент не авторизован — держим кнопку заблокированной
         if (loginBlock) loginBlock.style.display = "";
-        if (submitBtn) submitBtn.disabled = false;
+        if (submitBtn) submitBtn.disabled = true;
       });
   }
 

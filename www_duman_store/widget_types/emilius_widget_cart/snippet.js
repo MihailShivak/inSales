@@ -439,7 +439,7 @@ $(document).ready(() => {
         // UnavailableProducts.save();
         UnavailableProducts.removeCart();
         
-        $cartCountItem.text(cart.positions_count + UnavailableProducts.count);
+        $cartCountItem.text(data.positions_count + UnavailableProducts.count);
 
         if (method == "update_items") $cart.find("[data-disabled-list]").html(html);
         else $cart.find("[data-disabled-list]").append(html);
@@ -686,7 +686,6 @@ $(document).ready(() => {
 
     function updateCart(cart) {
         // console.log("updateCart", cart);
-        if (window.__bocOrderInProgress) return;
         if (countUpdate < 2) countUpdate++;
         
         setTimeout(() => {
@@ -1182,7 +1181,8 @@ $(document).ready(() => {
     $replace.find(".popup__products-list-body").on("change", "input.checkbox-btn__input", changeInputReplace);
     $btn.submit.on("click", function() {
         // $cart.find("[data-cart-submit]").trigger("click");
-        loader.callStatic($cart.find("form.basket__grid").trigger("submit"));
+        loader.callStatic($cart.find("form.basket__grid"));
+        document.location.href = `${window.location.origin}/page/new-order`;
     });
     if (isMobile) {
         $replace.find(".popup__body")
