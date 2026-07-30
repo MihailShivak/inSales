@@ -5,7 +5,7 @@
       <span class="city-notice__label">Адрес доставки</span>
     </div>
     <div class="city-notice__city">
-      <strong class="city-notice__city-name" data-city-notice-name>Москва</strong>
+      <strong class="city-notice__city-name" data-city-notice-name>Загружаем...</strong>
     </div>
     <div class="city-notice__buttons">
       <button type="button" class="city-notice__btn city-notice__btn_confirm" data-city-confirm>Да, верно</button>
@@ -16,7 +16,7 @@
 
 <div id="popup-city" aria-hidden="true" class="popup">
   <div class="popup__wrapper">
-    <div class="popup__content">
+    <div class="popup__content popup__content-city">
       <button data-close type="button" class="popup__close"></button>
       <div class="popup__body">
         <div class="popup__title">Адрес доставки</div>
@@ -64,3 +64,5 @@
     </div>
   </div>
 </div>
+
+<button id="btn-popup-city" type="button" data-popup="#popup-city" hidden></button>

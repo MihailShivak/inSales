@@ -1,20 +1,17 @@
 $(document).ready(() => {
-	function getRootDomain() {
-		const hostname = window.location.hostname;
-		const parts = hostname.split(".");
-		if (parts.length >= 2) {
-			return "." + parts.slice(-2).join(".");
-		}
-		return hostname;
-	}
-	const rootDomain = getRootDomain();
+	const COOKIES_PARAMS = {
+		expires: 7,
+		path: "/",
+		domain: ".duman.store"
+	};
 
+	const CITY_DEFAULT = "новосибирск"; // Город по умолчанию
+	const DOMAIN_DEFAULT = "www.duman.store"; // Домен по умолчанию
 	const CITY_DOMAIN_MAP = {
-		"новосибирск": "www.duman.store",
+		[DOMAIN_DEFAULT]: DOMAIN_DEFAULT,
 		"санкт-петербург": "spb.duman.store",
 		"нижний новгород": "nn.duman.store",
 		"красноярск": "krasnoyarsk.duman.store",
-		"екатеринбург": "ekaterinburg.duman.store",
 		"казань": "kazan.duman.store",
 		"челябинск": "chelyabinsk.duman.store",
 		"самара": "samara.duman.store",
@@ -28,73 +25,76 @@ $(document).ready(() => {
 		"москва": "moscow.duman.store",
 	};
 
+	const CityDomain = getCityByDomain(window.location.hostname);
+
+	function setCookies(newCountry, newCity) {
+        if (newCountry === country && newCity === city) return;
+
+		Cookies.set('rev-country-location', newCountry, COOKIES_PARAMS);
+		Cookies.set('rev-current-location', newCity, COOKIES_PARAMS);
+
+        country = newCountry;
+        city = newCity;
+
+        if (indexKladr) setDeliveryInfo(kladr[indexKladr]);
+        if (location.pathname === '/new_order') {
+            setTimeout(() => {
+                window.location.reload();
+            }, 350);
+        }
+    }
+
 	function getDomainByCity(cityName) {
-		if (!cityName) return "www.duman.store";
-		const normalized = cityName.trim().toLowerCase();
-		return CITY_DOMAIN_MAP[normalized] || "www.duman.store";
+		if (!cityName) return DOMAIN_DEFAULT;
+		return CITY_DOMAIN_MAP[cityName.toLowerCase()] ?? DOMAIN_DEFAULT;
 	}
 
 	function getCityByDomain(hostname) {
 		const parts = hostname.split(".");
-		if (parts.length >= 3 && parts[0] !== "www") {
-			const subdomain = parts[0];
-			for (const [city, domain] of Object.entries(CITY_DOMAIN_MAP)) {
-				if (domain === `${subdomain}.duman.store`) {
-					return city;
-				}
-			}
+		if (parts.length < 2 || parts[0] === "wwww") return CITY_DEFAULT;
+
+		const subdomain = `${parts[0]}.duman.store`;
+		for (const keyCityDomain in CITY_DOMAIN_MAP) {
+			const domain = CITY_DOMAIN_MAP[keyCityDomain];
+			if (domain === subdomain) return keyCityDomain;
 		}
-		return "новосибирск";
+		return CITY_DEFAULT;
 	}
 
 	function redirectToCityDomain(cityName) {
 		const targetDomain = getDomainByCity(cityName);
 		const currentHostname = window.location.hostname;
+		const currentLocation = Cookies.get("first_current_location") ?? currentHostname;
 
-		// Если домены совпадают - просто перезагружаем страницу для обновления всех данных
-		if (currentHostname === targetDomain) {
-			window.location.reload();
-		} else {
-			// Если домены разные - переходим на другой домен
-			const protocol = window.location.protocol;
-
-			// Прокидываем theme_preview из куки
-			const themePreviewId = Cookies.get("11305001");
-			let search = window.location.search;
-			if (themePreviewId) {
-				search += `${search ? "&" : "?"}theme_preview=${themePreviewId}`;
-			}
-
-			const newUrl = `${protocol}//${targetDomain}${window.location.pathname}${search}`;
-			window.location.href = newUrl;
+		if (currentHostname !== targetDomain) {
+			Cookies.remove('rev-country-location');
+			Cookies.remove('rev-current-location');
+			window.location.href = `${window.location.protocol}//${targetDomain}${currentLocation}`;
 		}
-	}
-
-	function updateCityInHeader(cityName) {
-		if (!cityName) return;
-		const displayCity = cityName.charAt(0).toUpperCase() + cityName.slice(1);
-		const $cityElement = $("[data-city-name]");
-		if ($cityElement.length) {
-			$cityElement.text(displayCity);
-			console.log("[City] Header обновлен на:", displayCity);
-		}
+		// else {
+		// 	window.location.reload();
+		// }
 	}
 
 	const isMobile = sessionStorage.getItem("isMobile") === "true";
 	const isCart = window.location.pathname.includes("/cart_items");
 	const isProduct = window.location.pathname.includes("/product");
 
-	let country = Cookies.get("rev-country-location");
-	let city = Cookies.get("rev-current-location");
-	let indexKladr;
-	let nameDelivery = localStorage.getItem("nameDelivery");
-	let priceFreeDelivery = Number(localStorage.getItem("priceFreeDelivery"));
-	let isFreeShipping = false;
+	var country = Cookies.get("rev-country-location"),
+		city = Cookies.get("rev-current-location");
+
+	var indexKladr,
+		nameDelivery = localStorage.getItem("nameDelivery"),
+		priceFreeDelivery = Number(localStorage.getItem("priceFreeDelivery"));
+
+	var isFreeShipping = false;
 
 	const $popup = $("#popup-city");
-	const $deliveryInfo = isCart ? $("[data-delivery-info]") : null;
-	let kladr = [];
-	let keyupTimer;
+	const $cityNotice = $("#city-notice");
+	const $cityName = $("[data-city-name]");
+	const $deliveryInfo = isCart ? $("[data-delivery-info]:first") : null;
+	
+	var kladr = [], keyupTimer;
 
 	function getProductIdInCart() {
 		let id = [];
@@ -198,12 +198,97 @@ $(document).ready(() => {
 			}, 350);
 	}
 
+    function getDeliveryFree(deliveries) {
+        let selectDelivery;
+        let priceFree = 0;
+
+        for (const delivery of deliveries) {
+            if (!delivery.charge_up_to) continue;
+
+            const charge_up_to = Number(delivery.charge_up_to);
+            if (!isNaN(charge_up_to) && charge_up_to > 0 && (charge_up_to < priceFree || priceFree == 0)) {
+                selectDelivery = delivery;
+                priceFree = charge_up_to;
+            }
+        }
+        if (!selectDelivery || priceFree == 0 || priceFree > 30000) return;
+        if (priceFreeDelivery !== priceFree) {
+            localStorage.setItem("priceFreeDelivery", priceFree);
+            priceFreeDelivery = priceFree;
+        }
+        if (nameDelivery !== selectDelivery.title) {
+            localStorage.setItem("nameDelivery", selectDelivery.title);
+            nameDelivery = selectDelivery.title;
+        }
+
+        return {
+            // selected: selected,
+            id: selectDelivery.id,
+            priceFree: priceFree,
+            title: selectDelivery.title,
+        };
+    }
+
+    function setFreeDeliveryTitle(priceFree) {
+        if (!isFreeShipping || Cart.order.items_count == 0) return;
+        if (priceFree > 0) {
+            // Осталось до бесплатной
+            $("[data-delivery-to-free]").attr("hidden", false).find("span").text(Shop.money.format(priceFree));
+            $("[data-delivery-free]").attr("hidden", true);
+            $deliveryInfo.text("Будет рассчитана далее");
+        }
+        else {
+            // Бесплатная
+            $("[data-delivery-to-free]").attr("hidden", true);
+            $("[data-delivery-free]").attr("hidden", false);
+            $deliveryInfo.text("Бесплатно по России");
+        }
+    }
+
+    function setDeliveryCart(deliveries) {
+        const selectDelivery = getDeliveryFree(deliveries);
+        if (selectDelivery) {
+            isFreeShipping = true;
+            $(".basket__info-total-item_dilivery:first").removeAttr("hidden");
+            setFreeDeliveryTitle(selectDelivery.priceFree - Cart.order.total_price);
+        }
+    }
+
+    async function setDeliveryInfo(data) {
+        const default_locale = $('meta[name=default-locale]').attr('content').toUpperCase();
+        const deliveries = await $.ajax({
+            url: `/delivery/for_order.json?lang=${ default_locale ? default_locale : 'RU'}&v2=${ $('[data-checkout2]').length > 0 }`,
+            method: 'PUT',
+            dataType: 'json',
+            data: {
+                "shipping_address[country]": data.country,
+                'shipping_address[full_locality_name]': data.result,
+                'shipping_address[kladr_json]': data,
+                'shipping_address[no_delivery]': 0,
+                'order[viewed_product_ids]': getProductIdInCart()
+            },
+            timeout: 10000
+        });
+        console.log('Доставка:', deliveries);
+        if (!deliveries || $.isEmptyObject(deliveries?.deliveries)) {
+            console.log("Ошибка сохранения доставки");
+            return;
+        }
+        // if (isProduct) setDeliveryProduct(deliveries.deliveries, `${data.last_level_type} ${data.last_level}`);
+        // else if (isCart) setDeliveryCart(deliveries.deliveries);
+    }
+
+    function setDeliveryProduct(deliveries, typeDelivery) {
+        outputListDeliveriesProduct(deliveries);
+        $(".product-card .product-card-descr__title span:last").text(`Доставка в ${typeDelivery}`);
+    }
+
 	async function fetchDeliveryCalculate(kladrData) {
-		const variants = isProduct
-			? {
-					[$(`.product-card:first input[name="variant_id"]:first`).val()]: 1,
-				}
-			: {};
+		const variants = isProduct ?
+			{
+				[$(`.product-card:first input[name="variant_id"]:first`).val()]: 1,
+			} : {};
+		
 		try {
 			const deliveries = await $.ajax({
 				url: "/front_api/deliveries/calculate.json",
@@ -218,113 +303,45 @@ $(document).ready(() => {
 
 			console.log("[City] Доставка рассчитана:", deliveries);
 
-			if (!deliveries || !deliveries?.deliveries || !deliveries.deliveries.length) {
+			if (!deliveries?.deliveries || !deliveries.deliveries.length) {
 				console.log("[City] Ошибка получения списка доставок");
-				return;
 			}
-
-			let name_delivery = "",
-				selectDelivery = 0,
-				free = 0,
-				deliveryLine = "",
-				deliveryLineSelect = "";
-
-			for (const key in deliveries.deliveries) {
-				const delivery = deliveries.deliveries[key];
-				if (!selectDelivery && delivery.title.includes("России"))
-					selectDelivery = key;
-				if (delivery.selected) {
-					free = Number(delivery.charge_up_to);
-					name_delivery = delivery.title;
-				}
-				deliveryLine += `<button class="select__option" data-value="${key}" type="button">${delivery.title}</button>`;
-				deliveryLineSelect += `<option value="${key}">${delivery.title}</option>`;
+			else if (isProduct) {
+				setDeliveryProduct(deliveries.deliveries, `${kladrData.last_level_type} ${kladrData.last_level}`);
 			}
-
-			if (!free) {
-				if (!selectDelivery) {
-					for (const key in deliveries.deliveries) {
-						selectDelivery = key;
-						break;
-					}
-				}
-				free = Number(deliveries.deliveries[selectDelivery].charge_up_to);
-				name_delivery = deliveries.deliveries[selectDelivery].title;
-			}
-
-			// Обновляем localStorage для косметики
-			if (priceFreeDelivery !== free) {
-				localStorage.setItem("priceFreeDelivery", free);
-				priceFreeDelivery = free;
-			}
-			if (nameDelivery !== name_delivery) {
-				localStorage.setItem("nameDelivery", name_delivery);
-				nameDelivery = name_delivery;
-			}
-
-			const priceFree =
-				free -
-				(typeof Cart !== "undefined" && Cart.order
-					? Cart.order.total_price
-					: 0);
-
-			setListDeliveris(deliveryLine, deliveryLineSelect);
-
-			// Дальше только для страницы корзины или товара
-			if (isCart) {
-				setDeliveryInCart(deliveries.deliveries, free, priceFree, kladrData);
-			}
-			if (isProduct) {
-				outputListDeliveriesProduct(deliveries.deliveries);
-				$(".product-card .product-card-descr__title span:last").text(
-					`Доставка в ${kladrData.last_level_type} ${kladrData.last_level}`,
-				);
+			else if (isCart) {
+				setDeliveryCart(deliveries.deliveries);
 			}
 		} catch (err) {
 			console.error("[City] Ошибка расчета доставки:", err);
 		}
 	}
 
+	function updateCityInHeader(newCityName) {
+		if (!newCityName) return;
+
+		$cityName.text(newCityName);
+		$cityNotice.find("[data-city-notice-name]:first").text(newCityName);
+		console.log("[City] Header обновлен на:", newCityName);
+	}
+
 	function initCityNotice() {
 		const noticeShown = Cookies.get("city-notice-shown");
-		if (noticeShown) return;
-
-		const $notice = $("#city-notice");
-		const $noticeName = $("[data-city-notice-name]");
-		if ($notice.length && $noticeName.length) {
-			const displayCity = city
-				? city.charAt(0).toUpperCase() + city.slice(1)
-				: "Новосибирск";
-			$noticeName.text(displayCity);
-			$notice.removeAttr("hidden");
+		if (noticeShown !== "1" && city) {
+			$cityNotice.removeAttr("hidden");
 		}
 	}
 
 	$("[data-city-confirm]").on("click", (e) => {
 		e.preventDefault();
 		Cookies.set("city-notice-shown", "1", { expires: 365, path: "/" });
-		$("#city-notice").prop("hidden", true);
+		$cityNotice.prop("hidden", true);
 
-		const confirmCity = city || getCityByDomain(window.location.hostname);
+		// updateCityInHeader(city);
 
-		Cookies.set("rev-country-location", "RU", {
-			expires: 365,
-			path: "/",
-			domain: rootDomain,
-		});
-		Cookies.set("rev-current-location", confirmCity, {
-			expires: 365,
-			path: "/",
-			domain: rootDomain,
-		});
-
-		country = "RU";
-		city = confirmCity;
-		updateCityInHeader(city);
-
-		if (isProduct || isCart) {
-			inputCity(city, country, true);
-		}
+		// if (isProduct || isCart) {
+		// 	inputCity(city, country, true);
+		// }
 
 		console.log("[City Confirm] Город подтверждён:", city);
 	});
@@ -335,7 +352,7 @@ $(document).ready(() => {
 		e.stopImmediatePropagation();
 
 		Cookies.set("city-notice-shown", "1", { expires: 365, path: "/" });
-		$("#city-notice").prop("hidden", true);
+		$cityNotice.prop("hidden", true);
 
 		console.log(
 			"[City Change] Клик по кнопке 'Нет, другой'. Ждем завершения анимации меню...",
@@ -349,13 +366,23 @@ $(document).ready(() => {
 
 	function openCityPopup() {
 		// Нативное открытие через эмуляцию клика (триггерим родной обработчик темы)
-		const $tempTrigger = $("<button>", {
-			"data-popup": "#popup-city",
-			style: "display: none;",
-		}).appendTo("body");
-
-		$tempTrigger.trigger("click");
-		$tempTrigger.remove();
+		const btnOpenPopup = document.getElementById("btn-popup-city");
+		if (btnOpenPopup) {
+			btnOpenPopup.dispatchEvent(new Event("click", {
+                bubbles: true,
+                cancelable: true
+			}));
+		}
+		else {
+			// Страховочный вариант
+			const $tempTrigger = $("<button>", {
+				"data-popup": "#popup-city",
+				style: "display: none;",
+			}).appendTo("body");
+	
+			$tempTrigger.trigger("click");
+			$tempTrigger.remove();
+		}
 
 		// Заполняем форму и сбрасываем состояния
 		$popup.find('[name="country"]').val(country);
@@ -386,19 +413,22 @@ $(document).ready(() => {
 			$mobPopup.removeClass("_active").css("transform", "translateX(-100%)");
 		}
 
+		$cityNotice.prop("hidden", false);
+
 		// Открываем уведомление
-		const $notice = $("#city-notice");
-		const $noticeName = $("[data-city-notice-name]");
-		if ($notice.length && $noticeName.length) {
-			const displayCity = city
-				? city.charAt(0).toUpperCase() + city.slice(1)
-				: "Новосибирск";
-			$noticeName.text(displayCity);
-			$notice.prop("hidden", false);
-			console.log("[City Notice] Открыто уведомление для города:", displayCity);
-		} else {
-			console.warn("[City Notice] Элементы уведомления не найдены");
-		}
+		// ! На удаление
+		// const $notice = $("#city-notice");
+		// const $noticeName = $("[data-city-notice-name]");
+		// if ($notice.length && $noticeName.length) {
+		// 	const displayCity = city
+		// 		? city.charAt(0).toUpperCase() + city.slice(1)
+		// 		: "Новосибирск";
+		// 	$noticeName.text(displayCity);
+		// 	$notice.prop("hidden", false);
+		// 	console.log("[City Notice] Открыто уведомление для города:", displayCity);
+		// } else {
+		// 	console.warn("[City Notice] Элементы уведомления не найдены");
+		// }
 	});
 
 	// Обработчик для кнопки в мобильном меню
@@ -450,8 +480,10 @@ $(document).ready(() => {
 
 	function changeCountryInForm(value) {
 		if (!value) return;
+		
 		const $countrySelect = $popup.find('[name="country"]');
 		if ($countrySelect.val() === value) return;
+
 		$countrySelect.val(value);
 		$popup.find("[data-select-sity-list]").html("");
 		$popup.find("[data-select-container-sity]").prop("hidden", true);
@@ -553,94 +585,61 @@ $(document).ready(() => {
 
 	// Сохранение города и редирект
 	$popup.find("[data-city-save]").on("click", async function () {
-		const newCountry = $popup.find('[name="country"]').val();
-		const newCityName = $popup
-			.find('[name="name-city"]')
-			.val()
-			.trim();
-		if (!newCityName) return;
+		const newCountry = $popup.find('[name="country"]:first').val();
+		const newCity = $popup.find('[name="name-city"]:first').val().trim();
+
+		if (
+			!newCountry || !newCity ||
+			indexKladr === undefined || indexKladr === null
+		) return;
 
 		// 1. Находим корректные данные Kladr
-		let targetKladr = null;
-		if (indexKladr !== undefined && kladr[indexKladr]) {
-			const kladrCityName = (
-				kladr[indexKladr].city ||
-				kladr[indexKladr].last_level ||
-				""
-			).toLowerCase();
-			if (kladrCityName === newCityName) {
-				targetKladr = kladr[indexKladr];
-			}
-		}
-		if (!targetKladr && kladr.length > 0) {
-			const matchIndex = kladr.findIndex(
-				(k) => (k.city || k.last_level || "").toLowerCase() === newCityName,
-			);
-			if (matchIndex !== -1) {
-				targetKladr = kladr[matchIndex];
-				indexKladr = matchIndex;
-			}
-		}
-		if (!targetKladr) {
-			try {
-				const cities = await $.ajax({
-					type: "post",
-					url: `//kladr.insales.ru/fulltext_search.json?country=${newCountry}&state=`,
-					data: { q: newCityName, search: "1" },
-					dataType: "jsonp",
-					cache: false,
-				});
-				if (cities && cities.length > 0) {
-					targetKladr = cities[0];
-					kladr = cities;
-					indexKladr = 0;
-				}
-			} catch (err) {
-				console.error("[City] Не удалось получить Kladr данные:", err);
-			}
-		}
+		const selectKladr = kladr[indexKladr];
 
-		// 2. Считаем доставку для нового адреса
-		if (targetKladr) {
-			await fetchDeliveryCalculate(targetKladr);
-		}
+		if (!selectKladr) return;
+		// // 2. Считаем доставку для нового адреса
+		// if (targetKladr) {
+		// 	await fetchDeliveryCalculate(targetKladr);
+		// }
 
 		// 3. МЯГКОЕ СОХРАНЕНИЕ КУКИ
-		Cookies.set("rev-country-location", newCountry, {
-			expires: 365,
-			path: "/",
-			domain: rootDomain,
-		});
-		Cookies.set("rev-current-location", newCityName, {
-			expires: 365,
-			path: "/",
-			domain: rootDomain,
-		});
+		setCookies(newCountry, newCity);
 
 		// 4. Обновляем шапку мгновенно для UX
-		updateCityInHeader(newCityName);
+		updateCityInHeader(newCity);
+
+		// Получить доставки и вывести по ним инфу
+		fetchDeliveryCalculate(selectKladr);
 
 		// 5. Закрываем popup и делаем редирект
 		Cookies.set("city-notice-shown", "1", { expires: 365, path: "/" });
 
 		// Нативное закрытие через триггер крестика темы + страховка классами
-		$popup.find("[data-close]").trigger("click");
-		$popup.removeClass("popup_show");
-		$("body").removeClass("popup_open");
-		$popup.attr("aria-hidden", "true");
+		$popup.find("[data-close]:first").trigger("click");
+		// $popup.removeClass("popup_show");
+		// $("body").removeClass("popup_open");
+		// $popup.attr("aria-hidden", "true");
 
 		if (location.pathname === "/new_order") {
 			setTimeout(() => {
 				window.location.reload();
 			}, 350);
 		} else {
-			redirectToCityDomain(newCityName); // Эта функция сама решит, нужен ли редирект
+			redirectToCityDomain(newCity); // Эта функция сама решит, нужен ли редирект
 		}
 	});
 
 	$popup.find('[name="country"]').on("change", function () {
-		changeCountryInForm($(this).val());
+		changeCountryInForm(country);
 	});
+
+    // EventBus.subscribe('eventLoader', function () {
+    //     loader = new EM_Module.Loader($popup.find(".popup__body"));
+    // });
+
+    EventBus.subscribe('update_items:insales:cart', (cart) => {
+        if (isCart && !isNaN(priceFreeDelivery)) setFreeDeliveryTitle(priceFreeDelivery - cart.total_price);
+    });
 
 	/** 
 	 * Пустая конструкция 
@@ -664,41 +663,36 @@ $(document).ready(() => {
 			dataType: "jsonp",
 			success: function (data) {
 				if (data.country && data.city) {
-					country = data.country;
-					city = data.city;
-					Cookies.set("rev-country-location", country, {
-						expires: 365,
-						path: "/",
-						domain: rootDomain,
-					});
-					Cookies.set("rev-current-location", city, {
-						expires: 365,
-						path: "/",
-						domain: rootDomain,
-					});
-					updateCityInHeader(city);
+					setCookies(data.country, data.city);
+					if (
+						!window.location.pathname.includes("/new_order") &&
+						!window.location.pathname.includes("/page/new-order")
+					) updateCityInHeader(city);
 					console.log("[City] Автоопределен и сохранен город:", city);
 				} else {
 					// Fallback на домен
-					city = getCityByDomain(window.location.hostname);
+					setCookies("RU", CityDomain);
 					updateCityInHeader(city);
 				}
+				initCityNotice();
 			},
 			error: function (err) {
 				console.log("Ошибка автоопределения города, используем домен", err);
-				city = getCityByDomain(window.location.hostname);
+
+				setCookies("RU", CityDomain);
 				updateCityInHeader(city);
 			},
 		});
-	} else {
+	}
+	else if (getDomainByCity(city) !== window.location.hostname) {
+		redirectToCityDomain(city);
+	}
+	else {
 		// МЯГКАЯ ЛОГИКА
 		console.log("[City] Город успешно прочитан из cookie:", city);
 		updateCityInHeader(city);
-	}
+		initCityNotice();
 
-	initCityNotice();
-
-	if ((isProduct || isCart) && city && country) {
-		inputCity(city, country, true);
+		if (isProduct || isCart) inputCity(city, country, true);
 	}
 });

@@ -3762,11 +3762,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         else {
           console.log("[Request Login Code] Ошибка", response);
-          
-          const errorTitle = (
-            response?.responseJSON?.errors ?? response?.errors ?? ["Непредвиденная ошибка, попробуйте позже"]
+          let errorTitle = (
+            response?.responseJSON?.errors ?? 
+            response?.errors ?? 
+            ["Непредвиденная ошибка, попробуйте позже"]
           ).join(", ");
-
+          const timeout = response?.responseJSON?.timeout || response?.timeout;
+          if (timeout && timeout > 0) {
+            errorTitle + `: ${timeout}с`;
+          }
           formError.set(
             $popup.find("[data-login-code]"),
             errorTitle.includes("неверный код")
@@ -3824,7 +3828,11 @@ document.addEventListener("DOMContentLoaded", function () {
     state = "code";
     // checkRequsts = false;
     if (response.status == "error") {
-      const messError = response.errors.join(", ");
+      const messError = (
+        response?.errors
+        ?? response?.responseJSON?.errors 
+        ?? ["Возникла ошибка при получении кода, перезагрузите страницу или попробуйте позже"]
+      ).join(", ");
       if (response.timeout) {
         // formError.remove($popup.find("[data-login-code]"));
         $loginBtn.prop("disabled", true);
@@ -3857,10 +3865,17 @@ document.addEventListener("DOMContentLoaded", function () {
       .done(getAccessCode)
       .fail(function (fail) {
         // checkRequsts = false;
+        const errorTitle = (
+          fail?.responseJSON?.errors 
+          ?? fail?.errors 
+          ?? ["Возникла ошибка при получении кода, перезагрузите страницу или попробуйте позже"]
+        ).join(", ");
+
         messageError("Ошибка получения кода", fail);
+
         formError.set(
           $popup.find("[data-login-code]"),
-          "Возникла ошибка при получении кода, перезагрузите страницу или попробуйте позже",
+          errorTitle,
         );
         $popup
           .find("[data-login-code] input, [data-login-button]")

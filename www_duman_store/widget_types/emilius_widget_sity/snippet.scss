@@ -8,6 +8,7 @@
   max-width: 28rem;
   width: calc(100% - 1.5rem);
   animation: cityNoticeSlideIn 0.3s ease-out;
+  transition: top ease 0.3s 0.2s;
 }
 
 @keyframes cityNoticeSlideIn {
@@ -108,6 +109,10 @@
 
   .city-notice__btn {
     padding: 0.75rem 1.25rem;
+  }
+
+  .popup__content-city {
+    min-height: 20rem;
   }
 }
 
