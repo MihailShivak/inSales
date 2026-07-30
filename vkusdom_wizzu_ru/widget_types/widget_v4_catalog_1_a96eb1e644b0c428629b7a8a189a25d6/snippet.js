@@ -343,6 +343,13 @@
         for (const product of products) {
             const variant = product.variants[0];
             
+            console.log('snippet.js widget_v4_catalog_1_a96');
+            console.log('[widget_v4_catalog_1_a96] Товар:', product.title);
+            console.log('[widget_v4_catalog_1_a96]  variant.old_price:', variant?.old_price);
+            console.log('[widget_v4_catalog_1_a96]  product.old_price:', product.old_price);
+            console.log('[widget_v4_catalog_1_a96]  price_min:', product.price_min);
+            console.log('snippet.js widget_v4_catalog_1_a96');
+
             // Проверяем, не добавлен ли уже товар с таким ID в DOM
             // Это предотвращает дублирование при повторных вызовах
             const productSelector = `[data-product-id="${product.id}"]`;
@@ -377,7 +384,8 @@
 
                 priceNotFormat: price,
                 price: Shop.money.format(price),
-                old_price: isOld ? product.old_price : 0,
+                // old_price: isOld ? product.old_price : 0,
+                old_price: isOld ? old_price : 0,
                 deltPrice: isOld ? Math.floor((1 - price / old_price) * 100) : "",
                 isInCart: order !== undefined
             }, "product-viewed");

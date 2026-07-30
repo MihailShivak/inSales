@@ -34,6 +34,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 order = Cart.order.getItemByID(product.variants[0].id),
                 gram = EM_Module.props.getCharacteristicGram(product.characteristics);
 
+            console.log('snippet.js emilius_widget_header');
+            console.log('[emilius_widget_header] Товар:', product.title);
+            console.log('[emilius_widget_header]   price_min:', product.price_min, '->', price);
+            console.log('[emilius_widget_header]   old_price (сырой):', product.variants[0].old_price);
+            console.log('[emilius_widget_header]   old_price (число):', old_price);
+            console.log('[emilius_widget_header]   isOld:', isOld);
+            console.log('[emilius_widget_header]   variants[0]:', product.variants[0]);
+            console.log('snippet.js emilius_widget_header');
+
             html += Template.render({
                 avialable: true,
                 product_id: product.id,
@@ -56,7 +65,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 priceNotFormat: price,
                 price: Shop.money.format(price),
-                old_price: isOld ? Shop.money.format(old_price) : "",
+                // old_price: isOld ? Shop.money.format(old_price) : "",
+                old_price: isOld ? old_price : 0,
                 deltPrice: isOld ? Math.floor((1 - price / old_price) * 100) : "",
                 isInCart: order !== undefined
             }, "product-viewed");

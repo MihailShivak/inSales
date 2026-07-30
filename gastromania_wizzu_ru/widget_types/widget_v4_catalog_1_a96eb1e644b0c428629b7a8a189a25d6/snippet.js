@@ -377,7 +377,8 @@
 
                 priceNotFormat: price,
                 price: Shop.money.format(price),
-                old_price: isOld ? product.old_price : 0,
+                // old_price: isOld ? product.old_price : 0,
+                old_price: isOld ? old_price : 0,
                 deltPrice: isOld ? Math.floor((1 - price / old_price) * 100) : "",
                 isInCart: order !== undefined
             }, "product-viewed");
