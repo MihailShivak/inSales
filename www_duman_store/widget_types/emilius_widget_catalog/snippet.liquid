@@ -321,6 +321,70 @@
                   </div>
                 </div>
               </div>
+
+              {% comment %} [EXTENDED] Расширенные фильтры из collection.options {% endcomment %}
+              {% for option in collection.options %}
+                {%- assign is_extended_filter = false -%}
+
+                {%- comment -%} Проверяем, есть ли ID текущего свойства в списке расширенных {%- endcomment -%}
+                {% if option.id == 145817177
+                  or option.id == 146033089
+                  or option.id == 146033097
+                  or option.id == 146033105
+                  or option.id == 146033113
+                  or option.id == 146033233
+                  or option.id == 146033297
+                  or option.id == 146033433
+                  or option.id == 146033441
+                %}
+                  {%- assign is_extended_filter = true -%}
+                {% endif %}
+
+                {% if is_extended_filter %}
+                  <div class="filters__group" data-filter-id="{{ option.id }}">
+                    <button
+                      type="button"
+                      data-spoller
+                      data-spoller-fade
+                      data-spoller-close
+                      class="filters__title-wrapper"
+                    >
+                      <span class="filters__title">
+                        {{- option.title }}
+                        <span class="filters__title-count"></span>
+                      </span>
+                    </button>
+
+                    <div class="filters__body">
+                      <div class="filters__label">{{ option.title }}</div>
+                      <div class="filters__list">
+                        {% if option.values.size > 0 %}
+                          {% for value in option.values %}
+                            <div class="filters__list-item checkbox">
+                              <label class="checkbox__label checkbox__label_filter">
+                                <input
+                                  data-error=""
+                                  class="checkbox__input"
+                                  type="checkbox"
+                                  value="{{ value.id }}"
+                                  data-property-id="{{ option.id }}"
+                                >
+                                <span class="checkbox__text-wrapper">
+                                  <span class="checkbox__point"></span>
+                                  <span class="checkbox__text">{{ value.title }}</span>
+                                </span>
+                              </label>
+                            </div>
+                          {% endfor %}
+                        {% else %}
+                          {%- comment -%} Если значений нет, можно показать заглушку или скрыть блок {%- endcomment -%}
+                          <div class="filters__empty">Нет вариантов</div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
             </div>
           </div>
         </div>
@@ -655,6 +719,50 @@
         </div>
       </div>
     {% endif %}
+
+    {% comment %} [EXTENDED] Расширенные фильтры для моб. версии из collection.properties {% endcomment %}
+    {% for option in collection.options %}
+      {%- assign is_extended_filter = false -%}
+      {% if option.id == 145817177
+        or option.id == 146033089
+        or option.id == 146033097
+        or option.id == 146033105
+        or option.id == 146033113
+        or option.id == 146033233
+        or option.id == 146033297
+        or option.id == 146033433
+        or option.id == 146033441
+      %}
+        {%- assign is_extended_filter = true -%}
+      {% endif %}
+
+      {% if is_extended_filter %}
+        <div class="mob-popup__group">
+          <div class="mob-popup__group-title-wrapper">
+            <h3 class="mob-popup__group-title">{{ option.title }}</h3>
+          </div>
+          <div class="mob-popup__group-body">
+            <div class="checkbox-list">
+              {% if option.values.size > 0 %}
+                {% for value in option.values %}
+                  <div class="checkbox-list__item checkbox-btn">
+                    <label class="checkbox-btn__label">
+                      <input
+                        type="checkbox"
+                        class="checkbox-btn__input"
+                        value="{{ value.id }}"
+                        data-property-id="{{ option.id }}"
+                      >
+                      <span class="checkbox-btn__text">{{ value.title }}</span>
+                    </label>
+                  </div>
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
   </div>
   <div class="mob-popup__bottom">
     <button type="button" class="mob-popup__button btn btn_medium btn_primary" data-mob-apply>
