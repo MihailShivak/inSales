@@ -103,6 +103,35 @@ window.EM_Module.Filters = class {
 
     this.readingFilters();
     this.initEvent();
+
+    console.log("[Filters] Initialized, mode:", this.modeCatalog);
+    console.log("[Filters] Filters container:", this.$filtres.length);
+    console.log(
+      "[Filters] Found filter groups:",
+      this.$filtres.find(".filters__group[data-filter-id]").length,
+    );
+
+    // Проверяем расширенные фильтры
+    const extendedFilters = this.$filtres
+      .find(".filters__group[data-filter-id]")
+      .filter(function () {
+        const id = $(this).attr("data-filter-id");
+        return (
+          id !== "sort" &&
+          id !== "price" &&
+          id !== "1607434" &&
+          id !== "1607435"
+        );
+      });
+    console.log("[Filters] Extended filters found:", extendedFilters.length);
+    extendedFilters.each(function () {
+      console.log(
+        "[Filters] Extended filter:",
+        $(this).attr("data-filter-id"),
+        $(this).find(".filters__list-item").length,
+        "items",
+      );
+    });
   }
 
   initEvent() {
@@ -3759,13 +3788,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (response.status === "ok") {
           console.log("[Login] Успех", response.client.registered);
           redirect(response.redirect_to, response.client.name);
-        }
-        else {
+        } else {
           console.log("[Request Login Code] Ошибка", response);
           let errorTitle = (
-            response?.responseJSON?.errors ?? 
-            response?.errors ?? 
-            ["Непредвиденная ошибка, попробуйте позже"]
+            response?.responseJSON?.errors ??
+            response?.errors ?? ["Непредвиденная ошибка, попробуйте позже"]
           ).join(", ");
           const timeout = response?.responseJSON?.timeout || response?.timeout;
           if (timeout && timeout > 0) {
@@ -3781,13 +3808,11 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .fail(function (fail) {
         const errorTitle = (
-          fail?.responseJSON?.errors ?? fail?.errors ?? ["Непредвиденная ошибка, попробуйте позже"]
+          fail?.responseJSON?.errors ??
+          fail?.errors ?? ["Непредвиденная ошибка, попробуйте позже"]
         ).join(", ");
         messageError("Ошибка получения кода", fail);
-        formError.set(
-          $popup.find("[data-login-code]"),
-          errorTitle,
-        );
+        formError.set($popup.find("[data-login-code]"), errorTitle);
         // checkRequsts = false;
       });
   }
@@ -3829,9 +3854,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // checkRequsts = false;
     if (response.status == "error") {
       const messError = (
-        response?.errors
-        ?? response?.responseJSON?.errors 
-        ?? ["Возникла ошибка при получении кода, перезагрузите страницу или попробуйте позже"]
+        response?.errors ??
+        response?.responseJSON?.errors ?? [
+          "Возникла ошибка при получении кода, перезагрузите страницу или попробуйте позже",
+        ]
       ).join(", ");
       if (response.timeout) {
         // formError.remove($popup.find("[data-login-code]"));
@@ -3866,17 +3892,15 @@ document.addEventListener("DOMContentLoaded", function () {
       .fail(function (fail) {
         // checkRequsts = false;
         const errorTitle = (
-          fail?.responseJSON?.errors 
-          ?? fail?.errors 
-          ?? ["Возникла ошибка при получении кода, перезагрузите страницу или попробуйте позже"]
+          fail?.responseJSON?.errors ??
+          fail?.errors ?? [
+            "Возникла ошибка при получении кода, перезагрузите страницу или попробуйте позже",
+          ]
         ).join(", ");
 
         messageError("Ошибка получения кода", fail);
 
-        formError.set(
-          $popup.find("[data-login-code]"),
-          errorTitle,
-        );
+        formError.set($popup.find("[data-login-code]"), errorTitle);
         $popup
           .find("[data-login-code] input, [data-login-button]")
           .prop("disabled", true);
@@ -4251,5 +4275,174 @@ document.addEventListener("DOMContentLoaded", function () {
       .fail(shwoNotice);
   }
 });
-// upd
-;
+
+// === РАСШИРЕННЫЕ ФИЛЬТРЫ — получение через API каталога ===
+(function() {
+  let extendedFiltersRendered = false;
+
+  const extendedFilterIds = [
+    145817177, 146033089, 146033097, 146033105, 146033113,
+    146033233, 146033297, 146033433, 146033441
+  ];
+
+  const filterNames = {
+    145817177: 'Материал',
+    146033089: 'Крой / силуэт',
+    146033097: 'Детали',
+    146033105: 'Фактура / ткань',
+    146033113: 'Длина',
+    146033233: 'Рукав / бретели',
+    146033297: 'Посадка / талия',
+    146033433: 'Вырез / воротник',
+    146033441: 'Принт / узор / узорец'
+  };
+
+  function renderExtendedFilters(allChars) {
+    const filtersMain = document.querySelector('.filters__main');
+    const mobFiltersBody = document.querySelector('[data-mob-popup="filters"] .mob-popup__body');
+
+    if (!filtersMain || !mobFiltersBody) {
+      console.error('[Extended Filters] Контейнеры не найдены');
+      return;
+    }
+
+    // Удаляем старые расширенные фильтры
+    const oldPcFilters = filtersMain.querySelectorAll(
+      '.filters__group[data-filter-id]:not([data-filter-id="1607434"]):not([data-filter-id="1607435"]):not([data-filter-id="price"])'
+    );
+    oldPcFilters.forEach(el => el.remove());
+
+    const oldMobFilters = mobFiltersBody.querySelectorAll(
+      '.mob-popup__group[data-filter-id]:not([data-filter-id="sort"]):not([data-filter-id="1607434"]):not([data-filter-id="1607435"]):not([data-filter-id="price"])'
+    );
+    oldMobFilters.forEach(el => el.remove());
+
+    // Рендерим новые фильтры (без класса _active)
+    for (const [propertyId, chars] of Object.entries(allChars)) {
+      if (chars.length === 0) continue;
+
+      const propertyName = filterNames[propertyId] || `Свойство ${propertyId}`;
+
+      // ПК
+      const pcFilter = document.createElement('div');
+      pcFilter.className = 'filters__group';
+      pcFilter.setAttribute('data-filter-id', propertyId);
+      pcFilter.innerHTML = `
+        <button type="button" data-spoller data-spoller-fade data-spoller-close class="filters__title-wrapper">
+          <span class="filters__title">${propertyName} <span class="filters__title-count"></span></span>
+        </button>
+        <div class="filters__body">
+          <div class="filters__label">${propertyName}</div>
+          <div class="filters__list">
+            ${chars.map(char => `
+              <div class="filters__list-item checkbox">
+                <label class="checkbox__label checkbox__label_filter">
+                  <input data-error="" class="checkbox__input" type="checkbox" value="${char.id}" data-property-id="${propertyId}">
+                  <span class="checkbox__text-wrapper">
+                    <span class="checkbox__point"></span>
+                    <span class="checkbox__text">${char.title}</span>
+                  </span>
+                </label>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      filtersMain.appendChild(pcFilter);
+
+      // Мобилка
+      const mobFilter = document.createElement('div');
+      mobFilter.className = 'mob-popup__group';
+      mobFilter.setAttribute('data-filter-id', propertyId);
+      mobFilter.innerHTML = `
+        <div class="mob-popup__group-title-wrapper">
+          <div class="mob-popup__group-title">${propertyName}</div>
+        </div>
+        <div class="mob-popup__checkbox-list checkbox-list">
+          ${chars.map(char => `
+            <div class="checkbox-list__item checkbox-btn">
+              <label class="checkbox-btn__label">
+                <input data-error="Ошибка" class="checkbox-btn__input" type="checkbox" value="${char.id}" data-property-id="${propertyId}">
+                <div class="checkbox-btn__text-wrapper">
+                  <span class="checkbox-btn__text">${char.title}</span>
+                </div>
+              </label>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      mobFiltersBody.appendChild(mobFilter);
+    }
+
+    // === Принудительное закрытие всех новых фильтров ===
+    function closeAllExtendedFilters() {
+      const groups = filtersMain.querySelectorAll(
+        '.filters__group[data-filter-id]:not([data-filter-id="1607434"]):not([data-filter-id="1607435"]):not([data-filter-id="price"])'
+      );
+      groups.forEach(group => {
+        const body = group.querySelector('.filters__body');
+        const title = group.querySelector('.filters__title-wrapper');
+        if (body) body.classList.remove('_active');
+        if (title) title.classList.remove('_active');
+      });
+    }
+
+    // Закрываем сразу
+    closeAllExtendedFilters();
+
+    // Закрываем повторно через 100 мс (перебивает асинхронные инициализации)
+    setTimeout(closeAllExtendedFilters, 100);
+
+    console.log('[Extended Filters] Рендер завершён, все фильтры закрыты');
+  }
+
+  // Запуск
+  document.addEventListener('DOMContentLoaded', async function() {
+    if (extendedFiltersRendered) return;
+
+    if (!window.location.pathname.includes('/collection/')) {
+      console.log('[Extended Filters] Страница не каталог, пропускаем');
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://dumansto.re/front-api${window.location.pathname}.asp?limit=250`
+      );
+      if (!response.ok) {
+        console.warn('[Extended Filters] Ошибка API:', response.status);
+        return;
+      }
+
+      const data = await response.json();
+      const products = data.products || [];
+
+      const allChars = {};
+      products.forEach(product => {
+        if (product.characteristics) {
+          product.characteristics.forEach(char => {
+            if (extendedFilterIds.includes(char.property_id)) {
+              if (!allChars[char.property_id]) {
+                allChars[char.property_id] = [];
+              }
+              const exists = allChars[char.property_id].find(c => c.id === char.id);
+              if (!exists) {
+                allChars[char.property_id].push({
+                  id: char.id,
+                  title: char.title,
+                  property_id: char.property_id
+                });
+              }
+            }
+          });
+        }
+      });
+
+      renderExtendedFilters(allChars);
+      extendedFiltersRendered = true;
+
+    } catch (error) {
+      console.warn('[Extended Filters] Ошибка:', error);
+    }
+  });
+})();
