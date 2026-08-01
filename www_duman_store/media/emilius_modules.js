@@ -60,6 +60,12 @@ window.EM_Module.Filters = class {
       pattern: 146033441,
     };
 
+    // Делаем filtersID доступным для snippet.js через глобальный объект
+    if (!window.EmiliusCatalog) {
+      window.EmiliusCatalog = {};
+    }
+    window.EmiliusCatalog.filtersID = this.filtersID;
+
     // События у фильтров
     this.typesEvent = {
       init: "init", // Инициализация фильтров
