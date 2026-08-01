@@ -31,149 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
   var isFetching = false;
   var hasMorePages = false;
 
-  function renderExtendedFilters(products) {
-    // ID расширенных фильтров из emilius_modules.js
-    const extendedFilterIDs = window.EmiliusCatalog?.filtersID || {
-      material: 145817177,
-      cut: 146033089,
-      details: 146033097,
-      texture: 146033105,
-      length: 146033113,
-      sleeve: 146033233,
-      waist: 146033297,
-      collar: 146033433,
-      pattern: 146033441,
-    };
-
-    // Сбор характеристик из товаров
-    const characteristicsMap = {};
-
-    products.forEach((product) => {
-      if (!product.characteristics || !Array.isArray(product.characteristics))
-        return;
-
-      product.characteristics.forEach((char) => {
-        const charId = parseInt(char.id, 10);
-        // Проверяем, является ли характеристика расширенным фильтром
-        if (Object.values(extendedFilterIDs).includes(charId)) {
-          if (!characteristicsMap[charId]) {
-            characteristicsMap[charId] = {
-              id: charId,
-              title: char.name || char.title,
-              values: new Set(),
-            };
-          }
-          if (char.value) {
-            characteristicsMap[charId].values.add(char.value);
-          }
-        }
-      });
-    });
-
-    // Генерация HTML для ПК версии
-    const desktopContainer = $catalog.find(
-      "#extended-filters-desktop-container",
-    );
-    if (desktopContainer.length) {
-      let desktopHTML = "";
-
-      for (const [charId, charData] of Object.entries(characteristicsMap)) {
-        const valuesArray = Array.from(charData.values);
-        if (valuesArray.length === 0) continue;
-
-        desktopHTML += `
-                <div class="filters__group" data-filter-id="${charId}">
-                  <button
-                    type="button"
-                    data-spoller
-                    data-spoller-fade
-                    data-spoller-close
-                    class="filters__title-wrapper"
-                  >
-                    <span class="filters__title">
-                      ${charData.title}
-                      <span class="filters__title-count"></span>
-                    </span>
-                  </button>
-                  <div class="filters__body">
-                    <div class="filters__label">${charData.title}</div>
-                    <div class="filters__list">
-                      ${valuesArray
-                        .map(
-                          (value) => `
-                        <div class="filters__list-item checkbox">
-                          <label class="checkbox__label checkbox__label_filter">
-                            <input
-                              data-error=""
-                              class="checkbox__input"
-                              type="checkbox"
-                              value="${value}"
-                              data-property-id="${charId}"
-                            >
-                            <span class="checkbox__text-wrapper">
-                              <span class="checkbox__point"></span>
-                              <span class="checkbox__text">${value}</span>
-                            </span>
-                          </label>
-                        </div>
-                      `,
-                        )
-                        .join("")}
-                    </div>
-                  </div>
-                </div>`;
-      }
-
-      desktopContainer.html(desktopHTML);
-
-      // Переинициализация спойлеров для новых элементов
-      if (typeof window.initSpollers === "function") {
-        window.initSpollers();
-      }
-    }
-
-    // Генерация HTML для мобильной версии
-    const mobileContainer = $catalog.find("#extended-filters-mobile-container");
-    if (mobileContainer.length) {
-      let mobileHTML = "";
-
-      for (const [charId, charData] of Object.entries(characteristicsMap)) {
-        const valuesArray = Array.from(charData.values);
-        if (valuesArray.length === 0) continue;
-
-        mobileHTML += `
-                <div class="mob-popup__group">
-                  <div class="mob-popup__group-title-wrapper">
-                    <h3 class="mob-popup__group-title">${charData.title}</h3>
-                  </div>
-                  <div class="mob-popup__group-body">
-                    <div class="checkbox-list">
-                      ${valuesArray
-                        .map(
-                          (value) => `
-                        <div class="checkbox-list__item checkbox-btn">
-                          <label class="checkbox-btn__label">
-                            <input
-                              type="checkbox"
-                              class="checkbox-btn__input"
-                              value="${value}"
-                              data-property-id="${charId}"
-                            >
-                            <span class="checkbox-btn__text">${value}</span>
-                          </label>
-                        </div>
-                      `,
-                        )
-                        .join("")}
-                    </div>
-                  </div>
-                </div>`;
-      }
-
-      mobileContainer.html(mobileHTML);
-    }
-  }
-
   function mapProductToTemplate(product, i) {
     return {
       product: product,
@@ -332,6 +189,30 @@ document.addEventListener("DOMContentLoaded", function () {
         return null;
       }
 
+      console.log("[FILTER] Данные каталога получены:", response);
+      
+      // Проверяем, где лежат товары (обычно response.products или response.items)
+      const products = response.products || response.items || [];
+      console.log(`[FILTER] Найдено товаров для анализа фильтров: ${products.length}`);
+      
+      if (products.length > 0) {
+        // Пробуем вызвать функцию из emilius_modules.js
+        if (typeof window.renderExtendedFilters === 'function') {
+          console.log("[FILTER] Вызываем renderExtendedFilters...");
+          window.renderExtendedFilters(products);
+        } else {
+          console.warn("[FILTER] Функция window.renderExtendedFilters не найдена! Проверьте загрузку emilius_modules.js");
+        }
+        
+        // Логируем структуру первого товара для отладки
+        console.log("[FILTER] Структура первого товара:", products[0]);
+        if (products[0].characteristics) {
+            console.log("[FILTER] Характеристики первого товара:", products[0].characteristics);
+        } else {
+            console.warn("[FILTER] У первого товара нет поля characteristics. Проверьте название поля в API.");
+        }
+      }
+
       return response;
     } catch (error) {
       console.warn(
@@ -470,7 +351,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (clear && products.length > 0) {
-      renderExtendedFilters(products);
+      window.renderExtendedFilters(products);
     }
 
     if (!products.length) {

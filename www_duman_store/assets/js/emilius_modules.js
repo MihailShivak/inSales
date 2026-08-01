@@ -4290,3 +4290,133 @@ document.addEventListener("DOMContentLoaded", function () {
       .fail(shwoNotice);
   }
 });
+
+window.renderExtendedFilters = function(products) {
+    console.log('[FILTER] Start rendering extended filters...', products);
+
+    if (!products || products.length === 0) {
+        console.warn('[FILTER] No products to analyze');
+        return;
+    }
+
+    // Конфигурация ID фильтров
+    const filtersConfig = {
+        material: 145817177,
+        cut: 146033089,
+        details: 146033097,
+        texture: 146033105,
+        length: 146033113,
+        sleeve: 146033233,
+        waist: 146033297,
+        collar: 146033433,
+        pattern: 146033441,
+    };
+
+    // Сбор данных из товаров
+    const filtersData = {};
+    
+    // Инициализируем структуру
+    Object.entries(filtersConfig).forEach(([key, id]) => {
+        filtersData[id] = { title: '', values: new Set() };
+    });
+
+    products.forEach(product => {
+        // Проверяем наличие characteristics (структура может отличаться, проверяем)
+        const characteristics = product.characteristics || product.metafields || [];
+        
+        characteristics.forEach(char => {
+            const charId = parseInt(char.id) || parseInt(char.property_id); // Адаптировать под реальный ответ API
+            
+            if (filtersData[charId]) {
+                filtersData[charId].title = char.title || char.name || filtersData[charId].title;
+                
+                // Значение может быть в value, title, name
+                const val = char.value || char.title || char.name;
+                if (val) {
+                    filtersData[charId].values.add(val);
+                }
+            }
+        });
+    });
+
+    console.log('[FILTER] Collected data:', filtersData);
+
+    // Генерация HTML
+    let desktopHTML = '';
+    let mobileHTML = '';
+
+    Object.entries(filtersData).forEach(([id, data]) => {
+        if (data.values.size === 0) return;
+
+        const valuesArray = Array.from(data.values);
+        const title = data.title || `Фильтр ${id}`;
+
+        // Desktop HTML
+        desktopHTML += `
+            <div class="filters__group" data-filter-id="${id}">
+                <button type="button" data-spoller data-spoller-fade data-spoller-close class="filters__title-wrapper">
+                    <span class="filters__title">${title}<span class="filters__title-count"></span></span>
+                </button>
+                <div class="filters__body">
+                    <div class="filters__label">${title}</div>
+                    <div class="filters__list">
+                        ${valuesArray.map(val => `
+                            <div class="filters__list-item checkbox">
+                                <label class="checkbox__label checkbox__label_filter">
+                                    <input class="checkbox__input" type="checkbox" value="${val}" data-property-id="${id}">
+                                    <span class="checkbox__text-wrapper">
+                                        <span class="checkbox__point"></span>
+                                        <span class="checkbox__text">${val}</span>
+                                    </span>
+                                </label>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Mobile HTML
+        mobileHTML += `
+            <div class="mob-popup__group">
+                <div class="mob-popup__group-title-wrapper">
+                    <h3 class="mob-popup__group-title">${title}</h3>
+                </div>
+                <div class="mob-popup__group-body">
+                    <div class="checkbox-list">
+                        ${valuesArray.map(val => `
+                            <div class="checkbox-list__item checkbox-btn">
+                                <label class="checkbox-btn__label">
+                                    <input type="checkbox" class="checkbox-btn__input" value="${val}" data-property-id="${id}">
+                                    <span class="checkbox-btn__text">${val}</span>
+                                </label>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    // Вставка в DOM
+    const desktopContainer = document.getElementById('extended-filters-desktop-container');
+    const mobileContainer = document.getElementById('extended-filters-mobile-container');
+
+    if (desktopContainer) {
+        desktopContainer.innerHTML = desktopHTML;
+        console.log('[FILTER] Desktop filters rendered');
+        // Переинициализация спойлеров, если нужно (зависит от вашей библиотеки spoller)
+        if (typeof window.FLS !== 'undefined' && window.FLS.spollers) {
+             window.FLS.spollers(); 
+        }
+    } else {
+        console.warn('[FILTER] Desktop container not found');
+    }
+
+    if (mobileContainer) {
+        mobileContainer.innerHTML = mobileHTML;
+        console.log('[FILTER] Mobile filters rendered');
+    } else {
+        console.warn('[FILTER] Mobile container not found');
+    }
+};
