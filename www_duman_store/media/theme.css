@@ -4975,11 +4975,13 @@ color: #a8a5a3;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  flex-wrap: wrap;
   gap: 1.25rem;
 }
 
 .filters__group {
   position: relative;
+  flex-shrink: 0;
 }
 
 .filters__group._active .filters__title-wrapper {

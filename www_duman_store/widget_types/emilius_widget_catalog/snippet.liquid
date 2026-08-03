@@ -180,29 +180,193 @@
 
   {% capture catalog_panel_time %}{{'now' | date: '%s.%L' }}{% endcapture %}
   <div id="filters" class="catalog__top-panel">
+    {% comment %}
+      <form action="/" method="get" class="catalog__filters-wrapper">
+        <div class="catalog__filters-switcher switcher" hidden>
+          <button type="button" class="switcher__button" data-js="catalog-button"></button>
+          <span class="switcher__label">Каталог</span>
+        </div>
+        <select name="form[]" data-show-selected data-fade-select data-class-modif="catalog-sort" class="catalog__sort">
+          <option data-class="_active" value="1" selected>По популярности</option>
+          <option value="2">Сначала новинки</option>
+          <option value="3">Сначала дешевле</option>
+          <option value="4">Сначала дороже</option>
+        </select>
+        <div data-spollers data-one-spoller class="catalog__filters filters">
+          <div class="filters__wrapper">
+            <div class="filters__head">
+              <div class="filters__capture">фильтры <span>(3)</span></div>
+              <button type="button" class="filters__close filters-icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.75 2.04297L2.04297 2.75L2.39844 3.10156L7.29297 8L2.04297 13.25L2.75 13.957L8 8.70703L12.8945 13.6055L13.25 13.957L13.957 13.25L13.6055 12.8945L8.70703 8L13.957 2.75L13.25 2.04297L8 7.29297L3.10156 2.39844L2.75 2.04297Z" fill="#111111"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="filters__main-wrapper">
+              <div class="filters__main">
+                {% for option in collection.options %}
+                  {% if option.id != 1607434 and option.id != 1607435 %}
+                    {% continue %}
+                  {% endif %}
+                  <div class="filters__group" data-filter-id="{{ option.id }}">
+                    <button
+                      type="button"
+                      data-spoller
+                      data-spoller-fade
+                      data-spoller-close
+                      class="filters__title-wrapper"
+                    >
+                      <span class="filters__title">
+                        {{- option.title }}
+                        <span class="filters__title-count"></span
+                      ></span>
+                    </button>
+                    <div class="filters__body">
+                      <div class="filters__label">{{ option.title }}</div>
+                      <div class="filters__list">
+                        {% if option.values.size > 0 %}
+                          {% for option_value in option.values %}
+                            <div class="filters__list-item checkbox">
+                              <label class="checkbox__label checkbox__label_filter">
+                                <input
+                                  data-error=""
+                                  class="checkbox__input"
+                                  type="checkbox"
+                                  value="{{ option_value.id }}"
+                                  data-property-id="{{ option.id }}"
+                                >
+                                <span class="checkbox__text-wrapper">
+                                  <span class="checkbox__point"></span>
+                                  {% if option.id == 1607435 and option_value.image_url %}
+                                    <span class="checkbox__text checkbox__text_color">
+                                      <img
+                                        class="checkbox__text-icon"
+                                        data-src="{{ option_value.image_url | image_url: 32 }}"
+                                      >
+                                      {{ option_value.title }}
+                                    </span>
+                                  {% else %}
+                                    <span class="checkbox__text">{{ option_value.title }}</span>
+                                  {% endif %}
+                                </span>
+                              </label>
+                            </div>
+                          {% endfor %}
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+
+                <div class="filters__group" data-filter-id="price">
+                  <button type="button" data-spoller data-spoller-fade data-spoller-close class="filters__title-wrapper">
+                    <span class="filters__title">Цена <span class="filters__title-count"></span></span>
+                  </button>
+                  <div class="filters__body">
+                    <div class="filters__label">Цена</div>
+                    <div data-range class="filters__price price-filter">
+                      <div class="price-filter__inputs">
+                        <div class="price-filter__input-wrap">
+                          <input
+                            data-range-from="{{ price_min }}"
+                            autocomplete="off"
+                            type="text"
+                            value="{{ price_min }}"
+                            name="price_min"
+                            class="price-filter__input"
+                          >
+                          <span>от</span>
+                        </div>
+                        <div class="price-filter__input-wrap">
+                          <input
+                            data-range-to="{{ price_max }}"
+                            autocomplete="off"
+                            type="text"
+                            value="{{ price_max }}"
+                            name="price_max"
+                            class="price-filter__input"
+                          >
+                          <span>от</span>
+                        </div>
+                      </div>
+                      <div data-range-item class="price-filter__range"></div>
+                    </div>
+                  </div>
+                </div>
+
+                {% for property in collection.properties %}
+                  <div class="filters__group" data-filter-id="{{ property.id }}">
+                    <button
+                      type="button"
+                      data-spoller
+                      data-spoller-fade
+                      data-spoller-close
+                      class="filters__title-wrapper"
+                    >
+                      <span class="filters__title">
+                        {{- property.name }}
+                        <span class="filters__title-count"></span
+                      ></span>
+                    </button>
+                    <div class="filters__body">
+                      <div class="filters__label">{{ property.name }}</div>
+                      <div class="filters__list">
+                        {% for characteristic in property.characteristics %}
+                          <div class="filters__list-item checkbox">
+                            <label class="checkbox__label checkbox__label_filter">
+                              <input
+                                data-error=""
+                                class="checkbox__input"
+                                type="checkbox"
+                                value="{{ characteristic.id }}"
+                                name="characteristic"
+                              >
+                              <span class="checkbox__text-wrapper">
+                                <span class="checkbox__point"></span>
+                                <span class="checkbox__text">
+                                  {{ characteristic.name }}
+                                </span>
+                              </span>
+                            </label>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    {% endcomment %}
     <form action="/" method="get" class="catalog__filters-wrapper">
       <div class="catalog__filters-switcher switcher" hidden>
         <button type="button" class="switcher__button" data-js="catalog-button"></button>
         <span class="switcher__label">Каталог</span>
       </div>
-      <select name="form[]" data-show-selected data-fade-select data-class-modif="catalog-sort" class="catalog__sort">
-        <option data-class="_active" value="1" selected>По популярности</option>
-        <option value="2">Сначала новинки</option>
-        <option value="3">Сначала дешевле</option>
-        <option value="4">Сначала дороже</option>
-      </select>
+
       <div data-spollers data-one-spoller class="catalog__filters filters">
         <div class="filters__wrapper">
           <div class="filters__head">
             <div class="filters__capture">фильтры <span>(3)</span></div>
-            <button type="button" class="filters__close filters-icon">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2.75 2.04297L2.04297 2.75L2.39844 3.10156L7.29297 8L2.04297 13.25L2.75 13.957L8 8.70703L12.8945 13.6055L13.25 13.957L13.957 13.25L13.6055 12.8945L8.70703 8L13.957 2.75L13.25 2.04297L8 7.29297L3.10156 2.39844L2.75 2.04297Z" fill="#111111"></path>
-              </svg>
-            </button>
+            <button type="button" class="filters__close filters-icon">…</button>
           </div>
           <div class="filters__main-wrapper">
             <div class="filters__main">
+              <select
+                name="form[]"
+                data-show-selected
+                data-fade-select
+                data-class-modif="catalog-sort"
+                class="catalog__sort"
+              >
+                <option data-class="_active" value="1" selected>По популярности</option>
+                <option value="2">Сначала новинки</option>
+                <option value="3">Сначала дешевле</option>
+                <option value="4">Сначала дороже</option>
+              </select>
+
               {% for option in collection.options %}
                 {% if option.id != 1607434 and option.id != 1607435 %}
                   {% continue %}
@@ -257,35 +421,6 @@
                 </div>
               {% endfor %}
 
-              {% comment %}
-                Скрыл, т.к. это лишнее
-                {% for property in collection.properties %}
-                    <div class="filters__group" data-filter-id="{{ property.id }}">
-                        <button type="button" data-spoller data-spoller-fade data-spoller-close class="filters__title-wrapper">
-                            <span class="filters__title">{{ property.name }} <span class="filters__title-count"></span></span></button>
-                        <div class="filters__body">
-                            <div class="filters__label">{{ property.name }}</div>
-                            <div class="filters__list">
-                                {% for characteristic in property.characteristics %}
-                                    <div class="filters__list-item checkbox">
-                                        <label class="checkbox__label checkbox__label_filter">
-                                            <input data-error="" class="checkbox__input" type="checkbox" value="{{ characteristic.id }}" name="characteristic">
-                                            <span class="checkbox__text-wrapper">
-                                                <span class="checkbox__point"></span>
-                                                <span class="checkbox__text">
-                                                    {{ characteristic.name }}
-                                                </span>
-                                            </span>
-                                        </label>
-                                    </div>
-                                {% endfor %}
-
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-              {% endcomment %}
-
               <div class="filters__group" data-filter-id="price">
                 <button type="button" data-spoller data-spoller-fade data-spoller-close class="filters__title-wrapper">
                   <span class="filters__title">Цена <span class="filters__title-count"></span></span>
@@ -314,7 +449,7 @@
                           name="price_max"
                           class="price-filter__input"
                         >
-                        <span>от</span>
+                        <span>до</span>
                       </div>
                     </div>
                     <div data-range-item class="price-filter__range"></div>
@@ -322,8 +457,47 @@
                 </div>
               </div>
 
-              {% comment %} [EXTENDED] Расширенные фильтры {% endcomment %}
-              <div id="extended-filters-desktop-container"></div>
+              {% if collection.handle != 'all' %}
+                {% for property in collection.properties %}
+                  <div class="filters__group" data-filter-id="{{ property.id }}" data-filter-type="characteristic">
+                    <button
+                      type="button"
+                      data-spoller
+                      data-spoller-fade
+                      data-spoller-close
+                      class="filters__title-wrapper"
+                    >
+                      <span class="filters__title">
+                        {{- property.name -}}
+                        <span class="filters__title-count"></span
+                      ></span>
+                    </button>
+                    <div class="filters__body">
+                      <div class="filters__label">{{ property.name }}</div>
+                      <div class="filters__list">
+                        {% for characteristic in property.characteristics %}
+                          <div class="filters__list-item checkbox">
+                            <label class="checkbox__label checkbox__label_filter">
+                              <input
+                                data-error=""
+                                class="checkbox__input"
+                                type="checkbox"
+                                value="{{ characteristic.id }}"
+                                data-property-id="{{ property.id }}"
+                                name="characteristic"
+                              >
+                              <span class="checkbox__text-wrapper">
+                                <span class="checkbox__point"></span>
+                                <span class="checkbox__text">{{ characteristic.name }}</span>
+                              </span>
+                            </label>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              {% endif %}
             </div>
           </div>
         </div>
@@ -569,29 +743,6 @@
       </div>
     {% endfor %}
 
-    {% comment %}
-      Скрыл, т.к. это лишнее
-      {% for property in collection.properties %}
-          <div class="mob-popup__group" data-filter-id="{{ property.id }}">
-              <div class="mob-popup__group-title-wrapper">
-                  <div class="mob-popup__group-title">{{ property.name }}</div>
-              </div>
-              <div class="mob-popup__checkbox-list checkbox-list">
-                  {% for characteristic in property.characteristics %}
-                      <div class="checkbox-list__item checkbox-btn">
-                          <label class="checkbox-btn__label">
-                              <input data-error="Ошибка" class="checkbox-btn__input" type="checkbox" value="{{ characteristic.id }}" name="characteristic">
-                              <div class="checkbox-btn__text-wrapper">
-                                  <span class="checkbox-btn__text">{{ characteristic.name }}</span>
-                              </div>
-                          </label>
-                      </div>
-                  {% endfor %}
-              </div>
-          </div>
-      {% endfor %}
-    {% endcomment %}
-
     <div class="mob-popup__group" data-filter-id="price">
       <div class="mob-popup__group-title-wrapper">
         <div class="mob-popup__group-title">Цена</div>
@@ -659,8 +810,34 @@
       </div>
     {% endif %}
 
-    {% comment %} [EXTENDED] Расширенные фильтры для моб. версии {% endcomment %}
-    <div id="extended-filters-mobile-container"></div>
+    {% if collection.handle != 'all' %}
+      {% for property in collection.properties %}
+        <div class="mob-popup__group" data-filter-id="{{ property.id }}" data-filter-type="characteristic">
+          <div class="mob-popup__group-title-wrapper">
+            <div class="mob-popup__group-title">{{ property.name }}</div>
+          </div>
+          <div class="mob-popup__checkbox-list checkbox-list">
+            {% for characteristic in property.characteristics %}
+              <div class="checkbox-list__item checkbox-btn">
+                <label class="checkbox-btn__label">
+                  <input
+                    data-error="Ошибка"
+                    class="checkbox-btn__input"
+                    type="checkbox"
+                    value="{{ characteristic.id }}"
+                    data-property-id="{{ property.id }}"
+                    name="characteristic"
+                  >
+                  <div class="checkbox-btn__text-wrapper">
+                    <span class="checkbox-btn__text">{{ characteristic.name }}</span>
+                  </div>
+                </label>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
   </div>
   <div class="mob-popup__bottom">
     <button type="button" class="mob-popup__button btn btn_medium btn_primary" data-mob-apply>
@@ -908,14 +1085,14 @@
 {% comment %} Шаблон выбранного фильтра {% endcomment %}
 <script type="text/template" data-template-id="filter-selected">
   <div class="selected-filters__item"
-      data-selected-filter-id="<%= itemID %>"
-      data-filter-id="<%= id %>"
+    data-selected-filter-id="<%= itemID %>"
+    data-filter-id="<%= id %>"
   >
-      <% if (img) { %>
-          <img class="selected-filters__item-color color" src="<%= img %>">
-      <% } %>
-      <div class="selected-filters__item-title"><%= title %></div>
-      <button type="button" class="selected-filters__delete" data-remove-filter></button>
+    <% if (typeof img !== "undefined" && img) { %>
+    <img class="selected-filters__item-color color" src="<%= img %>">
+    <% } %>
+    <div class="selected-filters__item-title"><%= title %></div>
+    <button type="button" class="selected-filters__delete" data-remove-filter></button>
   </div>
 </script>
 
@@ -933,5 +1110,3 @@
   console.log("render catalog: {{ 'now' | date: '%s.%L' | minus: catalog_time }}");
   console.log('[Log] collection id:', '{{ collection.id }}');
 </script>
-
-{% comment %} upd {% endcomment %}

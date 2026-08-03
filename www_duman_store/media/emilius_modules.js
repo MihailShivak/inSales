@@ -49,22 +49,7 @@ window.EM_Module.Filters = class {
     // ID фильтров
     this.filtersID = {
       color: 1607435,
-      material: 145817177,
-      cut: 146033089,
-      details: 146033097,
-      texture: 146033105,
-      length: 146033113,
-      sleeve: 146033233,
-      waist: 146033297,
-      collar: 146033433,
-      pattern: 146033441,
     };
-
-    // Делаем filtersID доступным для snippet.js через глобальный объект
-    if (!window.EmiliusCatalog) {
-      window.EmiliusCatalog = {};
-    }
-    window.EmiliusCatalog.filtersID = this.filtersID;
 
     // События у фильтров
     this.typesEvent = {
@@ -118,35 +103,6 @@ window.EM_Module.Filters = class {
 
     this.readingFilters();
     this.initEvent();
-
-    console.log("[Filters] Initialized, mode:", this.modeCatalog);
-    console.log("[Filters] Filters container:", this.$filtres.length);
-    console.log(
-      "[Filters] Found filter groups:",
-      this.$filtres.find(".filters__group[data-filter-id]").length,
-    );
-
-    // Проверяем расширенные фильтры
-    const extendedFilters = this.$filtres
-      .find(".filters__group[data-filter-id]")
-      .filter(function () {
-        const id = $(this).attr("data-filter-id");
-        return (
-          id !== "sort" &&
-          id !== "price" &&
-          id !== "1607434" &&
-          id !== "1607435"
-        );
-      });
-    console.log("[Filters] Extended filters found:", extendedFilters.length);
-    extendedFilters.each(function () {
-      console.log(
-        "[Filters] Extended filter:",
-        $(this).attr("data-filter-id"),
-        $(this).find(".filters__list-item").length,
-        "items",
-      );
-    });
   }
 
   initEvent() {
@@ -226,8 +182,15 @@ window.EM_Module.Filters = class {
     if (e.target.classList.contains("price-filter__input")) {
       this.changePriceFilter(e.target);
     }
-
-    // Изменение состояние фильтра
+    // Изменение состояния фильтра ХАРАКТЕРИСТИКИ
+    else if (
+      (e.target.classList.contains("checkbox__input") ||
+        e.target.classList.contains("checkbox-btn__input")) &&
+      e.target.closest("[data-filter-type='characteristic']")
+    ) {
+      this.changeCharacteristic(e.target);
+    }
+    // Изменение состояние фильтра СВОЙСТВА
     else if (
       e.target.classList.contains("checkbox__input") ||
       e.target.classList.contains("checkbox-btn__input")
@@ -298,6 +261,41 @@ window.EM_Module.Filters = class {
           .get(0),
       );
     }
+  }
+
+  changeCharacteristic(input) {
+    const isMobFilter =
+      input.classList.contains("checkbox-btn__input") ||
+      input.dataset.index !== undefined;
+    const propertyID = input.getAttribute("data-property-id");
+    const characteristicID = input.value;
+    if (!propertyID || !characteristicID) return;
+
+    const img = input.parentElement.querySelector("img"); // [FIX] как в changeFilter
+    const title = input.parentElement.querySelector(
+      isMobFilter ? ".checkbox-btn__text" : ".checkbox__text",
+    );
+
+    if (input.checked) {
+      this.applied.quantity += 1;
+      this.addFilter(
+        {
+          id: propertyID,
+          itemID: characteristicID,
+          title: title?.innerText ?? "Характеристика",
+          img: img?.src, 
+        },
+        false,
+      );
+    } else {
+      this.applied.quantity -= 1;
+      this.removeFilter(
+        this.$panelSelectFilters
+          .find(`[data-selected-filter-id="${characteristicID}"]:first`)
+          .get(0),
+      );
+    }
+    this.visibleBtnsFilters(true);
   }
 
   // Изменение сортировки
@@ -478,6 +476,8 @@ window.EM_Module.Filters = class {
       $fitlers.find("input[name='price_max']:first").val(),
     );
     const priceRange = this._getPriceRange();
+    const options = this._getOptionsFilters();
+    const characteristics = this._getCharacteristicsFilters();
 
     // Если необходим обычный объект
     if (isObject) {
@@ -485,15 +485,13 @@ window.EM_Module.Filters = class {
         order: this._getSelectSorting(),
         page_size: this.pageSize,
         page: this.currentPage,
-        options: this._getOptionsFilters(),
+        options,
+        characteristics, // [NEW]
       };
-
-      if (!isNaN(priceMin) && priceMin > priceRange.min) {
+      if (!isNaN(priceMin) && priceMin > priceRange.min)
         data.price_min = priceMin;
-      }
-      if (!isNaN(priceMax) && priceMax < priceRange.max) {
+      if (!isNaN(priceMax) && priceMax < priceRange.max)
         data.price_max = priceMax;
-      }
       return data;
     }
 
@@ -502,22 +500,23 @@ window.EM_Module.Filters = class {
     formData.append("order", this._getSelectSorting() ?? "");
     formData.append("page_size", String(this.pageSize));
     formData.append("page", String(this.currentPage));
-
-    if (!isNaN(priceMin) && priceMin > priceRange.min) {
+    if (!isNaN(priceMin) && priceMin > priceRange.min)
       formData.append("price_min", String(priceMin));
-    }
-    if (!isNaN(priceMax) && priceMax < priceRange.max) {
+    if (!isNaN(priceMax) && priceMax < priceRange.max)
       formData.append("price_max", String(priceMax));
-    }
-
-    const options = this._getOptionsFilters();
     Object.entries(options || {}).forEach(([filterID, values]) => {
       if (!Array.isArray(values)) return;
       values.forEach((value) => {
         formData.append(`options[${filterID}][]`, String(value));
       });
     });
-
+    // Характеристики
+    Object.entries(characteristics || {}).forEach(([propertyID, values]) => {
+      if (!Array.isArray(values)) return;
+      values.forEach((value) => {
+        formData.append(`characteristics[${propertyID}][]`, String(value));
+      });
+    });
     return formData;
   }
 
@@ -542,38 +541,6 @@ window.EM_Module.Filters = class {
       min: Number($min.attr("data-range-from") || $min.val() || 0),
       max: Number($max.attr("data-range-to") || $max.val() || Infinity),
     };
-  }
-
-  // Получить выбранные опции в фильтрах
-  _getOptionsFilters() {
-    let options = {};
-
-    const $fitlers = this.isMobStyle ? this.$filtresMob : this.$filtres;
-    const className =
-      (this.isMobStyle ? ".mob-popup__group" : ".filters__group") +
-      "[data-filter-id]";
-
-    for (const block of $fitlers.find(className)) {
-      if (block.dataset.filterId == "sort" || block.dataset.filterId == "price")
-        continue;
-
-      const filterID = block.dataset.filterId;
-      if (!filterID || !filterID.length) continue;
-
-      let values = [];
-      for (const input of $(block).find("input:checked")) {
-        values.push(Number(input.value));
-      }
-      // if (values.length) options[propertyID] = values;
-      if (values.length) {
-        options[filterID] = values;
-        // options.push({
-        //     [filterID]: values
-        // });
-      }
-    }
-
-    return options;
   }
 
   // Получить примененную сортировку
@@ -626,6 +593,34 @@ window.EM_Module.Filters = class {
         return "desc";
     }
     return "";
+  }
+
+  _getGroupFilters(type = "option") {
+    const result = {};
+    const $fitlers = this.isMobStyle ? this.$filtresMob : this.$filtres;
+    const className =
+      (this.isMobStyle ? ".mob-popup__group" : ".filters__group") +
+      "[data-filter-id]";
+    for (const block of $fitlers.find(className)) {
+      if (block.dataset.filterId == "sort" || block.dataset.filterId == "price")
+        continue;
+      if ((block.dataset.filterType || "option") !== type) continue;
+      const filterID = block.dataset.filterId;
+      const values = [];
+      for (const input of $(block).find("input:checked")) {
+        values.push(Number(input.value));
+      }
+      if (values.length) result[filterID] = values;
+    }
+    return result;
+  }
+  // Получить выбранные опции в фильтрах (!!!)
+  _getOptionsFilters() {
+    return this._getGroupFilters("option");
+  }
+  // Получить выбранные характеристики в фильтрах
+  _getCharacteristicsFilters() {
+    return this._getGroupFilters("characteristic");
   }
 
   // вызов события изменения фильтров
@@ -1313,8 +1308,13 @@ window.EM_Module.Filters = class {
   _saveToURL() {
     const params = new URLSearchParams();
     const $container = this.isMobStyle ? this.$filtresMob : this.$filtres;
-    const options = this._getOptionsFilters();
-    for (const [filterID, values] of Object.entries(options)) {
+    // Объединяем опции и характеристики — иначе выбранные характеристики
+    // не попадают в URL и теряются при перезагрузке страницы
+    const groups = {
+      ...this._getOptionsFilters(),
+      ...this._getCharacteristicsFilters(),
+    };
+    for (const [filterID, values] of Object.entries(groups)) {
       for (const value of values) {
         params.append(`f[${filterID}][]`, value);
         const selector = this.isMobStyle
@@ -1405,6 +1405,24 @@ window.EM_Module.Filters = class {
       console.warn(this._name, "Ошибка выполнения запроса:", response);
     }
     return response;
+  }
+
+  static filtersToQueryString(data) {
+    const params = new URLSearchParams();
+    params.set("page", String(data.page ?? 1));
+    params.set("page_size", String(data.page_size ?? 16));
+    if (data.order) params.set("order", data.order);
+    if (data.price_min != null) params.set("price_min", String(data.price_min));
+    if (data.price_max != null) params.set("price_max", String(data.price_max));
+    Object.entries(data.options ?? {}).forEach(([id, values]) =>
+      values.forEach((v) => params.append(`options[${id}][]`, String(v))),
+    );
+    Object.entries(data.characteristics ?? {}).forEach(([id, values]) =>
+      values.forEach((v) =>
+        params.append(`characteristics[${id}][]`, String(v)),
+      ),
+    );
+    return params.toString();
   }
 };
 
@@ -4290,192 +4308,3 @@ document.addEventListener("DOMContentLoaded", function () {
       .fail(shwoNotice);
   }
 });
-
-window.renderExtendedFilters = function (products) {
-  // Небольшая задержка, чтобы DOM точно был готов, если вызов идет сразу после загрузки
-  setTimeout(() => {
-    console.log(
-      "[FILTER] Start rendering extended filters...",
-      products.length,
-    );
-
-    if (!products || products.length === 0) {
-      console.warn("[FILTER] No products to analyze");
-      return;
-    }
-
-    // Конфигурация ID фильтров (ключи делаем строками для надежности)
-    const filtersConfig = {
-      145817177: "Материал",
-      146033089: "Крой",
-      146033097: "Детали",
-      146033105: "Фактура",
-      146033113: "Длина",
-      146033233: "Рукав",
-      146033297: "Посадка по талии",
-      146033433: "Ворот",
-      146033441: "Принт",
-    };
-
-    // Сбор данных из товаров
-    // Структура: { "145817177": { title: "Материал", values: Set() } }
-    const filtersData = {};
-
-    // Инициализируем структуру на основе конфига
-    Object.keys(filtersConfig).forEach((id) => {
-      filtersData[id] = {
-        title: filtersConfig[id],
-        values: new Set(),
-      };
-    });
-
-    let matchCount = 0;
-
-    products.forEach((product) => {
-      const characteristics = product.characteristics || [];
-
-      characteristics.forEach((char) => {
-        // Приводим property_id к строке
-        const propId = String(char.property_id);
-
-        // Если такой ID есть в нашем конфиге
-        if (filtersData[propId]) {
-          matchCount++;
-
-          // Берем название значения (в логе видно поле 'title')
-          const val = char.title;
-
-          if (val) {
-            filtersData[propId].values.add(val);
-          }
-        }
-      });
-    });
-
-    console.log(`[FILTER] Найдено совпадений характеристик: ${matchCount}`);
-    console.log("[FILTER] Collected data:", filtersData);
-
-    // Проверка: если ничего не собрали, выходим
-    const hasData = Object.values(filtersData).some((d) => d.values.size > 0);
-    if (!hasData) {
-      console.warn(
-        "[FILTER] Данные не собраны. Проверьте ID в filtersConfig и поля в API.",
-      );
-      // Для отладки выведем первые характеристики первого товара еще раз
-      if (products[0] && products[0].characteristics) {
-        console.log(
-          "[FILTER DEBUG] Пример первой характеристики:",
-          products[0].characteristics[0],
-        );
-      }
-      return;
-    }
-
-    // Генерация HTML
-    let desktopHTML = "";
-    let mobileHTML = "";
-
-    Object.entries(filtersData).forEach(([id, data]) => {
-      if (data.values.size === 0) return;
-
-      const valuesArray = Array.from(data.values).sort(); // Сортируем значения
-      const title = data.title;
-
-      console.log(
-        `[FILTER] Рендерим фильтр "${title}" (ID: ${id}) со значениями:`,
-        valuesArray,
-      );
-
-      // Desktop HTML
-      desktopHTML += `
-            <div class="filters__group" data-filter-id="${id}">
-                <button type="button" data-spoller data-spoller-fade data-spoller-close class="filters__title-wrapper is-closed">
-                    <span class="filters__title">${title}<span class="filters__title-count"></span></span>
-                </button>
-                <div class="filters__body">
-                    <div class="filters__label">${title}</div>
-                    <div class="filters__list">
-                        ${valuesArray
-                          .map(
-                            (val) => `
-                            <div class="filters__list-item checkbox">
-                                <label class="checkbox__label checkbox__label_filter">
-                                    <input class="checkbox__input" type="checkbox" value="${val}" data-property-id="${id}">
-                                    <span class="checkbox__text-wrapper">
-                                        <span class="checkbox__point"></span>
-                                        <span class="checkbox__text">${val}</span>
-                                    </span>
-                                </label>
-                            </div>
-                        `,
-                          )
-                          .join("")}
-                    </div>
-                </div>
-            </div>
-        `;
-
-      // Mobile HTML
-      mobileHTML += `
-        <div class="mob-popup__group">
-          <div class="mob-popup__group-title-wrapper">
-            <h3 class="mob-popup__group-title">${title}</h3>
-          </div>
-          <div class="mob-popup__group-body">
-            <div class="checkbox-list">
-              ${valuesArray
-                .map(
-                  (val) => `
-                  <div class="checkbox-list__item checkbox-btn">
-                    <label class="checkbox-btn__label">
-                      <input type="checkbox" class="checkbox-btn__input" value="${val}" data-property-id="${id}">
-                      <span class="checkbox-btn__text">${val}</span>
-                    </label>
-                  </div>
-                `,
-                )
-                .join("")}
-            </div>
-          </div>
-        </div>
-      `;
-    });
-
-    // Вставка в DOM
-    const desktopContainer = document.getElementById(
-      "extended-filters-desktop-container",
-    );
-    const mobileContainer = document.getElementById(
-      "extended-filters-mobile-container",
-    );
-
-    if (desktopContainer) {
-      desktopContainer.innerHTML = desktopHTML;
-      console.log("[FILTER] Desktop filters rendered");
-
-      // Переинициализация спойлеров (важно!)
-      if (
-        typeof window.FLS !== "undefined" &&
-        typeof window.FLS.spollers === "function"
-      ) {
-        window.FLS.spollers();
-        console.log("[FILTER] Spollers re-initialized");
-      } else if (typeof spollerInit === "function") {
-        spollerInit(); // Если функция называется иначе
-      }
-    } else {
-      console.warn(
-        "[FILTER] Desktop container #extended-filters-desktop-container NOT FOUND",
-      );
-    }
-
-    if (mobileContainer) {
-      mobileContainer.innerHTML = mobileHTML;
-      console.log("[FILTER] Mobile filters rendered");
-    } else {
-      console.warn(
-        "[FILTER] Mobile container #extended-filters-mobile-container NOT FOUND",
-      );
-    }
-  }, 100);
-};
