@@ -283,7 +283,7 @@ window.EM_Module.Filters = class {
           id: propertyID,
           itemID: characteristicID,
           title: title?.innerText ?? "Характеристика",
-          img: img?.src, 
+          img: img?.src,
         },
         false,
       );
@@ -477,7 +477,10 @@ window.EM_Module.Filters = class {
     );
     const priceRange = this._getPriceRange();
     const options = this._getOptionsFilters();
-    const characteristics = this._getCharacteristicsFilters();
+
+    const characteristics = Object.values(
+      this._getCharacteristicsFilters(),
+    ).flat();
 
     // Если необходим обычный объект
     if (isObject) {
@@ -486,7 +489,7 @@ window.EM_Module.Filters = class {
         page_size: this.pageSize,
         page: this.currentPage,
         options,
-        characteristics, // [NEW]
+        characteristics, 
       };
       if (!isNaN(priceMin) && priceMin > priceRange.min)
         data.price_min = priceMin;
@@ -510,12 +513,8 @@ window.EM_Module.Filters = class {
         formData.append(`options[${filterID}][]`, String(value));
       });
     });
-    // Характеристики
-    Object.entries(characteristics || {}).forEach(([propertyID, values]) => {
-      if (!Array.isArray(values)) return;
-      values.forEach((value) => {
-        formData.append(`characteristics[${propertyID}][]`, String(value));
-      });
+    characteristics.forEach((value) => {
+      formData.append("characteristics[]", String(value));
     });
     return formData;
   }
@@ -1417,11 +1416,10 @@ window.EM_Module.Filters = class {
     Object.entries(data.options ?? {}).forEach(([id, values]) =>
       values.forEach((v) => params.append(`options[${id}][]`, String(v))),
     );
-    Object.entries(data.characteristics ?? {}).forEach(([id, values]) =>
-      values.forEach((v) =>
-        params.append(`characteristics[${id}][]`, String(v)),
-      ),
-    );
+    const chars = Array.isArray(data.characteristics)
+      ? data.characteristics
+      : Object.values(data.characteristics ?? {}).flat();
+    chars.forEach((v) => params.append("characteristics[]", String(v)));
     return params.toString();
   }
 };
