@@ -1,9 +1,0 @@
-&:not(:last-child) {
-    margin-bottom: 5rem;
-}
-
-@media (max-width: 63.99875em) {
-    &:not(:last-child) {
-        margin-bottom: 4rem;
-    }
-}
