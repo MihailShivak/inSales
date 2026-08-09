@@ -1,0 +1,20 @@
+{% if data.blocks.size > 0 %}
+
+    <div class="banner">
+        {% if widget_settings.title %}
+            <div class="title__medium">{{ widget_settings.title }}</div>
+        {% endif %}
+        <div class="collections__body">
+            {% for block in data.blocks %}
+                <div class="collection__block">
+                    <a href="{{ block.link }}" class="products-item__img collection__block-link">
+                        <img src="{{ block.image | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}" alt="{{ block.name }}" class="lazyload" loading="lazy">
+                    </a>
+                    <div class="banner__block-title">{{ block.name }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+{% endif %}
+    

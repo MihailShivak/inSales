@@ -1,0 +1,19 @@
+{
+  "layout-wide-bg": true,
+  "layout-wide-content": false,
+  "layout-pt": 2,
+  "layout-pb": 2,
+  "hide-mobile": false,
+  "hide-desktop": false,
+  "block-background-color": "#fafafa",
+  "page_header": {
+    "ru": "Корзина",
+    "en": "Cart",
+    "ua": "Кошик",
+    "es": "Carrito"
+  },
+  "border-radius": 6,
+  "img-ratio": 1,
+  "img-fit": "contain",
+  "shared-cart-enable": false
+}

@@ -1,0 +1,22 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Статья"
+  },
+  "handle": "widget_v4_article_1_830afece563de95ba8c94dba195759e1",
+  "description": {
+    "ru": "Контент статьи с заголовком и изображением"
+  },
+  "page_kinds": [
+    "article"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "blog",
+  "libraries": [
+    "jquery",
+    "my-layout"
+  ]
+}

@@ -1,0 +1,126 @@
+<div class="breadcrumbs">
+  <div class="breadcrumbs__list">
+    {% if collection.handle == "all" or collection.level == 1 %}
+      <a href="/" class="btn__bread-back">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+        <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span>Главная</span>
+      </a>
+    {% else %}
+      <a href="{{ collection.parent.url }}" class="btn__bread-back">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+        <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span>Назад</span>
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="filter-top-controls">
+  <div class="filter__title-wrapper filter__back-wrapper">
+    <a href="{%- if collection.handle == "all" or collection.level == 1 -%}/{%- else -%}{{ collection.parent.url }}{%- endif -%}" class="filter__title-close">
+      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+      <path d="M11 3.5L6 9L11 14.5" stroke="#181818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span>Назад</span>
+    </a>
+
+    <div class="title__large">{{ collection.title }}</div>
+  </div>
+  {% if collection.products.size > 1 %}
+    <div class="collection-sort">
+      <form action="{{ collection.url }}" method="get">
+        {% assign order_values = 'price,descending_price,descending_age,title' | split: ',' %}
+
+        {% capture order_messages %}
+          {{ messages.sort_by_price }},{{ messages.sort_by_price_desc }},{{ messages.sort_by_createdon }},{{ messages.sort_by_title }}
+        {% endcapture %}
+        {% assign order_messages_arr = order_messages | split: ',' %}
+
+        <div class="collection-order">
+          <button type="button" class="button button_size-m collection-order__value js-open-order-list">
+            <span class="collection-order__value-text">
+              {% unless order %} {{ messages.sorting }} {% endunless %}
+
+              {% for order_value in order_values %}
+                {% if order == order_value %}
+                  {{ order_messages_arr[forloop.index0] }}
+                {% endif %}
+              {% endfor %}
+            </span>
+            <span class="icon_arrow-black"></span>
+          </button>
+          <div class="collection-order__content">
+            <div class="collection-order__list">
+              <label class="collection-order__option">
+                <input type="radio" name="order" value="" {% unless order %}checked="checked" {% endunless %} class="collection-order__field js-sorting-trigger-radio">
+                <span class="collection-order__option-btn">
+                  {{ messages.default }}
+                  <span class="collection-order__option-btn-check"></span>
+                </span>
+              </label>
+              {% for order_value in order_values %}
+                <label class="collection-order__option">
+                  <input type="radio" name="order" value="{{ order_value }}" {% if order == order_value %}checked="checked" {% endif %} class="collection-order__field js-sorting-trigger-radio">
+                  <span class="collection-order__option-btn">
+                    {{ order_messages_arr[forloop.index0] }}
+                    <span class="collection-order__option-btn-check"></span>
+                  </span>
+                </label>
+              {% endfor %}
+            </div>
+            <div class="collection-order__loader"></div>
+          </div>
+        </div>
+
+        {% for prop in collection.current_characteristics %}
+        <input type="hidden" name="characteristics[]" value="{{ prop.id }}">
+        {% endfor %}
+        {% for property in collection.properties %}
+          {% if property.is_numeric? and property.gt_value %}
+          <input type="hidden" name="properties_gt[{{ property.id }}]" value="{{ property.gt_value }}">
+          {% endif %}
+          {% if property.is_numeric? and property.lt_value %}
+          <input type="hidden" name="properties_lt[{{ property.id }}]" value="{{ property.lt_value }}">
+          {% endif %}
+        {% endfor %}
+        {% for val in collection.current_option_values %}
+          <input type="hidden" name="options[{{ val.option_name.id }}][]" value="{{ val.id }}">
+        {% endfor %}
+        {% if search.query != '' %}
+          <input type="hidden" name="q" value="{{ search.query }}">
+        {% endif %}
+        {% if language.not_default? %}
+          <input type="hidden" name="lang" value="{{ language.locale }}">
+        {% endif %}
+        {% if price_min %}
+          <input type="hidden" name="price_min" value="{{ price_min }}">
+        {% endif %}
+        {% if price_max %}
+          <input type="hidden" name="price_max" value="{{ price_max }}">
+        {% endif %}
+      </form>
+    </div>
+  {% endif %}
+</div>
+<div class="catalog__categories">
+  {% assign handle_active = collection.handle %}
+  <div class="catalog__categories-body">
+    {% if collection.show_subcollections? %}
+      {% for collection in collection.subcollections %}
+          <a href="{{ collection.url }}" class="catalog__categories-item {% if collection.handle == handle_active %} _active {% endif %}">{{ collection.title | downcase }}</a>
+      {% endfor %}
+    {% elsif collection.parent %}
+      {% for collection in collection.parent.subcollections %}
+          <a href="{{ collection.url }}" class="catalog__categories-item {% if collection.handle == handle_active %} _active {% endif %}">{{ collection.title | downcase }}</a>
+      {% endfor %}
+    {% else %}
+      {% for collection in collections["all"].subcollections %}
+        <a href="{{ collection.url }}" class="catalog__categories-item {% if collection.handle == handle_active %} _active {% endif %}">{{ collection.title | downcase }}</a>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+<div class="order-overlay js-hide-order"></div>

@@ -1,0 +1,39 @@
+{
+  "current": "custom",
+  "generation": 4,
+  "not_need_shop_bundle": true,
+  "presets": {
+    "custom": {
+      "color-preset": "preset-12",
+      "bg": "#F5F5F5",
+      "color-btn-bg": "#003c96",
+      "color-accent-text": "#003c96",
+      "color-text-dark": "#333333",
+      "color-text-light": "#ffffff",
+      "icons_pack": "insales-default",
+      "controls-btn-border-radius": "10px",
+      "color-notice-warning": "#FFFFFF",
+      "color-notice-success": "#FFFFFF",
+      "color-notice-error": "#FFFFFF",
+      "color-notice-info": "#FFFFFF",
+      "font-family": "Poppins",
+      "custom-font-family-enabled": true,
+      "favorite_enabled": true,
+      "_settings_version": 1771626563.173553,
+      "undefined": {
+        "ru": "<p>Стань VIP-клиентом и покупай еще дешевле</p>"
+      },
+      "product_not_available": "preorder",
+      "custom-font-family-url": "",
+      "font-family-heading": "Poppins",
+      "custom-font-family-heading-url": "",
+      "custom-font-family-heading-enabled": false,
+      "collection_count": "10",
+      "collection.system-template-5d21014c2fe9eca74bf1_count": "10"
+    }
+  },
+  "remote_theme_id": 572,
+  "source_account_id": null,
+  "system_widgets": true,
+  "theme_title": "[Dev] Юрт Маркет #2.5.10 Изменение попапа поиска | 21.03.26"
+}

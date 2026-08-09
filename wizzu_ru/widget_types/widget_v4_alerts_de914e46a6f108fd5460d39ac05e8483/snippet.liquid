@@ -1,0 +1,2 @@
+{% assign notices = 'success_feedback,success_cart,add_item_compares,remove_item_compares,add_item_favorites,remove_item_favorites,overload_compares,overload_favorites,overload_quantity,success_preorder,accessories_count_error,copy_link' | split: ',' %}
+<div class="micro-alerts" data-micro-alerts-settings='{ {%- for notice in notices -%}{%- assign current_notice = widget_settings[notice] -%}"{{ notice }}": "{{ current_notice }}"{% unless forloop.last %},{% endunless %}{%- endfor -%} }'></div>

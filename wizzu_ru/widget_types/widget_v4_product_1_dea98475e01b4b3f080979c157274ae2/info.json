@@ -1,0 +1,26 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Карточка товара"
+  },
+  "handle": "widget_v4_product_1_dea98475e01b4b3f080979c157274ae2",
+  "description": {
+    "ru": "Карточка товара со галереей (превью слева)"
+  },
+  "page_kinds": [
+    "product"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "products-cards",
+  "libraries": [
+    "commonjs_v2",
+    "fslightbox",
+    "jquery",
+    "my-layout",
+    "splide",
+    "micromodal"
+  ]
+}

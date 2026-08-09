@@ -1,0 +1,48 @@
+{
+  "bg": "#fafafa",
+  "layout-wide-bg": true,
+  "layout-wide-content": false,
+  "layout-pt": 2,
+  "layout-pb": 2,
+  "hide-mobile": false,
+  "hide-desktop": false,
+  "logo-max-width": 220,
+  "phone-info-1": {
+    "ru": "справочная служба",
+    "en": "help desk",
+    "ua": "довідкова служба",
+    "es": "mesa de ayuda"
+  },
+  "menu-1": "main-menu",
+  "menu-2": "main-menu",
+  "menu-3": "main-menu",
+  "hide-pay": false,
+  "hide-social": false,
+  "social-title": {
+    "ru": "Мы в соц. сетях",
+    "en": "We are in social networks",
+    "ua": "Ми в соц. мережі",
+    "es": "Nosotros en redes sociales"
+  },
+  "title-menu-1": {
+    "ru": "Меню 1",
+    "en": "Menu 1",
+    "ua": "Меню 1",
+    "es": "Menú 1"
+  },
+  "title-menu-2": {
+    "ru": "Меню 2",
+    "en": "Menu 2",
+    "ua": "Меню 2",
+    "es": "Menú 2"
+  },
+  "title-menu-3": {
+    "ru": "Меню 3",
+    "en": "Menu 3",
+    "ua": "Меню 3",
+    "es": "Menú 3"
+  },
+  "pay-img-1": "14550303",
+  "pay-img-2": "14550297",
+  "pay-img-3": "14550304"
+}

@@ -1,0 +1,10 @@
+{% if product.similar_products.size > 0 %}
+<div class="similar__products">
+    <div class="title__large">{{ widget_settings.title }}</div>
+    <div class="products__grid">
+        {% for product in product.similar_products limit: widget_settings.range %}
+            {% include "product-item" %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

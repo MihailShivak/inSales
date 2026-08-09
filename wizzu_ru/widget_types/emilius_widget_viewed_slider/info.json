@@ -1,0 +1,18 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Ранее просмотренные товары"
+  },
+  "handle": "emilius_widget_viewed_slider",
+  "page_kinds": [
+    "all"
+  ],
+  "widget_list_kinds": [
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "recently-viewed",
+  "libraries": [
+    "swiper"
+  ]
+}

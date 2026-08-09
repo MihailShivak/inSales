@@ -1,0 +1,29 @@
+<div class="article">
+  {% if editor_mode? or widget_settings.article-hide-photo != true %}
+    {% unless article.image.large_url contains 'no_image' %}
+      <div class="img-ratio img-fit article-photo ">
+        <div class="img-ratio__inner">
+          {% assign img_width = widget_settings.layout-content-max-width | default: settings.layout-content-max-width | default: settings.layout_content_max_width%}
+          {% if widget_settings.layout-wide-content %}
+          {% assign img_width = 1920 %}
+          {% endif %}
+          {% assign blog_img_title = article.title | escape %}
+
+          {% assign article_img = article.image %}
+
+          <picture>
+            <source media="(min-width:481px)" srcset="{{ article_img | image_url: img_width, format: 'webp', resizing_type: 'fit_width', quality: 100 }}" type="image/webp" loading="lazy">
+            <source media="(max-width:480px)" srcset="{{ article_img | image_url: 500, format: 'webp', resizing_type: 'fit_width', quality: 100 }}" type="image/webp" loading="lazy">
+
+            <img src="{{ article_img | image_url: img_width, resizing_type: 'fit_width', quality: 100 }}" loading="lazy" alt="{{ blog_img_title }}">
+          </picture>
+        </div>
+      </div>
+    {% endunless %}
+  {% endif %}
+  <h1 class="title__medium">{{ article.title | editable }}</h1>
+  <div class="article-content static-text">
+    {{ article.content | replace: '<table', '<div class="table-wrapper"><table' | replace: '</table>', '</table></div>' | editable }}
+  </div>
+</div>
+{% assign blog_img_title = null %}

@@ -1,0 +1,58 @@
+{% include "system_v4_fonts" %}
+
+<link href="{{ 'theme_default.css' | asset_url }}" rel="stylesheet" type="text/css" />
+<link href="{{ 'theme.css' | asset_url }}" rel="stylesheet" type="text/css" onload="document.body.classList.add('settings_loaded');" />
+
+<style>
+
+@charset "UTF-8";
+@font-face {
+    font-family: Poppins;
+    font-display: swap;
+    src: url("{{ 'Poppins-Regular_6.woff2' | asset_url }}") format("woff2"), url("{{ 'Poppins-Regular_6.woff' | asset_url }}") format("woff");
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: Poppins;
+    font-display: swap;
+    src: url("{{ 'Poppins-SemiBold_6.woff2' | asset_url }}") format("woff2"), url("{{ 'Poppins-SemiBold_6.woff' | asset_url }}") format("woff");
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: Poppins;
+    font-display: swap;
+    src: url("{{ 'Poppins-Bold_6.woff2' | asset_url }}") format("woff2"), url("{{ 'Poppins-Bold_6.woff' | asset_url }}") format("woff");
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: Poppins;
+    font-display: swap;
+    src: url("{{ 'Poppins-ExtraBold_4.woff2' | asset_url }}") format("woff2"), url("{{ 'Poppins-ExtraBold_4.woff' | asset_url }}") format("woff");
+    font-weight: 800;
+    font-style: normal;
+}
+
+:root {
+    --icon-user-white: url("{{ 'icon-user-white.svg' | asset_url }}");
+    --icon-heart-white: url("{{ 'icon-heart-white.svg' | asset_url }}");
+    --icon-cart-white: url("{{ 'icon-cart-white.svg' | asset_url }}");
+    --icon-arrow: url("{{ 'icon-arrow.svg' | asset_url }}");
+    --icon-arrow-accept: url("{{ 'icon-arrow-accept.svg' | asset_url }}");
+    --icon-arrow-black: url("{{ 'icon-arrow-black.svg' | asset_url }}");
+
+    --icon-favorite: url("{{ 'icon-favorite.svg' | asset_url }}");
+    --icon-favorite-blue: url("{{ 'icon-favorite-blue.svg' | asset_url }}");
+    --icon-favorite-red: url("{{ 'icon-favorite-red.svg' | asset_url }}");
+
+    --icon-search: url("{{ 'icon-search.svg' | asset_url }}");
+    --icon-address: url("{{ 'icon-address.svg' | asset_url }}");
+    --icon-message: url("{{ 'icon-message.svg' | asset_url }}");
+    --icon-message-new: url("{{ 'icon-message-new.svg' | asset_url }}");
+    --icon-close: url("{{ 'icon-close.svg' | asset_url }}");
+
+    --icon-sbp: url("{{ 'icon-sbp.svg' |  asset_url }}")
+}
+</style>

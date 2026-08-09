@@ -1,0 +1,6 @@
+@include background-color(--bg);
+.static-text {
+    overflow: hidden;
+    overflow-wrap: break-word;
+    font-family: inherit;
+}

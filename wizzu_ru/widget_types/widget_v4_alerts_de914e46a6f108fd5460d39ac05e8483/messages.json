@@ -1,0 +1,18 @@
+{
+  "ru": {
+     "overload_favorites": "Достигнуто максимальное количество товаров в избранном",
+     "accessories_count_error": "Выбрано неверное количество опций"
+   },
+  "ua": {
+    "overload_favorites": "Досягнуто максимальну кількість товарів для избранного",
+    "accessories_count_error": "Вибрано неправильну кількість опцій"
+  },
+  "en": {
+    "overload_favorites": "The maximum number of items for favorites has been reached",
+    "accessories_count_error": "Incorrect number of accessories selected"
+  },
+  "es": {
+    "overload_favorites": "Se alcanzó el número máximo de elementos para favorites",
+    "accessories_count_error": "Número incorrecto de accesorios seleccionados"
+  }
+}

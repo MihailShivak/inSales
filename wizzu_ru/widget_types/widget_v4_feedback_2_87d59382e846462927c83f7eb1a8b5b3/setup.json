@@ -1,0 +1,24 @@
+{
+  "blocks": [
+    {
+      "type": "text",
+      "label": "Имя",
+      "required": true
+    },
+    {
+      "type": "phone",
+      "label": "Телефон",
+      "required": false
+    },
+    {
+      "type": "email",
+      "label": "Почта",
+      "required": true
+    },
+    {
+      "type": "textarea",
+      "label": "Комментарий",
+      "required": false
+    }
+  ]
+}

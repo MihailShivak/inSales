@@ -1,0 +1,204 @@
+{% capture phone_block %}
+  {% if widget_settings.phone_number and widget_settings.phone_number != '' %}
+    <div class="footer__phone">
+      {% if widget_settings.hide-logo-img %}
+        <a class="footer__phone-value" href="tel:{{widget_settings.phone_number | strip_html | remove: '(' | remove: ')' | remove: '-' | remove: ' ' | lstrip }}">{{ widget_settings.phone_number }}</a>
+      {% endif %}
+      {% if widget_settings.phone-info-1 and widget_settings.phone-info-1 != '' %}
+        <div class="phone-info">{{ widget_settings.phone-info-1 | editable }}</div>
+      {% endif %}
+    </div>
+  {% endif %}
+  {% if widget_settings.phone_number_2 and widget_settings.phone_number_2 != '' %}
+    <div class="footer__phone">
+      {% if widget_settings.hide-logo-img %}
+        <a class="footer__phone-value" href="tel:{{widget_settings.phone_number_2 | strip_html | remove: '(' | remove: ')' | remove: '-' | remove: ' ' | lstrip }}">{{ widget_settings.phone_number_2 }}</a>
+      {% endif %}
+      {% if widget_settings.phone-info-2 and widget_settings.phone-info-2 != '' %}
+        <div class="phone-info">{{ widget_settings.phone-info-2 | editable }}</div>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endcapture %}
+<div class="footer-wrap" style="padding: {{ widget_settings.layout-pt }}rem 0 {{  widget_settings.layout-pb }}rem;">
+  <div class="footer-top">
+    <div class="footer__area-menu">
+      {% for i in (1..3) %}
+        {% if i == 1 %}
+          {% assign permalink = widget_settings.menu-1 %}{% assign title = widget_settings.title-menu-1 | editable %}
+        {% elsif i == 2 %}
+          {% assign permalink = widget_settings.menu-2 %}{% assign title = widget_settings.title-menu-2 | editable %}
+        {% elsif i == 3 %}
+          {% assign permalink = widget_settings.menu-3 %}{% assign title = widget_settings.title-menu-3 | editable %}
+        {% endif %}
+        {% if permalink != null %}
+          <div class="menu-item" data-menu-handle="{{ permalink }}">
+            {% if title != null %}
+              <div class="menu-title">
+                {{ title }}
+                <button class="menu-show-submenu-btn js-show-mobile-submenu" type="button">
+                  <span class="icon icon-angle-down"></span>
+                </button>
+              </div>
+            {% endif %}
+            {% for link in linklists[permalink].links %}
+              {% assign is_current = link.current? | default: '' | replace: 'true', 'link-current' %}
+              <a class="menu-link {{ is_current }}" href="{{ link.url }}" data-menu-item-id="{{- link.id -}}">
+                {{ link.title }}
+              </a>
+            {% endfor %}
+          </div>
+        {% elsif editor_mode? %}
+          <div class="menu-item"></div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="footer__area-sidebar">
+      <div class="footer__area-social">
+        {% if widget_settings.social-title and widget_settings.social-title != '' %}
+          <div class="title">{{ widget_settings.social-title | editable }}</div>
+        {% endif %}
+
+        {% capture social_content %}
+          {% for social in block_lists.system--pages.blocks %}
+            {% if social.link %}
+              {% if social.handle contains 'tiktok' %}
+                {% assign social_icon = 'icon-tiktok' %}
+              {% elsif social.handle contains 'vk' %}
+                {% assign social_icon = 'icon-vk' %}
+              {% elsif social.handle contains 'youtube' %}
+                {% assign social_icon = 'icon-youtube' %}
+              {% elsif social.handle contains 'ok' %}
+                {% assign social_icon = 'icon-odnoklassniki' %}
+              {% endif %}
+              <a href="{{ social.link }}" target="_blank" class="social_link social-img-item">
+                <span class="icon-link {{ social_icon }}"></span>
+              </a>
+            {% endif %}
+          {% endfor %}
+        {% endcapture %}
+
+        {% capture messenger_content %}
+          {% for messenger in block_lists.system--messengers.blocks %}
+            {% if messenger.link %}
+              {% assign messenger_link = messenger.link %}
+              {% if messenger.handle contains 'telegram' %}
+                {% assign messenger_icon = 'icon-telegram' %}
+              {% elsif messenger.handle contains 'whatsapp' %}
+                {% assign messenger_icon = 'icon-whatsapp' %}
+                {% assign messenger_link = messenger.link | prepend: 'https://wa.me/' %}
+              {% elsif messenger.handle contains 'viber' %}
+                {% assign messenger_icon = 'icon-viber' %}
+                {% assign messenger_link = messenger.link | prepend: 'viber://chat?number=%2B' %}
+              {% endif %}
+              <a
+                href="{{ messenger_link }}"
+                target="_blank"
+                class="messenger_link social-img-item {{ messenger.handle }}">
+                  <span class="icon-link {{ messenger_icon }}"></span>
+              </a>
+            {% endif %}
+          {% endfor %}
+            <a
+              href="https://www.instagram.com/wizzu.ru?utm_source=website&utm_medium=store-icons&utm_campaign=own&utm_content=futter-icons&utm_term=instagram-button"
+              target="_blank"
+              class="social_link social-img-item">
+                <span class="icon-link icon-insta">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="24px" height="24px" viewBox="0 0 32 32"><path d="M 11.46875 5 C 7.917969 5 5 7.914063 5 11.46875 L 5 20.53125 C 5 24.082031 7.914063 27 11.46875 27 L 20.53125 27 C 24.082031 27 27 24.085938 27 20.53125 L 27 11.46875 C 27 7.917969 24.085938 5 20.53125 5 Z M 11.46875 7 L 20.53125 7 C 23.003906 7 25 8.996094 25 11.46875 L 25 20.53125 C 25 23.003906 23.003906 25 20.53125 25 L 11.46875 25 C 8.996094 25 7 23.003906 7 20.53125 L 7 11.46875 C 7 8.996094 8.996094 7 11.46875 7 Z M 21.90625 9.1875 C 21.402344 9.1875 21 9.589844 21 10.09375 C 21 10.597656 21.402344 11 21.90625 11 C 22.410156 11 22.8125 10.597656 22.8125 10.09375 C 22.8125 9.589844 22.410156 9.1875 21.90625 9.1875 Z M 16 10 C 12.699219 10 10 12.699219 10 16 C 10 19.300781 12.699219 22 16 22 C 19.300781 22 22 19.300781 22 16 C 22 12.699219 19.300781 10 16 10 Z M 16 12 C 18.222656 12 20 13.777344 20 16 C 20 18.222656 18.222656 20 16 20 C 13.777344 20 12 18.222656 12 16 C 12 13.777344 13.777344 12 16 12 Z"/></svg>
+                </span>
+            </a>
+        {% endcapture %}
+
+        <div class="social-items">
+          {% if widget_settings.url_1-href %}
+            <a href="{{ widget_settings.url_1-href }}" target="_blank" class="messenger_link social-img-item whatsapp">
+              <span class="icon-link icon-whatsapp"></span>
+            </a>
+          {% endif %}
+          {% if widget_settings.url_2-href %}
+            <a href="{{ widget_settings.url_2-href }}" target="_blank" class="social_link social-img-item">
+              <span class="icon-link icon-insta">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="24px" height="24px" viewBox="0 0 32 32"><path d="M 11.46875 5 C 7.917969 5 5 7.914063 5 11.46875 L 5 20.53125 C 5 24.082031 7.914063 27 11.46875 27 L 20.53125 27 C 24.082031 27 27 24.085938 27 20.53125 L 27 11.46875 C 27 7.917969 24.085938 5 20.53125 5 Z M 11.46875 7 L 20.53125 7 C 23.003906 7 25 8.996094 25 11.46875 L 25 20.53125 C 25 23.003906 23.003906 25 20.53125 25 L 11.46875 25 C 8.996094 25 7 23.003906 7 20.53125 L 7 11.46875 C 7 8.996094 8.996094 7 11.46875 7 Z M 21.90625 9.1875 C 21.402344 9.1875 21 9.589844 21 10.09375 C 21 10.597656 21.402344 11 21.90625 11 C 22.410156 11 22.8125 10.597656 22.8125 10.09375 C 22.8125 9.589844 22.410156 9.1875 21.90625 9.1875 Z M 16 10 C 12.699219 10 10 12.699219 10 16 C 10 19.300781 12.699219 22 16 22 C 19.300781 22 22 19.300781 22 16 C 22 12.699219 19.300781 10 16 10 Z M 16 12 C 18.222656 12 20 13.777344 20 16 C 20 18.222656 18.222656 20 16 20 C 13.777344 20 12 18.222656 12 16 C 12 13.777344 13.777344 12 16 12 Z"></path></svg>
+              </span>
+            </a>
+          {% endif %}
+          {% if widget_settings.url_3-href %}
+            <a href="{{ widget_settings.url_3-href }}" target="_blank" class="social_link social-img-item">
+              <span class="icon-link icon-vk"></span>
+            </a>
+          {% endif %}
+
+          {% comment %} {% if messenger_content contains 'messenger_link' %}
+            {{ messenger_content }}
+          {% endif %}
+
+          {% if social_content contains 'social_link' %}
+            {{ social_content }}
+          {% endif %} {% endcomment %}
+        </div>
+      </div>
+          <!--{% if social_content contains 'social_link' %}
+            <div class="social-items">
+              {{ social_content }}
+            </div>
+          {% endif %}-->
+
+      <div class="footer__area-contacts">
+        {{ phone_block }}
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom" data-footer-hide-app hidden>
+    <div class="footer__area-logo">
+      {% if widget_settings.hide-logo-img %}
+        <a href="/" class="footer__logo">
+          {% if widget_settings.logo-img %}
+            <img
+              src="{{ widget_settings.logo-img | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}"
+              alt="{{ account.title | escape }}"
+              title="{{ account.title | strip_html | escape }}" />
+          {% else %}
+            {% default_logo %}
+          {% endif %}
+        </a>
+      {% else %}
+        <div class="footer__logo-wrapper">
+          <a href="{{ widget_settings.bottom-logo-link-1 }}" class="footer__logo-link">
+            <img src="{{ widget_settings.bottom-logo-1 | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}" alt="{{ widget_settings.bottom-logo-link-1 }}">
+          </a>
+          <a href="{{ widget_settings.bottom-logo-link-2 }}" class="footer__logo-link">
+            <img src="{{ widget_settings.bottom-logo-2 | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}" alt="{{ widget_settings.bottom-logo-link-2 }}">
+          </a>
+          <a href="{{ widget_settings.bottom-logo-link-3 }}" class="footer__logo-link">
+            <img src="{{ widget_settings.bottom-logo-3 | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}" alt="{{ widget_settings.bottom-logo-link-3 }}">
+          </a>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="footer__area-pay">
+      {% comment %} {% for i in (1..7) %}
+        {% if i == 1 %}
+          {% assign pay = widget_settings.pay-img-1 %}
+        {% elsif i == 2 %}
+          {% assign pay = widget_settings.pay-img-2 %}
+        {% elsif i == 3 %}
+          {% assign pay = widget_settings.pay-img-3 %}
+        {% elsif i == 4 %}
+          {% assign pay = widget_settings.pay-img-4 %}
+        {% elsif i == 5 %}
+          {% assign pay = widget_settings.pay-img-5 %}
+        {% elsif i == 6 %}
+          {% assign pay = widget_settings.pay-img-6 %}
+        {% elsif i == 7 %}
+          {% assign pay = widget_settings.pay-img-7 %}
+        {% endif %}
+        {% unless pay == blank %}
+          <div class="pay-img-item">
+            <img src="{{ pay }}" alt="{{ messages.icon_pay | escape }}">
+          </div>
+        {% endunless %}
+      {% endfor %} {% endcomment %}
+    </div>
+  </div>
+</div>

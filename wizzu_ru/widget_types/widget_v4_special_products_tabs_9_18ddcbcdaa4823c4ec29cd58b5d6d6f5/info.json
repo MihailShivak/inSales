@@ -1,0 +1,27 @@
+{
+  "type": "BlockListWidgetType",
+  "name": {
+    "ru": "Товары из определенной категории с табами"
+  },
+  "handle": "widget_v4_special_products_tabs_9_18ddcbcdaa4823c4ec29cd58b5d6d6f5",
+  "description": {
+    "ru": "Вывод товаров из определенной категории с табами."
+  },
+  "page_kinds": [
+    "all"
+  ],
+  "widget_list_kinds": [
+    "before_content",
+    "content",
+    "after_content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "product-homepage",
+  "libraries": [
+    "commonjs_v2",
+    "jquery",
+    "my-layout",
+    "splide"
+  ],
+  "block_template_handle": "system-collection-2"
+}

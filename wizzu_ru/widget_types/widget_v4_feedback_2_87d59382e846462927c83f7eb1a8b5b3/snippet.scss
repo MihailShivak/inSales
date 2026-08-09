@@ -1,0 +1,152 @@
+@include background-color(--bg);
+
+::placeholder {
+  color: var(--color-text-major-shade)!important;
+}
+
+.feedback {
+  text-align: center;
+
+  &__title {
+    margin-bottom: 30px;
+    text-align: var(--align-title, center);
+  }
+
+  &__form {
+    position: relative;
+
+    &.is-sended {
+      .feedback__fields {
+        visibility: hidden;
+      }
+
+      .feedback__success-message {
+        display: block;
+      }
+    }
+  }
+
+  .form-control {
+    @include background-color(--bg-minor-shade);
+    border-color: var(--bg-major-shade);
+    font-size: var(--controls-font-size-m);
+    color: var(--color-text);
+
+    &:focus {
+      border-color: var(--bg-major-shade);
+    }
+
+    &::placeholder {
+      color: var(--color-text-half-shade);
+    }
+  }
+
+  textarea {
+    font-size: var(--controls-font-size-m);
+    resize: none;
+    height: 115px;
+  }
+
+  &__row {
+    --grid-list-min-width: 250px;
+    --grid-list-row-gap: 0;
+    --grid-list-column-gap: 2rem;
+  }
+
+  &__success-message {
+    position:absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+  }
+
+  &__field-area {
+    margin-bottom: 2rem;
+    text-align: left;
+    position: relative;
+
+    &.is-error {
+      .feedback__field-error {
+        display: block;
+      }
+    }
+  }
+
+  &__submit {
+    text-align: center;
+
+    .button {
+      min-width: 250px;
+    }
+  }
+
+  &__field-error {
+    font-size: 0.875rem;
+    color: var(--color-error);
+    text-align: left;
+    position: absolute;
+    display: none;
+    left: 0;
+    right: 0;
+    top: 100%;
+    padding-top: 1px;
+  }
+
+  &__recaptcha {
+    & > div {
+      margin: 0 auto;
+    }
+  }
+}
+
+.agree {
+  margin-bottom: 20px;
+  text-align: left;
+  line-height: 1.3;
+
+  &__field {
+    display: none;
+
+    &:checked + .agree__content {
+      .agree__btn {
+        border-color: var(--color-btn-bg);
+
+        &:before {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+  }
+
+  &__content {
+    display: inline-flex;
+  }
+
+  &__btn {
+    width: 1.5rem;
+    min-width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.8rem;
+    border: var(--controls-border-width) solid var(--color-form-controls-border-color);
+    border-radius: calc(var(--controls-form-border-radius) / 2);
+    position: relative;
+
+    &:before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1rem;
+      color: var(--color-btn-bg);
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  &__label {
+    align-self: center;
+  }
+}

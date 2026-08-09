@@ -1,0 +1,33 @@
+{% if false and paginate.pages > 1 %}
+<div class="pagination">
+  {% if paginate.previous %}
+  <a href="{{ paginate.previous.url }}" class="button button_size-s pagination-prev hide-mobile">{{ messages.prev }}</a>
+  <a href="{{ paginate.previous.url }}" class="button button_size-s show-mobile pagination-prev icon icon-arrow-left"></a>
+  {% endif %}
+  <div class="pagination-items {% if paginate.next %}next{% endif %}">
+    {% for part in paginate.parts %}
+    {% if part.title == paginate['current_page'] %}
+      <span class="button button_size-s pagination-span disabled">
+       {{ part.title }}
+      </span>
+    {% else %}
+    {% if part.is_link %}
+      <a href="{{ part.url }}" class="button button_size-s  pagination-link">
+       {{ part.title }}
+    </a>
+    {% else %}
+      <span class=" pagination-void">
+       {{ part.title }}
+      </span>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% if paginate.next %}
+    <a href="{{ paginate.next.url }}" class="button button_size-s pagination-next hide-mobile">{{ messages.next }}</a>
+    <a href="{{ paginate.next.url }}" class="button button_size-s pagination-next icon icon-arrow-right show-mobile"></a>
+  {% endif %}
+</div>
+{% endif %}
+
+<a href="/blogs/blog/ne_nashli_tovar" class="btn__not-found" hidden>Не нашли то, что искали?</a>

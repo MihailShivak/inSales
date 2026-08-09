@@ -1,0 +1,20 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Определение адреса"
+  },
+  "handle": "emilius_widget_delivery_zones_map",
+  "description": {
+    "ru": "Интерактивная карта с зонами доставки на базе Яндекс.Карт"
+  },
+  "page_kinds": [
+    "all"
+  ],
+  "widget_list_kinds": [
+    "header",
+    "outside"
+  ],
+  "generation": 4,
+  "widget_category_handle": "headers",
+  "libraries": []
+}

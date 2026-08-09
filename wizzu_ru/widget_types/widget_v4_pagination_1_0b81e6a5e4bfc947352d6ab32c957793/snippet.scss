@@ -1,0 +1,157 @@
+@include background-color(--bg);
+.pagination {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  gap: 0.5rem;
+  justify-content: var(--align);
+  margin-bottom: 30px;
+  @media screen and (max-width: 767px) {
+    justify-content: center;
+    grid-auto-flow: row;
+    gap: 0.5rem;
+  }
+}
+
+.pagination-items {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  gap: 0.5rem;
+  @media screen and (max-width: 767px) {
+    justify-self: center;
+  }
+}
+
+.pagination-link {
+  font-size: 1.1rem;
+  background: transparent;
+  color: var(--color-text);
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+  &:hover {
+    border-color: transparent;
+  }
+}
+
+.pagination-span {
+  font-size: 1.1rem;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+}
+
+.pagination-next {
+  @media screen and (max-width: 767px) {
+    justify-self: center;
+    grid-row-start: 1;
+    grid-column: 1/ -1;
+  }
+}
+
+.pagination-next,
+.pagination-prev {
+  font-weight: bold;
+  background: #fff;
+  color: #2394F0;
+}
+
+.pagination-void {
+  padding: 0 0.8rem;
+  line-height: 2rem;
+}
+
+.show-mobile {
+  display: none;
+}
+
+.disabled {
+  background-color: #2394F0;
+}
+
+
+@media screen and (min-width: 992px) {
+  .button {
+    font-family: inherit;
+  }
+}
+
+
+@media screen and (max-width: 992px) {
+  .show-mobile {
+    display: block;
+  }
+  .hide-mobile {
+    display: none;
+  }
+  .pagination-prev:not(.hide-mobile) {
+    display: flex;
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+  .pagination-next:not(.hide-mobile) {
+    display: flex;
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+  .pagination-items .button,
+  .pagination-items span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 0px 10px;
+  }
+
+}
+@media screen and (max-width: 767px) {
+  .pagination-prev:not(.hide-mobile) {
+    display: flex;
+    grid-column: 1;
+    justify-self: end;
+    padding: 0 0.5rem;
+  }
+  .pagination-next:not(.hide-mobile) {
+    display: flex;
+    grid-column: 3;
+    padding: 0 0.5rem;
+  }
+  .pagination-prev+.pagination-items.next {
+    grid-column: 2;
+  }
+  .pagination-items .button,
+  .pagination-items span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+  .pagination-void {
+    width: 10px;
+  }
+  .pagination-items {
+    gap: 0.2rem;
+  }
+}
+.btn__not-found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 30px;
+  max-width: 337px;
+  margin: 0 auto 41px auto;
+  padding: 3px 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 100%;
+  color: #181818;
+  background-color: #fff;
+  border-radius: 50px;
+
+  @media screen and (max-width: 760px) {
+    min-height: 24px;
+    font-size: 12px;
+    font-weight: 400;
+  }
+}

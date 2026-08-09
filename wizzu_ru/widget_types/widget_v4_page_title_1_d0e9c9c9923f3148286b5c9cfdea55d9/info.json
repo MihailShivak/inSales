@@ -1,0 +1,22 @@
+{
+  "type": "SimpleWidgetType",
+  "name": {
+    "ru": "Заголовок страницы"
+  },
+  "handle": "widget_v4_page_title_1_d0e9c9c9923f3148286b5c9cfdea55d9",
+  "description": {
+    "ru": "Заголовок текущей страницы, обернутый в тэг <h1>. Для карточки товара - название товара, для категории - название категории, для статьи - название статьи и т.д."
+  },
+  "page_kinds": [
+    "all"
+  ],
+  "widget_list_kinds": [
+    "before_content",
+    "content"
+  ],
+  "generation": 4,
+  "widget_category_handle": "text",
+  "libraries": [
+    "my-layout"
+  ]
+}

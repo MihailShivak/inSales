@@ -1,0 +1,22 @@
+{
+   "ru":{
+      "block_list": "Список полей",
+      "block": "Поле",
+      "blocks": "Поля"
+   },
+   "ua":{
+      "block_list": "Список полів",
+      "block": "Поле",
+      "blocks": "Поля"
+   },
+   "en":{
+      "block_list": "Field list",
+      "block": "Field",
+      "blocks": "Fields"
+   },
+   "es":{
+      "block_list": "Lista de campos",
+      "block": "Campo",
+      "blocks": "Campos"
+   }
+ }

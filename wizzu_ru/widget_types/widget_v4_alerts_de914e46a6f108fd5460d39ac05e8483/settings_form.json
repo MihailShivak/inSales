@@ -1,0 +1,82 @@
+{
+  "design": [
+    {
+      "type": "group",
+      "name": "{{ messages.notification_text }}",
+      "items": [
+        {
+          "name": "success_feedback",
+          "label": "{{ messages.successful_feedback_notification }}",
+          "value": "",
+          "type": "text"
+        },
+        {
+          "name": "success_preorder",
+          "label": "{{ messages.successful_preorder_notification }}",
+          "value": "",
+          "type": "text"
+        },
+        {
+          "name": "success_cart",
+          "label": "{{ messages.successful_cart_notification }}",
+          "value": "",
+          "type": "text"
+        },
+        {
+          "name": "add_item_favorites",
+          "label": "{{ messages.adding_product_favorites }}",
+          "value": "",
+          "type": "text"
+        },
+        {
+          "name": "remove_item_favorites",
+          "label": "{{ messages.removing_item_favorites }}",
+          "value": "",
+          "type": "text"
+        },
+        {
+          "name": "add_item_compares",
+          "label": "{{ messages.adding_item_compare }}",
+          "value": "",
+          "type": "text"
+        },
+        {
+          "name": "remove_item_compares",
+          "label": "{{ messages.removing_item_compare }}",
+          "value": "",
+          "type": "text"
+        },
+        {
+          "name": "overload_compares",
+          "label": "{{ messages.overload_compares }}",
+          "value": "",
+          "type": "text"
+        },
+        {
+          "name": "overload_favorites",
+          "label": "{{ messages.overload_favorites }}",
+          "value": "",
+          "type": "text"
+        },
+        {
+          "name": "overload_quantity",
+          "label": "{{ messages.overload_quantity }}",
+          "value": "",
+          "type": "text"
+        },
+        {
+          "name": "accessories_count_error",
+          "label": "{{ messages.accessories_count_error }}",
+          "value": "",
+          "type": "text"
+        },
+        {
+          "name": "copy_link",
+          "label": "{{ messages.copy_link }}",
+          "value": "",
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}

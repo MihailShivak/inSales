@@ -1,0 +1,76 @@
+{
+	"content": [
+		{
+			"type": "group",
+			"name": "Иконки в форме",
+			"items": [
+				{
+					"name": "logo_img",
+					"label": "Логотип в форме",
+					"value": null,
+					"type": "file",
+					"general": true,
+					"general_position": 1,
+					"with_generate_logo": true
+				}
+			]
+		},
+		{
+			"type": "group",
+			"name": "Ссылки",
+			"items": [
+				{
+					"class": "text",
+					"name": "app_link-1",
+					"label": "Ссылка для лого 1",
+					"value": "",
+					"type": "text",
+					"placeholder": null,
+					"general": true,
+					"general_position": 1
+				},
+				{
+					"class": "text",
+					"name": "app_link-2",
+					"label": "Ссылка для лого 2",
+					"value": "",
+					"type": "text",
+					"placeholder": null,
+					"general": true,
+					"general_position": 1
+				}
+			]
+		},
+		{
+			"type": "group",
+			"name": "Попап с предупреждением",
+			"items": [
+				{
+					"name":"show_popup",
+					"label":"Показывать попап",
+					"value":false,
+					"help":"",
+					"type":"checkbox"
+				},
+                {
+                    "name": "title",
+                    "label": "Заголовок",
+                    "value": null,
+                    "type": "text"
+                },
+                {
+                    "name": "desc",
+                    "label": "Описание",
+                    "value": null,
+                    "type": "text"
+                },
+                {
+                    "name": "btn-text",
+                    "label": "Текст кнопки",
+                    "value": null,
+                    "type": "text"
+                }
+			]
+		}
+	]
+}
