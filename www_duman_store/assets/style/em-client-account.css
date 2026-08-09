@@ -1,5 +1,6 @@
 /*** Фикс появления попапа ***/
 
+
 .popup {
     visibility: hidden;
 }

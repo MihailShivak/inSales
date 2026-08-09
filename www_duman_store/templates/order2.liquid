@@ -102,12 +102,10 @@
         <div class="order__info-subtitle">Адрес доставки</div>
         <div class="order__info-desc">{{ order.shipping_address.full_delivery_address }}</div>
       {% endif %}
-      {% comment %}
         {% if order.delivery_info.outlet.description %}
           <div class="order__info-subtitle">Описание доставки</div>
           <div class="order__info-desc">{{ order.delivery_info.outlet.description | strip_html }}</div>
         {% endif %}
-      {% endcomment %}
       {% if order.comment != blank %}
         <div class="order__info-subtitle">Комментарий к заказу</div>
         <div class="order__info-desc">{{ order.comment }}</div>
