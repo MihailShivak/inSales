@@ -411,9 +411,9 @@
 // start shop
 .modal__delivery-select {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 15px 0;
+    grid-template-columns: repeat(2, 1fr); 
+    grid-template-rows: repeat(2, 1fr);   
+    gap: 15px;                             
     margin-bottom: 30px;
 }
 
@@ -440,16 +440,16 @@
 }
 
 .delivery__select-item._active path {
-    fill: #fff;
+    fill: #fff !important;
 }
 
 .delivery__select-item:hover {
     border-color: #00000066;
 }
 
-.item-orange {
-    grid-column: 2 span;
-}
+// .item-orange {
+//     grid-column: 2 span;
+// }
 
 .item-green._active {
     background-color: #8dd200;
@@ -461,6 +461,10 @@
 
 .item-orange._active {
     background-color: #f28107;
+}
+
+.item-blue._active {
+    background-color: #369cbd;
 }
 
 .delivery__select-item:hover {

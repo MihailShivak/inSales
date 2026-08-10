@@ -288,6 +288,7 @@ class MapZones {
  * @version 3.0
  * @author Разработано для insales
  */
+
 class DeliveryZoneSelector {
   constructor($container, options = {}) {
     this.$container = $container;
@@ -353,7 +354,9 @@ class DeliveryZoneSelector {
         this.initEvents();
 
         // Открываем модалку при каждом заходе на сайт
-        this.deliveryModal.open();
+        if (window.location.pathname === "/") {
+          this.deliveryModal.open();
+        }
       })
       .catch((error) => {
         this.printError("Ошибка инициализации системы доставки");
@@ -403,6 +406,18 @@ class DeliveryZoneSelector {
     const selectShopID = Number(
       e.currentTarget.getAttribute("data-select-shop") ?? "0",
     );
+
+    // [TEMP] Временные редиректы для магазинов 4 и 5 — удалить после запуска
+    const TEMP_SHOP_REDIRECTS = {
+      4: "/collection/barakat-voda",
+      5: "/collection/fermerskaya-lavka",
+    };
+    // [TEMP] временно: вместо сабдомена магазина уходим в коллекцию
+    if (TEMP_SHOP_REDIRECTS[selectShopID]) {
+      window.location.href = TEMP_SHOP_REDIRECTS[selectShopID];
+      return;
+    }
+
     if (isNaN(selectShopID)) {
       this.printError("Не удалось загрузить информацию о магазинах");
       this.$btnRedirect.addClass("btn__disabled-grey");
@@ -473,6 +488,7 @@ class DeliveryZoneSelector {
    * Перенаправление в выбранный магазин
    */
   openNewShop() {
+
     if (this.selectShop && this.selectShop.shop_url) {
       setTimeout(() => this.redirectToZoneStore(this.selectShop), 150);
     } else {
