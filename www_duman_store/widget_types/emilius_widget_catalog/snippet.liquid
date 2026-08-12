@@ -943,6 +943,7 @@
               <% if (product.available || isPreorder && !isSoon) { %>
                   <button type="button"
                       class="products-item__action products-item__action-addcart"
+                      <% if (isOfflineOnly) { %> style="display: none;" <% } %>
                       <% if (product.variants.length > 1) { %>
                           data-js="product-item-addcard"
                           data-add-cart="<%= product.id %>"
@@ -1059,6 +1060,9 @@
                   }
                   if (product.url.includes("/novinki")) { %>
                       <span class="products-item__badge">Новинка</span>
+                  <% } 
+                  if (isOfflineOnly){ %>
+                    <span class="products-item__badge">Доступен только офлайн</span>
                   <% } %>
                   <%= badgesHTML %>
               </div>

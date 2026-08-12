@@ -476,11 +476,9 @@ window.EM_Module.Filters = class {
       $fitlers.find("input[name='price_max']:first").val(),
     );
     const priceRange = this._getPriceRange();
-    const options = this._getOptionsFilters();
 
-    const characteristics = Object.values(
-      this._getCharacteristicsFilters(),
-    ).flat();
+    const options = this._getOptionsFilters();
+    const characteristics = this._getCharacteristicsFilters(); // { propertyID: [ids] }
 
     // Если необходим обычный объект
     if (isObject) {
@@ -489,7 +487,7 @@ window.EM_Module.Filters = class {
         page_size: this.pageSize,
         page: this.currentPage,
         options,
-        characteristics, 
+        characteristics,
       };
       if (!isNaN(priceMin) && priceMin > priceRange.min)
         data.price_min = priceMin;
@@ -507,15 +505,21 @@ window.EM_Module.Filters = class {
       formData.append("price_min", String(priceMin));
     if (!isNaN(priceMax) && priceMax < priceRange.max)
       formData.append("price_max", String(priceMax));
+
+    // Опции – options[ID][]=value
     Object.entries(options || {}).forEach(([filterID, values]) => {
       if (!Array.isArray(values)) return;
       values.forEach((value) => {
         formData.append(`options[${filterID}][]`, String(value));
       });
     });
-    characteristics.forEach((value) => {
-      formData.append("characteristics[]", String(value));
+
+    // Характеристики – characteristics[ID]=value1,value2
+    Object.entries(characteristics || {}).forEach(([propertyID, values]) => {
+      if (!Array.isArray(values) || !values.length) return;
+      formData.append(`characteristics[${propertyID}]`, values.join(","));
     });
+
     return formData;
   }
 
@@ -597,13 +601,22 @@ window.EM_Module.Filters = class {
   _getGroupFilters(type = "option") {
     const result = {};
     const $fitlers = this.isMobStyle ? this.$filtresMob : this.$filtres;
+    // Убираем лишние пробелы в селекторах
     const className =
       (this.isMobStyle ? ".mob-popup__group" : ".filters__group") +
       "[data-filter-id]";
+
     for (const block of $fitlers.find(className)) {
       if (block.dataset.filterId == "sort" || block.dataset.filterId == "price")
         continue;
-      if ((block.dataset.filterType || "option") !== type) continue;
+
+      // Если у блока нет data-filter-type (как у обычных опций в Liquid),
+      // мы по умолчанию считаем его тип "option"
+      const blockType = block.dataset.filterType || "option";
+
+      // Строгое сравнение без лишних пробелов
+      if (blockType !== type) continue;
+
       const filterID = block.dataset.filterId;
       const values = [];
       for (const input of $(block).find("input:checked")) {
@@ -613,10 +626,12 @@ window.EM_Module.Filters = class {
     }
     return result;
   }
-  // Получить выбранные опции в фильтрах (!!!)
+
+  // Получить выбранные опции в фильтрах
   _getOptionsFilters() {
     return this._getGroupFilters("option");
   }
+
   // Получить выбранные характеристики в фильтрах
   _getCharacteristicsFilters() {
     return this._getGroupFilters("characteristic");
@@ -1407,20 +1422,30 @@ window.EM_Module.Filters = class {
   }
 
   static filtersToQueryString(data) {
-    const params = new URLSearchParams();
-    params.set("page", String(data.page ?? 1));
-    params.set("page_size", String(data.page_size ?? 16));
-    if (data.order) params.set("order", data.order);
-    if (data.price_min != null) params.set("price_min", String(data.price_min));
-    if (data.price_max != null) params.set("price_max", String(data.price_max));
-    Object.entries(data.options ?? {}).forEach(([id, values]) =>
-      values.forEach((v) => params.append(`options[${id}][]`, String(v))),
-    );
-    const chars = Array.isArray(data.characteristics)
-      ? data.characteristics
-      : Object.values(data.characteristics ?? {}).flat();
-    chars.forEach((v) => params.append("characteristics[]", String(v)));
-    return params.toString();
+    const parts = [];
+    parts.push(`page=${encodeURIComponent(data.page ?? 1)}`);
+    parts.push(`page_size=${encodeURIComponent(data.page_size ?? 16)}`);
+    if (data.order) parts.push(`order=${encodeURIComponent(data.order)}`);
+    if (data.price_min != null)
+      parts.push(`price_min=${encodeURIComponent(data.price_min)}`);
+    if (data.price_max != null)
+      parts.push(`price_max=${encodeURIComponent(data.price_max)}`);
+
+    // options[id][]=123
+    Object.entries(data.options ?? {}).forEach(([id, values]) => {
+      (values || []).forEach((v) =>
+        parts.push(`options[${id}][]=${encodeURIComponent(v)}`),
+      );
+    });
+
+    // characteristics[id]=123,123
+    Object.entries(data.characteristics ?? {}).forEach(([id, values]) => {
+      if (Array.isArray(values) && values.length) {
+        parts.push(`characteristics[${id}]=${values.join(",")}`);
+      }
+    });
+
+    return parts.join("&");
   }
 };
 

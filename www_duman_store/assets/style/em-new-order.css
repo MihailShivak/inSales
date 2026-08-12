@@ -1,0 +1,149 @@
+.local-loader {
+    background-color: #ffffff5c;
+}
+
+
+/* Сообщения в форме */
+.message-form {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    line-height: 1.2666666667;
+    text-transform: lowercase;
+}
+
+.message-form__close {
+    position: static;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    background-image: none;
+}
+
+.message-warning {
+    background-color: #fadfb2;
+    line-height: 1.25;
+}
+
+.message-warning > svg {
+    min-width: 21px;
+    /* margin-right: 0.75rem; */
+}
+
+.message-warning__text {
+    flex: 1;    
+}
+
+.message-warning__text a {
+    text-decoration: underline !important;
+}
+
+.order-message__success {
+    color: #789d4a;
+}
+
+.order-message__error {
+    color: #fff;
+    background-color: #B60017;
+}
+
+.order-options__item-input:disabled + .order-options__item-body{
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.order__options {
+    min-height: 4rem;
+}
+
+.order__options-error {
+    color: #B60017;
+}
+
+.order-options {
+    position: relative;
+}
+
+.select__options {
+    max-height: 28.125rem;
+    overflow-y: auto;
+}
+
+.select__options[data-em-select-container-city] {
+    z-index: 10;
+}
+
+.order-options__item-title {
+    flex: 1;
+}
+
+.order__input-wrapper .order__field-error {
+    margin-top: 0.5rem;
+}
+
+.order__field-error {
+    color: #B60017;
+    font-size: 0.875rem;
+    line-height: 120%;
+}
+
+.order__input-note a,
+.order__field-error a {
+    text-decoration: underline !important;
+}
+
+.checkbox__text-first:not(:last-child) {
+    display: inline-block;
+    margin-bottom: 0.25rem;
+}
+
+#em-pickup-map {
+    width: 100%;
+    height: 500px;
+}
+
+#popup-ym-pickup-map .popup__content {
+    max-width: 64rem;
+}
+
+.em-ymap__btn {
+    display: block;
+    font-size: 1.125rem;
+    font-style: normal;
+    padding: 6px 18px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    border-color: #40332b;
+    background-color: #40332b;
+    color: #fff;
+}
+
+/* ! Потом обновить этот стиль в theme.css */
+.order__input-grid {
+    -ms-grid-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 29.99875em) {
+    #popup-ym-pickup-map .popup__content,
+    #popup-ym-pickup-map .popup__body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #popup-ym-pickup-map .popup__body,
+    #em-pickup-map {
+        flex: 1;
+    }
+}

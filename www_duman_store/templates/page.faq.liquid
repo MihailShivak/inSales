@@ -1,0 +1,86 @@
+<link rel="stylesheet" href="{{ 'page-faq.css' | asset_url }}">
+
+<section class="faq-page" data-faq>
+  <div class="faq-page__container">
+
+    <div class="info__body">
+      <div class="breadcrumbs">
+        <div class="breadcrumbs__container">
+          <div class="breadcrumbs__body">
+            <ul class="breadcrumbs__list">
+              <li class="breadcrumbs__item">
+                <a href="/" class="breadcrumbs__link">Главная</a>
+              </li>
+              <li class="breadcrumbs__item breadcrumbs__item--current">
+                <span>{{ page.title }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <h1 class="info__title">{{ page.title }}</h1>
+    </div>
+
+    <div class="faq-page__search">
+      <svg
+        class="faq-page__search-icon"
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path d="M6.04167 0C2.71482 0 0 2.71482 0 6.04167C0 9.36852 2.71482 12.0833 6.04167 12.0833C7.40548 12.0833 8.66205 11.6221 9.67529 10.8545L13.5775 14.7559C13.6543 14.8358 13.7462 14.8997 13.848 14.9437C13.9498 14.9877 14.0593 15.0109 14.1702 15.012C14.281 15.0132 14.391 14.9922 14.4937 14.9503C14.5963 14.9083 14.6896 14.8464 14.768 14.768C14.8464 14.6896 14.9083 14.5963 14.9503 14.4937C14.9922 14.391 15.0132 14.281 15.012 14.1702C15.0109 14.0593 14.9877 13.848 14.9437 13.7462C14.8997 13.6543 14.8358 13.5775 14.7559 13.5775L10.8545 9.67529C11.6221 8.66205 12.0833 7.40548 12.0833 6.04167C12.0833 2.71482 9.36852 0 6.04167 0ZM6.04167 1.66667C8.46779 1.66667 10.4167 3.61555 10.4167 6.04167C10.4167 7.20655 9.96419 8.25858 9.22852 9.04053C9.1569 9.09237 9.094 9.15528 9.04216 9.22689C8.26004 9.9635 7.20738 10.4167 6.04167 10.4167C3.61555 10.4167 1.66667 8.46778 1.66667 6.04167C1.66667 3.61555 3.61555 1.66667 6.04167 1.66667Z" fill="currentColor"/>
+      </svg>
+      <input
+        type="text"
+        class="faq-page__search-input"
+        data-faq-search
+        placeholder="Поиск вопросов"
+        aria-label="Поиск по вопросам"
+      >
+      <button type="button" class="faq-page__search-clear" data-faq-clear aria-label="Сбросить поиск" hidden>
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 15 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path d="M13.3381 0.000232859C13.1179 0.00543036 12.9087 0.0975947 12.7562 0.256581L7.09541 5.91739L1.4346 0.256581C1.35685 0.176654 1.26384 0.113143 1.1611 0.0698088C1.05836 0.0264749 0.947964 0.00419954 0.836457 0.00430187C0.670748 0.0045071 0.508863 0.054106 0.37148 0.146763C0.234097 0.239419 0.127454 0.370927 0.0651745 0.524487C0.00289469 0.678046 -0.0121946 0.846686 0.0218342 1.00886C0.055863 1.17104 0.137465 1.31939 0.256216 1.43497L5.91702 7.09577L0.256216 12.7566C0.176238 12.8334 0.112385 12.9253 0.0683974 13.0271C0.0244097 13.1289 0.00117127 13.2384 4.31464e-05 13.3493C-0.00108498 13.4602 0.0199197 13.5701 0.0618273 13.6728C0.103735 13.7754 0.165703 13.8687 0.244102 14.0255C0.322501 14.1713 0.415755 14.0874 0.518403 14.1294C0.621051 14.1713 0.731029 14.1923 0.841897 14.1911C0.952764 14.19 1.06229 14.1668 1.16407 14.1228C1.26584 14.0788 1.35781 14.0149 1.4346 13.935L7.09541 8.27416L12.7562 13.935C12.833 14.0149 12.925 14.0788 13.0267 14.1228C13.1285 14.1668 13.2381 14.19 13.3489 14.1911C13.4598 14.1923 13.5698 14.1713 13.6724 14.1294C13.7751 14.0874 13.8683 14.0255 13.9467 13.9471C14.0251 13.8687 14.0871 13.7754 14.129 13.6728C14.1709 13.5701 14.1919 13.4602 14.1908 13.3493C14.1896 13.2384 14.1664 13.1289 14.1224 13.0271C14.0784 12.9253 14.0146 12.8334 13.9346 12.7566L8.27379 7.09577L13.9346 1.43497C14.0559 1.31869 14.1392 1.16848 14.1735 1.00403C14.2079 0.839589 14.1918 0.66859 14.1273 0.513461C14.0628 0.358332 13.953 0.226318 13.8121 0.134731C13.6713 0.0431448 13.506 -0.0037375 13.3381 0.000232859Z" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+
+    {% capture cache_key_faq %}{{upd_cache}}_em-faq-page-S6iUz90W_{{ block_lists['em-faq-page'].updated_at }}_{{ language.locale }}{% endcapture %}
+    {% cache cache_key_faq %}
+    <script id="faq-data" type="application/json" hidden>
+      [
+        {%- for block in block_lists['em-faq-page'].blocks -%}
+          {
+            "group_id": {{ block['question-group'] | json }},
+            "group_name": {{ block['question-group'] | json }},
+            "title": {{ block['question-title'] | json }},
+            "body": {{ block['question-body'] | json }}
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+    </script>
+    {% endcache %}
+
+    <div class="faq-page__content" data-faq-groups></div>
+
+    <div class="faq-page__results" data-faq-results hidden aria-live="polite">
+      <h2 class="faq-page__results-title">Найдено</h2>
+      <div class="faq-page__results-list" data-faq-results-list></div>
+    </div>
+
+    <div class="faq-page__empty" data-faq-empty hidden>
+      <h2 class="faq-page__empty-title">Ничего не найдено</h2>
+      <p class="faq-page__empty-text">Введите другой запрос или сбросьте поиск</p>
+    </div>
+
+  </div>
+</section>

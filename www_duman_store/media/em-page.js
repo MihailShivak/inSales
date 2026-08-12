@@ -3,6 +3,7 @@
  */
 
 
+
 console.log("[EM.Page] Run...");
 
 /*** Страница Контакты ***/
@@ -489,6 +490,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (window.location.pathname.includes("/page/duman")) initSliderReviews();
 });
 
+/*** Страница FAQ ***/
 if (window.location.pathname.includes("/chasto-zadavaemye-voprosy") || document.querySelector("[data-faq]")) {
   document.addEventListener("DOMContentLoaded", () => {
     const root = document.querySelector("[data-faq]");
