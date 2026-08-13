@@ -599,9 +599,28 @@
       </button>
     </div>
   {% elsif template == 'product' %}
+    {% assign is_offline_only = false %}
+    {% for property in product.properties %}
+      {% if property.name == 'Доступен только офлайн' or property.handle == 'dostupen-tolko-oflain' %}
+        {% for char in property.characteristics %}
+          {% if char.name == 'Да' or char.handle == 'da' %}
+            {% assign is_offline_only = true %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      {% if is_offline_only %}{% break %}{% endif %}
+    {% endfor %}
     <div class="tap-bar__group">
       <div class="product-card-info__buttons">
-        <button type="button" class="tap-bar__btn btn btn_primary btn_medium" data-em-select-variant>
+        <button
+          type="button"
+          class="tap-bar__btn btn btn_primary btn_medium"
+          data-em-select-variant
+          {% if is_offline_only %}
+            style="display: none;"
+          {% endif %}
+        >
           <span>Выберите размер</span>
           <span data-product-card-price data-card-product-price></span>
         </button>
@@ -610,17 +629,32 @@
             type="button"
             class="product-card-info__button btn-icon btn-icon_large btn-icon_secondary btn-icon_whishlist favorites-not-added"
             data-em-favorites-trigger="{{ product.id }}"
+            {% if is_offline_only %}
+              style="flex: 0 0 auto;"
+            {% endif %}
           ></button>
-          <button
-            type="button"
-            class="buy-one-click product-card-info__button btn btn_large btn_secondary"
-            data-popup="#popup-buy-one-click"
-            data-boc-trigger
-            data-variant-id="{{ product.selected_or_first_available_variant.id | default: product.variants.first.id }}"
-            data-product-title="{{ product.title | escape }}"
-          >
-            Купить в 1 клик
-          </button>
+          {% if is_offline_only %}
+            <a
+              class="map-link product-card-info__button btn btn_primary btn_medium"
+              href="https://yandex.ru/maps/?text=г. Новосибирск, Советская ул., дом 49"
+              rel="noopener"
+              target="_blank"
+              style="flex: 1 1 auto; text-align: center; text-decoration: none; display: inline-flex; align-items: center; justify-content: center;"
+            >
+              На карте
+            </a>
+          {% else %}
+            <button
+              type="button"
+              class="buy-one-click product-card-info__button btn btn_large btn_secondary"
+              data-popup="#popup-buy-one-click"
+              data-boc-trigger
+              data-variant-id="{{ product.selected_or_first_available_variant.id | default: product.variants.first.id }}"
+              data-product-title="{{ product.title | escape }}"
+            >
+              Купить в 1 клик
+            </button>
+          {% endif %}
         </div>
       </div>
     </div>

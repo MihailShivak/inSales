@@ -1302,4 +1302,52 @@ $(document).ready(() => {
 // 	timeObj.init();
 // })();
 
-// upd
+$(document).ready(() => {
+  if (!window.location.pathname.includes("/product/")) return;
+
+  const OFFLINE_PROPERTY_ID = 149717105;
+  const OFFLINE_CHARACTERISTIC_ID = 923169233;
+  const MAP_LINK_HTML =
+    '<a class="map-link product-card-info__button btn btn_primary btn_medium" href="https://yandex.ru/maps/?text=г. Новосибирск, Советская ул., дом 49" rel="noopener" target="_blank" style="flex:1 1 auto;text-align:center;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">На карте</a>';
+
+  function applyOfflineTapBar() {
+    const $tapBar = $(".tap-bar:first");
+
+    if (!$tapBar.length || $tapBar.find(".map-link").length) return;
+
+
+    $tapBar.find("[data-em-select-variant]").css("display", "none");
+
+    const $favBoc = $tapBar.find(".fav_boc_btns:first");
+
+    $favBoc.find(".buy-one-click").hide();
+    $favBoc.find("[data-em-favorites-trigger]").css("flex", "0 0 auto");
+    $favBoc.append(MAP_LINK_HTML);
+  }
+
+  function handleProduct(product) {
+    if (!product) return;
+    const isOfflineOnly = (product.characteristics || []).some(
+      (c) =>
+        c.property_id == OFFLINE_PROPERTY_ID &&
+        c.id == OFFLINE_CHARACTERISTIC_ID,
+    );
+    if (isOfflineOnly) applyOfflineTapBar();
+  }
+
+  if (typeof Products !== "undefined" && typeof Shop !== "undefined") {
+    const productId = Shop.config.getProductId();
+    if (productId) {
+      Products.get(productId).done(handleProduct);
+      return;
+    }
+  }
+
+  const timerId = setInterval(() => {
+    if ($(".product-card-info__offline-notice").length) {
+      clearInterval(timerId);
+      applyOfflineTapBar();
+    }
+  }, 400);
+  setTimeout(() => clearInterval(timerId), 6000);
+});
