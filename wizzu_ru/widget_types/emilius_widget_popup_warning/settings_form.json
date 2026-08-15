@@ -10,12 +10,18 @@
 					"type":"checkbox"
 				},
                 {
-                    "name": "title",
-                    "label": "Заголовок",
+                    "name": "title_barakat-voda",
+                    "label": "Заголовок Баракат Вода",
                     "value": null,
                     "type": "text"
                 },
-                {
+				{
+					"name": "title_fermerskaya-lavka",
+                    "label": "Заголовок Фермерская Лавка",
+                    "value": null,
+                    "type": "text"
+				},
+				{
                     "name": "desc",
                     "label": "Описание",
                     "value": null,

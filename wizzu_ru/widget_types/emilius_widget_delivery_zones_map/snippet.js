@@ -488,7 +488,6 @@ class DeliveryZoneSelector {
    * Перенаправление в выбранный магазин
    */
   openNewShop() {
-
     if (this.selectShop && this.selectShop.shop_url) {
       setTimeout(() => this.redirectToZoneStore(this.selectShop), 150);
     } else {
@@ -705,9 +704,17 @@ class DeliveryZoneSelector {
 
   openModalCustomWarning() {
     const popup = document.getElementById("popup-message-warning");
-    if (!popup) {
+    const shop = window.ShopContext ? window.ShopContext.get() : null;
+
+    // Если магазин не определён, модалку не показываем
+    if (!popup || !shop) {
       this.openModalApp();
       return;
+    }
+
+    // Применяем title/desc перед открытием
+    if (window.ShopContext) {
+      window.ShopContext.applyModal(popup, shop);
     }
 
     const lastVisitTimeWarning = localStorage.getItem("lastVisitTimeWarning");

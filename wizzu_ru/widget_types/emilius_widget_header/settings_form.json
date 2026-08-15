@@ -11,7 +11,25 @@
                     "general": true,
                     "general_position": 1,
                     "with_generate_logo": true
-                  }
+                },
+                {
+                    "name": "logo_img_barakat-voda",
+                    "label": "Логотип",
+                    "value": null,
+                    "type": "file",
+                    "general": true,
+                    "general_position": 1,
+                    "with_generate_logo": true
+                },
+                {
+                    "name": "logo_img_fermerskaya-lavka",
+                    "label": "Логотип",
+                    "value": null,
+                    "type": "file",
+                    "general": true,
+                    "general_position": 1,
+                    "with_generate_logo": true
+                }
             ]
         },
         {

@@ -1,11 +1,24 @@
 {% if widget_settings.show_popup %}
+  {% if request.path contains 'barakat-voda' or request.path contains 'fermerskaya-lavka' %}
+    {% assign popup_title = '' %}
+    {% assign popup_desc = '' %}
+
+    {% if request.path contains 'barakat-voda' %}
+      {% assign popup_title = widget_settings['title_barakat-voda'] %}
+    {% elsif request.path contains 'fermerskaya-lavka' %}
+      {% assign popup_title = widget_settings['title_fermerskaya-lavka'] %}
+    {% endif %}
+
     <div class="modal popup-warning popup_hide" id="popup-message-warning">
-        <div class="modal__content">
-            <div class="modal__title">{{ widget_settings.title }}</div>
-            <div class="modal__text">{{ widget_settings.desc }}</div>
-            <div class="btn__wrapper">
-                <button type="button" class="btn btn_average btn_warning-accept" data-close-popup="popup-message-warning">{{ widget_settings.btn-text }}</button>
-            </div>
+      <div class="modal__content">
+        <div class="modal__title">{{ popup_title }}</div>
+        <div class="modal__text">{{ widget_settings.desc }}</div>
+        <div class="btn__wrapper">
+          <button type="button" class="btn btn_average btn_warning-accept" data-close-popup="popup-message-warning">
+            {{ widget_settings['btn-text'] }}
+          </button>
         </div>
+      </div>
     </div>
+  {% endif %}
 {% endif %}

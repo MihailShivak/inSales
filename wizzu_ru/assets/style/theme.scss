@@ -1770,3 +1770,11 @@
     border-radius: 2px;
     background-color: #eae9e8;
 }
+
+.is-home #popup-warning,
+.is-home #popup-warning-time,
+.is-home #popup-message-warning,
+.is-home #popup-notice-app {
+  display: none !important;
+  visibility: hidden !important;
+}
