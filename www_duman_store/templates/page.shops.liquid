@@ -1,51 +1,80 @@
 <link href="{{ 'page.css' | asset_url }}" rel="stylesheet" type="text/css" />
-
 <div class="shop__container info__container_alt">
-  <div class="shop__body">
-    {% comment %} === Хлебные крошки === {% endcomment %}
-    <div class="breadcrumbs">
-      <div class="breadcrumbs__container">
-        <div class="breadcrumbs__body">
-          <ul class="breadcrumbs__list">
-            <li class="breadcrumbs__item">
-              <a href="/" class="breadcrumbs__link">Главная</a>
-            </li>
-            <li class="breadcrumbs__item breadcrumbs__item--current">
-              <span>{{ page.title }}</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <h1 class="info__title">{{ page.title }}</h1>
-
-    <div class="store-info">
-      <div class="store__content">
-        {{ page.content }}
-      </div>
-      <div class="store__wrapper-phone">
-        <p class="store-phone">Телефон магазина:</p>
-        <a href="tel:+79137621121" class="phone-number">+7 (913) 762-11-21</a>
-      </div>
-      <div class="contact-buttons">
-        <a href="https://wa.me/79137621121" class="contact-btn btn btn_primary" target="_blank">Написать в WhatsApp</a>
-        <a href="https://t.me/+79137621121" class="contact-btn btn btn_primary" target="_blank">Написать в Telegram</a>
-      </div>
-    </div>
-
-    <div class="store-gallery">
-      <div class="gallery-item">
-        <img src="{{ 'shop_1.jpg' | asset_url }}">
-      </div>
-      <div class="gallery-item">
-        <img src="{{ '2.jpg' | asset_url }}">
-      </div>
-      <div class="gallery-item">
-        <img src="{{ '3.jpg' | asset_url }}">
-      </div>
-      <div class="gallery-item">
-        <img src="{{ '4.jpg' | asset_url }}">
-      </div>
-    </div>
-  </div>
+<div class="shop__body">
+{% comment %} === Хлебные крошки === {% endcomment %}
+<div class="breadcrumbs">
+<div class="breadcrumbs__container">
+<div class="breadcrumbs__body">
+<ul class="breadcrumbs__list">
+<li class="breadcrumbs__item">
+<a href="/" class="breadcrumbs__link">Главная</a>
+</li>
+<li class="breadcrumbs__item breadcrumbs__item--current">
+<span>{{ page.title }}</span>
+</li>
+</ul>
 </div>
+</div>
+</div>
+<h1 class="info__title">{{ page.title }}</h1>
+<div class="store-info">
+<div class="store__content">
+<!-- Блок для Новосибирска (скрыт по умолчанию) -->
+<div id="store-info-novosibirsk" style="display: none;">
+<div><span style="padding-right: 0.5rem;">г. Новосибирск, Советская ул., дом 49 (метро пл.Ленина), 1 этаж&nbsp;</span><a class="map-link" href="https://yandex.ru/maps/-/CTcbq254" rel="noopener" target="_blank"> На карте</a></div>
+<p>Ежедневно с 11:00 до 20:00, часовой пояс GMT+3 Москва</p>
+</div>
+
+<!-- Блок для остальных городов (скрыт по умолчанию) -->
+<div id="store-info-other" style="display: none;">
+<div><span style="padding-right: 0.5rem;">Технический офис: г. %address%&nbsp;</span><a class="map-link" href="https://yandex.ru/maps/?text=%address%" rel="noopener" target="_blank"> На карте</a></div>
+<p>В данном городе вы можете оформить заказ онлайн с доставкой</p> 
+<p>Самовывоза нет</p>
+<p>Ежедневно с 11:00 до 20:00, часовой пояс GMT+3 Москва</p>
+</div>
+</div>
+<div class="store__wrapper-phone">
+<p class="store-phone">Телефон магазина:</p>
+<a href="tel:+79137621121" class="phone-number">+7 (913) 762-11-21</a>
+</div>
+<div class="contact-buttons">
+<a href="https://wa.me/79137621121" class="contact-btn btn btn_primary" target="_blank">Написать в WhatsApp</a>
+<a href="https://t.me/+79137621121" class="contact-btn btn btn_primary" target="_blank">Написать в Telegram</a>
+</div>
+</div>
+<div class="store-gallery">
+<div class="gallery-item">
+<img src="{{ 'shop_1.jpg' | asset_url }}">
+</div>
+<div class="gallery-item">
+<img src="{{ '2.jpg' | asset_url }}">
+</div>
+<div class="gallery-item">
+<img src="{{ '3.jpg' | asset_url }}">
+</div>
+<div class="gallery-item">
+<img src="{{ '4.jpg' | asset_url }}">
+</div>
+</div>
+</div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const hostname = window.location.hostname;
+  const isNovosibirsk = hostname === "www.duman.store" || hostname === "duman.store";
+
+  const blockNs = document.getElementById("store-info-novosibirsk");
+  const blockOther = document.getElementById("store-info-other");
+
+  if (!blockNs || !blockOther) return;
+
+  if (isNovosibirsk) {
+    blockNs.style.display = "block";
+    blockOther.style.display = "none";
+  } else {
+    blockNs.style.display = "none";
+    blockOther.style.display = "block";
+  }
+});
+</script>

@@ -40,7 +40,7 @@
                 <div class="article__preview article__text">{{ article.preview }}</div>
                 {% if article.image %}
                     <div class="article__image">
-                        <img src="{{ article.image | image_url: 1500, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" alt="{{ article.image.title }}" title="{{ article.image.title }}">
+                        <img src="{{ article.image | image_url: 1500, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstorel2' }}" alt="{{ article.image.title }}" title="{{ article.image.title }}">
                     </div>
                 {% endif %}
                 <div class="article__text" data-article-content>{{ article.content }}</div>
@@ -131,7 +131,7 @@
                 </div>
                 {% assign blockBlog = blocks.em-blog-duman %}
                 <div class="article__about">
-                    <img class="article__about-img" src="{{ blockBlog.img.large_url | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" alt="">
+                    <img class="article__about-img" src="{{ blockBlog.img.large_url | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstorel2' }}" alt="">
                     <div class="article__about-text">
                         <div class="article__about-name">{{ blockBlog.name }}</div>
                         <div class="article__about-desc">{{ blockBlog.desc }}</div>
@@ -192,16 +192,16 @@
                             <a href="{{ article.url }}">
                                 <picture>
                                     <source media="(max-width:650px)" 
-                                        srcset="{{ article.image | image_url: 750, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" 
+                                        srcset="{{ article.image | image_url: 750, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstorel2' }}" 
                                         type="image/webp" data-ll-status="loaded" class="entered">
                                     <source
-                                        srcset="{{ article.image | image_url: 1100, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" 
+                                        srcset="{{ article.image | image_url: 1100, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstorel2' }}" 
                                         type="image/webp" data-ll-status="loaded" class="entered">
 
                                     <source media="(max-width:650px)" 
-                                        srcset="{{ article.image | image_url: 750 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" data-ll-status="loaded" class="entered">
+                                        srcset="{{ article.image | image_url: 750 | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstorel2' }}" data-ll-status="loaded" class="entered">
 
-                                    <img src="{{ article.image | image_url: 1100 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}" 
+                                    <img src="{{ article.image | image_url: 1100 | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstorel2' }}" 
                                         alt="{{ article.title }}" title="{{ article.title }}"
                                         data-ll-status="loaded" class="entered">
                                 </picture>
@@ -255,18 +255,18 @@
                                     {% if product.images.size > 0 %}
                                         <picture>
                                             <source media="(max-width:700px)" type="image/webp" 
-                                                srcset="{{ product.first_image | image_url: 700,  format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }},
-                                                        {{ product.first_image | image_url: 1200, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }} 2x">
+                                                srcset="{{ product.first_image | image_url: 700,  format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore' }},
+                                                        {{ product.first_image | image_url: 1200, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore' }} 2x">
                                             <source type="image/webp" 
-                                                srcset="{{ product.first_image | image_url: 980,  format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }},
-                                                        {{ product.first_image | image_url: 1600, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }} 2x"> 
+                                                srcset="{{ product.first_image | image_url: 980,  format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore' }},
+                                                        {{ product.first_image | image_url: 1600, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore' }} 2x"> 
                                             {% comment %} <source type="image/webp" 
-                                                srcset="{{ product.first_image | image_url: 1400, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }},
-                                                        {{ product.first_image | image_url: 1800, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }} 2x"> {% endcomment %}
+                                                srcset="{{ product.first_image | image_url: 1400, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore' }},
+                                                        {{ product.first_image | image_url: 1800, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore' }} 2x"> {% endcomment %}
                                                             
-                                            <img src="{{ product.first_image | image_url: 980 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }}" 
-                                                srcset="{{ product.first_image | image_url: 980 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }},
-                                                        {{ product.first_image | image_url: 1600 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }} 2x" 
+                                            <img src="{{ product.first_image | image_url: 980 | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore' }}" 
+                                                srcset="{{ product.first_image | image_url: 980 | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore' }},
+                                                        {{ product.first_image | image_url: 1600 | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore' }} 2x" 
                                                 alt="{{ product.title }}" class="entered _lazy-loaded" loading="lazy">
                                         </picture>
                                     {% else %}

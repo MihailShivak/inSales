@@ -141,9 +141,8 @@
         display: flex;
         flex-direction: column;
     }
-
-    #popup-ym-pickup-map .popup__body,
-    #em-pickup-map {
+    /* #em-pickup-map */
+    #popup-ym-pickup-map .popup__body {
         flex: 1;
     }
 }

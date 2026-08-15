@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!block) return;
     const value = to[0] === "%" && to[to.length - 1] === "%" ? from : to;
 
-    block.innerText = dataset.includes("address") ? "г. " + value : value;
+    block.innerText = dataset.includes("address") ? value : value;
   }
 
   function applyPhoneToHref(href, phoneDigits) {

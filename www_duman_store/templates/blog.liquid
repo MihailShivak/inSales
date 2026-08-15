@@ -25,13 +25,13 @@
               <picture>
                 <source
                   media="(max-width:1200px)"
-                  srcset="{{ article.image | image_url: 900, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}"
+                  srcset="{{ article.image | image_url: 900, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstorel2' }}"
                   type="image/webp"
                   data-ll-status="loaded"
                   class="entered"
                 >
                 <source
-                  srcset="{{ article.image | image_url: 1500, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}"
+                  srcset="{{ article.image | image_url: 1500, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstorel2' }}"
                   type="image/webp"
                   data-ll-status="loaded"
                   class="entered"
@@ -39,13 +39,13 @@
 
                 <source
                   media="(max-width:1200px)"
-                  srcset="{{ article.image | image_url: 900 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}"
+                  srcset="{{ article.image | image_url: 900 | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstorel2' }}"
                   data-ll-status="loaded"
                   class="entered"
                 >
 
                 <img
-                  src="{{ article.image | image_url: 1500 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}"
+                  src="{{ article.image | image_url: 1500 | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstorel2' }}"
                   alt="{{ article.title }}"
                   title="{{ article.title }}"
                   data-ll-status="loaded"

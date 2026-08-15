@@ -50,7 +50,7 @@
                             <div class="basket__list-item basket-item" data-product-id="{{ item.product.id }}" data-item-id="{{ item.id }}">
                                 <div class="basket-item__image-wrapper">
                                     {% if item.product.images.size > 0 %}
-                                        <img data-src="{{ item.product.first_image.large_url | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }}" alt="{{ item.title }}">
+                                        <img data-src="{{ item.product.first_image.large_url | replace: 'static.insales-shop.ru', 'ibicecdn.com/dumanstore' }}" alt="{{ item.title }}">
                                     {% else %}
                                         <img data-src="{{ 'no_image.svg' | asset_url }}" alt="{{ item.title }}" class="image-none">
                                     {% endif %}
@@ -560,7 +560,7 @@
 <script type="text/template" data-template-id="product-not-available">
     <div class="basket__list-item basket-item basket-item_disabled" data-replace-id="<%= product_id %>" data-replace-variant-id="<%= variant_id %>" data-replace-price="<%= price %>">
         <div class="basket-item__image-wrapper">
-            <img src="<%= image.replace('static.insales-cdn.com', 'ibicecdn.com/dumanstore') %>" alt="<%= title %>">
+            <img src="<%= image.replace('static.insales-shop.ru', 'ibicecdn.com/dumanstore') %>" alt="<%= title %>">
         </div>
         <div class="basket-item__body">
             <div class="basket-item__descr-wrapper">
@@ -595,7 +595,7 @@
         <div class="products-item__img-wrapper">
             <a href="<%= url %>" class="products-item__img">
                 <% if (image) { %>
-                    <img src="<%= image.replace('static.insales-cdn.com', 'ibicecdn.com/dumanstore') %>" alt="<%= title %>">
+                    <img src="<%= image.replace('static.insales-shop.ru', 'ibicecdn.com/dumanstore') %>" alt="<%= title %>">
                 <% } else { %>
                     <img src="{{ 'no_image.svg' | asset_url }}" alt="<%= title %>">
                 <% } %>
@@ -639,7 +639,7 @@
     <div class="basket__list-item basket-item" data-product-id="<%= product_id %>" data-item-id="<%= variant_id %>">
         <div class="basket-item__image-wrapper">
             <% if (isImags) { %>
-                <img src="<%= image.replace('static.insales-cdn.com', 'ibicecdn.com/dumanstore') %>" alt="">
+                <img src="<%= image.replace('static.insales-shop.ru', 'ibicecdn.com/dumanstore') %>" alt="">
             <% } else { %>
                 <img data-src="{{ 'no_image.svg' | asset_url }}" alt="" class="image-none">
             <% } %>

@@ -6,8 +6,8 @@
                 {% unless client %}
                     <div class="order__note">
                         <div class="order__note-text">
-                            <button type="button" class="order__note-link" data-popup="#popup-login">Авторизуйтесь</button>, 
-                            чтобы получить 5% бонусных баллов с покупки
+                            Для оформления заказа 
+                                <button type="button" class="order__note-link" data-popup="#popup-login">войдите </button> или <button type="button" class="order__note-link" data-popup="#popup-login"> зарегистрируйтесь</button>
                         </div>
                     </div>
                 {% endunless %}
@@ -363,7 +363,7 @@
                     ><%= priceFormat %></div>
                 <% } %>
             </div>
-            <div class="popup-basket-item__size" data-em-item-quantity="<%= quantity %>"><%= quantity %> шт, размер L (подумать)</div>
+            <div class="popup-basket-item__size" data-em-item-quantity="<%= quantity %>"><%= quantity %> шт</div>
         </div>
     </div>
 </script>
@@ -398,7 +398,7 @@
                         </button>
                     <% } else if (delivery?.charge_up_to && delivery.charge_up_to > 0) { %>
                         <span class="order-options__item-note">Бесплатная доставка от <%= delivery.charge_up_to %>р</span>
-                    <% } else { %>
+                    <% } else if (delivery?.charge_up_to != null && delivery.charge_up_to === 0) { %>
                         <span class="order-options__item-note">Доставка бесплатная</span>
                     <% } %>
                 </span>

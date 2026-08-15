@@ -1,7 +1,7 @@
 @font-face {
     font-family: "TTFors";
     src: url("https://www.duman.store/TTFors-Regular.woff2") format("woff2"),
-         url("https://static.insales-cdn.com/files/1/1713/131090097/original/TTFors-Regular.woff") format("woff");
+         url("https://static.insales-shop.ru/files/1/1713/131090097/original/TTFors-Regular.woff") format("woff");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -10,7 +10,7 @@
 @font-face {
     font-family: "TTFors";
     src: url("https://www.duman.store/TTFors-Medium.woff2") format("woff2"),
-         url("https://static.insales-cdn.com/files/1/1705/131090089/original/TTFors-Medium.woff") format("woff");
+         url("https://static.insales-shop.ru/files/1/1705/131090089/original/TTFors-Medium.woff") format("woff");
     font-weight: 500;
     font-style: normal;
     font-display: swap;

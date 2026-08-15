@@ -6,7 +6,6 @@
       "address": "Новосибирск, Советская ул., дом 49 (метро пл.Ленина)",
       "city": "Новосибирск"
     },
-
     "current": {
       "phone": "%phone%",
       "email": "%email%",
@@ -15,7 +14,6 @@
     }
   }
 </script>
-
 <div class="shop__container info__container_alt">
   <div class="shop__body">
     {% comment %} === Хлебные крошки === {% endcomment %}
@@ -34,11 +32,10 @@
       </div>
     </div>
     <h1 class="info__title">{{ page.title }}</h1>
-
     <div class="store-info">
       {% comment %}
         <div class="store__content">
-            {{ page.content }}
+        {{ page.content }}
         </div>
       {% endcomment %}
       <div class="store__info-item">
@@ -118,8 +115,19 @@
         </div>
       </div>
       <div class="store__info-item">
-        <div class="store__info-title">Вы можете найти нас по адресу:</div>
-        <div class="store__info-desc" data-contact-address>г. Новосибирск, ул. Советская, дом 49 (метро пл.Ленина)</div>
+        <div class="store__info-title" id="address-title">Вы можете найти нас по адресу:</div>
+        <!-- Блок для Новосибирска (скрыт по умолчанию) -->
+        <div id="address-novosibirsk" style="display: none;">
+          <div class="store__info-desc" data-contact-address>Новосибирск, ул. Советская, дом 49 (метро пл.Ленина)</div>
+        </div>
+        <!-- Блок для остальных городов (скрыт по умолчанию) -->
+        <div id="address-other" style="display: none;">
+          <div class="store__info-desc" data-contact-address>
+            г. %address%
+            <p>В данном городе вы можете оформить заказ онлайн с доставкой</p>
+            <p>Самовывоза нет</p>
+          </div>
+        </div>
       </div>
       <div class="store__info-item">
         <div class="store__info-title">График работы офиса и склада:</div>
@@ -139,7 +147,6 @@
           ИНН: 540448187167
         </div>
       </div>
-
       <div class="local-loader">
         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24">
           <circle class="spinner_b2T7" cx="4" cy="12" r="3"/><circle class="spinner_b2T7 spinner_YRVV" cx="12" cy="12" r="3"/><circle class="spinner_b2T7 spinner_c9oY" cx="20" cy="12" r="3"/>
@@ -149,14 +156,34 @@
     <div class="store-map" role="region" aria-label="Карта проезда к магазину"></div>
   </div>
 </div>
-
 <!--
   TESTING-1-2-3-TESTING
-
   Самые лучшие цены в Новосибирске.
   Для Новосибирска этот стиль очень подходит.
   Доступна доставка товаров в Новосибирск.
   Как же прекрасен город Новосибирск весной!
 -->
-
 {% comment %} upd {% endcomment %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const hostname = window.location.hostname;
+    const isNovosibirsk = hostname === 'www.duman.store' || hostname === 'duman.store';
+
+    const blockNs = document.getElementById('address-novosibirsk');
+    const blockOther = document.getElementById('address-other');
+    const titleEl = document.getElementById('address-title');
+
+    if (!blockNs || !blockOther) return;
+
+    if (isNovosibirsk) {
+      if (titleEl) titleEl.textContent = 'Вы можете найти нас по адресу:';
+      blockNs.style.display = 'block';
+      blockOther.style.display = 'none';
+    } else {
+      if (titleEl) titleEl.textContent = 'Технический офис:';
+      blockNs.style.display = 'none';
+      blockOther.style.display = 'block';
+    }
+  });
+</script>

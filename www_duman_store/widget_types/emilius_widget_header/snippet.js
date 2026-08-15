@@ -1308,7 +1308,7 @@ $(document).ready(() => {
   const OFFLINE_PROPERTY_ID = 149717105;
   const OFFLINE_CHARACTERISTIC_ID = 923169233;
   const MAP_LINK_HTML =
-    '<a class="map-link product-card-info__button btn btn_primary btn_medium" href="https://yandex.ru/maps/?text=г. Новосибирск, Советская ул., дом 49" rel="noopener" target="_blank" style="flex:1 1 auto;text-align:center;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">На карте</a>';
+    '<a class="map-link product-card-info__button btn btn_primary btn_medium" href="https://yandex.ru/maps/-/CTcbq254" target="_blank" style="flex:1 1 auto;text-align:center;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">На карте</a>';
 
   function applyOfflineTapBar() {
     const $tapBar = $(".tap-bar:first");

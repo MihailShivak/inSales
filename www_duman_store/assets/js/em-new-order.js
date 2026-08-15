@@ -326,7 +326,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             title: delivery.title + (moreDelivery.title ? ` - ${moreDelivery.title}` : ""),
                             description: delivery.description,
                             // title: `${delivery.title} - ${moreDelivery.title || ''}`,
-                            charge_up_to: Number(delivery.charge_up_to ?? 0),
+                            charge_up_to: delivery?.charge_up_to == null ? null : Number(delivery.charge_up_to),
                             interval: moreDelivery.delivery_interval,
                             price: moreDelivery.price,
                             shipping_company_handle: moreDelivery.shipping_company_handle,
@@ -345,7 +345,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         uniqueId: String(delivery.id), // для обычных доставок uniqueId = id
                         title: delivery.title,
                         description: delivery.description,
-                        charge_up_to: Number(delivery.charge_up_to ?? 0),
+                        charge_up_to: delivery?.charge_up_to == null ? null : Number(delivery.charge_up_to),
                         type: delivery.type,
                         customer_pickup: delivery.customer_pickup && !delivery.type.includes("None"),
                         selected: delivery.selected,
@@ -366,47 +366,51 @@ document.addEventListener("DOMContentLoaded", function () {
             
             const deliveries = this._cachedDeliveryData;
             const order = deliveries.order;
+            var points = [];
             if (!deliveries || !order) return [];
 
-            const points = await $.ajax({
-                url: "https://cost-rater.insales.ru/api/checkout/v1/delivery_points",
-                method: 'POST',
-                dataType: 'json',
-                contentType: "application/json; charset=UTF-8",
-                data: JSON.stringify({
-                    order: {
-                        account_id: order.account_id,
-                        currency_iso_code: order.currency_iso_code,
-                        items_price: order.items_price,
-                        order_lines: order.order_lines,
-                        shipping_address: {
-                            full_locality_name: order.shipping_address.full_locality_name,
-                            location: {
-                                kladr_code: this.kladr.code,
-                                zip: this.kladr.zip ?? null,
-                                region_zip: this.kladr.region_zip ?? null,
-                                country: this.kladr.country,
-                                state: this.kladr.state,
-                                state_type: this.kladr.state_type,
-                                area: this.kladr.area ?? "",
-                                area_type: this.kladr.area_type ?? "",
-                                city: this.kladr.city,
-                                city_type: this.kladr.city_type,
-                                settlement: this.kladr.settlement ?? "",
-                                settlement_type: this.kladr.settlement_type ?? "",
-                                bounds: this.getBoundsByCenter(Number(this.kladr.latitude), Number(this.kladr.longitude))
-                            }
-                        },
-                        total_weight: order.total_weight,
-                        warehouse_id: order.warehouse_id
-                    }
-                }),
-                timeout: 10000
-            });
-            
-            if (points.length > 0) {
-                this.points = points;
+            try {
+                points = await $.ajax({
+                    url: "https://cost-rater.insales.ru/api/checkout/v1/delivery_points",
+                    method: 'POST',
+                    dataType: 'json',
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({
+                        order: {
+                            account_id: order.account_id,
+                            currency_iso_code: order.currency_iso_code,
+                            items_price: order.items_price,
+                            order_lines: order.order_lines,
+                            shipping_address: {
+                                full_locality_name: order.shipping_address.full_locality_name,
+                                location: {
+                                    kladr_code: this.kladr.code,
+                                    zip: this.kladr.zip ?? null,
+                                    region_zip: this.kladr.region_zip ?? null,
+                                    country: this.kladr.country,
+                                    state: this.kladr.state,
+                                    state_type: this.kladr.state_type,
+                                    area: this.kladr.area ?? "",
+                                    area_type: this.kladr.area_type ?? "",
+                                    city: this.kladr.city,
+                                    city_type: this.kladr.city_type,
+                                    settlement: this.kladr.settlement ?? "",
+                                    settlement_type: this.kladr.settlement_type ?? "",
+                                    bounds: this.getBoundsByCenter(Number(this.kladr.latitude), Number(this.kladr.longitude))
+                                }
+                            },
+                            total_weight: order.total_weight,
+                            warehouse_id: order.warehouse_id
+                        }
+                    }),
+                    timeout: 10000
+                });
             }
+            catch (_) {
+                return [];
+            }
+            
+            if (points.length > 0) this.points = points;
             return points;
         }
 
@@ -758,8 +762,8 @@ document.addEventListener("DOMContentLoaded", function () {
             this.delivery.data = delivery;
             this.delivery.name = delivery?.title ?? null;
             this.delivery.description = delivery?.description ?? null;
-            this.delivery.free = delivery.free;
-            this.delivery.priceFree = Number(delivery.charge_up_to);
+            this.delivery.free = typeof delivery?.free === "boolean" ? delivery.free : false;
+            this.delivery.priceFree = delivery?.charge_up_to == null ? null : Number(delivery.charge_up_to);
             this.delivery.price = price;
             this.delivery.customer_pickup = delivery.customer_pickup;
             this.delivery.delivery_info = null;
@@ -1031,26 +1035,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // NEW Добавил новый метод
-    function getGift(gifts, variant_id) {
-        for (const rule of gifts) {
-            for (const gift of rule.gifts) {
-                if (gift.variant_id == variant_id) return gift;
-            }
-        }
-        return 0;
-    }
-
     // import Map from "./map.js";
 
     // отрисовка составка корзины
     function cart(orders) {
-        const gifts = JSON.parse(localStorage.getItem("EM-giftInOrder")) ?? [];
-
         let html = "";
         for (const order of orders) {
-            const gift = order.comment === "Подарок" ? getGift(gifts, order.id) : undefined;
-            const price = gift?.price ?? order.sale_price;
+            const price = order.sale_price;
             const oldPrice = order.product?.old_price ? Number(order.product.old_price) : order.sale_price;
 
             html += Template.render({
@@ -1062,10 +1053,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 priceOld: oldPrice,
                 quantity: order.quantity,
                 maxQuantity: order.variant_quantity,
-                options: true,
-                isGift: gift?.price !== undefined,
+                // options: true,
                 isDiscount: price < oldPrice,
-                isGiftWrapping: order.comment === "Подарочная упаковка"
             }, "order-item");
         }
 
@@ -1102,33 +1091,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 pickupLabelHTML: getPickupLabelHTML(delivery, point)
 
             }, "delivery-item");
-        //     html += `<div class="order__options-item">
-        //     <input id="item-delivery_${elementId}" 
-        //         class="order__options-input" 
-        //         ${delivery.selected ? "checked" : ""} 
-        //         type="radio" 
-        //         value="${elementId}" 
-        //         data-original-id="${delivery.id}"
-        //         name="em-deliveries"
-        //         ${delivery.isError ? "disabled" : ""}
-        //         hidden>
-        //     <label for="item-delivery_${elementId}" class="order__options-label">
-        //         <span class="order__options-text">${delivery.title} 
-        //             ${delivery.isError ? `<span class="order__options-error">${delivery.message}</span>` : ""}
-        //             ${delivery.customer_pickup ? 
-        //                 getPickupLabelHTML(delivery, point) +
-        //                 "<button type='button' data-popup='#popup-ym-pickup-map' class='order__pickup-btn'>выбрать на карте</button>" 
-        //                 : 
-        //                 delivery?.charge_up_to && delivery.charge_up_to > 0 ? 
-        //                     `<span>бесплатная доставка от ${delivery.charge_up_to}р</span>` :
-        //                     `<span>доставка бесплатная</span>`
-        //             }
-        //         </span>
-        //         <span class="order__options-price" data-em-${options.data.deliveryItemPrice}>
-        //             ${price}
-        //         </span>
-        //     </label>
-        // </div>`;
         }
         return html;
     }
@@ -1322,6 +1284,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!this.$message?.length) return;
             if (errorTitle) {
                 this.$message.attr("hidden", false)
+                    .css("display", "")
                     .addClass(this.formClasses.error)
                     .removeClass(this.formClasses.success)
                     .find("span:first").text(errorTitle ? errorTitle.substring(0, errorTitle.length - 2) : "ошибка, заполните поля корректно!");
@@ -1348,7 +1311,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     class EM_Order extends MessageForm {
-        constructor(params) {
+        constructor() {
             const $order = $("[data-em-order]");
 
             super($order, {
@@ -1365,7 +1328,7 @@ document.addEventListener("DOMContentLoaded", function () {
             this.data = options.data;
             this.classes = options.classes;
             this.names = options.names;
-            this.params = params;
+            // this.params = params;
             this.items = {
                 $promo: $order.find(`input.${this.classes.inputPromo}`),
                 $btnPromo: $order.find("button[data-em-submot-promo]"),
@@ -1483,33 +1446,41 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            this.myMap = new ymaps.Map("em-pickup-map", {
-                center: [em_geo.kladr.latitude, em_geo.kladr.longitude],
-                zoom: 11
-            });
+            try {
+                this.myMap = new ymaps.Map("em-pickup-map", {
+                    center: [em_geo.kladr.latitude, em_geo.kladr.longitude],
+                    zoom: 11
+                });
 
-            this.clusterer = new ymaps.Clusterer({
-                preset: 'islands#blueClusterIcons', // стиль кластеров, как на вашем скриншоте
-                groupByCoordinates: false,
-                clusterDisableClickZoom: false
-            });
+                this.clusterer = new ymaps.Clusterer({
+                    preset: 'islands#blueClusterIcons', // стиль кластеров, как на вашем скриншоте
+                    groupByCoordinates: false,
+                    clusterDisableClickZoom: false
+                });
 
-            this.myMap.geoObjects.add(this.clusterer);
+                this.myMap.geoObjects.add(this.clusterer);
 
-            // this.GeoObject = new ymaps.GeoObjectCollection();
-            // this.myMap.geoObjects.add(this.GeoObject);
+                // this.GeoObject = new ymaps.GeoObjectCollection();
+                // this.myMap.geoObjects.add(this.GeoObject);
 
-            this.updateMapPoints();
+                this.updateMapPoints();
+            }
+            catch (_) {
+                this.showErrors([{
+                    type: "all",
+                    text: "Ошибка инициализации карты. Попробуйте обновить страницу."
+                }]);
+            }
         }
 
         async updateMapPoints(center) {
             const points = await em_geo.getPointsMap();
             if (!points.length) {
                 this.print.printWarn("Ошибка, точки самовывоза не найдены!", points);
-                this.showErrors({
+                this.showErrors([{
                     type: "all",
                     text: "Точки самовывоза не найдены для выбранного местоположения."
-                });
+                }]);
                 return;
             }
             this.myMap.setCenter(
@@ -1634,7 +1605,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
             }
             if (point_id && this.$popupMap.hasClass("popup_show")) {
-                this.$popupMap.find("[data-close]:first").trigger("click");
+                const btn = this.$popupMap.find("[data-close]:first").get(0);
+                if (btn) btn.dispatchEvent(new Event("click", { bubbles: true }));
             }
             // this.updateOrderPrice(forOrder.order);
             this.updateOrderPrice(Cart.order);
@@ -1752,8 +1724,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         setCupon(cart) {
-            const gifts = JSON.parse(localStorage.getItem("EM-giftInOrder")) ?? [];
-
             // ??? Стоит ли обновлять доставку или только цены
             for (const product of this.items.$orderLine.children()) {
                 const 
@@ -1771,18 +1741,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (!productPrice) continue;
 
-                const gift = order.comment === "Подарок" ? getGift(gifts, order.id) : undefined;
                 const discount = {
-                    price: gift?.price ?? order.sale_price,
+                    price: order.sale_price,
                     oldPrice: order.product?.old_price ? Number(order.product.old_price) : order.sale_price
                 };
 
-                if (order.comment === "Подарок" && !gift) {
-                    product.classList.add("order__gift");
-                }
-                else if (order.comment !== "Подарок" && gift?.price !== undefined) {
-                    product.classList.remove("order__gift");
-                }
                 if (isDiscount) {
                     if (discount.price == discount.priceOld) {
                         // Убрать скидку
@@ -1879,6 +1842,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Проверка принятия систмой inSales заказа
         checkOrderSuccess() {
+            // if (!em_geo.client.authorized) {
+            //     this.showErrors([{
+            //         type: "all",
+            //         text: "Для оформления заказа войдите или зарегистрируйтесь"
+            //     }]);
+            //     return;
+            // }
             this.showLoaders();
 
             const $order = this.$order;
@@ -1964,8 +1934,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     this.print.printError("Не найдена доставка", em_geo.delivery);
                 }
                 else if (
-                    delvierySelect.customer_pickup && !delvierySelect.selected &&
-                    (
+                    delvierySelect.customer_pickup && (
+                        !delvierySelect.selected ||
                         !delvierySelect?.originalDelivery?.delivery_info || 
                         !delvierySelect.originalDelivery.delivery_info?.outlet?.external_id
                     )
@@ -2160,7 +2130,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 this.loaders.pay.call();
 
                 if (this.$popupMap.hasClass("popup_show")) {
-                    this.$popupMap.find("[data-close]:first").trigger("click");
+                    const btn = this.$popupMap.find("[data-close]:first").get(0);
+                    if (btn) btn.dispatchEvent(new Event("click", { bubbles: true }));
                 }
 
                 em_geo.setPoint(e.target.getAttribute("data-em-pickup-delivery-id"));
@@ -2242,11 +2213,7 @@ document.addEventListener("DOMContentLoaded", function () {
             em_geo = window.EM_Module.Geo;
 
             // Основной код
-            const order = new EM_Order({
-                bonus: true,
-                default_geo: true,
-                is_gift: true,
-            });
+            const order = new EM_Order();
 
             window.em_order_instance = order; // Сохраняем экземпляр для доступа из других функций
             setTimeout(() => {

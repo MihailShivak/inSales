@@ -2218,8 +2218,8 @@ window.EM_Module.func = {
     const coeff = { x1: 1.5, x2: 1.9 };
     const originalUrl = image.original_url || "";
     const baseUrl = originalUrl.replace(
-      originalUrl.includes("static.insales-cdn.com")
-        ? "static.insales-cdn.com"
+      originalUrl.includes("cdn.insales-shop.ru")
+        ? "cdn.insales-shop.ru"
         : "ibicecdn.com/dumanstore",
       "ibicecdn.com/dumanstore/%size%",
     );
@@ -2258,8 +2258,8 @@ window.EM_Module.func = {
 
     const originalUrl = image.original_url || "";
     const baseUrl = originalUrl.replace(
-      originalUrl.includes("static.insales-cdn.com")
-        ? "static.insales-cdn.com"
+      originalUrl.includes("cdn.insales-shop.ru")
+        ? "cdn.insales-shop.ru"
         : "ibicecdn.com/dumanstore",
       "ibicecdn.com/dumanstore/%size%",
     );
@@ -3850,23 +3850,32 @@ document.addEventListener("DOMContentLoaded", function () {
             response?.responseJSON?.errors ??
             response?.errors ?? ["Непредвиденная ошибка, попробуйте позже"]
           ).join(", ");
-          const timeout = response?.responseJSON?.timeout || response?.timeout;
+          
+          // Таймаут отправки кода
+          const timeout = response?.timeout ?? response?.responseJSON?.timeout;
           if (timeout && timeout > 0) {
-            errorTitle + `: ${timeout}с`;
+            errorTitle += `: ${timeout}с.`;
           }
           formError.set(
             $popup.find("[data-login-code]"),
             errorTitle.includes("неверный код")
-              ? "Введён неверный код"
+              ? "Введен неверный код"
               : errorTitle,
           );
         }
       })
       .fail(function (fail) {
-        const errorTitle = (
+        let errorTitle = (
           fail?.responseJSON?.errors ??
           fail?.errors ?? ["Непредвиденная ошибка, попробуйте позже"]
         ).join(", ");
+
+        // Таймаут отправки кода
+        const timeout = fail?.timeout ?? fail?.responseJSON?.timeout;
+        if (timeout && timeout > 0) {
+          errorTitle += `: ${timeout} с.`;
+        }
+
         messageError("Ошибка получения кода", fail);
         formError.set($popup.find("[data-login-code]"), errorTitle);
         // checkRequsts = false;
@@ -3947,12 +3956,18 @@ document.addEventListener("DOMContentLoaded", function () {
       .done(getAccessCode)
       .fail(function (fail) {
         // checkRequsts = false;
-        const errorTitle = (
+        let errorTitle = (
           fail?.responseJSON?.errors ??
           fail?.errors ?? [
             "Возникла ошибка при получении кода, перезагрузите страницу или попробуйте позже",
           ]
         ).join(", ");
+
+        // Таймаут отправки кода
+        const timeout = fail?.timeout ?? fail?.responseJSON?.timeout;
+        if (timeout && timeout > 0) {
+            errorTitle += `: ${timeout} с.`;
+        }
 
         messageError("Ошибка получения кода", fail);
 

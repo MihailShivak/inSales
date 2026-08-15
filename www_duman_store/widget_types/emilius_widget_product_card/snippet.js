@@ -388,7 +388,7 @@ $(document).ready(() => {
     $favBoc.find(".buy-one-click").hide();
     $favBoc.find("[data-em-favorites-trigger]").css("flex", "0 0 auto");
     $favBoc.append(
-      '<a class="map-link product-card-info__button btn btn_large btn_primary" href="https://yandex.ru/maps/?text=г. Новосибирск, Советская ул., дом 49" rel="noopener" target="_blank" style="flex:1 1 auto;text-align:center;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">На карте</a>',
+      '<a class="map-link product-card-info__button btn btn_large btn_primary" href="https://yandex.ru/maps/-/CTcbq254" rel="noopener" target="_blank" style="flex:1 1 auto;text-align:center;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">На карте</a>',
     );
   }
 

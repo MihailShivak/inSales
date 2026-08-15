@@ -109,7 +109,7 @@
                         <div class="img-ratio img-ratio_cover">
                             <div class="img-ratio__inner">
                                 {% if widget_settings.promotion_image %}
-                                    <img src="{{ widget_settings.promotion_image | image_url: 1920, format: 'webp', resizing_type: 'fit_width' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstorel2' }}"
+                                    <img src="{{ widget_settings.promotion_image | image_url: 1920, format: 'webp', resizing_type: 'fit_width' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstorel2' }}"
                                         alt="{{ widget_settings.promotion_title }}" class="promotion-banner-image">
                                 {% endif %}
                             </div>
@@ -126,51 +126,51 @@
                     <picture>
                         <!-- webp -->
                         {% comment %} <source media="(min-width:769px)" 
-                            srcset="{{ slide.image | image_url: 1920, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" 
+                            srcset="{{ slide.image | image_url: 1920, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore/l90' }}" 
                             type="image/webp" data-ll-status="loaded" class="entered">
                         <source media="(max-width:480px)" 
-                            srcset="{{ slide.image | image_url: 1400, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" 
+                            srcset="{{ slide.image | image_url: 1400, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore/l90' }}" 
                             type="image/webp" data-ll-status="loaded" class="entered">
                         <source
-                            srcset="{{ slide.image | image_url: 1920, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" 
+                            srcset="{{ slide.image | image_url: 1920, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore/l90' }}" 
                             type="image/webp" data-ll-status="loaded" class="entered">
 
                         <!-- Fallback версии в оригинальном формате -->
                         <source media="(min-width:769px)" 
-                            srcset="{{ slide.image | image_url: 1920 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" data-ll-status="loaded" class="entered">
+                            srcset="{{ slide.image | image_url: 1920 | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore/l90' }}" data-ll-status="loaded" class="entered">
                         <source media="(max-width:480px)" 
-                            srcset="{{ slide.image | image_url: 1400 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" data-ll-status="loaded" class="entered"> {% endcomment %}
+                            srcset="{{ slide.image | image_url: 1400 | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore/l90' }}" data-ll-status="loaded" class="entered"> {% endcomment %}
 
                         <source 
-                            srcset="{{ slide.image | image_url: 2048, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l100' }}" 
+                            srcset="{{ slide.image | image_url: 2048, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore/l100' }}" 
                             type="image/webp" data-ll-status="loaded" class="entered">
-                        <img src="{{ slide.image | image_url: 2048 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l100' }}" data-ll-status="loaded" class="entered" alt="{{ slide.name }}">
+                        <img src="{{ slide.image | image_url: 2048 | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore/l100' }}" data-ll-status="loaded" class="entered" alt="{{ slide.name }}">
                     </picture>
                     {% if slide.image-mob %}
                         <picture>
                             <!-- webp -->
                             {% comment %} <source media="(min-width:769px)" 
-                                srcset="{{ slide.image-mob | image_url: 1920, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" 
+                                srcset="{{ slide.image-mob | image_url: 1920, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore/l90' }}" 
                                 type="image/webp" data-ll-status="loaded" class="entered">
                             <source media="(max-width:480px)" 
-                                srcset="{{ slide.image-mob | image_url: 1400, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" 
+                                srcset="{{ slide.image-mob | image_url: 1400, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore/l90' }}" 
                                 type="image/webp" data-ll-status="loaded" class="entered">
                             <source
-                                srcset="{{ slide.image-mob | image_url: 1920, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" 
+                                srcset="{{ slide.image-mob | image_url: 1920, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore/l90' }}" 
                                 type="image/webp" data-ll-status="loaded" class="entered">
 
                             <!-- Fallback версии в оригинальном формате -->
                             <source media="(min-width:769px)" 
-                                srcset="{{ slide.image-mob | image_url: 1920 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" data-ll-status="loaded" class="entered">
+                                srcset="{{ slide.image-mob | image_url: 1920 | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore/l90' }}" data-ll-status="loaded" class="entered">
                             <source media="(max-width:480px)" 
-                                srcset="{{ slide.image-mob | image_url: 1400 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l90' }}" data-ll-status="loaded" class="entered"> {% endcomment %}
+                                srcset="{{ slide.image-mob | image_url: 1400 | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore/l90' }}" data-ll-status="loaded" class="entered"> {% endcomment %}
 
                             <source 
-                                srcset="{{ slide.image-mob | image_url: 2048, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l100' }}" 
+                                srcset="{{ slide.image-mob | image_url: 2048, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore/l100' }}" 
                                 type="image/webp" data-ll-status="loaded" class="entered">
 
-                            {% comment %} <source media="(max-width:768px)" srcset="{{ slide.image | image_url: 1000, format: 'webp' | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore' }}" type="image/webp" data-ll-status="loaded" class="entered"> {% endcomment %}
-                            <img src="{{ slide.image-mob | image_url: 2048 | replace: 'static.insales-cdn.com', 'ibicecdn.com/dumanstore/l100' }}" data-ll-status="loaded" class="entered" alt="{{ slide.name }}">
+                            {% comment %} <source media="(max-width:768px)" srcset="{{ slide.image | image_url: 1000, format: 'webp' | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore' }}" type="image/webp" data-ll-status="loaded" class="entered"> {% endcomment %}
+                            <img src="{{ slide.image-mob | image_url: 2048 | replace: 'cdn.insales-shop.ru', 'ibicecdn.com/dumanstore/l100' }}" data-ll-status="loaded" class="entered" alt="{{ slide.name }}">
                         </picture>
                     {% endif %}
                 </div>
