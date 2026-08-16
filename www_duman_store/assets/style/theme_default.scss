@@ -468,3 +468,5 @@ body::after {
       grid-column: 1;
   }
 }
+
+.amocrm-max-button{position:fixed;width:50px;height:50px;border-radius:35px;background:linear-gradient(135deg,#32b5ff 0,#573fff 50%,#a84eff 100%);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:101;opacity:0;transform:scale(.8) translateY(10px);pointer-events:none;transition:opacity .2s,transform .2s}.amocrm-max-button.visible{opacity:1;transform:scale(1) translateY(0);pointer-events:auto}.amocrm-max-button-tooltip{position:absolute;right:calc(100% + 12px);top:50%;transform:translateY(-50%) translateX(4px);background:#fff;color:#333;font-family:Arial,sans-serif;font-size:12px;white-space:nowrap;padding:5px 10px;border-radius:20px;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s}.amocrm-max-button:hover .amocrm-max-button-tooltip{opacity:1;transform:translateY(-50%) translateX(0)}
