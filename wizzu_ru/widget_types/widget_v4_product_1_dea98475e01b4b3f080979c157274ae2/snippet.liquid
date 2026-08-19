@@ -1,18 +1,18 @@
 {% include 'system_bnpl-modal' %}
 
 {% assign perGram = null %}
-{% if product.properties.price-gram %}
-  {% assign perGram = product.properties.price-gram.characteristics.first.name | to_integer | default: 1 %}
+{% if product.properties['price-gram'] %}
+  {% assign perGram = product.properties['price-gram'].characteristics.first.name | to_integer | default: 1 %}
   {% if perGram > 10 %}
-      {% assign perGram = 0 %}
+    {% assign perGram = 0 %}
   {% endif %}
 {% endif %}
 
 {% if product.available and product.variants.first.quantity > 2 %}
   {% if perGram > 1 %}
-      {% assign firstPropPackage = 1.0 | divided_by: perGram |  round: 3 %}
+    {% assign firstPropPackage = 1.0 | divided_by: perGram | round: 3 %}
   {% else %}
-      {% assign firstPropPackage = product.properties.pack.characteristics.first.name %}
+    {% assign firstPropPackage = product.properties.pack.characteristics.first.name %}
   {% endif %}
 {% endif %}
 
@@ -20,14 +20,22 @@
   <div class="product__top-wrapper filter__back-wrapper">
     <a href="{{ product.canonical_collection.url }}" class="product__top-close">
       <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
-      <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
       </svg>
       <span>Назад</span>
     </a>
     <div class="title__small">{{ product.canonical_collection.title }}</div>
+    <img
+      src="{{ widget_settings.logo_img | default: '' }}"
+      data-shop-logo
+      data-barakat="{{ widget_settings['logo_img_barakat-voda'] | default: 'https://cdn.insales-shop.ru/files/1/7985/131882801/original/barakat-voda.svg' }}"
+      data-fermerskaya="{{ widget_settings['logo_img_fermerskaya-lavka'] | default: 'https://cdn.insales-shop.ru/files/1/7993/131882809/original/fermerskaya-lavka.svg' }}"
+      alt="Логотип"
+      class="product__top-logo"
+    >
     <button type="button" class="product__top-share" data-product-chare="{{ product.url }}">
       <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
-      <path d="M16 9.06667L10.1667 3V6.46667C4.33333 7.33333 1.83333 11.6667 1 16C3.08333 12.9667 6 11.58 10.1667 11.58V15.1333L16 9.06667Z" stroke="#181818" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M16 9.06667L10.1667 3V6.46667C4.33333 7.33333 1.83333 11.6667 1 16C3.08333 12.9667 6 11.58 10.1667 11.58V15.1333L16 9.06667Z" stroke="#181818" stroke-width="1.5" stroke-linejoin="round"/>
       </svg>
     </button>
   </div>
@@ -42,7 +50,7 @@
       <div class="option-values">
         {% for option_value in option_name.values %}
           <div class="option-value">
-            {{ option_value.title }} 
+            {{ option_value.title }}
           </div>
         {% endfor %}
       </div>
@@ -50,14 +58,22 @@
   {% endfor %}
 </div>
 
-{% assign is_show_marketplace_button  = false %}
-{% if product.show_cart_button == false and product.show_service_button == false and product.show_quick_checkout_button == false and product.show_marketplace_button %}
-  {% assign is_show_marketplace_button  = true %}
+{% assign is_show_marketplace_button = false %}
+{% if product.show_cart_button == false
+  and product.show_service_button == false
+  and product.show_quick_checkout_button == false
+  and product.show_marketplace_button
+%}
+  {% assign is_show_marketplace_button = true %}
 {% endif %}
 
 {% assign hide_all_buttons = false %}
-{% if product.show_cart_button == false and product.show_service_button == false and product.show_quick_checkout_button == false and product.show_marketplace_button == false %}
-  {% assign hide_all_buttons  = true %}
+{% if product.show_cart_button == false
+  and product.show_service_button == false
+  and product.show_quick_checkout_button == false
+  and product.show_marketplace_button == false
+%}
+  {% assign hide_all_buttons = true %}
 {% endif %}
 
 {% assign is_buy_button = false %}
@@ -65,10 +81,10 @@
   {% assign is_buy_button = true %}
 {% endif %}
 
-{% assign first_variant_ozon_with_link = product.variants | where: "ozon_link" | first %}
-{% assign first_variant_wildberries_with_link = product.variants | where: "wildberries_link" | first %}
+{% assign first_variant_ozon_with_link = product.variants | where: 'ozon_link' | first %}
+{% assign first_variant_wildberries_with_link = product.variants | where: 'wildberries_link' | first %}
 {% assign with_marketplace_link = false %}
-{% if first_variant_wildberries_with_link or first_variant_ozon_with_link  %}
+{% if first_variant_wildberries_with_link or first_variant_ozon_with_link %}
   {% assign with_marketplace_link = true %}
 {% endif %}
 
@@ -179,18 +195,25 @@
   data-video-size="{{ product.video_links.size }}"
   data-product-json="{{ product|json|escape }}"
   data-gallery-type="{% if widget_settings.show-selected-variant-photos %}variant-photos{% else %}all-photos{% endif %}"
-  class="product {% if product.is_bundle %}is-bundle{% endif %} {% if settings.product_not_available == "shown" and is_buy_button %} is-zero-count-shown {% endif %} {% if settings.product_not_available == "preorder" and is_buy_button %} is-zero-count-preorder {% endif %} {% if settings.product_not_available == "hidden" or is_buy_button == false %} is-zero-count-hidden {% endif %} {% if product.show_variants? and product.variants.size > 1 %}is-more-variants{% endif %} {% if account.forbid_order_over_existing %}is-forbid-order-over-existing{% endif %} {% if only_buy_one_click %} only-buy-one-click {% endif %} {% if is_show_marketplace_button %} is-show-marketplace-button {% endif %} {% if hide_all_buttons %} hide-all-buttons {% endif %}">
+  class="product {% if product.is_bundle %}is-bundle{% endif %} {% if settings.product_not_available == "shown" and is_buy_button %} is-zero-count-shown {% endif %} {% if settings.product_not_available == "preorder" and is_buy_button %} is-zero-count-preorder {% endif %} {% if settings.product_not_available == "hidden" or is_buy_button == false %} is-zero-count-hidden {% endif %} {% if product.show_variants? and product.variants.size > 1 %}is-more-variants{% endif %} {% if account.forbid_order_over_existing %}is-forbid-order-over-existing{% endif %} {% if only_buy_one_click %} only-buy-one-click {% endif %} {% if is_show_marketplace_button %} is-show-marketplace-button {% endif %} {% if hide_all_buttons %} hide-all-buttons {% endif %}"
+>
   <div class="product__area-photo">
     {% if product.price < product.old_price %}
       <div class="product-item__sale" data-product-card-sale-value></div>
     {% endif %}
     <div class="products-item__actions">
-      <button type="button" class="products-item__action icon_favorite" data-ui-favorites-trigger="{{ product.id }}">
-      </button>
+      <button
+        type="button"
+        class="products-item__action icon_favorite"
+        data-ui-favorites-trigger="{{ product.id }}"
+      ></button>
     </div>
     {% if product.images.size > 1 or product.video_links.size > 0 %}
       <div class="product__gallery js-product-gallery">
-        <div style="display:none" class="js-product-all-images {% if widget_settings.video-before-image and product.video_links.size > 0 %}video-first{% endif %}">
+        <div
+          style="display:none"
+          class="js-product-all-images {% if widget_settings.video-before-image and product.video_links.size > 0 %}video-first{% endif %}"
+        >
           {% capture images %}
             {% for image in product.images %}
               {% assign img_title = product.title | escape %}
@@ -316,10 +339,12 @@
 
             {% endfor %}
           {% endcapture %}
-          {% if widget_settings.video-before-image and product.video_links.size > 0 %}
-            {{ videos }} {{ images }}
+          {% if widget_settings['video-before-image'] and product.video_links.size > 0 %}
+            {{ videos }}
+            {{ images }}
           {% else %}
-            {{ images }} {{ videos }}
+            {{ images }}
+            {{ videos }}
           {% endif %}
         </div>
         <div class="product__gallery-tumbs" style="--img-ratio: 1;">
@@ -352,10 +377,14 @@
             </div>
           </div>
           <div class="product__available">
-            <span data-product-card-available='{
-                        "availableText": "{{messages.available}}",
-                        "notAvailableText": "{{messages.not_available}}"
-                        }'></span>
+            <span
+              data-product-card-available='
+                {
+                "availableText": "{{messages.available}}",
+                "notAvailableText": "{{messages.not_available}}"
+                }
+              '
+            ></span>
           </div>
           {{ stickers }}
         </div>
@@ -372,32 +401,39 @@
           data-alt="{{ img_title }}"
           data-fslightbox="product-photos-lightbox-{{ product.first_image.id }}"
           data-type="image"
-          href="{{ product.first_image.original_url | replace: "static.insales-cdn.com", "ibicecdn.com/wizzu" }}">
+          href="{{ product.first_image.original_url | replace: "static.insales-cdn.com", "ibicecdn.com/wizzu" }}"
+        >
           <div class="img-ratio__inner">
             <picture>
               <source
                 srcset="{{ product.first_image.original_url | image_url: 1000, format: 'webp', resizing_type: 'fit_width' | replace: "static.insales-cdn.com", "ibicecdn.com/wizzu" }}"
                 type="image/webp"
-                loading="lazy">
+                loading="lazy"
+              >
               <img
                 src="{{ product.first_image.original_url | image_url: 1000, resizing_type: 'fit_width' | replace: "static.insales-cdn.com", "ibicecdn.com/wizzu" }}"
                 loading="lazy"
-                alt="{{ img_title }}" />
+                alt="{{ img_title }}"
+              />
             </picture>
           </div>
         </a>
         <div class="product__available">
-          <span data-product-card-available='{
-                    "availableText": "{{messages.available}}",
-                    "notAvailableText": "{{messages.not_available}}"
-                    }'></span>
+          <span
+            data-product-card-available='
+              {
+              "availableText": "{{messages.available}}",
+              "notAvailableText": "{{messages.not_available}}"
+              }
+            '
+          ></span>
         </div>
         {{ stickers }}
       </div>
     {% endif %}
   </div>
   <div class="product__area-sku">
-    {% if editor_mode? or widget_settings.product-hide-sku != true %}
+    {% if editor_mode? or widget_settings['product-hide-sku'] != true %}
       <div class="product__sku">
         <span data-product-card-sku='{"skuLabel": "{{messages.sku_label}}"}'></span>
       </div>
@@ -412,11 +448,14 @@
   <div class="product__area-user-controls">
     <div class="product__user-controls">
       {% if settings.compare_enabled == null or settings.compare_enabled %}
-        {% if widget_settings.product-hide-compare != true %}
+        {% if widget_settings['product-hide-compare'] != true %}
           {% unless product.is_bundle %}
             <span data-compare-trigger="{{ product.id }}" class="button-link product__user-btn product__compare-btn">
               <span class="product__user-btn-icon icon-compare"></span>
-              <span data-compare-trigger-added-text="{{ messages.btn_compare_text_active }}" data-compare-trigger-not-added-text="{{ messages.btn_compare_text }}">
+              <span
+                data-compare-trigger-added-text="{{ messages.btn_compare_text_active }}"
+                data-compare-trigger-not-added-text="{{ messages.btn_compare_text }}"
+              >
                 {{ messages.btn_compare_text }}
               </span>
             </span>
@@ -438,7 +477,8 @@
           <select
             class="hide"
             name="variant_id"
-            data-product-variants='{{ product_variants_options }}'>
+            data-product-variants="{{ product_variants_options }}"
+          >
             {% for variant in product.variants %}
               <option value="{{ variant.id }}">{{ variant.title | escape }}</option>
             {% endfor %}
@@ -448,90 +488,109 @@
         <input
           type="hidden"
           name="variant_id"
-          value="{{ product.variants.first.id }}" />
+          value="{{ product.variants.first.id }}"
+        />
       {% endif %}
     </div>
 
     {% if product.accessories.size > 0 %}
-    <div class="product__area-accessories">
-      <div class="label-accessories">{{ messages.options }}</div>
-      <div data-product-accessories></div>
-    </div>
-
-    <template data-product-accessories-template>
-      <div
-        class="accessory-item"
-        data-product-accessories-item
-      >
-        <div data-product-accessory-count></div>
-
-
-        <div class="accessory-name">
-          <strong>
-            <span data-product-accessory-name></span>
-          </strong>
-
-          <span data-product-accessory-minmax-count='{
-            "minCountMessage": "{{ messages.from }}",
-            "maxCountMessage": "{{ messages.to }}"
-          }'></span>
-        </div>
-
-        <div class="accessory-values" data-product-accessory-values></div>
-
-        <div
-          data-product-accessory-error='{
-            "scrollEnabled": "true"
-          }'
-          class="accessory-item__error"
-        ></div>
+      <div class="product__area-accessories">
+        <div class="label-accessories">{{ messages.options }}</div>
+        <div data-product-accessories></div>
       </div>
-    </template>
 
-    <template data-product-accessory-values-template>
-      <label
-        class="accessory-values__item"
-        data-product-accessory-values-item
-        data-product-accessory-values-item-id
-      >
-        <span data-product-accessory-values-item-name></span> (+<span data-product-accessory-values-item-price></span>)
-      </label>
-    </template>
+      <template data-product-accessories-template>
+        <div
+          class="accessory-item"
+          data-product-accessories-item
+        >
+          <div data-product-accessory-count></div>
+
+          <div class="accessory-name">
+            <strong>
+              <span data-product-accessory-name></span>
+            </strong>
+
+            <span
+              data-product-accessory-minmax-count='
+                {
+                  "minCountMessage": "{{ messages.from }}",
+                  "maxCountMessage": "{{ messages.to }}"
+                }
+              '
+            ></span>
+          </div>
+
+          <div class="accessory-values" data-product-accessory-values></div>
+
+          <div
+            data-product-accessory-error='
+              {
+                "scrollEnabled": "true"
+              }
+            '
+            class="accessory-item__error"
+          ></div>
+        </div>
+      </template>
+
+      <template data-product-accessory-values-template>
+        <label
+          class="accessory-values__item"
+          data-product-accessory-values-item
+          data-product-accessory-values-item-id
+        >
+          <span data-product-accessory-values-item-name></span> (+<span data-product-accessory-values-item-price></span
+          >)
+        </label>
+      </template>
     {% endif %}
   {% endunless %}
   <div class="product__area-buy">
     <div
-      class="product__buy
-      {% if sber_bnpl.payment_gateway_enabled? %}
-        {% if sber_bnpl.show_at_product == true %}
-          bnpl-avaliable
+      class="
+        product__buy
+        {% if sber_bnpl.payment_gateway_enabled? %}
+          {% if sber_bnpl.show_at_product == true %}
+            bnpl-avaliable
+          {% endif %}
         {% endif %}
-      {% endif %}">
+      "
+    >
       <div class="products-item__prices">
-        <span class="products-item__price{% if product.price < product.old_price %} products-item__price-new{% endif %}" data-product-card-price-from-cart2>
+        <span
+          class="products-item__price{% if product.price < product.old_price %} products-item__price-new{% endif %}"
+          data-product-card-price-from-cart2
+        >
           {% if perGram > 1 %}
-            {{ product.price | times: 1.0 | divided_by: perGram | round: 1 }} ₽<span class="item__price-step">за {{ 1000 | divided_by: perGram }}г.</span>
+            {{ product.price | times: 1.0 | divided_by: perGram | round: 1 }} ₽<span class="item__price-step"
+              >за {{ 1000 | divided_by: perGram }}г.</span
+            >
           {% else %}
             {{ product.price | money }}
           {% endif %}
           {% comment %} {{ product.price | money }} {% endcomment %}
         </span>
         {% if product.price < product.old_price %}
-            <span class="products-item__price-old">
-                <s data-product-card-old-price>
-                  {% if perGram > 1 %}
-                    {{ product.old_price | times: 1.0 | divided_by: perGram | round: 1 }} ₽
-                  {% else %}
-                    {{ product.old_price | money }}
-                  {% endif %}
-                  {% comment %} {{ product.old_price | money }} {% endcomment %}
-                </s>
-            </span>
+          <span class="products-item__price-old">
+            <s data-product-card-old-price>
+              {% if perGram > 1 %}
+                {{ product.old_price | times: 1.0 | divided_by: perGram | round: 1 }} ₽
+              {% else %}
+                {{ product.old_price | money }}
+              {% endif %}
+              {% comment %} {{ product.old_price | money }} {% endcomment %}
+            </s>
+          </span>
         {% endif %}
       </div>
       {% if sber_bnpl.payment_gateway_enabled? %}
         {% if sber_bnpl.show_at_product == true %}
-          {% include "system_bnpl-button" with product, button_class: 'collection', button_type_show: 'collection-price-default', button_type_hide: 'collection-price-varies-hide' %}
+          {% include 'system_bnpl-button' with product,
+            button_class: 'collection',
+            button_type_show: 'collection-price-default',
+            button_type_hide: 'collection-price-varies-hide'
+          %}
         {% endif %}
       {% endif %}
       <div class="product__controls">
@@ -558,7 +617,6 @@
     {% if product.show_marketplace_button %}
       {{ marketplace_button }}
     {% endif %}
-
   </div>
   {% if product.is_bundle %}
     <div class="product__area-bundle">
@@ -570,7 +628,10 @@
               <div class="bundle-item__photo">
                 <div class="img-ratio img-ratio_cover product__photo">
                   <div class="img-ratio__inner">
-                    <a href="{{bundle_component.product.url | add_param: 'variant_id', bundle_component.variant.id }}" target="_blank">
+                    <a
+                      href="{{bundle_component.product.url | add_param: 'variant_id', bundle_component.variant.id }}"
+                      target="_blank"
+                    >
                       {{ bundle_component.variant.first_image.url | webp_picture_tag: 150 }}
                     </a>
                   </div>
@@ -578,7 +639,10 @@
               </div>
               <div class="bundle-item__info">
                 <div class="bundle-item__name">
-                  <a href="{{bundle_component.product.url | add_param: 'variant_id', bundle_component.variant.id }}" target="_blank">
+                  <a
+                    href="{{bundle_component.product.url | add_param: 'variant_id', bundle_component.variant.id }}"
+                    target="_blank"
+                  >
                     {{ bundle_component.product.title }}
                   </a>
                 </div>
@@ -606,20 +670,26 @@
       <input
         type="hidden"
         name="variant_id"
-        value="{{ product.variants.first.id }}" />
+        value="{{ product.variants.first.id }}"
+      />
     </div>
   {% endif %}
   <div class="product__area-description">
-    {% if editor_mode? or widget_settings.product-hide-description != true %}
+    {% if editor_mode? or widget_settings['product-hide-description'] != true %}
       <div class="product__description static-text">
-        {{ product.short_description | replace: '<table', '
-         <div class="table-wrapper"><table' | replace: '</table>', '</table></div>
-         ' | editable }}
+        {{
+          product.short_description
+          | replace: '<table', '
+         <div class="table-wrapper"><table'
+          | replace: '</table>', '</table></div>
+         '
+          | editable
+        }}
       </div>
     {% endif %}
   </div>
   <div class="product__area-calculate-delivery">
-    {% include "system_insales_widget-calculate_delivery" %}
+    {% include 'system_insales_widget-calculate_delivery' %}
   </div>
 </form>
 {% assign img_title = null %}

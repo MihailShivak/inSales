@@ -1,16 +1,29 @@
+{% assign logo_default = widget_settings.logo_img | default: '' %}
+{% assign logo_barakat = widget_settings['logo_img_barakat-voda']
+  | default: 'https://cdn.insales-shop.ru/files/1/7985/131882801/original/barakat-voda.svg'
+%}
+{% assign logo_fermerskaya = widget_settings['logo_img_fermerskaya-lavka']
+  | default: 'https://cdn.insales-shop.ru/files/1/7993/131882809/original/fermerskaya-lavka.svg'
+%}
+
+{% assign is_main_catalog = false %}
+{% if collection.handle == 'barakat-voda' or collection.handle == 'fermerskaya-lavka' %}
+  {% assign is_main_catalog = true %}
+{% endif %}
+
 <div class="breadcrumbs">
   <div class="breadcrumbs__list">
-    {% if collection.handle == "all" or collection.level == 1 %}
+    {% if collection.handle == 'all' or collection.level == 1 %}
       <a href="/" class="btn__bread-back">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
-        <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
         <span>Главная</span>
       </a>
     {% else %}
       <a href="{{ collection.parent.url }}" class="btn__bread-back">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
-        <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
         <span>Назад</span>
       </a>
@@ -20,30 +33,41 @@
 
 <div class="filter-top-controls">
   <div class="filter__title-wrapper filter__back-wrapper">
-    <a href="{%- if collection.handle == "all" or collection.level == 1 -%}/{%- else -%}{{ collection.parent.url }}{%- endif -%}" class="filter__title-close">
+    <a
+      href="{%- if collection.handle == "all" or collection.level == 1 -%}/{%- else -%}{{ collection.parent.url }}{%- endif -%}"
+      class="filter__title-close"
+    >
       <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
-      <path d="M11 3.5L6 9L11 14.5" stroke="#181818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M11 3.5L6 9L11 14.5" stroke="#181818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
       </svg>
       <span>Назад</span>
     </a>
-
-    <div class="title__large">{{ collection.title }}</div>
+    <div class="filter__logo-title">
+      <img
+        src="{{ logo_default }}"
+        data-shop-logo
+        data-barakat="{{ logo_barakat }}"
+        data-fermerskaya="{{ logo_fermerskaya }}"
+        alt="Логотип"
+        class="filter__logo"
+      >
+      <div class="title__large {% if is_main_catalog %}hide-title-mobile{% endif %}">{{ collection.title }}</div>
+    </div>
   </div>
+
   {% if collection.products.size > 1 %}
     <div class="collection-sort">
       <form action="{{ collection.url }}" method="get">
         {% assign order_values = 'price,descending_price,descending_age,title' | split: ',' %}
-
         {% capture order_messages %}
-          {{ messages.sort_by_price }},{{ messages.sort_by_price_desc }},{{ messages.sort_by_createdon }},{{ messages.sort_by_title }}
-        {% endcapture %}
+      {{ messages.sort_by_price }},{{ messages.sort_by_price_desc }},{{ messages.sort_by_createdon }},{{ messages.sort_by_title }}
+      {% endcapture %}
         {% assign order_messages_arr = order_messages | split: ',' %}
 
         <div class="collection-order">
           <button type="button" class="button button_size-m collection-order__value js-open-order-list">
             <span class="collection-order__value-text">
               {% unless order %} {{ messages.sorting }} {% endunless %}
-
               {% for order_value in order_values %}
                 {% if order == order_value %}
                   {{ order_messages_arr[forloop.index0] }}
@@ -55,7 +79,15 @@
           <div class="collection-order__content">
             <div class="collection-order__list">
               <label class="collection-order__option">
-                <input type="radio" name="order" value="" {% unless order %}checked="checked" {% endunless %} class="collection-order__field js-sorting-trigger-radio">
+                <input
+                  type="radio"
+                  name="order"
+                  value=""
+                  {% unless order %}
+                    checked="checked"
+                  {% endunless %}
+                  class="collection-order__field js-sorting-trigger-radio"
+                >
                 <span class="collection-order__option-btn">
                   {{ messages.default }}
                   <span class="collection-order__option-btn-check"></span>
@@ -63,7 +95,15 @@
               </label>
               {% for order_value in order_values %}
                 <label class="collection-order__option">
-                  <input type="radio" name="order" value="{{ order_value }}" {% if order == order_value %}checked="checked" {% endif %} class="collection-order__field js-sorting-trigger-radio">
+                  <input
+                    type="radio"
+                    name="order"
+                    value="{{ order_value }}"
+                    {% if order == order_value %}
+                      checked="checked"
+                    {% endif %}
+                    class="collection-order__field js-sorting-trigger-radio"
+                  >
                   <span class="collection-order__option-btn">
                     {{ order_messages_arr[forloop.index0] }}
                     <span class="collection-order__option-btn-check"></span>
@@ -76,14 +116,14 @@
         </div>
 
         {% for prop in collection.current_characteristics %}
-        <input type="hidden" name="characteristics[]" value="{{ prop.id }}">
+          <input type="hidden" name="characteristics[]" value="{{ prop.id }}">
         {% endfor %}
         {% for property in collection.properties %}
           {% if property.is_numeric? and property.gt_value %}
-          <input type="hidden" name="properties_gt[{{ property.id }}]" value="{{ property.gt_value }}">
+            <input type="hidden" name="properties_gt[{{ property.id }}]" value="{{ property.gt_value }}">
           {% endif %}
           {% if property.is_numeric? and property.lt_value %}
-          <input type="hidden" name="properties_lt[{{ property.id }}]" value="{{ property.lt_value }}">
+            <input type="hidden" name="properties_lt[{{ property.id }}]" value="{{ property.lt_value }}">
           {% endif %}
         {% endfor %}
         {% for val in collection.current_option_values %}
@@ -110,15 +150,30 @@
   <div class="catalog__categories-body">
     {% if collection.show_subcollections? %}
       {% for collection in collection.subcollections %}
-          <a href="{{ collection.url }}" class="catalog__categories-item {% if collection.handle == handle_active %} _active {% endif %}">{{ collection.title | downcase }}</a>
+        <a
+          href="{{ collection.url }}"
+          class="catalog__categories-item {% if collection.handle == handle_active %} _active {% endif %}"
+        >
+          {{- collection.title | downcase -}}
+        </a>
       {% endfor %}
     {% elsif collection.parent %}
       {% for collection in collection.parent.subcollections %}
-          <a href="{{ collection.url }}" class="catalog__categories-item {% if collection.handle == handle_active %} _active {% endif %}">{{ collection.title | downcase }}</a>
+        <a
+          href="{{ collection.url }}"
+          class="catalog__categories-item {% if collection.handle == handle_active %} _active {% endif %}"
+        >
+          {{- collection.title | downcase -}}
+        </a>
       {% endfor %}
     {% else %}
-      {% for collection in collections["all"].subcollections %}
-        <a href="{{ collection.url }}" class="catalog__categories-item {% if collection.handle == handle_active %} _active {% endif %}">{{ collection.title | downcase }}</a>
+      {% for collection in collections.all.subcollections %}
+        <a
+          href="{{ collection.url }}"
+          class="catalog__categories-item {% if collection.handle == handle_active %} _active {% endif %}"
+        >
+          {{- collection.title | downcase -}}
+        </a>
       {% endfor %}
     {% endif %}
   </div>

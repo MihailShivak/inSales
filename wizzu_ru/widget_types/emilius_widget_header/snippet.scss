@@ -1,4 +1,3 @@
-
 .layout__content {
     max-width: 100% !important;
 }
@@ -89,7 +88,7 @@
 .icon_user,
 .icon_favorites,
 .header__actions-wrapper {
-    background-color: #2394F0;
+    background-color: #2394f0;
     border-radius: 50px;
 }
 
@@ -177,7 +176,7 @@
     right: -21px;
     bottom: 0;
     background: #fff;
-    color: #2394F0;
+    color: #2394f0;
     border-radius: 10px;
     padding: 3.25px 5px;
     font-weight: 700;
@@ -196,11 +195,73 @@
     padding: 15px 20px;
     background-color: #fff;
     z-index: 1000;
-    box-shadow: 0px 4px 9px 0px #0000002E;
+    box-shadow: 0px 4px 9px 0px #0000002e;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
     transition: top 0.4s ease;
     z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .header__mob-logo__link {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 3px;
+    }
+
+    .header__mob-shop__btn {
+        flex-shrink: 0;
+        padding: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .header__mob-logo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        .header__mob-logo__link {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 3px;
+        }
+
+        .header__mob-shop__btn {
+            flex-shrink: 0;
+            padding: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+    }
+}
+
+.header__mob-logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .header__mob-logo__link {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 3px;
+    }
+
+    .header__mob-shop__btn {
+        flex-shrink: 0;
+        padding: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
 }
 
 .header__mob-fix._map_open {
@@ -259,7 +320,7 @@
     width: 100%;
     font-size: 16px;
     line-height: 16px;
-    background-color: #2394F0;
+    background-color: #2394f0;
     color: #fff;
     border-radius: 50px;
     text-align: center;
@@ -280,7 +341,7 @@
     padding: 8px 20px;
     font-weight: 600;
     line-height: 100%;
-    background-color: #2394F0;
+    background-color: #2394f0;
     color: #fff;
     border-radius: 50px;
     border: none;
@@ -299,7 +360,7 @@
     padding: 8px 20px;
     font-weight: 600;
     line-height: 100%;
-    background-color: #2394F0;
+    background-color: #2394f0;
     color: #fff;
     border-radius: 50px;
 }
@@ -310,10 +371,10 @@
 }
 
 .mob__address > .input-group__wrapper {
-    background: #F5F5F5;
+    background: #f5f5f5;
 
     .input {
-        background: #F5F5F5;
+        background: #f5f5f5;
     }
 }
 
@@ -335,7 +396,6 @@
 .popup-message.popup_show {
     animation: modalFadeInBottom 0.4s forwards;
 }
-
 
 .popup-message .modal__content {
     border-top-right-radius: 20px;
@@ -368,11 +428,13 @@
 
 @keyframes modalFadeInBottom {
     from {
-      opacity: 0;
-      transform: translateY(30px); }
+        opacity: 0;
+        transform: translateY(30px);
+    }
     to {
-      opacity: 1;
-      transform: translateY(0); } 
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media screen and (min-width: 1000px) {
@@ -385,20 +447,21 @@
     .header {
         margin-bottom: 21px;
         padding: 15px 20px;
-        box-shadow: 0px 4px 9px 0px #0000002E;
+        box-shadow: 0px 4px 9px 0px #0000002e;
         border-bottom-right-radius: 20px;
         border-bottom-left-radius: 20px;
-        background-color: #FFF;
+        background-color: #fff;
     }
-    
-    .header__top, .header__bottom {
+
+    .header__top,
+    .header__bottom {
         display: none;
     }
 
     .header__mob-btn__message {
         display: flex;
     }
-    
+
     .header__mob-logo {
         display: flex;
         gap: 10px;
@@ -410,12 +473,12 @@
     .header__mob-logo {
         width: 100%;
     }
-    
+
     .header__mob-logo img {
         width: 153px;
         max-width: 100%;
     }
-    
+
     .header__mob-menu {
         display: -webkit-box;
         display: -ms-flexbox;
@@ -429,18 +492,17 @@
     .header__mob-menu:not(:last-child) {
         margin-bottom: 15px;
     }
-    
+
     .menu-mob__item {
         font-size: 12px;
     }
 }
 
-
 @media screen and (max-width: 760px) {
     .input-group__wrapper {
         gap: 10px;
     }
-    
+
     .search__btn-more > a {
         min-height: 24px;
         font-size: 14px;

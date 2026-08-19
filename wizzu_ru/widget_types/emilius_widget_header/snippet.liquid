@@ -1,6 +1,4 @@
-{% assign logo_default = widget_settings.logo_img
-  | default: ''
-%}
+{% assign logo_default = widget_settings.logo_img | default: '' %}
 
 {% assign logo_barakat = widget_settings['logo_img_barakat-voda']
   | default: 'https://cdn.insales-shop.ru/files/1/7985/131882801/original/barakat-voda.svg'
@@ -88,11 +86,14 @@
   </div>
   <div class="header__mob">
     <div class="header__mob-logo">
-      <a href="/">
+      <a href="/" class="header__mob-logo__link">
         <div class="header__mob-shop__title">Доставим из магазина</div>
         <img
           class="header__mob-logo__img"
           src="{{ widget_settings.logo_img | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}"
+          data-shop-logo
+          data-barakat="{{ widget_settings['logo_img_barakat-voda'] | default: 'https://cdn.insales-shop.ru/files/1/7985/131882801/original/barakat-voda.svg' }}"
+          data-fermerskaya="{{ widget_settings['logo_img_fermerskaya-lavka'] | default: 'https://cdn.insales-shop.ru/files/1/7993/131882809/original/fermerskaya-lavka.svg' }}"
           alt="Логотип"
         >
       </a>
@@ -118,11 +119,14 @@
 
 <div class="header__mob-fix {% unless template == "index" %} _disabled-mob {% endunless %}" data-em-header-fix>
   <div class="header__mob-logo">
-    <a href="/">
+    <a href="/" class="header__mob-logo__link">
       <div class="header__mob-shop__title">Доставим из магазина</div>
       <img
         class="header__mob-logo__img"
         src="{{ widget_settings.logo_img | replace: 'static.insales-cdn.com', 'ibicecdn.com/gastromania' }}"
+        data-shop-logo
+        data-barakat="{{ widget_settings['logo_img_barakat-voda'] | default: 'https://cdn.insales-shop.ru/files/1/7985/131882801/original/barakat-voda.svg' }}"
+        data-fermerskaya="{{ widget_settings['logo_img_fermerskaya-lavka'] | default: 'https://cdn.insales-shop.ru/files/1/7993/131882809/original/fermerskaya-lavka.svg' }}"
         alt="Логотип"
       >
     </a>

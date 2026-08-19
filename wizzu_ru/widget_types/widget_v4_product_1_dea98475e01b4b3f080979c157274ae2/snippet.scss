@@ -1120,3 +1120,19 @@ video {
     padding-right: 10px;
   }
 }
+
+.product__top-logo {
+  display: none;
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  @media screen and (max-width: 1000px) {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .title__small {
+    display: none;
+  }
+}
