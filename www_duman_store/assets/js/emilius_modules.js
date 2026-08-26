@@ -3688,13 +3688,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function redirect(redirect_to, name) {
     if (!redirect_to) {
-      document.location.href = "/client_account/orders";
+      window.location.href = "/client_account/orders";
     } else if (redirect_to.includes("/client_account/contacts") || !name) {
       setRegistration();
     } else if (redirect_to.includes("/client_account/orders")) {
-      document.location.href = document.location.pathname;
+      window.location.href = document.location.pathname;
     } else {
-      document.location.href = redirect_to;
+      window.location.href = redirect_to.replace("www.duman.store", window.location.hostname);
     }
   }
 

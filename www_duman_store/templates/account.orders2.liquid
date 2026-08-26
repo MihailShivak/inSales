@@ -17,7 +17,7 @@
                     {% endif %}
                     <div class="order__item-top">
                         <div class="order__item-info">
-                            <a href="{{ order.url }}" class="order__item-title">Заказ #{{ order.number }} от {{ order.creation_date | date: '%d.%m.%Y %H:%M' }}</a>
+                            <a href="{{ order.url | replace: "https://www.duman.store/", "/" }}" class="order__item-title">Заказ #{{ order.number }} от {{ order.creation_date | date: '%d.%m.%Y %H:%M' }}</a>
                             <div class="order__item-price">{{ order.total_price | money }}</div>
                         </div>
                         <div class="order__item-status btn {{ classNameStatus }}">
@@ -29,12 +29,12 @@
                             {{ order.customer_status }}
                         </div>
                         {% if order.payment_needed? and order.fulfillment_status == 'approved' %}
-                            <a href="{{ order.pay_url }}" class="order__pay-btn btn btn_small btn_primary">Оплатить</a>
+                            <a href="{{ order.pay_url | replace: "https://www.duman.store/", "/" }}" class="order__pay-btn btn btn_small btn_primary">Оплатить</a>
                         {% endif %}
                     </div>
                     <div class="order__item-images">
                         {% for item in order.items %}
-                            <a href="{{ item.product.url }}">
+                            <a href="{{ item.product.url | replace: "https://www.duman.store/", "/" }}">
                                 {% if item.product.images.size > 0 %}
                                     <img data-src="{{ item.variant.first_image.medium_url }}" alt="{{ item.variant.title }}">
                                 {% else %}

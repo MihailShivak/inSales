@@ -39,12 +39,39 @@
             </div>
             <div class="form-popup__input-group">
               <div class="form-popup__input-wrapper">
-                <input 
-                  autocomplete="off" 
-                  type="text" 
-                  name="name-city" 
-                  data-error="" 
-                  placeholder="Начните вводить название города" 
+                <select
+                  name="domain_city"
+                  class="form"
+                  data-speed="350"
+                  data-city-domain-select
+                >
+                  <option value="" selected>Выберите город из списка</option>
+                  <option value="новосибирск">Новосибирск</option>
+                  <option value="санкт-петербург">Санкт-Петербург</option>
+                  <option value="нижний новгород">Нижний Новгород</option>
+                  <option value="красноярск">Красноярск</option>
+                  <option value="казань">Казань</option>
+                  <option value="челябинск">Челябинск</option>
+                  <option value="самара">Самара</option>
+                  <option value="омск">Омск</option>
+                  <option value="ростов-на-дону">Ростов-на-Дону</option>
+                  <option value="уфа">Уфа</option>
+                  <option value="воронеж">Воронеж</option>
+                  <option value="пермь">Пермь</option>
+                  <option value="кемерово">Кемерово</option>
+                  <option value="тольятти">Тольятти</option>
+                  <option value="москва">Москва</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-popup__input-group">
+              <div class="form-popup__input-wrapper">
+                <input
+                  autocomplete="off"
+                  type="text"
+                  name="name-city"
+                  data-error=""
+                  placeholder="Начните вводить название города"
                   class="form-popup__input input"
                 >
                 <button type="button" data-js="input-clear" class="form-popup__input-clear"></button>
@@ -59,7 +86,9 @@
             </div>
           </div>
         </form>
-        <button type="button" data-city-save class="popup__button btn btn_medium btn_primary btn_accept_city" disabled>Сохранить</button>
+        <button type="button" data-city-save class="popup__button btn btn_medium btn_primary btn_accept_city" disabled>
+          Сохранить
+        </button>
       </div>
     </div>
   </div>
