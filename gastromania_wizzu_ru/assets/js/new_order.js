@@ -1,22 +1,21 @@
-document.addEventListener("DOMContentLoaded", function() {
-    console.log("[EM_order] Start...");
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("[EM_order] Start...");
+  const $orderForm = $("#order_form");
 
-    const $orderForm = $("#order_form");
+  var actionDoor = "";
+  // const isMobile = sessionStorage.getItem('isMobile') === "true";
 
-    var actionDoor = "";
-    // const isMobile = sessionStorage.getItem('isMobile') === "true";
+  // ajaxAPI.shop.client.get()
+  //     .done(function (client) {
+  //         if (!client?.authorized) {
+  //             window.location.pathname = "/client_account/orders";
+  //         }
+  //     })
+  //     .fail(function () {
+  //         window.location.pathname = "/client_account/orders";
+  //     });
 
-    // ajaxAPI.shop.client.get()
-    //     .done(function (client) {
-    //         if (!client?.authorized) {
-    //             window.location.pathname = "/client_account/orders";
-    //         }
-    //     })
-    //     .fail(function () {
-    //         window.location.pathname = "/client_account/orders";
-    //     });
-
-    /* Старая логика
+  /* Старая логика
     const $addressInput = $("textarea[name='shipping_address[address]']");
 
     $addressInput.attr("data-popup", "#popup-map");
@@ -25,72 +24,180 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     */
 
-    function getStoredZone() {
-        try {
-            const stored = Cookies.get("selected_delivery_zone");
-            return stored ? JSON.parse(stored) : null;
-        } catch (error) {
-            console.error('Ошибка чтения сохраненной зоны:', error);
-            return null;
+  function getStoredZone() {
+    try {
+      const stored = Cookies.get("selected_delivery_zone");
+      return stored ? JSON.parse(stored) : null;
+    } catch (error) {
+      console.error("Ошибка чтения сохраненной зоны:", error);
+      return null;
+    }
+  }
+
+  function setZone() {
+    const zone = getStoredZone();
+    if (zone.name && Cookies.get("app_hide") !== "true") {
+      $orderForm
+        .find("label[for='shipping_address_field_95893505']")
+        .css("display", "block");
+      $orderForm
+        .find("#shipping_address_field_95893505")
+        .css("display", "block")
+        .val(zone.name);
+    }
+  }
+
+  // ! Выключили
+  function setDoorPrice(isDoor) {
+    const door = Cart.order.getItemByID(1823943729),
+      $price = $(".order__total:first");
+
+    if (isDoor && door !== undefined) {
+      if (actionDoor == "set") {
+        const $totalPrice = $price.find("#total_price");
+        const newTotalPrice = window.EM_Module.props.parseFormattedPrice(
+          $totalPrice.text(),
+        );
+
+        if (newTotalPrice && !isNaN(newTotalPrice)) {
+          $totalPrice.text(Shop.money.format(newTotalPrice + door.total_price));
         }
+      }
+      $price
+        .find("#em-price__door")
+        .removeAttr("hidden")
+        .find("span:last")
+        .text(Shop.money.format(door.total_price));
+    } else {
+      if (actionDoor == "del") {
+        const $totalPrice = $price.find("#total_price");
+        const newTotalPrice = window.EM_Module.props.parseFormattedPrice(
+          $totalPrice.text(),
+        );
+
+        if (newTotalPrice && !isNaN(newTotalPrice)) {
+          $totalPrice.text(
+            Shop.money.format(newTotalPrice < 59 ? 0 : newTotalPrice - 59),
+          );
+        }
+      }
+
+      $price
+        .find("#em-price__door")
+        .attr("hidden", true)
+        .find("span:last")
+        .text(Shop.money.format(0));
+    }
+  }
+
+  function changeOrderDoor(isDoor) {
+    $orderForm
+      .find(
+        ".co-input--entrance:first," +
+          ".co-input--flat:first, .co-input--floor:first, .co-input--intercom:first",
+      )
+      .attr("hidden", !isDoor);
+
+    $orderForm.find(".order__floor-warning:first").attr("hidden", !isDoor);
+
+    $orderForm
+      .find(".co-input--entrance")
+      .css("margin-right", isDoor ? "1rem" : "0");
+
+    if (!isDoor) {
+      $orderForm
+        .find(
+          ".co-input--entrance:first," +
+            ".co-input--floor:first .co-input-field, .co-input--intercom:first .co-input-field, input[name='shipping_address[flat]']:first",
+        )
+        .val("");
+    } else {
+        checkFloorWarning();
+    }
+    
+    $orderForm
+      .find(".co-input--type-delivery .co-input-field:first")
+      .val(isDoor ? "Поднять до двери" : "Оставить у ворот");
+  }
+
+  function checkFloorWarning() {
+    const floorValue = parseInt(
+      $orderForm.find(".co-input--floor:first .co-input-field").val(),
+    );
+    const isDoor = localStorage.getItem("cheked-door") === "true";
+
+    if (isDoor && !isNaN(floorValue) && floorValue > 5) {
+      $orderForm.find(".order__floor-warning:first").removeAttr("hidden");
+    } else {
+      $orderForm.find(".order__floor-warning:first").attr("hidden", true);
+    }
+  }
+
+  function cheangeProductDoor(isDoor) {
+    const isDoorInOrder = Cart.order.getItemByID(1823943729) !== undefined;
+    if (isDoorInOrder) {
+      Cart.delete({
+        items: [1823943729],
+      });
+    }
+    // !Выключили доставку до двери
+    // if (isDoor) {
+    //     if (!isDoorInOrder) {
+    //         actionDoor = "set";
+    //         Cart.set({
+    //             items: {
+    //                 1823943729: 1
+    //             }
+    //         });
+    //     }
+    // }
+    // else if (isDoorInOrder) {
+    //     actionDoor = "del";
+    //     Cart.delete({
+    //         items: [1823943729]
+    //     });
+    // }
+  }
+
+  function chekedInput() {
+    $(this)
+      .closest(".co-input--radio")
+      .find(".checked-label")
+      .removeClass("checked-label");
+    if (this.checked) {
+      this.closest("label").classList.add("checked-label");
+
+      // Смена доставки
+      if (this.getAttribute("data-delivery-id") !== null) {
+        $orderForm
+          .find("#em_message-delivery")
+          .attr(
+            "hidden",
+            this.getAttribute("data-delivery-map-zones") === null,
+          );
+      }
+      // Смена доставки до двери
+      else if (this.classList.contains("order__door-input")) {
+        changeOrderDoor(this.value === "true");
+        localStorage.setItem("cheked-door", this.value === "true");
+
+        // cheangeProductDoor(this.value === "true");
+      }
+    }
+  }
+
+  function getRadioToDoorHTML() {
+    const isDoor = localStorage.getItem("cheked-door") === "true";
+
+    changeOrderDoor(isDoor);
+    // setDoorPrice(isDoor);
+    // cheangeProductDoor(isDoor);
+
+    if (!$orderForm.find(".order__floor-warning:first").length) {
+      $orderForm.find(".co-input--intercom:first").after(getFloorWarningHTML());
     }
 
-    function setZone() {
-        const zone = getStoredZone();
-        if (zone.name && Cookies.get("app_hide") !== "true") {
-            $orderForm.find("label[for='shipping_address_field_95893505']")
-                .css("display", "block");
-            $orderForm.find("#shipping_address_field_95893505")
-                .css("display", "block")
-                .val(zone.name);
-        }
-    }
-
-    function changeOrderDoor(isDoor) {
-        $orderForm.find(
-            ".co-input--entrance:first, .co-input--flat:first," +
-            ".co-input--floor:first, .co-input--intercom:first"
-        ).attr("hidden", !isDoor);
-        // $orderForm.find(".co-input--entrance").css("margin-right", isDoor ? "1rem" : "0");
-
-        if (!isDoor) {
-            $orderForm.find(
-                ".co-input--flat:first," +
-                ".co-input--floor:first .co-input-field, .co-input--intercom:first .co-input-field, input[name='shipping_address[flat]']:first"
-            ).val("");
-        }
-        $orderForm.find(".co-input--type-delivery .co-input-field:first").val(isDoor ? "Поднять до двери" : "Оставить у ворот");
-    }
-
-    function chekedInput() {
-        $(this).closest(".co-input--radio").find(".checked-label").removeClass("checked-label");
-        if (this.checked) {
-            this.closest("label").classList.add("checked-label");
-
-            // Смена доставки
-            if (this.getAttribute("data-delivery-id") !== null) {
-                $orderForm.find("#em_message-delivery").attr(
-                    "hidden", 
-                    this.getAttribute("data-delivery-map-zones") === null
-                );
-            }
-            // Смена доставки до двери
-            else if (this.classList.contains("order__door-input")) {
-                changeOrderDoor(this.value === "true");
-                localStorage.setItem("cheked-door", this.value === "true");
-
-                // cheangeProductDoor(this.value === "true");
-            }
-        }
-    }
-
-    function getRadioToDoorHTML() {
-        const isDoor = localStorage.getItem("cheked-door") === "true";
-
-        changeOrderDoor(isDoor);
-        // cheangeProductDoor(isDoor);
-
-        return `<div class="order__delivery-door co-input--radio">
+    return `<div class="order__delivery-door co-input--radio">
             <label for="door-radio_gates" class="order__door-item ${isDoor ? "" : "checked-label"}">
                 <span class="order__door-radio">
                     <input class="order__door-input" type="radio" id="door-radio_gates" name="custom[door]" value="false" ${isDoor ? "" : "checked"} hidden>
@@ -110,10 +217,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
             </label>
         </div>`;
-    }
+  }
 
-    function getMessageDeliveryHTML(isHidden) {
-        return `<div class="order_message-delivery" ${isHidden ? "hidden" : ""} id="em_message-delivery">
+  function getMessageDeliveryHTML(isHidden) {
+    return `<div class="order_message-delivery" ${isHidden ? "hidden" : ""} id="em_message-delivery">
             <div class="co-input-label">Что нужно знать о доставке?</div>
             <div class="order_message-list">
                 <div class="order_message-item">
@@ -140,188 +247,223 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
             </div>
         </div>`;
+  }
+
+  function getFloorWarningHTML() {
+    return `<div class="order__floor-warning co-input co-input--text" hidden>
+        <div class="order__floor-warning-title">А у вас лифт работает?</div>
+        <div class="order__floor-warning-text">Если нет, то пеший подъем заказа выше 5-го стоит 40₽ за каждый этаж</div>
+    </div>`;
+  }
+
+  var address = {
+    stree: "",
+    house: "",
+  };
+
+  function changeCash() {
+    const value = Number(this.value);
+    const $input = $orderForm.find(
+      ".co-input--cash-change:first .co-input-field:last",
+    );
+    if (!this.value.length || isNaN(value)) {
+      $input.val("");
+
+      this.setCustomValidity(
+        isNaN(value)
+          ? "Неверный формат!"
+          : "Укажите '0' если сдача не требуется",
+      );
+      this.reportValidity();
+      this.focus();
+    } else {
+      this.value = value;
+      $input.val(value);
+      this.setCustomValidity("");
     }
+  }
 
-    var address = {
-        stree: "",
-        house: ""
-    };
-
-    function changeCash() {
-        const value = Number(this.value);
-        const $input = $orderForm.find(".co-input--cash-change:first .co-input-field:last");
-        if (!this.value.length || isNaN(value)) {
-            $input.val("");
-
-            this.setCustomValidity(
-                isNaN(value) ? "Неверный формат!" : "Укажите '0' если сдача не требуется"
-            );
-            this.reportValidity();
-            this.focus();
-        }
-        else {
-            this.value = value;
-            $input.val(value);
-            this.setCustomValidity('');
-        }
+  function inputAddress(input) {
+    if (input.id === "shipping_address_street") {
+      address.stree = input.value;
+    } else {
+      address.house = input.value;
     }
+    const value = `${address.stree ? address.stree : ""}${address.stree && address.house ? ", " + address.house : ""}`;
+    $orderForm
+      .find("#em-address")
+      .val(
+        value.length > 0
+          ? value
+          : "в поле Найти укажите улицу и номер дома на карте выше",
+      )
+      .css("color", value.length > 0 ? "" : "red");
+  }
 
-    function inputAddress(input) {
-        if (input.id === "shipping_address_street") {
-            address.stree = input.value;
-        }
-        else {
-            address.house = input.value;
-        }
-        
-        const value = `${address.stree ? address.stree : ""}${address.stree && address.house ? ", " + address.house : ""}`;
-        $orderForm.find("#em-address")
-            .val(value.length > 0 ? value : "в поле Найти укажите улицу и номер дома на карте выше")
-            .css("color", value.length > 0 ? "" : "red");
-    }
+  function setHTMLBlocks() {
+    const productUnavailable = Cookies.get("em_product-unavailable");
 
-    function setHTMLBlocks() {
-        const productUnavailable = Cookies.get("em_product-unavailable");
+    $orderForm
+      .find(".co-input--product-unavailable > input.co-input-field")
+      .val(
+        productUnavailable == "change-on-any"
+          ? "Позвонить для замены"
+          : "Заменить самостоятельно",
+      );
 
-        $orderForm.find(".co-input--product-unavailable > input.co-input-field").val(
-            productUnavailable == "change-on-any" ? "Позвонить для замены" : "Заменить самостоятельно" 
-                // productUnavailable == "change-in-order" ? "Позвонить для замены" : "Заменить самостоятельно" 
-        );
+    // em-cash-change
+    $orderForm
+      .find(".co-payment_method-list:first")
+      .after(
+        `<input class="co-input-field js-input-field" autocomplete="off" id="em-cash-change" value="" name="em-cash-change" type="number" min="0" max="120000" placeholder="Укажите с какой суммы нужна сдача">`,
+      );
 
-        // em-cash-change
-        $orderForm.find(".co-payment_method-list:first").after(
-            `<input class="co-input-field js-input-field" autocomplete="off" id="em-cash-change" value="" name="em-cash-change" type="number" min="0" max="120000" placeholder="Укажите с какой суммы нужна сдача">`
-        );
+    const street = $orderForm.find("#shipping_address_street").val();
+    const house = $orderForm.find("#shipping_address_house").val();
 
-        const street = $orderForm.find("#shipping_address_street").val();
-        const house = $orderForm.find("#shipping_address_house").val();
-
-        $orderForm.find(".delivery_variants:first").after(
-            `<div class="co-input co-input--required co-input--text em-input--address  co-input--nested">
+    $orderForm.find(".delivery_variants:first").after(
+      `<div class="co-input co-input--required co-input--text em-input--address  co-input--nested">
                 <label class="co-input-label" for="em-address">Ваш адрес</label>
                 <textarea class="em-text__input" name="em-address" id="em-address" autocomplete="off" value="${street}${street && house ? ", " + house : ""}" style="color: red;">в поле Найти укажите улицу и номер дома на карте выше</textarea>
-            </div>`
-        );
+            </div>`,
+    );
 
-        $orderForm.find("#em-cash-change").on("input", changeCash);
+    $orderForm.find("#em-cash-change").on("input", changeCash);
+  }
 
-        // $orderForm.find(".co-input--house:first").insertAfter(".delivery_variants:first");
-        // $orderForm.find(".co-input--street:first").insertAfter(".delivery_variants:first");
-    }
-
-    function setBtnAuth() {
-        $(".co-section--checkout_order:first").prepend(
-            `<div class="section__auth">
+  function setBtnAuth() {
+    $(".co-section--checkout_order:first").prepend(
+      `<div class="section__auth">
                 <a class="btn-auth" href="/client_account/contacts/new">Зарегистрироваться</a>
                 <p>Создайте аккаунт, чтобы сохранить историю заказов и контактные данные, которые вам не придется повторно указывать</p>
-            </div>`
-        );
-    }
+            </div>`,
+    );
+  }
 
-    function watchInput(input, callback) {
-        if (!input) return;
-        var lastValue = input.value;
+  function watchInput(input, callback) {
+    if (!input) return;
+    var lastValue = input.value;
 
-        // Перехватываем setter value (программные изменения)
-        const valueDescriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
-        const valueSetter = valueDescriptor.set;
-        
-        Object.defineProperty(input, 'value', {
-            get() { return lastValue; },
-            set(newValue) {
-                lastValue = newValue;
-                valueSetter.call(this, newValue);
-                callback(input);
-            },
-            configurable: true
-        });
+    // Перехватываем setter value (программные изменения)
+    const valueDescriptor = Object.getOwnPropertyDescriptor(
+      HTMLInputElement.prototype,
+      "value",
+    );
+    const valueSetter = valueDescriptor.set;
 
-        input.addEventListener("input", () => callback(input));
+    Object.defineProperty(input, "value", {
+      get() {
+        return lastValue;
+      },
+      set(newValue) {
+        lastValue = newValue;
+        valueSetter.call(this, newValue);
         callback(input);
-    }
-
-    const $titles = $(".co-title--h2");
-    for (const title of $titles) {
-        if (title.innerText == 'Доставка') {
-            title.innerText = "Адрес доставки";
-            break;
-        }
-    }
-
-    $orderForm.on("change", "input[data-payment-id]", chekedInput);
-    $orderForm.on("change", "input[data-delivery-id]", chekedInput);
-    $orderForm.on("change", "input.order__door-input", chekedInput);
-
-    setHTMLBlocks();
-
-    watchInput($orderForm.find("#shipping_address_street").get(0), inputAddress);
-    watchInput($orderForm.find("#shipping_address_house").get(0), inputAddress);
-
-    var isInitPayment = false;
-    $(document).on("updated:insales:payment", function(event) {
-        const $input = $(event.target);
-        setTimeout(() => {
-            $input.closest(".payment_variants").find(".checked-label:first").removeClass("checked-label");
-            $input.closest("label").addClass("checked-label");
-
-            if (isInitPayment) return;
-            isInitPayment = true;
-            const 
-                $deliveryInput = $orderForm.find("input[data-delivery-id]:checked:first"),
-                $deliveryVariants = $deliveryInput.closest(".delivery_variants");
-
-            $deliveryInput.closest("label").addClass("checked-label");
-            $orderForm.find(".co-input--em-select-zone:first").insertBefore($deliveryVariants);
-            $deliveryVariants.before(
-                getMessageDeliveryHTML($deliveryInput.attr("data-delivery-map-zones") === undefined)
-            );
-
-            $orderForm.find("#shipping_address").before(
-                getRadioToDoorHTML()
-            );
-        }, 350);
-        // console.log("updated:insales:payment", el, this);
+      },
+      configurable: true,
     });
 
-    $(document).on("selected:insales:payment", function(event) {
-        const $input = $orderForm.find("#em-cash-change");
-        if (!$input.length) return;
+    input.addEventListener("input", () => callback(input));
+    callback(input);
+  }
 
-        if (event.originalEvent.detail.id === 12036633) {
-            $input.show(250);
-            $input.get(0).setCustomValidity("Укажите '0' если сдача не требуется");
-        }
-        else {
-            $input.hide(250);
-            $input.get(0).setCustomValidity("");
-            $input.get(0).reportValidity();
-        }
-    });
+  const $titles = $(".co-title--h2");
+  for (const title of $titles) {
+    if (title.innerText == "Доставка") {
+      title.innerText = "Адрес доставки";
+      break;
+    }
+  }
 
-    $orderForm.find("input[name='shipping_address[street]'], input[name='shipping_address[house]'], #em-address")
-        .on('keydown', e => e.preventDefault())
-        .on('keypress', e => e.preventDefault())
-        // .on('input', e => e.preventDefault())
-        .on('mousedown', e => e.preventDefault())
-        .on('focus', e => e.target.blur());
+  $orderForm.on("change", "input[data-payment-id]", chekedInput);
+  $orderForm.on("change", "input[data-delivery-id]", chekedInput);
+  $orderForm.on("change", "input.order__door-input", chekedInput);
 
-    ajaxAPI.shop.client.get().done(function (client) {
-        if (!client?.authorized) setBtnAuth();
+  $orderForm.on("input", ".co-input--floor:first .co-input-field", checkFloorWarning);
 
-    }).fail(setBtnAuth);
-    
-    // $(document).on("selected:payment", function(el) {
-    //     console.log("selected:payment", el, this)
-    // });
-    // $(document).on("unselected:payment", function(el) {
-    //     console.log("unselected:payment", el, this)
-    // });
+  setHTMLBlocks();
 
-    
-    // EventBus.subscribe('selected:payment', function(data) {
-    //     console.log("selected:payment", data);
-    // });
-    
+  watchInput($orderForm.find("#shipping_address_street").get(0), inputAddress);
+  watchInput($orderForm.find("#shipping_address_house").get(0), inputAddress);
 
-    // setZone();
+  var isInitPayment = false;
+  $(document).on("updated:insales:payment", function (event) {
+    const $input = $(event.target);
+    setTimeout(() => {
+      $input
+        .closest(".payment_variants")
+        .find(".checked-label:first")
+        .removeClass("checked-label");
+      $input.closest("label").addClass("checked-label");
+
+      if (isInitPayment) return;
+      isInitPayment = true;
+      const $deliveryInput = $orderForm.find(
+          "input[data-delivery-id]:checked:first",
+        ),
+        $deliveryVariants = $deliveryInput.closest(".delivery_variants");
+
+      $deliveryInput.closest("label").addClass("checked-label");
+      $orderForm
+        .find(".co-input--em-select-zone:first")
+        .insertBefore($deliveryVariants);
+      $deliveryVariants.before(
+        getMessageDeliveryHTML(
+          $deliveryInput.attr("data-delivery-map-zones") === undefined,
+        ),
+      );
+
+      $orderForm.find("#shipping_address").before(getRadioToDoorHTML());
+    }, 350);
+    // console.log("updated:insales:payment", el, this);
+  });
+
+  $(document).on("selected:insales:payment", function (event) {
+    const $input = $orderForm.find("#em-cash-change");
+    if (!$input.length) return;
+
+    if (event.originalEvent.detail.id === 12024769) {
+      $input.show(250);
+      $input.get(0).setCustomValidity("Укажите '0' если сдача не требуется");
+    } else {
+      $input.hide(250);
+      $input.get(0).setCustomValidity("");
+      $input.get(0).reportValidity();
+    }
+  });
+
+  $orderForm
+    .find(
+      "input[name='shipping_address[street]'], input[name='shipping_address[house]'], #em-address",
+    )
+    .on("keydown", (e) => e.preventDefault())
+    .on("keypress", (e) => e.preventDefault())
+    // .on('input', e => e.preventDefault())
+    .on("mousedown", (e) => e.preventDefault())
+    .on("focus", (e) => e.target.blur());
+
+  ajaxAPI.shop.client
+    .get()
+    .done(function (client) {
+      if (!client?.authorized) setBtnAuth();
+    })
+    .fail(setBtnAuth);
+
+  // !Выключили
+  // EventBus.subscribe('update_items:insales:cart', function() {
+  //     setDoorPrice(localStorage.getItem("cheked-door") === "true");
+  // });
+
+  // $(document).on("selected:payment", function(el) {
+  //     console.log("selected:payment", el, this)
+  // });
+  // $(document).on("unselected:payment", function(el) {
+  //     console.log("unselected:payment", el, this)
+  // });
+
+  // EventBus.subscribe('selected:payment', function(data) {
+  //     console.log("selected:payment", data);
+  // });
+
+  // setZone();
 });

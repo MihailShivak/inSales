@@ -15,8 +15,8 @@
   "generation": 4,
   "widget_category_handle": "forms",
   "libraries": [
-    "jquery",
     "commonjs_v2",
+    "jquery",
     "my-layout"
   ],
   "block_template_handle": "system-form-constructor-3"

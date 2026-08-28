@@ -17,8 +17,8 @@
   "generation": 4,
   "widget_category_handle": "navigation",
   "libraries": [
-    "jquery",
     "commonjs_v2",
+    "jquery",
     "my-layout"
   ]
 }

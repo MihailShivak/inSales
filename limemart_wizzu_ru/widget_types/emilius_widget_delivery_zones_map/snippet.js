@@ -874,4 +874,35 @@ class DeliveryZoneSelector {
     }
 })();
 
-// update 2024-06-05
+// Popup подтверждения заказа в WhatsApp
+(function initOrderConfirmPopup() {
+    const WA_PHONE = '79659605060';
+
+    function getOrderNumber() {
+        const title = document.querySelector('.orders__title');
+        if (title && title.dataset.orderNumber) return title.dataset.orderNumber;
+        const match = (title && title.textContent || '').match(/№\s*(\d+)/);
+        return match ? match[1] : '';
+    }
+
+    document.addEventListener('click', function (e) {
+        const btn = e.target.closest('[data-confirm-order]');
+        if (!btn) return;
+
+        const orderNumber = getOrderNumber();
+        if (!orderNumber) {
+            console.warn('[OrderConfirm] Не удалось определить номер заказа');
+            return;
+        }
+
+        const text =
+            'Подтверждаю свой заказ #' + orderNumber +
+            ' и соглашаюсь получать уведомления об изменениях статуса заказа';
+
+        window.open(
+            'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text),
+            '_blank',
+            'noopener,noreferrer'
+        );
+    });
+})();

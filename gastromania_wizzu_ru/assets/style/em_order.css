@@ -764,3 +764,25 @@ label[for="order_payment_gateway_id_6244106"]::after {
         padding: 15px 10px;
     }
 }
+
+.order__floor-warning {
+    margin: 1rem 0;
+    padding: 1rem;
+    /* background: #fff8e1;
+    border: 1px solid #ffe082; */
+    /* border-radius: 8px; */
+}
+
+.order__floor-warning-title {
+    font-weight: 700;
+    color: #F02323;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.order__floor-warning-text {
+    color: black;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
