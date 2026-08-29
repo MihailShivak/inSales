@@ -171,7 +171,6 @@ $(document).ready(() => {
 
   function setDomainCitySelectValue(cityName) {
     const $select = $popup.find("[data-city-domain-select]");
-
     if (!$select.length) return;
 
     const cityKey = String(cityName || "")
@@ -180,11 +179,11 @@ $(document).ready(() => {
 
     if (cityKey && isDomainCity(cityKey)) {
       $select.val(cityKey);
+      $popup.find("[data-city-hidden]").val(getDomainCityLabel(cityKey));
     } else {
       $select.val("");
+      $popup.find("[data-city-hidden]").val("");
     }
-
-    $select.data("silentValue", $select.val());
   }
 
   async function loadKladrByCity(cityName, countryVal = "RU") {
@@ -258,6 +257,7 @@ $(document).ready(() => {
 
       if (!cityKey) {
         $input.val("");
+        $popup.find("[data-city-hidden]").val("");
         $saveBtn.prop("disabled", true);
         indexKladr = undefined;
         return;
@@ -267,7 +267,8 @@ $(document).ready(() => {
 
       // Города из CITY_DOMAIN_MAP относятся к России.
       $popup.find('[name="country"]').val("RU");
-      $input.val(cityLabel);
+      $input.val("");
+      $popup.find("[data-city-hidden]").val(cityLabel);
       $saveBtn.prop("disabled", true);
 
       const isSuccess = await loadKladrByCity(cityLabel, "RU");
@@ -742,6 +743,7 @@ $(document).ready(() => {
 
     if ($domainSelect.length) {
       $domainSelect.val("");
+      $popup.find("[data-city-hidden]").val("");
       $domainSelect.prop("disabled", value !== "RU");
     }
   }
@@ -816,6 +818,7 @@ $(document).ready(() => {
 
       if (!val || selectedLabel !== val.toLowerCase()) {
         $domainSelect.val("");
+        $popup.find("[data-city-hidden]").val("");
       }
     }
 
@@ -836,6 +839,7 @@ $(document).ready(() => {
     $popup.find("[data-select-container-sity]").prop("hidden", true);
     $popup.find("[data-city-save]").prop("disabled", true);
     $popup.find("[data-city-domain-select]").val("");
+    $popup.find("[data-city-hidden]").val("");
   });
 
   $popup
@@ -858,15 +862,26 @@ $(document).ready(() => {
 
       // Город выбран вручную из подсказок, а не из быстрого доменного списка.
       $popup.find("[data-city-domain-select]").val("");
+      $popup.find("[data-city-hidden]").val("");
     });
 
   // Сохранение города и редирект
   $popup.find("[data-city-save]").on("click", async function () {
     const newCountry = $popup.find('[name="country"]:first').val();
-    const newCity = $popup.find('[name="name-city"]:first').val().trim();
     const selectedDomainCity = $popup
       .find("[data-city-domain-select]:first")
       .val();
+    let newCity;
+
+    if (selectedDomainCity) {
+      newCity =
+        $popup.find("[data-city-hidden]:first").val() ||
+        getDomainCityLabel(selectedDomainCity);
+    } else {
+      newCity = $popup.find('[name="name-city"]:first').val();
+    }
+
+    newCity = String(newCity || "").trim();
 
     if (
       !newCountry ||

@@ -16,8 +16,8 @@
   "generation": 4,
   "widget_category_handle": "blog",
   "libraries": [
-    "vanilla-lazyload",
     "jquery",
-    "my-layout"
+    "my-layout",
+    "vanilla-lazyload"
   ]
 }

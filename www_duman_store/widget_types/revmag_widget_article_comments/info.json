@@ -18,8 +18,8 @@
   "generation": 4,
   "widget_category_handle": "comments",
   "libraries": [
-    "jquery",
     "commonjs_v2",
+    "jquery",
     "my-layout"
   ]
 }
