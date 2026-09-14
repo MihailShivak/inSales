@@ -1,45 +1,333 @@
 {% if page.url contains 'delivery' %}
   <link rel="stylesheet" href="{{ 'page-delivery.css' | asset_url }}">
-{% endif %}
 
-<!-- info -->
-<section class="info">
-  <div class="info__container info__container_alt">
-    <div class="info__body">
-      <div class="breadcrumbs">
-        <div class="breadcrumbs__container">
-          <div class="breadcrumbs__body">
-            <ul class="breadcrumbs__list">
-              <li class="breadcrumbs__item">
-                <a href="/" class="breadcrumbs__link">Главная</a>
-              </li>
-              <li class="breadcrumbs__item breadcrumbs__item--current">
-                <span>{{ page.title }}</span>
-              </li>
-            </ul>
+  {% assign city_constant = "Новоси&#8203;бирск" %}
+  {% assign city_prepositional = "Новоси&#8203;бирске" %}
+
+  <!-- info -->
+  <section class="info">
+    <div class="info__container info__container_alt">
+      <div class="info__body">
+        <div class="breadcrumbs">
+          <div class="breadcrumbs__container">
+            <div class="breadcrumbs__body">
+              <ul class="breadcrumbs__list">
+                <li class="breadcrumbs__item">
+                  <a href="/" class="breadcrumbs__link">Главная</a>
+                </li>
+                <li class="breadcrumbs__item breadcrumbs__item--current">
+                  <span>{{ page.title }}</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
 
-      {% if page.url contains 'agreement' or page.url contains 'oferta' %}
-        <a href="/page/legal-information" class="info__back">
-          <span>Правовые документы</span>
-        </a>
-      {% endif %}
+        <div class="info__text" id="delivery-content">
+          <header class="delivery-hero">
+            <div class="delivery-hero__top">
+              <div>
+                <div class="delivery-page__eyebrow">Информация о доставке</div>
+                <h1>Доставка заказов DUMAN</h1>
+              </div>
+              <p class="delivery-hero__lead">
+                Доставляем заказы по России и за её пределы. Стоимость и срок доставки зависят от населённого пункта и
+                рассчитываются после указания точного адреса при оформлении заказа.
+              </p>
+            </div>
+            <div class="delivery-benefits" aria-label="Краткие условия доставки">
+              <div class="delivery-benefit">
+                <span class="delivery-benefit__icon" aria-hidden="true">
+                  <img
+                    src="https://cdn.insales-shop.ru/files/1/441/131088825/original/icon-globe.svg"
+                    alt=""
+                    width="24"
+                    height="24"
+                    loading="lazy"
+                  >
+                </span>
+                <p>Доставка по России и за её пределы</p>
+              </div>
+              <div class="delivery-benefit">
+                <span class="delivery-benefit__icon" aria-hidden="true">
+                  <img
+                    src="https://cdn.insales-shop.ru/files/1/457/131088841/original/icon-truck.svg"
+                    alt=""
+                    width="24"
+                    height="24"
+                    loading="lazy"
+                  >
+                </span>
+                <p>СДЭК, Яндекс Доставка и Почта России</p>
+              </div>
+              <div class="delivery-benefit">
+                <span class="delivery-benefit__icon" aria-hidden="true">
+                  <img
+                    src="https://cdn.insales-shop.ru/files/1/465/131088849/original/icon-package.svg"
+                    alt=""
+                    width="24"
+                    height="24"
+                    loading="lazy"
+                  >
+                </span>
+                <p>Бесплатно до ПВЗ по России при заказе более 15 000 ₽</p>
+              </div>
+              <div class="delivery-benefit">
+                <span class="delivery-benefit__icon" aria-hidden="true">
+                  <img
+                    src="https://cdn.insales-shop.ru/files/1/481/131088865/original/icon-pin.svg"
+                    alt=""
+                    width="24"
+                    height="24"
+                    loading="lazy"
+                  >
+                </span>
+                <p>Самовывоз в {{ city_prepositional }}</p>
+              </div>
+            </div>
+          </header>
 
-      {% if page.url contains 'delivery' %}
-        <div class="info__text">
-          {{ page.content }}
+          <section class="delivery-page__section" aria-labelledby="delivery-methods-title">
+            <div class="delivery-section-head">
+              <h2 id="delivery-methods-title">Способы получения заказа</h2>
+            </div>
+            <div class="delivery-methods">
+              <article class="delivery-method">
+                <span class="delivery-method__icon" aria-hidden="true">
+                  <img
+                    src="https://cdn.insales-shop.ru/files/1/457/131088841/original/icon-truck.svg"
+                    alt=""
+                    width="24"
+                    height="24"
+                    loading="lazy"
+                  >
+                </span>
+                <h3>СДЭК</h3>
+                <p class="delivery-method__scope">Доставка по России</p>
+                <ul class="delivery-method__facts">
+                  <li>Стоимость и срок рассчитываются при оформлении заказа</li>
+                </ul>
+              </article>
+              <article class="delivery-method">
+                <span class="delivery-method__icon delivery-method__icon_yandex" aria-hidden="true">
+                  <img
+                    src="https://cdn.insales-shop.ru/files/1/473/131088857/original/icon-yandex.svg"
+                    alt=""
+                    width="24"
+                    height="24"
+                    loading="lazy"
+                  >
+                </span>
+                <h3>Яндекс Доставка</h3>
+                <p class="delivery-method__scope">Доставка по России</p>
+                <ul class="delivery-method__facts">
+                  <li>
+                    <span><strong>Дни отправки:</strong> вторник и пятница</span>
+                  </li>
+                  <li>Стоимость и срок рассчитываются при оформлении заказа</li>
+                </ul>
+              </article>
+              <article class="delivery-method">
+                <span class="delivery-method__icon" aria-hidden="true">
+                  <img
+                    src="https://cdn.insales-shop.ru/files/1/489/131088873/original/icon-envelope.svg"
+                    alt=""
+                    width="24"
+                    height="24"
+                    loading="lazy"
+                  >
+                </span>
+                <h3>Почта России</h3>
+                <p class="delivery-method__scope">Доставка по России</p>
+                <ul class="delivery-method__facts">
+                  <li>
+                    <span><strong>Дни отправки:</strong> понедельник, среда и пятница</span>
+                  </li>
+                  <li>Стоимость и срок рассчитываются при оформлении заказа</li>
+                </ul>
+              </article>
+              <article class="delivery-method delivery-method_pickup">
+                <span class="delivery-method__icon" aria-hidden="true">
+                  <img
+                    src="https://cdn.insales-shop.ru/files/1/449/131088833/original/icon-store.svg"
+                    alt=""
+                    width="24"
+                    height="24"
+                    loading="lazy"
+                  >
+                </span>
+                <h3>Самовывоз</h3>
+                <p class="delivery-method__scope">
+                  В фирменном магазине в {{ city_prepositional }}
+                </p>
+                <a class="delivery-method__link" href="https://www.duman.store/page/contacts">Контакты магазина</a>
+                <ul class="delivery-method__facts">
+                  <li>г. {{ city_constant }}, ул. Советская, 49</li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
+          <section class="delivery-page__section delivery-free" aria-labelledby="free-delivery-title">
+            <div>
+              <h2 id="free-delivery-title">Бесплатная доставка до ПВЗ по России</h2>
+              <strong class="delivery-free__amount">15 000 ₽</strong>
+            </div>
+            <div class="delivery-free__content">
+              <p>Доставка до пункта выдачи предоставляется бесплатно при сумме заказа более 15 000 рублей.</p>
+              <h3>Бесплатная доставка не предоставляется:</h3>
+              <ul>
+                <li>при проведении других акций;</li>
+                <li>при наличии товаров со скидкой в составе заказа;</li>
+                <li>
+                  при оформлении доставки по адресу в {{ city_prepositional }}.
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="delivery-page__section delivery-pickup" aria-labelledby="pickup-title">
+            <span class="delivery-pickup__icon" aria-hidden="true">
+              <img
+                src="https://cdn.insales-shop.ru/files/1/481/131088865/original/icon-pin.svg"
+                alt=""
+                width="24"
+                height="24"
+                loading="lazy"
+              >
+            </span>
+            <div>
+              <h2 id="pickup-title">
+                Самовывоз в {{ city_prepositional }}
+              </h2>
+              <p class="delivery-pickup__address">
+                Заказ можно самостоятельно получить по адресу: г. {{ city_constant }}, ул. Советская, 49.
+              </p>
+            </div>
+            <div class="delivery-pickup__actions">
+              <a
+                class="delivery-page__button"
+                href="https://yandex.ru/maps/?text={{ city_constant }}%2C%20ул.%20Советская%2C%2049"
+                rel="noopener noreferrer"
+                target="_blank"
+                >Показать на карте</a
+              >
+              <a
+                class="delivery-page__button delivery-page__button_secondary"
+                href="https://www.duman.store/page/contacts"
+                >Контакты магазина</a
+              >
+            </div>
+          </section>
+
+          <section class="delivery-page__section delivery-cost" aria-labelledby="delivery-cost-title">
+            <h2 id="delivery-cost-title">Как узнать стоимость и срок доставки</h2>
+            <div class="delivery-cost__content">
+              <p>
+                Добавьте товары в корзину, перейдите к оформлению заказа и укажите точный адрес. Стоимость и срок
+                доставки будут рассчитаны с учётом вашего населённого пункта.
+              </p>
+              <a class="delivery-page__button" href="https://www.duman.store/collection/all">Перейти в каталог</a>
+            </div>
+          </section>
+
+          <section class="delivery-page__section delivery-faq" aria-labelledby="delivery-faq-title">
+            <h2 id="delivery-faq-title">Частые вопросы о доставке</h2>
+            <div class="delivery-faq__list">
+              <details>
+                <summary>Какими службами доставляются заказы по России?</summary>
+                <div class="delivery-faq__answer">
+                  <p>Заказы по России доставляются СДЭК, Яндекс Доставкой и Почтой России.</p>
+                </div>
+              </details>
+              <details>
+                <summary>При какой сумме доставка будет бесплатной?</summary>
+                <div class="delivery-faq__answer">
+                  <p>
+                    Доставка до ПВЗ по России предоставляется бесплатно при сумме заказа более 15 000 рублей, кроме
+                    случаев, перечисленных в условиях бесплатной доставки.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>
+                  Можно ли забрать заказ самостоятельно в {{ city_prepositional }}?
+                </summary>
+                <div class="delivery-faq__answer">
+                  <p>
+                    Да, заказ можно получить самостоятельно по адресу: г. {{ city_constant }}, ул. Советская, 49.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>Доступна ли доставка за пределы России?</summary>
+                <div class="delivery-faq__answer">
+                  <p>
+                    Да, мы доставляем заказы за пределы России. Доступность, стоимость и срок зависят от указанного
+                    адреса и уточняются при оформлении заказа.
+                  </p>
+                </div>
+              </details>
+            </div>
+          </section>
+
+          <section class="delivery-page__section delivery-cta" aria-labelledby="delivery-cta-title">
+            <div>
+              <h2 id="delivery-cta-title">Остались вопросы о доставке или самовывозе?</h2>
+              <p>Свяжитесь с нами &mdash; поможем уточнить условия доставки и получения заказа.</p>
+            </div>
+            <div class="delivery-page__actions">
+              <a class="delivery-page__button" href="https://t.me/dumanstores" rel="noopener noreferrer" target="_blank"
+                >Написать в Telegram</a
+              >
+              <a
+                class="delivery-page__button delivery-page__button_secondary"
+                href="https://www.duman.store/page/contacts"
+                >Связаться с нами</a
+              >
+            </div>
+          </section>
         </div>
-      {% else %}
+      </div>
+    </div>
+  </section>
+
+{% else %}
+
+  <!-- info -->
+  <section class="info">
+    <div class="info__container info__container_alt">
+      <div class="info__body">
+        <div class="breadcrumbs">
+          <div class="breadcrumbs__container">
+            <div class="breadcrumbs__body">
+              <ul class="breadcrumbs__list">
+                <li class="breadcrumbs__item">
+                  <a href="/" class="breadcrumbs__link">Главная</a>
+                </li>
+                <li class="breadcrumbs__item breadcrumbs__item--current">
+                  <span>{{ page.title }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {% if page.url contains 'agreement' or page.url contains 'oferta' %}
+          <a href="/page/legal-information" class="info__back">
+            <span>Правовые документы</span>
+          </a>
+        {% endif %}
+
         <h1 class="info__title">{{ page.title }}</h1>
         <div class="info__text">
           {{ page.content }}
         </div>
-      {% endif %}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+
+{% endif %}
 
 {% for widgetDrop in widget_lists['page-list'].widgets %}
   {% widget widgetDrop %}

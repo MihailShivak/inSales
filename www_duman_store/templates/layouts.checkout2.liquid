@@ -7,6 +7,9 @@
     {% include "system_no_js_alert" %}
     <div class="page_layout page_layout-clear">
         <header>
+            <script>
+                window.location.href = "/page/new-order";
+            </script>
             {% assign isOrder = true %}
             {% for widgetDrop in widget_lists.header-list.widgets %}
                 {% widget widgetDrop %}
@@ -241,7 +244,7 @@
         </div>
     </div>
 </body>
-  {{ 'checkout2.core' | global_stylesheet_tag }}
+  <!-- {{ 'checkout2.core' | global_stylesheet_tag }} -->
 
   {%- capture css_js_lists -%}header-list, footer-list, outside-list, cart-list{%- endcapture -%}
 
@@ -259,7 +262,8 @@
   {% include "script" %}
 
   {% comment %} Касотмизция оформления заказа {% endcomment %}
-  <script src="{{ 'order.js' | asset_url }}" charset="utf-8"></script>
+  {% comment %} ! Делаем принудительный редирект на новое оформление {% endcomment %}
+  <!-- <script src="{{ 'order.js' | asset_url }}" charset="utf-8"></script> -->
 
   {% include "microdata" %}
 </html>

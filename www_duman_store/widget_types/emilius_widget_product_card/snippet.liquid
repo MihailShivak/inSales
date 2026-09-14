@@ -420,6 +420,18 @@
               </div>
             {% endif %}
           </div>
+          <div class="product-card-info__group product-card__review">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8.00016 1.33325C4.32426 1.33325 1.3335 4.32402 1.3335 7.99992C1.3335 9.09169 1.62107 10.1115 2.0874 11.0214L1.36475 13.6093C1.19643 14.2104 1.7908 14.8041 2.39209 14.636L4.98128 13.9133C5.89051 14.379 6.90915 14.6666 8.00016 14.6666C11.6761 14.6666 14.6668 11.6758 14.6668 7.99992C14.6668 4.32402 11.6761 1.33325 8.00016 1.33325ZM8.00016 2.33325C11.1356 2.33325 13.6668 4.86449 13.6668 7.99992C13.6668 11.1353 11.1356 13.6666 8.00016 13.6666C6.99917 13.6666 6.06425 13.406 5.24821 12.9511C5.13299 12.8868 4.99703 12.8707 4.86995 12.9062L2.40771 13.5937L3.09521 11.1327C3.13073 11.0057 3.11458 10.8697 3.05029 10.7545C2.59471 9.93774 2.3335 9.00142 2.3335 7.99992C2.3335 4.86449 4.86473 2.33325 8.00016 2.33325Z" fill="#514B47"/>
+            </svg>
+            {% if account.reviews_enabled? and product.reviews_count > 0 %}
+              <button type="button" data-popup="#popup-list-review">{{ product.reviews_count }} отзыва </button>
+            {% else %}
+              <div>
+                <span>Отзывов пока нет, </span><button type="button" data-popup="#popup-send-review" class="product-card__review-btn">оставить</button><span> первый</span>
+              </div>
+            {% endif %}
+          </div>
           <div class="product-card-info__group product-card__descr">
             <div data-spollers class="product-card-info__descr product-card-descr">
               {% if product.description %}
@@ -749,6 +761,189 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% comment %} Попап отправки отзывов {% endcomment %}
+<div id="popup-send-review" aria-hidden="true" class="popup">
+  <div class="popup__wrapper">
+    <div class="popup__content">
+      <button data-close type="button" class="popup__close"></button>
+      <div class="popup__head">
+        <div class="popup__title">Отзыв о товаре</div>
+      </div>
+      <div class="order__note popup-review__note" data-review-error hidden>
+        <div class="order__note-text">
+          Для оформления заказа 
+          <button data-popup="#popup-login" type="button" class="order__note-link">войдите</button> или 
+          <button data-popup="#popup-login" type="button" class="order__note-link">зарегистрируйтесь</button>
+        </div>
+      </div>
+      <form action="#" class="popup__body">
+        <div class="popup-review__form-group">
+          <div class="popup-review__group-rating">
+            <input type="radio" id="review-star5" name="review-rating" value="5" hidden>
+            <label for="review-star5" title="Оценка 5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22" fill="none">
+              <path d="M11.4154 18.2667L5.88205 21.6C5.63761 21.7556 5.38205 21.8222 5.11538 21.8C4.84872 21.7778 4.61538 21.6889 4.41538 21.5333C4.21538 21.3778 4.05983 21.1833 3.94872 20.95C3.83761 20.7167 3.81538 20.4556 3.88205 20.1667L5.34872 13.8667L0.448718 9.63333C0.226496 9.43333 0.0876068 9.20556 0.0320513 8.95C-0.0235043 8.69444 -0.00683761 8.44444 0.0820513 8.2C0.17094 7.95556 0.304273 7.75556 0.482051 7.6C0.659829 7.44444 0.904274 7.34444 1.21538 7.3L7.68205 6.73333L10.1821 0.8C10.2932 0.533333 10.4654 0.333333 10.6987 0.2C10.9321 0.0666667 11.1709 0 11.4154 0C11.6598 0 11.8987 0.0666667 12.1321 0.2C12.3654 0.333333 12.5376 0.533333 12.6487 0.8L15.1487 6.73333L21.6154 7.3C21.9265 7.34444 22.1709 7.44444 22.3487 7.6C22.5265 7.75556 22.6598 7.95556 22.7487 8.2C22.8376 8.44444 22.8543 8.69444 22.7987 8.95C22.7432 9.20556 22.6043 9.43333 22.3821 9.63333L17.4821 13.8667L18.9487 20.1667C19.0154 20.4556 18.9932 20.7167 18.8821 20.95C18.7709 21.1833 18.6154 21.3778 18.4154 21.5333C18.2154 21.6889 17.9821 21.7778 17.7154 21.8C17.4487 21.8222 17.1932 21.7556 16.9487 21.6L11.4154 18.2667Z" fill="#D1C3BA"/>
+              <script xmlns=""/></svg>
+            </label>
+            
+            <input type="radio" id="review-star4" name="review-rating" value="4" hidden>
+            <label for="review-star4" title="Оценка 4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22" fill="none">
+              <path d="M11.4154 18.2667L5.88205 21.6C5.63761 21.7556 5.38205 21.8222 5.11538 21.8C4.84872 21.7778 4.61538 21.6889 4.41538 21.5333C4.21538 21.3778 4.05983 21.1833 3.94872 20.95C3.83761 20.7167 3.81538 20.4556 3.88205 20.1667L5.34872 13.8667L0.448718 9.63333C0.226496 9.43333 0.0876068 9.20556 0.0320513 8.95C-0.0235043 8.69444 -0.00683761 8.44444 0.0820513 8.2C0.17094 7.95556 0.304273 7.75556 0.482051 7.6C0.659829 7.44444 0.904274 7.34444 1.21538 7.3L7.68205 6.73333L10.1821 0.8C10.2932 0.533333 10.4654 0.333333 10.6987 0.2C10.9321 0.0666667 11.1709 0 11.4154 0C11.6598 0 11.8987 0.0666667 12.1321 0.2C12.3654 0.333333 12.5376 0.533333 12.6487 0.8L15.1487 6.73333L21.6154 7.3C21.9265 7.34444 22.1709 7.44444 22.3487 7.6C22.5265 7.75556 22.6598 7.95556 22.7487 8.2C22.8376 8.44444 22.8543 8.69444 22.7987 8.95C22.7432 9.20556 22.6043 9.43333 22.3821 9.63333L17.4821 13.8667L18.9487 20.1667C19.0154 20.4556 18.9932 20.7167 18.8821 20.95C18.7709 21.1833 18.6154 21.3778 18.4154 21.5333C18.2154 21.6889 17.9821 21.7778 17.7154 21.8C17.4487 21.8222 17.1932 21.7556 16.9487 21.6L11.4154 18.2667Z" fill="#D1C3BA"/>
+              <script xmlns=""/></svg>
+            </label>
+            
+            <input type="radio" id="review-star3" name="review-rating" value="3" hidden>
+            <label for="review-star3" title="Оценка 3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22" fill="none">
+              <path d="M11.4154 18.2667L5.88205 21.6C5.63761 21.7556 5.38205 21.8222 5.11538 21.8C4.84872 21.7778 4.61538 21.6889 4.41538 21.5333C4.21538 21.3778 4.05983 21.1833 3.94872 20.95C3.83761 20.7167 3.81538 20.4556 3.88205 20.1667L5.34872 13.8667L0.448718 9.63333C0.226496 9.43333 0.0876068 9.20556 0.0320513 8.95C-0.0235043 8.69444 -0.00683761 8.44444 0.0820513 8.2C0.17094 7.95556 0.304273 7.75556 0.482051 7.6C0.659829 7.44444 0.904274 7.34444 1.21538 7.3L7.68205 6.73333L10.1821 0.8C10.2932 0.533333 10.4654 0.333333 10.6987 0.2C10.9321 0.0666667 11.1709 0 11.4154 0C11.6598 0 11.8987 0.0666667 12.1321 0.2C12.3654 0.333333 12.5376 0.533333 12.6487 0.8L15.1487 6.73333L21.6154 7.3C21.9265 7.34444 22.1709 7.44444 22.3487 7.6C22.5265 7.75556 22.6598 7.95556 22.7487 8.2C22.8376 8.44444 22.8543 8.69444 22.7987 8.95C22.7432 9.20556 22.6043 9.43333 22.3821 9.63333L17.4821 13.8667L18.9487 20.1667C19.0154 20.4556 18.9932 20.7167 18.8821 20.95C18.7709 21.1833 18.6154 21.3778 18.4154 21.5333C18.2154 21.6889 17.9821 21.7778 17.7154 21.8C17.4487 21.8222 17.1932 21.7556 16.9487 21.6L11.4154 18.2667Z" fill="#D1C3BA"/>
+              <script xmlns=""/></svg>
+            </label>
+            
+            <input type="radio" id="review-star2" name="review-rating" value="2" hidden>
+            <label for="review-star2" title="Оценка 2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22" fill="none">
+              <path d="M11.4154 18.2667L5.88205 21.6C5.63761 21.7556 5.38205 21.8222 5.11538 21.8C4.84872 21.7778 4.61538 21.6889 4.41538 21.5333C4.21538 21.3778 4.05983 21.1833 3.94872 20.95C3.83761 20.7167 3.81538 20.4556 3.88205 20.1667L5.34872 13.8667L0.448718 9.63333C0.226496 9.43333 0.0876068 9.20556 0.0320513 8.95C-0.0235043 8.69444 -0.00683761 8.44444 0.0820513 8.2C0.17094 7.95556 0.304273 7.75556 0.482051 7.6C0.659829 7.44444 0.904274 7.34444 1.21538 7.3L7.68205 6.73333L10.1821 0.8C10.2932 0.533333 10.4654 0.333333 10.6987 0.2C10.9321 0.0666667 11.1709 0 11.4154 0C11.6598 0 11.8987 0.0666667 12.1321 0.2C12.3654 0.333333 12.5376 0.533333 12.6487 0.8L15.1487 6.73333L21.6154 7.3C21.9265 7.34444 22.1709 7.44444 22.3487 7.6C22.5265 7.75556 22.6598 7.95556 22.7487 8.2C22.8376 8.44444 22.8543 8.69444 22.7987 8.95C22.7432 9.20556 22.6043 9.43333 22.3821 9.63333L17.4821 13.8667L18.9487 20.1667C19.0154 20.4556 18.9932 20.7167 18.8821 20.95C18.7709 21.1833 18.6154 21.3778 18.4154 21.5333C18.2154 21.6889 17.9821 21.7778 17.7154 21.8C17.4487 21.8222 17.1932 21.7556 16.9487 21.6L11.4154 18.2667Z" fill="#D1C3BA"/>
+              <script xmlns=""/></svg>
+            </label>
+            
+            <input type="radio" id="review-star1" name="review-rating" value="1" hidden>
+            <label for="review-star1" title="Оценка 1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22" fill="none">
+              <path d="M11.4154 18.2667L5.88205 21.6C5.63761 21.7556 5.38205 21.8222 5.11538 21.8C4.84872 21.7778 4.61538 21.6889 4.41538 21.5333C4.21538 21.3778 4.05983 21.1833 3.94872 20.95C3.83761 20.7167 3.81538 20.4556 3.88205 20.1667L5.34872 13.8667L0.448718 9.63333C0.226496 9.43333 0.0876068 9.20556 0.0320513 8.95C-0.0235043 8.69444 -0.00683761 8.44444 0.0820513 8.2C0.17094 7.95556 0.304273 7.75556 0.482051 7.6C0.659829 7.44444 0.904274 7.34444 1.21538 7.3L7.68205 6.73333L10.1821 0.8C10.2932 0.533333 10.4654 0.333333 10.6987 0.2C10.9321 0.0666667 11.1709 0 11.4154 0C11.6598 0 11.8987 0.0666667 12.1321 0.2C12.3654 0.333333 12.5376 0.533333 12.6487 0.8L15.1487 6.73333L21.6154 7.3C21.9265 7.34444 22.1709 7.44444 22.3487 7.6C22.5265 7.75556 22.6598 7.95556 22.7487 8.2C22.8376 8.44444 22.8543 8.69444 22.7987 8.95C22.7432 9.20556 22.6043 9.43333 22.3821 9.63333L17.4821 13.8667L18.9487 20.1667C19.0154 20.4556 18.9932 20.7167 18.8821 20.95C18.7709 21.1833 18.6154 21.3778 18.4154 21.5333C18.2154 21.6889 17.9821 21.7778 17.7154 21.8C17.4487 21.8222 17.1932 21.7556 16.9487 21.6L11.4154 18.2667Z" fill="#D1C3BA"/>
+              <script xmlns=""/></svg>
+            </label>
+          </div>
+          <div class="popup-review__rating-error form-error" data-review-rating-error hidden>Укажите оценку товару</div>
+        </div>
+
+        <div class="popup-review__form-group">
+          <div class="popup-right__input-group input-group">
+            <div class="input-group__label">Имя</div>
+            <div class="input-group__wrapper">
+              <input data-required="" autocomplete="name" type="text" name="review[name]" data-error="Введите ваше имя" class="input-group__input input" data-placeholder="">
+              <button type="button" data-js="input-clear" class="input-group__clear"></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="popup-review__form-group">
+          <div class="popup-right__input-group input-group">
+            <div class="input-group__label">Как вам товар?</div>
+            <div class="input-group__wrapper">
+              <textarea autocomplete="off" name="review[comment]" placeholder="Общие впечатления" class="input-group__input input"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="popup-review__checkbox checkbox">
+          <label class="checkbox__label checkbox__label_filter input-group">
+            <input data-required="" data-error="Необходимо согласие" class="checkbox__input" type="checkbox" value="1" name="review[personal_data_agree]">
+            <span class="checkbox__text-wrapper">
+              <span class="checkbox__point"></span>
+              <span class="checkbox__text">
+                Согласен с обработкой 
+                <a href="/page/agreement">персональных данных</a>
+              </span>
+            </span>
+          </label>
+        </div>
+          <button type="button" data-popup="#popup-success-review" hidden></button>
+        <div class="popup-right__form-button-wrapper">
+          <button type="button" class="popup-right__form-button btn btn_large btn_primary">
+            Отправить отзыв
+          </button>
+          <div class="popup-right__form-policy">
+            Нажимая на кнопку «Оформить заказ», я принимаю условия
+            <a href="/page/oferta">публичной оферты</a> и
+            <a href="/page/privacy">политики конфиденциальности</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% comment %} Попап успеха отправки отзыва {% endcomment %}
+<div id="popup-success-review" aria-hidden="true" class="popup">
+  <div class="popup__wrapper">
+    <div class="popup__content">
+      <button data-close type="button" class="popup__close"></button>
+      <div class="popup__head">
+        <div class="popup__title">Отзыв отправлен</div>
+        <div class="popup__subtitle popup__subtitle-review">
+          <p>После модерации опубликуем отзыв</p>
+        </div>
+      </div>
+      <button type="button" class="btn btn_large btn_secondary btn-review" data-close>Закрыть</button>
+    </div>
+  </div>
+</div>
+
+{% comment %} Попап просмотра отзывов {% endcomment %}
+{% if product.reviews_count > 0 and account.reviews_enabled? %}
+  <div id="popup-list-review" aria-hidden="true" class="popup popup-right">
+    <div class="popup__wrapper popup-right__wrapper">
+      <div class="popup__content popup-right__content">
+        <div class="popup-right__head popup-review__head">
+            <button type="button" class="popup-review__title">
+              <p>Отзывы</p>
+              <span>{{ product.reviews_count }}</span>
+            </button>
+            <button data-close="" type="button" class="popup-right__close"></button>
+        </div>
+        <div class="popup-review__wrapper">
+          <div class="popup-review__list">
+            {% prefetch product.reviews limit 10 %}
+              {% for review in product.reviews %}
+                <div class="popup-review__item">
+                  <div class="popup-review__item-head">
+                    <div class="popup-review__item-title">{{ review.author }}</div>
+                    <div class="popup-review__item-date">{{ review.created_at | date: "%d.%m.%Y" }}</div>
+                    <div class="article__reviews-item__rating">
+                      {% if review.rating %}
+                          {% for rating in (1..5) %}
+                              {% if rating > review.rating %}
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+                                  <path d="M7.13461 11.4167L3.67628 13.5C3.5235 13.5972 3.36378 13.6389 3.19712 13.625C3.03045 13.6111 2.88462 13.5556 2.75962 13.4583C2.63462 13.3611 2.53739 13.2396 2.46795 13.0937C2.3985 12.9479 2.38462 12.7847 2.42628 12.6042L3.34295 8.66667L0.280449 6.02083C0.14156 5.89583 0.0547543 5.75347 0.0200321 5.59375C-0.0146902 5.43403 -0.0042735 5.27778 0.0512821 5.125C0.106838 4.97222 0.190171 4.84722 0.301282 4.75C0.412393 4.65278 0.565171 4.59028 0.759615 4.5625L4.80128 4.20833L6.36378 0.5C6.43323 0.333333 6.54087 0.208333 6.6867 0.125C6.83253 0.0416667 6.98184 0 7.13461 0C7.28739 0 7.4367 0.0416667 7.58253 0.125C7.72836 0.208333 7.836 0.333333 7.90545 0.5L9.46795 4.20833L13.5096 4.5625C13.7041 4.59028 13.8568 4.65278 13.9679 4.75C14.0791 4.84722 14.1624 4.97222 14.2179 5.125C14.2735 5.27778 14.2839 5.43403 14.2492 5.59375C14.2145 5.75347 14.1277 5.89583 13.9888 6.02083L10.9263 8.66667L11.8429 12.6042C11.8846 12.7847 11.8707 12.9479 11.8013 13.0937C11.7318 13.2396 11.6346 13.3611 11.5096 13.4583C11.3846 13.5556 11.2388 13.6111 11.0721 13.625C10.9054 13.6389 10.7457 13.5972 10.5929 13.5L7.13461 11.4167Z" fill="#D1C3BA"/>
+                                  <script xmlns=""/></svg>
+                              {% else %}
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+                                  <path d="M7.13461 11.4167L3.67628 13.5C3.5235 13.5972 3.36378 13.6389 3.19712 13.625C3.03045 13.6111 2.88462 13.5556 2.75962 13.4583C2.63462 13.3611 2.53739 13.2396 2.46795 13.0937C2.3985 12.9479 2.38462 12.7847 2.42628 12.6042L3.34295 8.66667L0.280449 6.02083C0.14156 5.89583 0.0547543 5.75347 0.0200321 5.59375C-0.0146902 5.43403 -0.0042735 5.27778 0.0512821 5.125C0.106838 4.97222 0.190171 4.84722 0.301282 4.75C0.412393 4.65278 0.565171 4.59028 0.759615 4.5625L4.80128 4.20833L6.36378 0.5C6.43323 0.333333 6.54087 0.208333 6.6867 0.125C6.83253 0.0416667 6.98184 0 7.13461 0C7.28739 0 7.4367 0.0416667 7.58253 0.125C7.72836 0.208333 7.836 0.333333 7.90545 0.5L9.46795 4.20833L13.5096 4.5625C13.7041 4.59028 13.8568 4.65278 13.9679 4.75C14.0791 4.84722 14.1624 4.97222 14.2179 5.125C14.2735 5.27778 14.2839 5.43403 14.2492 5.59375C14.2145 5.75347 14.1277 5.89583 13.9888 6.02083L10.9263 8.66667L11.8429 12.6042C11.8846 12.7847 11.8707 12.9479 11.8013 13.0937C11.7318 13.2396 11.6346 13.3611 11.5096 13.4583C11.3846 13.5556 11.2388 13.6111 11.0721 13.625C10.9054 13.6389 10.7457 13.5972 10.5929 13.5L7.13461 11.4167Z" fill="#975730"/>
+                                  <script xmlns=""/></svg>
+                              {% endif %}
+                          {% endfor %}
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="popup-review__item-text">
+                    {{ review.content | default: 'Без описания' | truncate: 500, '...' }}
+                  </div>
+                </div>
+              {% endfor %}
+            {% endprefetch %}
+            {% if product.reviews_count > 10 %}
+              <div class="popup-review__item">
+                <a href="/page/reviews" type="button" class="btn btn_small btn_secondary">Смотреть все отзывы</a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="popup-review__btns">
+          <button type="button" class="btn btn_small btn_secondary" data-popup="#popup-send-review">Написать отзыв</button>
+          {% comment %} <div class="popup-review__pagin">
+            <div class="pagin__btn" data-pagin-left></div>
+            <div class="pagin__wrapper">
+              <div class="pagin__slider"></div>
+            </div>
+            <div class="pagin__btn" data-pagin-right></div>
+          </div> {% endcomment %}
         </div>
       </div>
     </div>

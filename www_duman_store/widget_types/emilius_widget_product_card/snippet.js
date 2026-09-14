@@ -1939,3 +1939,150 @@ document.addEventListener("DOMContentLoaded", function () {
   //     isIOS: utils.isIOS
   // };
 });
+
+
+/**
+ * [NEW] Отзывы 
+ */
+document.addEventListener("DOMContentLoaded", function () {
+  const $sendReviews = $("#popup-send-review");
+  var client = null, hashSendForm = null;
+
+  const FormMessagee = {
+    _html: (mess) => {
+      return `<div class="form-error" data-form-error>${mess}</div>`;
+    },
+
+    set: ($input, mess) => {
+      const $block = $input.closest(".input-group");
+      const $errors = $block.find("[data-form-error]");
+
+      if ($errors.length) {
+        $errors.text(mess);
+      }
+      else {
+        $block.append(FormMessagee._html(mess));
+      }
+      $block.find(".input-group__wrapper").addClass("_form-error");
+      if ($input) $input.addClass("_form-error");
+      else $block.find(".input").addClass("_form-error");
+    },
+
+    setNote: ($form) => {
+      $form.find("[data-review-error]:first").removeAttr("hidden");
+    },
+
+    remove: ($block) => {
+      $block.find(".input-group__wrapper").removeClass("_form-error");
+      $block.find(".input").removeClass("_form-error");
+      $block.find("[data-form-error]").remove();
+
+      $block.find("[data-review-error]:first").attr("hidden", true);
+      $block.find("[data-review-rating-error]:first").attr("hidden", true);
+    }
+  };
+
+  function clearInput(e) {
+    const wrapper = e.currentTarget.closest(".input-group__wrapper");
+
+    if (wrapper) {
+      wrapper.querySelector("input").value = "";
+      wrapper.classList.remove("_active");
+    }
+  }
+
+  async function sendReview(reviewOption) {
+    if ($('#recaptcha-token').length) {
+      reviewOption['g-recaptcha-response'] = $('#recaptcha-token').val();
+    }
+    else{
+      reviewOption['captcha_solution'] = $('[name="review[captcha_solution]:first"]').val();
+    }
+
+    let response = null;
+    try {
+      response = await ajaxAPI.shop.review(reviewOption, window.location.pathname);
+    }
+    catch (err) {
+      console.warn("[Form.Review] Ошибка отправки отзыва", err);
+    }
+
+    console.log("sendReview", response);
+    if (response?.status === "ok") {
+      localStorage.setItem("em-send-review", MD5(`${Shop.config.getProductId()}-${reviewOption.email}`));
+      FormMessagee.remove($sendReviews);
+      $sendReviews.find(".input").val("");
+      $sendReviews.find("input[name='review[personal_data_agree]']:first").prop("checked", false);
+      $sendReviews.find("input[name='review-rating']:checked").prop("checked", false);
+      $sendReviews.find("button[data-popup='#popup-success-review']:first").trigger("click");
+    }
+    else {
+      $sendReviews.find("[data-review-rating-error]:first").text("Ошибка отправки отзыва").removeAttr("hidden");
+    }
+  }
+
+  async function getClient() {
+    if (client) return client;
+
+    try {
+      const response = await ajaxAPI.shop.client.get();
+      if (!response?.authorized || !response?.id) return;
+
+      client = response;
+      return response;
+    }
+    catch (_) {}
+  }
+
+  async function submitForm() {
+    const client = await getClient();
+    const $name = $sendReviews.find("input[name='review[name]']:first"),
+      $comment = $sendReviews.find("textarea[name='review[comment]']:first"),
+      $checkbox = $sendReviews.find("input[name='review[personal_data_agree]']:first");
+
+    const name = $name.val(),
+      comment = $comment.val(),
+      checkbox = $checkbox.prop("checked"),
+      rating = $sendReviews.find(".popup-review__group-rating:first input:checked:first").val();
+
+    if (!client || !client?.id) {
+      FormMessagee.setNote($sendReviews);
+      return;
+    }
+    if (!hashSendForm) hashSendForm = MD5(`${Shop.config.getProductId()}-${client.email}`);
+    if (localStorage.getItem("em-send-review") === hashSendForm) {
+      $sendReviews.find("[data-review-rating-error]:first").text("Вы недавно отправляли отзыв на данный товар").removeAttr("hidden");
+      return;
+    }
+    if (!rating) {
+      $sendReviews.find("[data-review-rating-error]:first").text("Укажите оценку товару").removeAttr("hidden");
+      return;
+    }
+    $sendReviews.find("[data-review-rating-error]:first").attr("hidden", true);
+    
+    if (!name) {
+      FormMessagee.set($name, "Введите ваше имя");
+      return;
+    }
+
+    if (!comment) {
+      FormMessagee.set($comment, "Заполните отзыв на товар");
+      return;
+    }
+
+    if (!checkbox) {
+      FormMessagee.set($checkbox, "Необходимо согласие");
+      return;
+    }
+
+    sendReview({
+      author: name,
+      email: client.email,
+      content: comment,
+      rating: rating,
+    });
+  }
+
+  $sendReviews.find(".popup-right__form-button:first").on("click", submitForm);
+  $sendReviews.on("click", ".input-group__clear", clearInput);
+});

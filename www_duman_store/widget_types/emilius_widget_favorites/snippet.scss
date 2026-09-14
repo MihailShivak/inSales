@@ -10,6 +10,10 @@
     content: none;
 }
 
+.catalog__filters-group{
+
+}
+
 @media (max-width: 63.99875em) {
     &:not(:last-child) {
         margin-bottom: 4rem;
@@ -21,5 +25,9 @@
 
     .service-message {
         top: 0.75rem;
+    }
+
+    .catalog__filters-group{
+        display: flex;
     }
 }

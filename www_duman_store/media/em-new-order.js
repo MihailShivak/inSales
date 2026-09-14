@@ -319,7 +319,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         const moreDelivery = moreDeliveries[index];
                         const uniqueId = `${delivery.id}_${moreDelivery.tariff_id || index}`;
                         
-                        
                         info.push({
                             id: delivery.id, // оригинальный ID для API
                             uniqueId: uniqueId, // уникальный ID для внутреннего использования
@@ -335,8 +334,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             customer_pickup: false,
                             selected: delivery.selected && index === 0 && !moreDelivery?.errors?.length, // только первый выбран по умолчанию
                             originalDelivery: delivery, // сохраняем оригинальные данные
-                            isError: moreDelivery?.errors?.length > 0,
-                            message: moreDelivery?.errors ? moreDelivery.errors.join(", ") : ""
+                            isError: moreDelivery?.errors?.length > 0 || moreDelivery?.shipment_type === "UNDEFINED_COURIER",
+                            message: moreDelivery?.errors ? moreDelivery.errors.join(", ") : "Доставка недоступна"
                         });
                     }
                 } else {
