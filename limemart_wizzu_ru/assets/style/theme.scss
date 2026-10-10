@@ -18,15 +18,6 @@
 .co-order-state {
     border: none !important;
 }
-// .co-order-state--paid {
-//     background-color: #00c853;
-//     color: #fff;
-// }
-
-// .co-order-state--not_paid {
-//     background-color: #E20900;
-//     color: #fff;
-// }
 
 /* Шапка */
 // Мобильное меню
@@ -50,11 +41,6 @@
     align-items: center;
     height: 55px;
 }
-
-// .tap-bar__actions._btn-back .tap-bar__item:first-child,
-// .tap-bar__actions:not(._btn-back) .tap-bar__btn-back {
-//     display: none;
-// }
 
 .tap-bar__item {
     -webkit-box-flex: 0;
@@ -408,19 +394,21 @@
     font-size: 16px;
 }
 
-// start shop
 .modal__delivery-select {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 15px 0;
+    grid-template-columns: 1fr 1fr; // Две колонки для маленьких плиток
+    gap: 15px;
     margin-bottom: 30px;
-}
 
-.delivery-map {
-    border-radius: 8px;
-    border: 1px solid #8080803d;
-    overflow: hidden;
+    // ПЕРВЫЙ ЭЛЕМЕНТ (текущий магазин) занимает всю ширину
+    > .delivery__select-item:first-child {
+        grid-column: 1 / -1;
+        padding: 11px 10px;
+
+        svg {
+            max-width: 180px; // Увеличенный размер лого для главного магазина
+        }
+    }
 }
 
 .delivery__select-item {
@@ -428,43 +416,65 @@
     flex-direction: column;
     gap: 5px;
     align-items: center;
+    justify-content: center;
     padding: 11px 10px;
     border-radius: 10px;
     border: 1px solid #00000033;
     transition: all 0.35s ease;
-}
+    background: #fff;
 
-.delivery__select-item._active {
-    color: #fff;
-    border-color: #00000000 !important;
-}
+    // Сброс инлайновых стилей SVG для идеального центрирования в маленьких плитках
+    svg {
+        width: 100%;
+        max-width: 140px;
+        height: auto;
+        transform: none !important;
+        padding-top: 0 !important;
+        margin: 0 auto !important;
+    }
 
-.delivery__select-item._active path {
-    fill: #fff;
-}
+    span {
+        font-size: 13px;
+        font-weight: 400;
+        color: #000000;
+        text-align: center;
+        line-height: 1.2;
+        margin-top: 4px;
+    }
 
-.delivery__select-item:hover {
-    border-color: #00000066;
-}
+    // Стили для активного состояния
+    &._active {
+        color: #fff;
+        border-color: #00000000 !important;
 
-.item-orange {
-    grid-column: 2 span;
-}
+        path {
+            fill: #fff;
+        }
+    }
 
-.item-green._active {
-    background-color: #8dd200;
-}
+    &.item-green._active {
+        background-color: #8dd200;
+    }
+    &.item-yellow._active {
+        background-color: #f7b21c;
+    }
+    &.item-orange._active {
+        background-color: #f28107;
+    }
+    &.item-blue._active {
+        background-color: #009ac2;
+    } // Добавлен синий для Бараката
 
-.item-yellow._active {
-    background-color: #f7b21c;
+    &:hover {
+        border-color: #00000066;
+    }
 }
+// ==========================================
 
-.item-orange._active {
-    background-color: #f28107;
-}
-
-.delivery__select-item:hover {
-    border: 1px solid #00000066;
+.delivery-map {
+    border-radius: 8px;
+    border: 1px solid #8080803d;
+    overflow: hidden;
 }
 
 .modal__delivery-message {
@@ -542,7 +552,6 @@
 
     z-index: 1;
 }
-// end shop
 
 .span-semibold {
     font-weight: 600;
@@ -697,9 +706,7 @@
     width: 100%;
     max-width: 570px;
     height: calc(100vh - 160px);
-    // height: fit-content;
     max-height: 715px;
-    // max-height: calc(100vh - 160px);
     padding: 30px;
     margin-top: 20px;
     margin-left: calc((100vw - 1170px) / 2 - var(--layout-side-padding));
@@ -847,8 +854,6 @@
 .products__grid {
     display: -ms-grid;
     display: grid;
-    // -ms-grid-columns: (1fr) [4];
-    // grid-template-columns: repeat(5, 1fr);
     grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     grid-gap: 30px;
 }
@@ -890,13 +895,10 @@
     width: 100%;
     height: 130px;
     margin: 0 auto 10px auto;
-    // padding-bottom: 125.6544502618%;
     overflow: hidden;
 }
 
 .products-item__img img {
-    // background-color: #f4f4f4;
-    // -webkit-mask-image: -webkit-radial-gradient(white, black);
     position: absolute;
     top: 0;
     left: 0;
@@ -906,7 +908,6 @@
     object-fit: scale-down;
     -o-object-position: center;
     object-position: center;
-    // mix-blend-mode: darken;
 }
 
 .products-item__badge {
@@ -979,10 +980,6 @@
 .item__price-step_mini {
     font-size: 14px;
     font-weight: 400;
-}
-
-.img-ratio__inner img {
-    // mix-blend-mode: darken;
 }
 
 .address__message {
@@ -1311,8 +1308,6 @@
         height: auto;
         right: 0;
         bottom: 50px !important;
-        // padding-bottom: 76px !important;
-        // bottom: calc(env(safe-area-inset-bottom, 0px) + 50px);
     }
 
     // Модалка предупреждения
@@ -1462,7 +1457,6 @@
 
     /* Баннеры */
     .collections__body {
-        // justify-content: space-evenly;
         gap: 10px;
     }
 
@@ -1591,16 +1585,22 @@
 
     // shop
     .modal__delivery-select {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; // На мобильных все в 1 колонку
+        gap: 9px;
+        margin-bottom: 20px;
     }
 
     .delivery__select-item {
-        grid-column: 1;
-        gap: 0;
-    }
+        grid-column: 1 !important; // Сбрасываем растягивание первого элемента на мобильных
+        padding: 12px 10px;
 
-    .modal__delivery-map {
-        min-height: 255px;
+        svg {
+            max-width: 160px !important; // Единый размер лого на мобильных
+        }
+
+        span {
+            font-size: 12px;
+        }
     }
 }
 

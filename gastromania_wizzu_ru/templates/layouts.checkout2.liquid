@@ -5,6 +5,8 @@
 >
     <head>
         {% include "head" %}
+        <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+        <meta http-equiv="Pragma" content="no-cache">
         <style>
         [for="client_password"]{
             margin-top: 20px;
@@ -24,13 +26,22 @@
                 <div class="layout">
                     <div class="layout__content">
                         <div class="order__head">
-                         <div class="breadcrumbs">
+                            <div class="breadcrumbs">
                                 <a href="/cart_items" class="btn__bread-back">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
                                     <path d="M11 3.5L6 9L11 14.5" stroke="#797979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                                     </svg>
                                     <span>Назад</span>
                                 </a>
+                                {% comment %} <ul class="breadcrumbs__list">
+                                    <li class="breadcrumbs__item">
+                                        <a href="/" class="breadcrumbs__link">Главная</a>
+                                    </li>
+                                    <li class="breadcrumbs__item">
+                                        <a href="/cart_items" class="breadcrumbs__link">Корзина</a>
+                                    </li>
+                                    <li class="breadcrumbs__item">Оформление заказа</li>
+                                </ul> {% endcomment %}
                             </div>
                             <div class="panel__top">
 								<div class="panel__top-wrapper filter__back-wrapper">
@@ -45,7 +56,7 @@
 							</div>
                             
                         </div>
-                        <div class="checkout-v2-wrapper co-section--checkout_content">
+                        <div class='checkout-v2-wrapper co-section--checkout_content'>
                             <div class='co-section--checkout_order co-section--checkout_order_sided'>
                                 {% comment %} <div class='co-section--checkout_header co-checkout-block--padded'>
                                     <div class="decorated-title-wrapper co-checkout-title">
@@ -64,6 +75,14 @@
                                     <div class="order__total">
                                         <div class="order__total-item _item-bold">
                                             <span>Сумма по товарам</span>
+                                            {% comment %} Отключили
+                                            {% assign itemsPrice = cart.items_price %}
+                                            {% for item in cart.items %}
+                                                {% if item.id == 1823943729 %}
+                                                    {% assign itemsPrice = itemsPrice | minus: 59 %}
+                                                    {% break %}
+                                                {% endif %}
+                                            {% endfor %} {% endcomment %}
                                             <span id="items_price">{{ cart.items_price | money }}</span>
                                         </div>
                                         <div class="order__total-item">
@@ -116,10 +135,6 @@
     {% widgets_assets css_js_lists %}
 
     {% include "styles" %}
-    
-    {% comment %} <!-- Live Script  -->
-    <script src="{{ 'live-script.js' | asset_url }}" charset="utf-8"></script> {% endcomment %}
-
     <link href="{{ 'em_order.css' | asset_url }}" rel="stylesheet" type="text/css"/>
     <script src="{{ 'emilius_modules.js' | asset_url }}" charset="utf-8"></script>
     <script src="{{ 'new_order.js' | asset_url }}" charset="utf-8"></script>

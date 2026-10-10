@@ -1,122 +1,132 @@
 class MapZones {
-    constructor(wrapperMap) {
-        this.mapDOMWrapper = wrapperMap;
-        this.mapDOM = wrapperMap.querySelector("#zone-delivery-map");
+  constructor(wrapperMap) {
+    this.mapDOMWrapper = wrapperMap;
+    this.mapDOM = wrapperMap.querySelector("#zone-delivery-map");
 
-        this.map = null; // Карта ymaps3
-        this.polygonsMap = null;
-        this.markersMap = null;
+    this.map = null; // Карта ymaps3
+    this.polygonsMap = null;
+    this.markersMap = null;
 
-        this._mapReady = false;
+    this._mapReady = false;
 
-                    //         45.713399,
-                    // 43.299634
-        this.MAP_CENTER = [45.694909, 43.317776];
-        this.MAP_ZOOM = 10;
+    //         45.713399,
+    // 43.299634
+    this.MAP_CENTER = [45.694909, 43.317776];
+    this.MAP_ZOOM = 10;
 
-        this.loader = new EM_Module.Loader($(this.mapDOMWrapper));
+    this.loader = new EM_Module.Loader($(this.mapDOMWrapper));
+  }
+
+  async initMap() {
+    if (this._mapReady) return;
+
+    try {
+      await this.initializeMap();
+      console.log("Карта успешно инициализирована");
+    } catch (error) {
+      console.error("Ошибка инициализации карты:", error);
+      this.hide();
     }
+  }
 
-    async initMap() {
-        if (this._mapReady) return;
+  // Инициализация карты Yandex Maps
+  async initializeMap() {
+    try {
+      // Проверяем доступность API
+      if (typeof ymaps3 === "undefined") {
+        throw new Error("Yandex Maps API не загружен");
+      }
 
-        try {
-            await this.initializeMap();
-            console.log('Карта успешно инициализирована');
-        } catch (error) {
-            console.error('Ошибка инициализации карты:', error);
-            this.hide();
-        }
+      // Ждем готовности API
+      await ymaps3.ready;
+
+      const { YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer } = ymaps3;
+
+      this.polygonsMap = new Map();
+      this.markersMap = new Map();
+
+      // Создаем карту
+      this.map = new YMap(this.mapDOM, {
+        location: {
+          center: this.MAP_CENTER,
+          zoom: this.MAP_ZOOM,
+        },
+        showScaleInCopyrights: true,
+      });
+
+      // Добавляем слои карты
+      const schemeLayer = new YMapDefaultSchemeLayer({});
+      const featuresLayer = new YMapDefaultFeaturesLayer({});
+
+      this.map.addChild(schemeLayer);
+      this.map.addChild(featuresLayer);
+
+      this._mapReady = true;
+
+      // Добавляем обработчик готовности карты
+      // map.addListener('load', () => {
+      //     console.log('Карта полностью загружена');
+      // });
+    } catch (error) {
+      console.error("Ошибка при создании карты:", error);
+      this.hide();
+      throw error;
     }
+  }
 
-    // Инициализация карты Yandex Maps
-    async initializeMap() {
-        try {
-            // Проверяем доступность API
-            if (typeof ymaps3 === 'undefined') {
-                throw new Error('Yandex Maps API не загружен');
-            }
+  /**
+   * Нормализует coordinates к массиву колец.
+   * Поддерживает как старый формат (один полигон: массив точек),
+   * так и новый MultiPolygon (массив колец, каждое кольцо — отдельный кусок зоны)
+   */
+  getPolygonRings(coordinates) {
+    const isMulti = Array.isArray(coordinates[0][0]);
+    return isMulti ? coordinates : [coordinates];
+  }
 
-            // Ждем готовности API
-            await ymaps3.ready;
+  // Добавление полигона района (может состоять из нескольких отдельных кусков)
+  addDistrictPolygon(shop) {
+    try {
+      const { YMapFeature } = ymaps3;
 
-            const { YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer } = ymaps3;
-
-            this.polygonsMap = new Map();
-            this.markersMap = new Map();
-
-            // Создаем карту
-            this.map = new YMap(
-                this.mapDOM,
+      const rings = this.getPolygonRings(shop.polygon.coordinates);
+      const features = rings.map(
+        (ring) =>
+          new YMapFeature({
+            geometry: {
+              type: "Polygon",
+              coordinates: [ring],
+            },
+            style: {
+              fill: shop.polygon.properties.fill + "4D", // 30% прозрачность
+              stroke: [
                 {
-                    location: {
-                        center: this.MAP_CENTER,
-                        zoom: this.MAP_ZOOM
-                    },
-                    showScaleInCopyrights: true
-                }
-            );
-
-            // Добавляем слои карты
-            const schemeLayer = new YMapDefaultSchemeLayer({});
-            const featuresLayer = new YMapDefaultFeaturesLayer({});
-
-            this.map.addChild(schemeLayer);
-            this.map.addChild(featuresLayer);
-
-            this._mapReady = true;
-
-            // Добавляем обработчик готовности карты
-            // map.addListener('load', () => {
-            //     console.log('Карта полностью загружена');
-            // });
-
-        } catch (error) {
-            console.error('Ошибка при создании карты:', error);
-            this.hide();
-            throw error;
-        }
-    }
-
-    // Добавление полигона района
-    addDistrictPolygon(shop) {
-        try {
-            const { YMapFeature } = ymaps3;
-
-            // Создаем полигон с правильным форматом координат
-            const polygon = new YMapFeature({
-                geometry: {
-                    type: 'Polygon',
-                    coordinates: [shop.polygon.coordinates]
+                  color: shop.polygon.properties.fill,
+                  width: shop.polygon.properties["stroke-width"] ?? 3,
                 },
-                style: {
-                    fill: shop.polygon.properties.fill + '4D', // 30% прозрачность
-                    stroke: [{
-                        color: shop.polygon.properties.fill,
-                        width: shop.polygon.properties["stroke-width"] ?? 3
-                    }]
-                }
-            });
+              ],
+            },
+          }),
+      );
 
-            // Добавляем полигон на карту
-            this.map.addChild(polygon);
-            this.polygonsMap.set(shop.id, polygon);
-
-        } catch (error) {
-            console.error('Ошибка при добавлении полигона:', error);
-            this.hide();
-        }
+      // Добавляем все куски полигона на карту
+      features.forEach((feature) => this.map.addChild(feature));
+      this.polygonsMap.set(shop.id, features);
+    } catch (error) {
+      console.error("Ошибка при добавлении полигона:", error);
+      this.hide();
     }
+  }
 
-    // Добавление метки центра района
-    addDistrictMarker(shop, isPoint = false) {
-        try {
-            const { YMapMarker } = ymaps3;
+  // Добавление метки центра района
+  addDistrictMarker(shop, isPoint = false) {
+    try {
+      const { YMapMarker } = ymaps3;
 
-            // Создаем HTML элемент для метки
-            const markerElement = document.createElement('div');
-            if (isPoint) {
-                markerElement.style.cssText = `
+      // Создаем HTML элемент для метки
+      const markerElement = document.createElement("div");
+      if (isPoint) {
+        markerElement.style.cssText = `
                     width: 20px;
                     height: 20px;
                     background-color: ${shop.polygon.properties.fill};
@@ -127,11 +137,10 @@ class MapZones {
                     position: relative;
                     z-index: 1000;
                 `;
-            }
-            else {
-                // style="background-color: ${shop.polygon.properties.fill}"
-                markerElement.className = "vitamin-marker";
-                markerElement.innerHTML = `
+      } else {
+        // style="background-color: ${shop.polygon.properties.fill}"
+        markerElement.className = "vitamin-marker";
+        markerElement.innerHTML = `
                     <div class="vitamin-marker__icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="40" viewBox="0 0 26 40" fill="none">
                         <g clip-path="url(#clip0_2010_172)">
@@ -150,130 +159,127 @@ class MapZones {
                         </svg>
                     </div>
                     <div class="vitamin-marker__label">${shop.name}</div>`;
-            }
+      }
 
-            // Создаем метку
-            const marker = new YMapMarker(
-                {
-                    coordinates: shop.polygon.center,
-                    draggable: false
-                },
-                markerElement
-            );
+      // Создаем метку
+      const marker = new YMapMarker(
+        {
+          coordinates: shop.polygon.center,
+          draggable: false,
+        },
+        markerElement,
+      );
 
-            // Добавляем метку на карту
-            this.map.addChild(marker);
-            this.markersMap.set(shop.id, marker);
+      // Добавляем метку на карту
+      this.map.addChild(marker);
+      this.markersMap.set(shop.id, marker);
+    } catch (error) {
+      console.error("Ошибка при добавлении метки:", error);
+      this.hide();
+    }
+  }
 
-        } catch (error) {
-            console.error('Ошибка при добавлении метки:', error);
-            this.hide();
-        }
+  /**
+   * Центрирование карты на районе по ID магазина
+   */
+  centerMapOnDistrict(center) {
+    try {
+      this.map.setLocation({
+        center: center,
+        zoom: this.MAP_ZOOM,
+        duration: 1000,
+      });
+    } catch (error) {
+      console.error("Ошибка при центрировании карты:", error);
+      this.hide();
+    }
+  }
+
+  // Получение геолокации клиента
+  setUserLocation() {
+    if (!("geolocation" in navigator)) {
+      console.warn("Geolocation не поддерживается браузером");
+      return;
     }
 
-    /**
-     * Центрирование карты на районе по ID магазина
-     */
-    centerMapOnDistrict(center) {
-        try {
-            this.map.setLocation({
-                center: center,
-                zoom: this.MAP_ZOOM,
-                duration: 1000
-            });
-
-        } catch (error) {
-            console.error('Ошибка при центрировании карты:', error);
-            this.hide();
-        }
-    }
-
-    // Получение геолокации клиента
-    setUserLocation() {
-        if (!("geolocation" in navigator)) {
-            console.warn("Geolocation не поддерживается браузером")
-            return;
-        }
-
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                this.addDistrictMarker({
-                    polygon: {
-                        properties: {
-                            fill: "#f7b21c"
-                        },
-                        center: [
-                            position.coords.longitude,
-                            position.coords.latitude
-                        ]
-                    }
-                }, true);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.addDistrictMarker({
+          polygon: {
+            properties: {
+              fill: "#f7b21c",
             },
-            (error) => {
-                console.warn('Ошибка получения геолокации:', error);
-            },
-            {
-                enableHighAccuracy: true,  // Высокая точность (GPS)
-                timeout: 10000,             // Ждем 10 сек
-                maximumAge: 0               // Не использовать кэш
-            }
-        );
-    }
+            center: [position.coords.longitude, position.coords.latitude],
+          },
+        });
+      },
+      (error) => {
+        console.warn("Ошибка получения геолокации:", error);
+      },
+      {
+        enableHighAccuracy: true, // Высокая точность (GPS)
+        timeout: 10000, // Ждем 10 сек
+        maximumAge: 0, // Не использовать кэш
+      },
+    );
+  }
 
-    /**
-     * Удаление конкретного полигона и метки по ID магазина
-     */
-    removeDistrictPolygon(shopId) {
-        try {
-            // Удаляем полигон
-            if (this.polygonsMap.has(shopId)) {
-                this.map.removeChild(this.polygonsMap.get(shopId));
-                this.polygonsMap.delete(shopId);
-            }
-
-            // Удаляем метку
-            if (this.markersMap.has(shopId)) {
-                this.map.removeChild(this.markersMap.get(shopId));
-                this.markersMap.delete(shopId);
-            }
-
-        } catch (error) {
-            console.error('[Shops] Ошибка при удалении полигона:', error);
+  /**
+   * Удаление конкретного полигона и метки по ID магазина
+   */
+  removeDistrictPolygon(shopId) {
+    try {
+      // Удаляем полигон (может состоять из нескольких кусков)
+      if (this.polygonsMap.has(shopId)) {
+        for (const feature of this.polygonsMap.get(shopId)) {
+          this.map.removeChild(feature);
         }
+        this.polygonsMap.delete(shopId);
+      }
+
+      // Удаляем метку
+      if (this.markersMap.has(shopId)) {
+        this.map.removeChild(this.markersMap.get(shopId));
+        this.markersMap.delete(shopId);
+      }
+    } catch (error) {
+      console.error("[Shops] Ошибка при удалении полигона:", error);
     }
+  }
 
-    /**
-     * Очистка всех полигонов и маркеров с карты
-     */
-    clearAllPolygons() {
-        try {
-            // Удаляем все полигоны
-            for (const [_, polygon] of this.polygonsMap.entries()) {
-                this.map.removeChild(polygon);
-            }
-
-            // Удаляем все маркеры
-            for (const [_, marker] of this.markersMap.entries()) {
-                this.map.removeChild(marker);
-            }
-
-            this.polygonsMap.clear();
-            this.markersMap.clear();
-
-        } catch (error) {
-            console.error('Ошибка при очистке объектов карты:', error);
-            this.hide();
+  /**
+   * Очистка всех полигонов и маркеров с карты
+   */
+  clearAllPolygons() {
+    try {
+      // Удаляем все полигоны (каждый может состоять из нескольких кусков)
+      for (const [_, features] of this.polygonsMap.entries()) {
+        for (const feature of features) {
+          this.map.removeChild(feature);
         }
-    }
+      }
 
-    show() {
-        this.mapDOMWrapper.removeAttribute("hidden");
+      // Удаляем все маркеры
+      for (const [_, marker] of this.markersMap.entries()) {
+        this.map.removeChild(marker);
+      }
+
+      this.polygonsMap.clear();
+      this.markersMap.clear();
+    } catch (error) {
+      console.error("Ошибка при очистке объектов карты:", error);
+      this.hide();
     }
-    
-    hide() {
-        this.loader.hide();
-        this.mapDOMWrapper.setAttribute("hidden", true);
-    }
+  }
+
+  show() {
+    this.mapDOMWrapper.removeAttribute("hidden");
+  }
+
+  hide() {
+    this.loader.hide();
+    this.mapDOMWrapper.setAttribute("hidden", true);
+  }
 }
 
 /**
@@ -282,504 +288,599 @@ class MapZones {
  * @version 3.0
  * @author Разработано для insales
  */
+
 class DeliveryZoneSelector {
-    constructor($container, options = {}) {
-        this.$container = $container;
-        this.options = {
-            mapCenter: [43.345, 45.678], // Центр Грозного
-            mapZoom: 12,
-            ...options
-        };
+  constructor($container, options = {}) {
+    this.$container = $container;
+    this.options = {
+      mapCenter: [43.345, 45.678], // Центр Грозного
+      mapZoom: 12,
+      ...options,
+    };
 
-        // Ключи для сохранения данных в памяти
-        this.key = {
-            shops: "em_shops",
-            selectShop: "em_select_shop_id",
-            appHide: "app_hide",
-            openPopup: "popup-count"
-        }
+    // Ключи для сохранения данных в памяти
+    this.key = {
+      shops: "em_shops",
+      selectShop: "em_select_shop_id",
+      appHide: "app_hide",
+      openPopup: "popup-count",
+    };
 
-        this.shops = {};
-        this.selectShop = null;
+    this.shops = {};
+    this.selectShop = null;
 
-        this.map = null;
-        // this.isShopSelected = false;
-        this.polygons = [];
-        this._initMap = false;
-        this._isOpen = false;
+    this.map = null;
+    // this.isShopSelected = false;
+    this.polygons = [];
+    this._initMap = false;
+    this._isOpen = false;
 
-        // DOM элементы
-        this.$popupShops = null; // Попап выбора магазина
-        this.$btnRedirect = null;
+    // DOM элементы
+    this.$popupShops = null; // Попап выбора магазина
+    this.$btnRedirect = null;
 
-        // this.demoModal = null;
-        this.deliveryModal = null;
-        this.deliveryModalSuccess = null;
+    // this.demoModal = null;
+    this.deliveryModal = null;
+    this.deliveryModalSuccess = null;
 
-        // this.isOpenarningTime = false;
+    if (this.options.isApp) this.initForApp();
+    else this.init();
+  }
 
-        if (this.options.isApp) this.initForApp();
-        else this.init();
+  /**
+   * Инициализация системы
+   */
+  init() {
+    // if (window.location.pathname !== "/") {
+    //     this.demoModal = new EM_Module.Modal(document.getElementById("popup-warning"));
+    //     this.demoModal.init(undefined, (function() {
+    //         Cookies.set(this, "true");
+    //     }).bind(this.options.demoCookiesKey));
+    // }
+
+    this.$popupShops = this.$container.find("#popup-delivery-shop");
+
+    if (!this.$popupShops.length) {
+      console.warn("[Shops] Попап выбора магазина не найден");
+      return;
     }
 
-    /**
-     * Инициализация системы
-     */
-    init() {
-        // if (window.location.pathname !== "/") {
-        //     this.demoModal = new EM_Module.Modal(document.getElementById("popup-warning"));
-        //     this.demoModal.init(undefined, (function() {
-        //         Cookies.set(this, "true");
-        //     }).bind(this.options.demoCookiesKey));
+    this.deliveryModal = new EM_Module.Modal(this.$popupShops.get(0));
+    this.deliveryModal.init(this.openDeliveryModal.bind(this));
+
+    this.loadShops()
+      .then(() => {
+        this.initDOM();
+        this.initEvents();
+
+        // Открываем модалку при каждом заходе на сайт
+        // if (window.location.pathname === "/") {
+        //   this.deliveryModal.open();
         // }
+      })
+      .catch((error) => {
+        this.printError("Ошибка инициализации системы доставки");
+        console.error("Ошибка инициализации системы доставки:", error);
+        this.$btnRedirect.addClass("btn__disabled-grey");
+      });
+  }
 
-        this.$popupShops = this.$container.find("#popup-delivery-shop");
-
-        if (!this.$popupShops.length) {
-            console.warn("[Shops] Попап выбора магазина не найден");
-            return;
-        }
-        this.deliveryModal = new EM_Module.Modal(this.$popupShops.get(0));
-        this.deliveryModal.init(
-            this.openDeliveryModal.bind(this)
-            // this.closeDeliveryModal.bind(this)
-        );
-
-        this.loadShops()
-            .then(() => {
-                this.initDOM();
-                this.initEvents();
-                // this.checkDemoStatus();
-            })
-            .catch(error => {
-                this.printError("Ошибка инициализации системы доставки");
-                console.error('Ошибка инициализации системы доставки:', error);
-                this.$btnRedirect.addClass("btn__disabled-grey");
-            });
-
-        const count = Number(Cookies.get(this.key.openPopup) ?? "0");
-        if (window.location.pathname === "/" && (isNaN(count) || count < 3)) {
-            Cookies.set(this.key.openPopup, isNaN(count) ? 1 : count + 1);
-            this.deliveryModal.open();
-        }
-    }
-
-    initForApp() {
-        this.loadShops()
-            .then(() => {
-                setTimeout(() => this.openModalWarningTime(), 200);
-            })
-            .catch(error => {
-                console.error('Ошибка инициализации системы доставки:', error);
-            });
-    }
-
-    /**
-     * Инициализация DOM элементов
-     */
-    initDOM() {
-        this.$btnRedirect = this.$popupShops.find("[data-change-store]:first");
-    }
-
-    /**
-     * Привязка событий
-     */
-    initEvents() {
-        this.$popupShops.on("click", "[data-select-shop]", this.clickShop.bind(this));
-
-        // Кнопка "Перейти в магазин"
-        this.$btnRedirect.on("click", this.openNewShop.bind(this));
-
+  initForApp() {
+    this.loadShops()
+      .then(() => {
         setTimeout(() => this.openModalWarningTime(), 200);
+      })
+      .catch((error) => {
+        console.error("Ошибка инициализации системы доставки:", error);
+      });
+  }
+
+  /**
+   * Инициализация DOM элементов
+   */
+  initDOM() {
+    this.$btnRedirect = this.$popupShops.find("[data-change-store]:first");
+  }
+
+  /**
+   * Привязка событий
+   */
+  initEvents() {
+    this.$popupShops.on(
+      "click",
+      "[data-select-shop]",
+      this.clickShop.bind(this),
+    );
+
+    // Кнопка "Перейти в магазин"
+    this.$btnRedirect.on("click", this.openNewShop.bind(this));
+
+    setTimeout(() => this.openModalWarningTime(), 200);
+  }
+
+  /**
+   * Выбор магазина
+   * !! Дописать
+   */
+  clickShop(e) {
+    const selectShopID = Number(
+      e.currentTarget.getAttribute("data-select-shop") ?? "0",
+    );
+
+    // [TEMP] Временные редиректы для магазинов 4 и 5 — удалить после запуска
+    const TEMP_SHOP_REDIRECTS = {
+      4: "https://wizzu.ru/collection/barakat-voda",
+      5: "https://wizzu.ru/collection/fermerskaya-lavka",
+    };
+    // [TEMP] временно: вместо сабдомена магазина уходим в коллекцию
+    if (TEMP_SHOP_REDIRECTS[selectShopID]) {
+      window.location.href = TEMP_SHOP_REDIRECTS[selectShopID];
+      return;
     }
 
-    /**
-     * Выбор магазина
-     * !! Дописать
-     */
-    clickShop(e) {
-        const selectShopID = Number(e.currentTarget.getAttribute("data-select-shop") ?? "0");
-        if (isNaN(selectShopID)) {
-            this.printError("Не удалось загрузить информацию о магазинах");
-            this.$btnRedirect.addClass("btn__disabled-grey");
-            return;
-        }
-
-        const selectShop = this.shops.shops.find(shop => shop.id == selectShopID);
-
-        $(e.currentTarget.parentElement).find("> ._active").removeClass("_active");
-        if (selectShop) {
-            Cookies.set(this.key.openPopup, 4);
-
-            this.selectShopID = selectShopID;
-            this.selectShop = selectShop;
-
-            if (window.innerWidth < 550 && window.innerHeight < 690) {
-                const $block = this.$popupShops.find(".modal__content:first");
-                $block.animate({
-                    scrollTop: $block.get(0).scrollHeight - 200
-                }, 600);
-            }
-
-            e.currentTarget.classList.add("_active");
-
-            this.MapZones.clearAllPolygons();
-            this.MapZones.addDistrictPolygon(selectShop);
-            this.MapZones.addDistrictMarker(selectShop);
-            this.MapZones.centerMapOnDistrict(selectShop.polygon.center);
-
-            this.MapZones.setUserLocation();
-
-            this.$popupShops
-                .find(".modal__map-descript:first")
-                .html("Вы можете увеличивать и двигать карту, чтобы детальнее изучить зону доставки");
-                // .html(`<span>Адрес магазина:</span> ${selectShop.address}`);
-
-            const isCurrentShop = window.location.origin.includes(`https://${selectShop.shop_url}`);
-            this.$btnRedirect
-                .text(isCurrentShop ? "Остаться" : "Перейти в магазин")
-                .removeClass("btn__disabled-grey");
-
-            if (!isCurrentShop && Cart.order.items_count > 0) {
-                this.printError("В вашей корзине уже есть товары. Если вы измените магазин, то все товары из корзины придется собирать заново");
-            }
-            else {
-                this.visibleError();
-            }
-        }
-        else {
-            this.printError("Не удалось загрузить информацию о магазинах");
-            this.$btnRedirect.text("Перейти в магазин").addClass("btn__disabled-grey");
-            this.$popupShops
-                .find(".modal__map-descript:first")
-                .html("<span>Выберите магазин</span>, чтобы увидеть его зону доставки");
-        }
+    if (isNaN(selectShopID)) {
+      this.printError("Не удалось загрузить информацию о магазинах");
+      this.$btnRedirect.addClass("btn__disabled-grey");
+      return;
     }
 
-    /**
-     * Перенаправление в выбранный магазин
-     */
-    openNewShop() {
-        if (this.selectShop && this.selectShop.shop_url) {
-            setTimeout(
-                () => this.redirectToZoneStore(this.selectShop),
-                150
-            );
-        }
-        else {
-           this.printError("Вы не выбрали магазин"); 
-           this.$btnRedirect.addClass("btn__disabled-grey");
-        }
-    }
+    const selectShop = this.shops.shops.find((shop) => shop.id == selectShopID);
 
-    /**
-     * Перенаправление в магазин зоны
-     */
-    redirectToZoneStore(shop) {
-        const shop_url = `https://${shop.shop_url}`;
-        if (window.location.origin.includes(shop_url)) {
-            if (window.location.pathname.includes("/new_order")) {
-                window.location.reload();
-            }
-            else {
-                // $("input[data-popup='#popup-delivery']").val(shop.name);
-                this.deliveryModal.close();
-            }
-        }
-        else if (shop.shop_url) {
-            window.location.href = shop_url;
-        }
-    }
+    $(e.currentTarget.parentElement).find("> ._active").removeClass("_active");
+    if (selectShop) {
+      Cookies.set(this.key.openPopup, 4);
 
-    // Открытие модалки
-    async openDeliveryModal() {
-        this._isOpen = true;
-        if (this._initMap || !this.shops?.shops) {
-            return;
-        }
+      this.selectShopID = selectShopID;
+      this.selectShop = selectShop;
 
-        this._initMap = true;
-        this._isOpen = false;
-
-        this.MapZones = new MapZones(
-            this.$popupShops.find("[data-show-deliveries]:first").get(0)
+      if (window.innerWidth < 550 && window.innerHeight < 690) {
+        const $block = this.$popupShops.find(".modal__content:first");
+        $block.animate(
+          {
+            scrollTop: $block.get(0).scrollHeight - 200,
+          },
+          600,
         );
-        await this.MapZones.initMap();
+      }
 
-        if (this.selectShop) {
-            this.MapZones.addDistrictMarker(this.selectShop);
-            this.MapZones.addDistrictPolygon(this.selectShop);
-            this.MapZones.centerMapOnDistrict(this.selectShop.polygon.center);
-        }
-        else {
-            for (const shop of this.shops.shops) {
-                this.MapZones.addDistrictPolygon(shop);
-                this.MapZones.centerMapOnDistrict(this.MapZones.MAP_CENTER);
-            }
-        }
-        const $btns = this.$popupShops.find(".modal__delivery-select:first");
-        for (const shop of this.shops.shops) {
-            if (!shop.opening) continue;
-            $btns.find(`[data-select-shop="${shop.id}"]:first span`).text(shop.opening);
-        }
-        this.MapZones.setUserLocation();
+      e.currentTarget.classList.add("_active");
+
+      this.MapZones.clearAllPolygons();
+      this.MapZones.addDistrictPolygon(selectShop);
+      this.MapZones.addDistrictMarker(selectShop);
+      this.MapZones.centerMapOnDistrict(selectShop.polygon.center);
+
+      this.MapZones.setUserLocation();
+
+      this.$popupShops
+        .find(".modal__map-descript:first")
+        .html(
+          "Вы можете увеличивать и двигать карту, чтобы детальнее изучить зону доставки",
+        );
+      // .html(`<span>Адрес магазина:</span> ${selectShop.address}`);
+
+      const isCurrentShop = window.location.origin.includes(
+        `https://${selectShop.shop_url}`,
+      );
+      this.$btnRedirect
+        .text(isCurrentShop ? "Остаться" : "Перейти в магазин")
+        .removeClass("btn__disabled-grey");
+
+      if (!isCurrentShop && Cart.order.items_count > 0) {
+        this.printError(
+          "В вашей корзине уже есть товары. Если вы измените магазин, то все товары из корзины придется собирать заново",
+        );
+      } else {
+        this.visibleError();
+      }
+    } else {
+      this.printError("Не удалось загрузить информацию о магазинах");
+      this.$btnRedirect
+        .text("Перейти в магазин")
+        .addClass("btn__disabled-grey");
+      this.$popupShops
+        .find(".modal__map-descript:first")
+        .html("<span>Выберите магазин</span>, чтобы увидеть его зону доставки");
+    }
+  }
+
+  /**
+   * Перенаправление в выбранный магазин
+   */
+  openNewShop() {
+    if (this.selectShop && this.selectShop.shop_url) {
+      setTimeout(() => this.redirectToZoneStore(this.selectShop), 150);
+    } else {
+      this.printError("Вы не выбрали магазин");
+      this.$btnRedirect.addClass("btn__disabled-grey");
+    }
+  }
+
+  /**
+   * Перенаправление в магазин зоны
+   */
+  redirectToZoneStore(shop) {
+    const shop_url = `https://${shop.shop_url}`;
+    if (window.location.origin.includes(shop_url)) {
+      if (window.location.pathname.includes("/new_order")) {
+        window.location.reload();
+      } else {
+        // $("input[data-popup='#popup-delivery']").val(shop.name);
+        this.deliveryModal.close();
+      }
+    } else if (shop.shop_url) {
+      window.location.href = shop_url;
+    }
+  }
+
+  // Открытие модалки
+  async openDeliveryModal() {
+    this._isOpen = true;
+    if (this._initMap || !this.shops?.shops) {
+      return;
     }
 
-    closeDeliveryModal() {
-        Cookies.set(this.key.openPopup, 4);
+    this._initMap = true;
+    this._isOpen = false;
+
+    this.MapZones = new MapZones(
+      this.$popupShops.find("[data-show-deliveries]:first").get(0),
+    );
+    await this.MapZones.initMap();
+
+    if (this.selectShop) {
+      this.MapZones.addDistrictMarker(this.selectShop);
+      this.MapZones.addDistrictPolygon(this.selectShop);
+      this.MapZones.centerMapOnDistrict(this.selectShop.polygon.center);
+    } else {
+      for (const key in this.shops.shops) {
+        this.MapZones.addDistrictPolygon(this.shops.shops[key]);
+        this.MapZones.centerMapOnDistrict(this.MapZones.MAP_CENTER);
+      }
+    }
+    const $btns = this.$popupShops.find(".modal__delivery-select:first");
+    for (const shop of this.shops.shops) {
+      if (!shop.opening) continue;
+      $btns
+        .find(`[data-select-shop="${shop.id}"]:first span`)
+        .text(shop.opening);
+    }
+    this.MapZones.setUserLocation();
+  }
+
+  closeDeliveryModal() {
+    Cookies.set(this.key.openPopup, 4);
+  }
+
+  /**
+   * Приводит новую схему /webapp (shop.features: GeoJSON Feature[])
+   * к внутреннему формату shop.polygon.{coordinates,properties,center},
+   * который уже понимают addDistrictPolygon/addDistrictMarker/centerMapOnDistrict
+   */
+  normalizeShopFeatures(shop) {
+    if (!Array.isArray(shop.features)) return shop;
+
+    const polygonFeatures = shop.features.filter(
+      (f) => f.geometry.type === "Polygon",
+    );
+    const pointFeature = shop.features.find((f) => f.geometry.type === "Point");
+
+    shop.polygon = {
+      coordinates: polygonFeatures.map((f) => f.geometry.coordinates[0]),
+      properties: polygonFeatures[0]?.properties ?? {},
+      center: pointFeature ? pointFeature.geometry.coordinates : undefined,
+    };
+
+    return shop;
+  }
+
+  /**
+   * Загрузка данных о зонах доставки
+   */
+  async loadShops() {
+    if (this.getSaveShops()) {
+      if (this._isOpen) this.openDeliveryModal();
+      return;
+    }
+    try {
+      const response = await fetch(this.options.zonesDataUrl);
+      const data = await response.json();
+
+      data.shops = data.shops.map((shop) => this.normalizeShopFeatures(shop));
+      this.shops = data;
+      this.saveShops();
+      if (this._isOpen) this.openDeliveryModal();
+      // this.popularZones = data.popular_zones || [];
+    } catch (error) {
+      console.error("[DeliveryZone] Ошибка загрузки зон доставки:", error);
+      // ! Дописать вывод ошибок
+    }
+  }
+
+  // [Edits] Перенос
+  isTimeInRange(start, end) {
+    if (!start || !end) return false;
+
+    const now = new Date();
+
+    // // CLOSED TIME FOR TESTING
+    // now.setHours(0, 0, 0, 0); // Устанавливаем время на 00:00 для тестирования
+
+    const currentTotalMinutes = now.getHours() * 60 + now.getMinutes();
+
+    const [startHour, startMin] = start.split(":").map(Number);
+    const [endHour, endMin] = end.split(":").map(Number);
+
+    const startTotalMinutes = startHour * 60 + startMin;
+    const endTotalMinutes = endHour * 60 + endMin;
+
+    return (
+      currentTotalMinutes >= startTotalMinutes &&
+      currentTotalMinutes <= endTotalMinutes
+    );
+  }
+
+  // Проверить сколько прошло с прошлого открытия попапа "Доставка уже не работает"
+  checkAndUpdateLastVisit(valueStorage, isSetTime, keyStorage) {
+    const HALF_DAY_MS = 60 * 60 * 1000; // 1 час
+    const now = Date.now();
+
+    if (!valueStorage || valueStorage === "false") {
+      if (isSetTime) localStorage.setItem(keyStorage, String(now));
+      return true;
     }
 
-    /**
-     * Загрузка данных о зонах доставки
-     */
-    async loadShops() {
-        if (this.getSaveShops()) {
-            if (this._isOpen) this.openDeliveryModal();
-            return;
-        }
-        try {
-            const response = await fetch(this.options.zonesDataUrl);
-            const data = await response.json();
+    const lastTime = Number(valueStorage);
 
-            this.shops = data;
-            this.saveShops();
-            if (this._isOpen) this.openDeliveryModal();
-            // this.popularZones = data.popular_zones || [];
-        } 
-        catch (error) {
-            console.error('[DeliveryZone] Ошибка загрузки зон доставки:', error);
-            // ! Дописать вывод ошибок
-        }
+    if (isNaN(lastTime) || now - lastTime >= HALF_DAY_MS) {
+      // прошло больше пол суток
+      if (isSetTime) localStorage.setItem(keyStorage, String(now));
+      return true;
     }
 
-    isTimeInRange(start, end) {
-        if (!start || !end) return false;
+    // меньше пол суток
+    return false;
+  }
 
-        const now = new Date();
-        const currentTotalMinutes = now.getHours() * 60 + now.getMinutes();
+  // вывод попапа предупреждения, что магазин закрыт
+  openModalWarningTime() {
+    const lastVisitTime = localStorage.getItem("lastVisitTime");
 
-        const [startHour, startMin] = start.split(':').map(Number);
-        const [endHour, endMin] = end.split(':').map(Number);
+    // Находим текущий магазин
+    const currentShop = this.shops.shops.find((shop) => {
+      const shopUrl = (shop.shop_url || "").trim();
+      return (
+        window.location.host === shopUrl ||
+        window.location.host.includes(shopUrl)
+      );
+    });
 
-        const startTotalMinutes = startHour * 60 + startMin;
-        const endTotalMinutes = endHour * 60 + endMin;
-        
-        return currentTotalMinutes >= startTotalMinutes && currentTotalMinutes <= endTotalMinutes;
+    if (!currentShop) {
+      this.openModalCustomWarning();
+      return;
     }
 
-    // Проверить сколько прошло с прошлого открытия попапа "Доставка уже не работает"
-    checkAndUpdateLastVisit(valueStorage, isSetTime, keyStorage) {
-        const HALF_DAY_MS = 60 * 60 * 1000; // 1 час
-        const now = Date.now();
+    // Получаем статус и время работы
+    const shopStatus = (currentShop.status || "").trim();
+    const openingStr = (currentShop.opening || "").trim();
 
-        if (!valueStorage || valueStorage === "false") {
-            if (isSetTime) localStorage.setItem(keyStorage, String(now));
-            return true;
-        }
+    // Разделяем время
+    const shopOpening = openingStr.split(/[—\-–]/).map((time) => time.trim());
 
-        const lastTime = Number(valueStorage);
-
-        if (isNaN(lastTime) || (now - lastTime) >= HALF_DAY_MS) {
-            // прошло больше пол суток
-            if (isSetTime) localStorage.setItem(keyStorage, String(now));
-            return true;
-        }
-
-        // меньше пол суток
-        return false;
+    // Проверяем условия
+    if (
+      !shopOpening ||
+      shopOpening.length < 2 ||
+      shopStatus !== "available" || // ИСПРАВЛЕНО: проверяем статус самого магазина
+      this.isTimeInRange(shopOpening[0], shopOpening[1]) // Если время входит в диапазон (магазин открыт)
+    ) {
+      if (lastVisitTime !== "false") {
+        localStorage.setItem("lastVisitTime", "false");
+      }
+      this.openModalCustomWarning();
+      return;
     }
 
-    // вывод попапа предупреждения, что магазин закрыт
-    openModalWarningTime() {
-        const lastVisitTime = localStorage.getItem("lastVisitTime");
-        const shopOpening = this.shops.shops.find(
-            shop => window.location.host === shop.shop_url
-        )?.opening?.split("—");
-        
-        if (
-            !shopOpening || shopOpening.length != 2
-            || shopOpening.status !== "available"
-            || this.isTimeInRange(
-                shopOpening[0].replaceAll(" ", ""),
-                shopOpening[1].replaceAll(" ", "")
-            )
-
-        ) {
-            if (lastVisitTime !== "false") {
-                localStorage.setItem("lastVisitTime", "false");
-            }
-            this.openModalCustomWarning();
-            return; 
-        }
-
-        if (!this.checkAndUpdateLastVisit(lastVisitTime, false, "lastVisitTime")) {
-            this.openModalCustomWarning();
-            return;
-        }
-        
-        const warningModal = new EM_Module.Modal( document.getElementById("popup-warning-time") );
-
-        warningModal.init(undefined, () => {
-            this.checkAndUpdateLastVisit(lastVisitTime, true, "lastVisitTime");
-        });
-
-        const modalTextSpan = warningModal.modal.querySelector(".modal__text span");
-        if (modalTextSpan) {
-            modalTextSpan.innerText = shopOpening[0] ?? "10:00";
-        }
-        warningModal.open();
-        this.openModalApp();
+    // магазин ЗАКРЫТ
+    if (!this.checkAndUpdateLastVisit(lastVisitTime, false, "lastVisitTime")) {
+      this.openModalCustomWarning();
+      return;
     }
 
-    openModalCustomWarning() {
-        const popup = document.getElementById("popup-message-warning");
-        if (!popup) {
-            this.openModalApp();
-            return;
-        }
+    const warningModal = new EM_Module.Modal(
+      document.getElementById("popup-warning-time"),
+    );
+    warningModal.init(undefined, () => {
+      this.checkAndUpdateLastVisit(lastVisitTime, true, "lastVisitTime");
+    });
 
-        const lastVisitTimeWarning = localStorage.getItem("lastVisitTimeWarning");
+    const modalTextSpan = warningModal.modal.querySelector(".modal__text span");
+    if (modalTextSpan) {
+      modalTextSpan.innerText = shopOpening[0] ?? "10:00";
+    }
+    warningModal.open();
+    this.openModalApp();
+  }
 
-        if (!this.checkAndUpdateLastVisit(lastVisitTimeWarning, false, "lastVisitTimeWarning")) {
-            this.openModalApp();
-            return;
-        }
-        
-        const warningModal = new EM_Module.Modal(popup);
+  openModalCustomWarning() {
+    const popup = document.getElementById("popup-message-warning");
+    const shop = window.ShopContext ? window.ShopContext.get() : null;
 
-        warningModal.init(undefined, () => {
-            this.checkAndUpdateLastVisit(lastVisitTimeWarning, true, "lastVisitTimeWarning");
-        });
-        warningModal.open();
+    // Если магазин не определён, модалку не показываем
+    if (!popup || !shop) {
+      this.openModalApp();
+      return;
     }
 
-    openModalApp() {
-        if (
-            window.location.pathname === "/"  && 
-            Cookies.get("show_modal_notice_app") !== "true" &&
-            Cookies.get("app_hide") !== "true" && 
-            (new URLSearchParams(window.location.search)).get("app") !== "true"
-        ) {
-            setTimeout(() => {
-                const noticeModal = new EM_Module.Modal(document.getElementById("popup-notice-app"));
-        
-                noticeModal.init(undefined, (function() {
-                    Cookies.set(this, "true");
-                }).bind("show_modal_notice_app"));
-                noticeModal.open();
-            }, 150);
-        }
+    // Применяем title/desc перед открытием
+    if (window.ShopContext) {
+      window.ShopContext.applyModal(popup, shop);
     }
 
-    /**
-     * Сохранения в пямяти данных
-     * @param {String} type Тип данных для сохранения: all - все, select - ID выбранного магазина, shops - магазины
-     * @returns {Boolean} Успех выполнения операции
-     */
-    saveShops(type="all") {
-        try {
-            if (type == "select" || type == "all") {
-                localStorage.setItem(this.key.selectShop, this.selectShopID);
-            }
-            if (type == "shops" || type == "all") {
-                localStorage.setItem(
-                    this.key.shops, 
-                    JSON.stringify({
-                        shops: this.shops,
-                        timestamp: Date.now()
-                    })
-                );
-            }
-            return true;
-        }
-        catch (err) {
-            console.warn("[Shops] Ошибка сохранения данный в памяти:", err);
-            return false;
-        }
+    const lastVisitTimeWarning = localStorage.getItem("lastVisitTimeWarning");
+
+    if (
+      !this.checkAndUpdateLastVisit(
+        lastVisitTimeWarning,
+        false,
+        "lastVisitTimeWarning",
+      )
+    ) {
+      this.openModalApp();
+      return;
     }
 
-    /**
-     * Получить данные из памяти
-     */
-    getSaveShops() {
-        const sixHourMs = 1000 * 60 * 60 * 6; // 6 часов
-        let isSuccess = false;
+    const warningModal = new EM_Module.Modal(popup);
 
-        try {
-            const shops = localStorage.getItem(this.key.shops);
-            const selectShopID = Number(localStorage.getItem(this.key.selectShop) ?? "");
+    warningModal.init(undefined, () => {
+      this.checkAndUpdateLastVisit(
+        lastVisitTimeWarning,
+        true,
+        "lastVisitTimeWarning",
+      );
+    });
+    warningModal.open();
+  }
 
-            const shopsJSON = shops ? JSON.parse(shops) : null;
+  openModalApp() {
+    if (
+      window.location.pathname === "/" &&
+      Cookies.get("show_modal_notice_app") !== "true" &&
+      Cookies.get("app_hide") !== "true" &&
+      new URLSearchParams(window.location.search).get("app") !== "true"
+    ) {
+      setTimeout(() => {
+        const noticeModal = new EM_Module.Modal(
+          document.getElementById("popup-notice-app"),
+        );
 
-            if (!shopsJSON?.timestamp || Date.now() - shopsJSON.timestamp > sixHourMs) return false;
-            if (shopsJSON) {
-                this.shops = shopsJSON.shops;
-                isSuccess = true;
-            }
-            if (selectShopID && !isNaN(selectShopID)) {
-                this.selectShopID = selectShopID;
-                this.selectShop = shopsJSON.shops.shops.find(shop => shop.id == selectShopID);
-            }
-        }
-        catch (err) {
-            console.warn("[Shops] Ошибка сохранения данный в памяти:", err);
-        }
-        return isSuccess;
+        noticeModal.init(
+          undefined,
+          function () {
+            Cookies.set(this, "true");
+          }.bind("show_modal_notice_app"),
+        );
+        noticeModal.open();
+      }, 150);
     }
+  }
 
-    printError(message) {
-        this.$popupShops.find(".message__delivery-error:first")
-            .text(message)
-            .removeAttr("hidden");
+  /**
+   * Сохранения в пямяти данных
+   * @param {String} type Тип данных для сохранения: all - все, select - ID выбранного магазина, shops - магазины
+   * @returns {Boolean} Успех выполнения операции
+   */
+  saveShops(type = "all") {
+    try {
+      if (type == "select" || type == "all") {
+        localStorage.setItem(this.key.selectShop, this.selectShopID);
+      }
+      if (type == "shops" || type == "all") {
+        localStorage.setItem(
+          this.key.shops,
+          JSON.stringify({
+            shops: this.shops,
+            timestamp: Date.now(),
+          }),
+        );
+      }
+      return true;
+    } catch (err) {
+      console.warn("[Shops] Ошибка сохранения данный в памяти:", err);
+      return false;
     }
+  }
 
-    // Скрыть / показать сообщение об ошибке
-    visibleError(isHidden=true) {
-        this.$popupShops.find(".message__delivery-error:first").attr("hidden", isHidden);
-    }
-}
-
-(function() {
-    const $delivery = $widget;
-    var count = 0;
-
-    // reCaptchaCommon.render(document.querySelector('#recaptchaBlock'), 'feedback');
-
-    function pushEventReady() {
-        if (typeof EventBus === 'undefined') {
-            count++;
-            if (count < 20) setTimeout(pushEventReady, 250);
-            else console.warn("[Map] Ошибка инициализации карты: превышено время ожидания");
-        }
-        else {
-            let isApp;
-            try {
-                isApp = Cookies.get("app_hide") === "true" || (new URLSearchParams(window.location.search)).get("app") === "true";
-            }
-            catch (_) {
-                isApp = true;
-            }
-
-            new DeliveryZoneSelector($delivery, {
-                mapCenter: [43.345, 45.678],                                    // Центр карты
-                mapZoom: 12,                                                    // Масштаб
-                zonesDataUrl: 'https://api.wizzu.ru/api/get/shop',              // Путь к данным
-                isApp: isApp
-            });
-        }
-    }
+  /**
+   * Получить данные из памяти
+   */
+  getSaveShops() {
+    const sixHourMs = 1000 * 60 * 60 * 6; // 6 часов
+    let isSuccess = false;
 
     try {
-        if (document.readyState === 'loading') {
-            document.addEventListener("DOMContentLoaded", pushEventReady);
-        }
-        else {
-            pushEventReady();
-        }
+      const shops = localStorage.getItem(this.key.shops);
+      const selectShopID = Number(
+        localStorage.getItem(this.key.selectShop) ?? "",
+      );
 
-        console.log("[Map] start...");
+      const shopsJSON = shops ? JSON.parse(shops) : null;
+
+      if (!shopsJSON?.timestamp || Date.now() - shopsJSON.timestamp > sixHourMs)
+        return false;
+      if (shopsJSON) {
+        this.shops = shopsJSON.shops;
+        isSuccess = true;
+      }
+      if (selectShopID && !isNaN(selectShopID)) {
+        this.selectShopID = selectShopID;
+        this.selectShop = shopsJSON.shops.shops.find(
+          (shop) => shop.id == selectShopID,
+        );
+      }
+    } catch (err) {
+      console.warn("[Shops] Ошибка сохранения данный в памяти:", err);
     }
-    catch (err) {
-        console.warn("[Map] Ошибка инициализации карты", err);
+    return isSuccess;
+  }
+
+  printError(message) {
+    this.$popupShops
+      .find(".message__delivery-error:first")
+      .text(message)
+      .removeAttr("hidden");
+  }
+
+  // Скрыть / показать сообщение об ошибке
+  visibleError(isHidden = true) {
+    this.$popupShops
+      .find(".message__delivery-error:first")
+      .attr("hidden", isHidden);
+  }
+}
+
+(function () {
+  const $delivery = $widget;
+  var count = 0;
+
+  // reCaptchaCommon.render(document.querySelector('#recaptchaBlock'), 'feedback');
+
+  function pushEventReady() {
+    if (typeof EventBus === "undefined") {
+      count++;
+      if (count < 20) setTimeout(pushEventReady, 250);
+      else
+        console.warn(
+          "[Map] Ошибка инициализации карты: превышено время ожидания",
+        );
+    } else {
+      let isApp;
+      try {
+        isApp =
+          Cookies.get("app_hide") === "true" ||
+          new URLSearchParams(window.location.search).get("app") === "true";
+      } catch (_) {
+        isApp = true;
+      }
+
+      new DeliveryZoneSelector($delivery, {
+        mapCenter: [43.345, 45.678], // Центр карты
+        mapZoom: 12, // Масштаб
+        zonesDataUrl: "https://api.wizzu.ru/api/get/shop/webapp", // Путь к данным
+        isApp: isApp,
+      });
     }
+  }
+
+  try {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", pushEventReady);
+    } else {
+      pushEventReady();
+    }
+
+    console.log("[Map] start...");
+  } catch (err) {
+    console.warn("[Map] Ошибка инициализации карты", err);
+  }
 })();

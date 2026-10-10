@@ -59,26 +59,52 @@
     <div class="account__info-date">{{ order.created_at | date: '%d.%m.%Y %H:%M' }}</div>
     <a href="#" target="_blank" class="account__info-push__mobile" data-em-order-inform>Задать вопрос</a>
   </div>
+  {% comment %}
+    {% if order.payment_needed? %}
+      <div class="account__info-wrapper">
+        {% if open_in_window? %}
+          <a class="btn__payment btn btn_small" target="_blank" rel="noopener noreferrer" href="{{ order.pay_url }}"
+            >\
+            {% if order.paid_with_bank_bill? %}
+              Совершить оплату онлайн (распечатать квитанцию)
+            {% else %}
+              Совершить оплату онлайн
+            {% endif %}
+          </a>
+        {% else %}
+          <a class="btn__payment btn btn_small" href="{{ order.pay_url }}">
+            {% if order.paid_with_bank_bill? %}
+              Совершить оплату онлайн (распечатать квитанцию)
+            {% else %}
+              Совершить оплату онлайн
+            {% endif %}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endcomment %}
   {% if order.payment_needed? %}
     <div class="account__info-wrapper">
-      {% if open_in_window? %}
-        <a class="btn__payment btn btn_small" target="_blank" rel="noopener noreferrer" href="{{ order.pay_url }}"
-          >\
-          {% if order.paid_with_bank_bill? %}
-            Совершить оплату онлайн (распечатать квитанцию)
-          {% else %}
-            Совершить оплату онлайн
-          {% endif %}
+      <button
+        type="button"
+        class="btn__payment btn btn_small"
+        data-pay-wa
+        data-order-number="{{ order.number }}"
+      >
+        Совершить оплату
+      </button>
+
+      <details class="pay-url-details">
+        <summary>Ссылка на оплату</summary>
+        <a
+          href="{{ order.pay_url }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="pay-url-details__link"
+        >
+          {{- order.pay_url -}}
         </a>
-      {% else %}
-        <a class="btn__payment btn btn_small" href="{{ order.pay_url }}">
-          {% if order.paid_with_bank_bill? %}
-            Совершить оплату онлайн (распечатать квитанцию)
-          {% else %}
-            Совершить оплату онлайн
-          {% endif %}
-        </a>
-      {% endif %}
+      </details>
     </div>
   {% endif %}
   {% comment %}
@@ -200,6 +226,16 @@
 <!-- Модалка подтверждения заказа в WhatsApp -->
 <div class="modal popup-warning popup_hide" id="popup-order-confirm">
   <div class="modal__content modal__content_order_confirm">
+    <button
+      type="button"
+      class="modal__close-btn modal__close-btn_order_confirm"
+      aria-label="Закрыть"
+      data-close-popup="popup-order-confirm"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M6 6L18 18M6 18L18 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
     <div class="modal__title modal__title_order_confirm">Осталось подтвердить свой заказ ✍️</div>
     <div class="modal__text modal__text_order_confirm">
       Чтобы мы приняли в работу ваш заказ, подтвердите его в WhatsApp, нажав кнопку ниже
@@ -247,6 +283,15 @@
   (function initOrderConfirmPopup() {
     const WA_PHONE = '79659605060';
 
+    function openWhatsApp(waUrl) {
+      const isApp = document.documentElement.classList.contains('is-app');
+      if (isApp) {
+        window.location.href = waUrl;
+      } else {
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
+      }
+    }
+
     function getOrderNumber() {
       const title = document.querySelector('.orders__title');
       if (title && title.dataset.orderNumber) return title.dataset.orderNumber;
@@ -279,6 +324,36 @@
       window._orderConfirmModal.open();
     }
 
+    document.addEventListener('click', function (e) {
+      const closeEl = e.target.closest('#popup-order-confirm [data-close-popup]');
+      if (!closeEl) return;
+
+      if (closeEl.hasAttribute('data-confirm-order-wa')) return;
+
+      e.preventDefault();
+      if (window._orderConfirmModal && typeof window._orderConfirmModal.close === 'function') {
+        window._orderConfirmModal.close();
+      } else {
+        document.getElementById('popup-order-confirm').classList.add('popup_hide');
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      const payBtn = e.target.closest('[data-pay-wa]');
+      if (!payBtn) return;
+      e.preventDefault();
+
+      const orderNumber = payBtn.dataset.orderNumber || getOrderNumber();
+      if (!orderNumber) {
+        console.warn('[OrderConfirm] Не удалось определить номер заказа');
+        return;
+      }
+
+      const text = 'Здравствуйте! Хочу оплатить заказ #' + orderNumber + '. Пришлите, пожалуйста, ссылку на оплату.';
+      const waUrl = 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text);
+      openWhatsApp(waUrl);
+    });
+
     // Обработчики кликов
     document.addEventListener('click', function (e) {
       const informBtn = e.target.closest('[data-em-order-inform]');
@@ -291,18 +366,14 @@
       const confirmBtn = e.target.closest('[data-confirm-order-wa]');
       if (confirmBtn) {
         const orderNumber = getOrderNumber();
-        if (!orderNumber) {
-          console.warn('[OrderConfirm] Не удалось определить номер заказа');
-          return;
-        }
+        if (!orderNumber) return;
 
-        // Помечаем заказ как подтверждённый
         markOrderConfirmed(orderNumber);
 
         const text =
           'Подтверждаю свой заказ #' + orderNumber + ' и соглашаюсь получать уведомления об изменениях статуса заказа';
         const waUrl = 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text);
-        window.location.href = waUrl;
+        openWhatsApp(waUrl);
       }
     });
 
@@ -384,5 +455,69 @@
   .is-app .btn_order_confirm {
     max-width: 400px;
     width: 100%;
+  }
+
+  .modal__close-btn_order_confirm {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    color: #181818;
+    opacity: 0.6;
+    transition: opacity 0.2s, background-color 0.2s;
+    z-index: 2;
+  }
+
+  .modal__close-btn_order_confirm:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .modal__content_order_confirm {
+    position: relative;
+  }
+
+  .is-app .modal__close-btn_order_confirm {
+    top: 24px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .pay-url-details {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #999;
+  }
+
+  .pay-url-details summary {
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    color: #797979;
+  }
+
+  .pay-url-details summary:hover {
+    color: #181818;
+  }
+
+  .pay-url-details__link {
+    display: inline-block;
+    margin-top: 6px;
+    color: #797979;
+    word-break: break-all;
+    text-decoration: underline;
+  }
+
+  .pay-url-details__link:hover {
+    color: #181818;
   }
 </style>
