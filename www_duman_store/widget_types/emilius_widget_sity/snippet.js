@@ -621,7 +621,7 @@ $(document).ready(() => {
 
       if($domainCitySelect.prop("disabled")) return;
 
-      if ($customSelect.length && $customSelect.hasClass(_disabled)) return;
+      if ($customSelect.length && $customSelect.hasClass("_disabled")) return;
     }
 
     const wrappers = getPopupFieldWrappers();

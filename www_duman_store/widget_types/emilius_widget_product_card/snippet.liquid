@@ -425,7 +425,21 @@
             <path d="M8.00016 1.33325C4.32426 1.33325 1.3335 4.32402 1.3335 7.99992C1.3335 9.09169 1.62107 10.1115 2.0874 11.0214L1.36475 13.6093C1.19643 14.2104 1.7908 14.8041 2.39209 14.636L4.98128 13.9133C5.89051 14.379 6.90915 14.6666 8.00016 14.6666C11.6761 14.6666 14.6668 11.6758 14.6668 7.99992C14.6668 4.32402 11.6761 1.33325 8.00016 1.33325ZM8.00016 2.33325C11.1356 2.33325 13.6668 4.86449 13.6668 7.99992C13.6668 11.1353 11.1356 13.6666 8.00016 13.6666C6.99917 13.6666 6.06425 13.406 5.24821 12.9511C5.13299 12.8868 4.99703 12.8707 4.86995 12.9062L2.40771 13.5937L3.09521 11.1327C3.13073 11.0057 3.11458 10.8697 3.05029 10.7545C2.59471 9.93774 2.3335 9.00142 2.3335 7.99992C2.3335 4.86449 4.86473 2.33325 8.00016 2.33325Z" fill="#514B47"/>
             </svg>
             {% if account.reviews_enabled? and product.reviews_count > 0 %}
-              <button type="button" data-popup="#popup-list-review">{{ product.reviews_count }} отзыва </button>
+              {% assign lastDigit = product.reviews_count | modulo: 10 %}
+              {% assign lastTwoDigits = product.reviews_count | modulo: 100 %}
+
+              <button type="button" data-popup="#popup-list-review">
+                {{ product.reviews_count }}
+                {%- if lastTwoDigits >= 11 and lastTwoDigits <= 19 -%}
+                  отзывов
+                {%- elsif lastDigit == 1 -%}
+                    отзыв
+                {%- elsif lastDigit >= 2 and lastDigit <= 4 -%}
+                  отзыва
+                {%- else -%}
+                  отзывов
+                {%- endif -%}
+              </button>
             {% else %}
               <div>
                 <span>Отзывов пока нет, </span><button type="button" data-popup="#popup-send-review" class="product-card__review-btn">оставить</button><span> первый</span>
@@ -486,7 +500,7 @@
                 </div>
               {% endif %}
               {% for field in product.fields %}
-                {% if field.value != '' %}
+                {% if field.value != '' and field.handle != "obmery_izdeliya" %}
                   <div class="product-card-descr__item">
                     <button type="button" data-spoller class="product-card-descr__title">
                       <span class="product-card-descr__title-icon"></span>
