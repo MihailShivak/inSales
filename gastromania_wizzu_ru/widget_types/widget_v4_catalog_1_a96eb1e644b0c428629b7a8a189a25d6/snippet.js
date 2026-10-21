@@ -3,7 +3,7 @@
         constructor(options = {}) {
             this.pageSize = this.getPageSize();
             this.loadMultiplier = options.loadMultiplier || 2;
-            this.maxAttempts = options.maxAttempts || 3;
+            this.maxAttempts = options.maxAttempts || 10;
             this.baseLoadLimit = this.pageSize * this.loadMultiplier;
             
             // Максимальный размер кэша (кол-во элементов в массиве)

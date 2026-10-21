@@ -26,7 +26,15 @@
     APP_PARAM: "app",
     TEST_PARAM: "type",
     FLUTTER_HANDLER: "openAddressPicker",
-    HIDDEN_DELIVERY_IDS: [33403281],
+
+    HIDDEN_DELIVERY_IDS: [33403281], // "Самовывоз из магазина" — скрыт глобально
+
+    OUT_OF_ZONE_TYPE_VALUE: "true",
+    CUSTOM_FIELD_IDS: {
+      delivery_custom_type: 140500769,
+      delivery_custom_price: 140500777,
+      self_pickup: 140500761,
+    },
   };
 
   const getUrlParam = (name) => {
@@ -58,6 +66,14 @@
     } catch (e) {
       return null;
     }
+  };
+
+  // Состояние адреса в app-режиме (улица, дом, детали, флаг вне зоны)
+  const appAddressState = {
+    street: "",
+    house: "",
+    details: {},
+    outOfZone: false,
   };
 
   const doorHTML = (isDoor) => `
@@ -118,15 +134,20 @@
   function exposeTestApi() {
     window.EM_ADDRESS_FORMAT_EXAMPLE = {
       status: "success",
-      address: "Москва, Ленинский проспект, 15к2",
+      address: "Грозный, проспект Ахмад-Хаджи Кадырова, 181",
       components: {
-        street: "Ленинский проспект",
-        house: "15к2",
-        city: "Москва",
-        region: "Москва",
+        street: "проспект Ахмад-Хаджи Кадырова",
+        house: "181",
+        city: "Грозный",
+        region: "Чеченская Республика",
+        entrance: "5",
+        floor: "7",
+        flat: "72",
+        intercom: "45#123",
+        door: "gates",
       },
-      latitude: 55.7558,
-      longitude: 37.6173,
+      latitude: 43.3167,
+      longitude: 45.6919,
     };
 
     window.emTestAddressSuccess = (data) => {
@@ -145,6 +166,18 @@
       console.log(JSON.stringify(window.EM_ADDRESS_FORMAT_EXAMPLE, null, 2));
     };
 
+    // Проверка прохождения кастомных полей с формой (без реального внезоны)
+    window.emTestOutOfZoneMark = () => {
+      const $form = $("#order_form");
+      writeOrderCustomField(
+        $form,
+        "delivery_custom_type",
+        CONFIG.OUT_OF_ZONE_TYPE_VALUE,
+      );
+      writeOrderCustomField($form, "delivery_custom_price", "248"); // только для проверки сабмита
+      log("[TEST] Поля кастомной доставки записаны (пример)");
+    };
+
     if (isTestMode()) {
       console.info(
         "[EM_order][TEST] Тестовый режим включён.\n" +
@@ -152,7 +185,8 @@
           "  emShowFormat()          — показать ожидаемый формат данных\n" +
           "  emTestAddressSuccess()  — эмулировать успешный выбор адреса\n" +
           "  emTestAddressSuccess({components:{street:'Ленина', house:'10'}}) — свои данные\n" +
-          "  emTestAddressError()    — эмулировать отмену",
+          "  emTestAddressError()    — эмулировать отмену\n" +
+          "  emTestOutOfZoneMark()   — записать поля кастомной доставки (пример)",
       );
     }
   }
@@ -177,51 +211,102 @@
     log("Панель тестирования добавлена");
   }
 
+  function injectGlobalStyles() {
+    if (document.getElementById("em-global-style")) return;
+    const rules = CONFIG.HIDDEN_DELIVERY_IDS.map(
+      (id) =>
+        `.co-delivery_method:has(input[data-delivery-id="${id}"]),` +
+        `.co-delivery_method:has(input[value="${id}"]) { display: none !important; }`,
+    ).join("\n");
+    $(`<style id="em-global-style">${rules}</style>`).appendTo("head");
+  }
+
+  function initHiddenDeliveries($form) {
+    const hide = () => {
+      CONFIG.HIDDEN_DELIVERY_IDS.forEach((id) => {
+        $form
+          .find(`input[data-delivery-id="${id}"], input[value="${id}"]`)
+          .closest("label.co-delivery_method")
+          .prop("hidden", true);
+      });
+    };
+    hide();
+    $(document).on("updated:insales:delivery updated:insales:payment", hide);
+    const target = document.getElementById("delivery_variants");
+    if (target && "MutationObserver" in window) {
+      new MutationObserver(debounce(hide, 100)).observe(target, {
+        subtree: true,
+        childList: true,
+      });
+    }
+    log("Скрытые доставки применены:", CONFIG.HIDDEN_DELIVERY_IDS);
+  }
+
   function injectAppModeStyles() {
     if (document.getElementById("em-app-mode-style")) return;
     $(
       `<style id="em-app-mode-style">
-      .em-app-mode .co-map_zones-map,
-      .em-app-mode .ymaps-2-1-79-searchbox,
-      .em-app-mode #em_message-delivery,
-      .em-app-mode .co-delivery_method,
-      .em-app-mode .co-input--em-select-zone,
-      .em-app-mode .em-input--address,
-      .em-app-mode .co-modal--outlet,
-      .em-app-mode #picker-container
-      { display: none !important; }
+        .em-app-mode .co-map_zones-map,
+        .em-app-mode .ymaps-2-1-79-searchbox,
+        .em-app-mode #em_message-delivery,
+        .em-app-mode .co-delivery_method,
+        .em-app-mode .co-input--em-select-zone,
+        .em-app-mode .em-input--address,
+        .em-app-mode .co-modal--outlet,
+        .em-app-mode #picker-container,
+        .em-app-mode .co-delivery_adress-form
+        { display: none !important; }
 
-      /* Плашка выбранного адреса — под стиль серых инпутов темы */
-      .em-app-address-display {
-        padding: 12px 16px;
-        background: #f2f2f2;
-        border: none;
-        border-radius: 8px;
-        margin-bottom: 12px;
-        min-height: 48px;
-        display: flex;
-        align-items: center;
-        box-sizing: border-box;
-        color: #9a9a9a;
-        font-size: 14px;
-        line-height: 1.45;
-      }
-      .em-app-address-display strong {
-        color: #181818;
-        font-weight: 600;
-      }
+        .em-app-mode #em-app-address-wrapper {
+          margin-top: -1.5rem;
+        }
 
-      /* Кнопка — как "Подтвердить заказ", на всю ширину блока */
-      .em-app-address-btn {
-        width: 100%;
-        margin: 0;
-      }
+        /* Плашка выбранного адреса — под стиль серых инпутов темы */
+        .em-app-address-display {
+          padding: 12px 16px;
+          background: #f2f2f2;
+          border: none;
+          border-radius: 8px;
+          margin-bottom: 12px;
+          min-height: 48px;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+          gap: 4px;
+          box-sizing: border-box;
+          color: #9a9a9a;
+          font-size: 14px;
+          line-height: 1.45;
+        }
+        /* hidden-атрибут должен перебивать display:flex */
+        .em-app-address-display[hidden] {
+          display: none !important;
+        }
+        .em-app-address-display strong {
+          color: #181818;
+          font-weight: 600;
+        }
+        .em-app-address-line2 {
+          color: #666;
+          font-size: 13px;
+          line-height: 1.4;
+        }
 
-      .em-app-mode .co-delivery_adress-form { display: none !important; }
-      .em-app-mode #em-app-address-wrapper {
-        margin-top: -1.5rem;
-      }
-    </style>`,
+        /* Кнопка — как "Подтвердить заказ", на всю ширину блока */
+        .em-app-address-btn {
+          width: 100%;
+          margin: 0;
+        }
+
+        .em-app-mode .order__delivery-door { display: none !important; }
+
+        .em-app-address-details {
+          color: #181818;
+          font-size: 14px;
+          min-height: 40px;
+        }
+      </style>`,
     ).appendTo("head");
   }
 
@@ -236,10 +321,21 @@
     injectAppModeStyles();
     $form.addClass("em-app-mode");
 
-    $form.find("#delivery_address").prev("h2.co-title--h2").prop("hidden", true);
+    // убираем h2 "Адрес доставки" — свой label у плашки остаётся единственным
+    $form
+      .find("#delivery_address")
+      .prev("h2.co-title--h2")
+      .prop("hidden", true);
 
     injectAddressButton($form);
     $form.on("click", "#em-app-address-btn", () => openFlutterAddressPicker());
+
+    // синхронизация текста двери во второй строке плашки
+    $form.on("change", "input.order__door-input", () =>
+      refreshAppAddressDisplay($form),
+    );
+
+    prefetchExistingAddress($form);
 
     log("Адресный sync отключён (нет карты)");
   }
@@ -250,7 +346,8 @@
     const $block = $(`
     <div class="co-input co-input--text co-input--nested" id="em-app-address-wrapper">
       <label class="co-input-label" for="em-app-address-btn">Адрес доставки</label>
-      <div id="em-app-address-display" class="em-app-address-display">Адрес не выбран</div>
+      <div id="em-app-address-display" class="em-app-address-display" hidden></div>
+      <div id="em-app-address-details" class="em-app-address-display em-app-address-details" hidden></div>
       <button type="button" id="em-app-address-btn" class="co-button co-button--checkout em-app-address-btn">
         Указать адрес
       </button>
@@ -318,11 +415,28 @@
     setFieldAndNotify($street, parsed.street);
     setFieldAndNotify($house, parsed.house);
 
-    $("#em-app-address-display")
-      .html(
-        `<strong>${escapeHtml(parsed.street)}, ${escapeHtml(parsed.house)}</strong>`,
-      )
-      .css("color", "");
+    // сохраняем состояние и пишем детали в скрытые поля формы
+    appAddressState.street = parsed.street;
+    appAddressState.house = parsed.house;
+    appAddressState.city = parsed.city;
+    appAddressState.details = {
+      entrance: parsed.entrance,
+      floor: parsed.floor,
+      flat: parsed.flat,
+      intercom: parsed.intercom,
+    };
+    writeAddressDetails($form, appAddressState.details);
+
+    if (parsed.door !== null) {
+      const $doorRadio = $form.find(
+        `input.order__door-input[value="${String(parsed.door)}"]`,
+      );
+      if ($doorRadio.length && !$doorRadio.prop("checked")) {
+        $doorRadio.prop("checked", true).trigger("change");
+      }
+    }
+
+    refreshAppAddressDisplay($form);
 
     const $display = $form.find("#em-address");
     if ($display.length) {
@@ -337,15 +451,207 @@
 
   function extractAddressComponents(result) {
     const c = result.components || {};
+    const normalizeDoor = (v) => {
+      if (v === undefined || v === null || v === "") return null;
+      if (v === true || v === "true" || v === "door" || v === "дверь")
+        return true;
+      if (v === false || v === "false" || v === "gates" || v === "ворота")
+        return false;
+      return null;
+    };
     return {
       street: (c.street || result.street || "").trim(),
       house: (c.house || result.house || "").trim(),
       city: (c.city || result.city || "").trim(),
       region: (c.region || result.region || "").trim(),
       postal: (c.postal_code || result.postal_code || "").trim(),
+      entrance: (c.entrance || "").trim(),
+      floor: (c.floor || "").trim(),
+      flat: (c.flat || "").trim(),
+      intercom: (c.intercom || "").trim(),
       lat: result.latitude ?? null,
       lng: result.longitude ?? null,
+      door: normalizeDoor(c.door ?? result.door),
     };
+  }
+
+  // Пишем детали адреса в скрытые поля формы (они в DOM и сабмитятся)
+  function writeAddressDetails($form, d) {
+    const map = [
+      [".co-input--flat input.co-input-field", d.flat],
+      [".co-input--entrance input.co-input-field", d.entrance],
+      [".co-input--floor input.co-input-field", d.floor],
+      [".co-input--intercom input.co-input-field", d.intercom],
+    ];
+    map.forEach(([sel, val]) => {
+      const $el = $form.find(sel).first();
+      if ($el.length && val !== undefined && val !== null && val !== "") {
+        setFieldAndNotify($el, String(val));
+      }
+    });
+  }
+
+  const currentDoorTitle = ($form) => {
+    const $door = $form.find("input.order__door-input:checked");
+    if (!$door.length) return "";
+    return $door.val() === "true" ? "Поднять до двери" : "Оставить у ворот";
+  };
+
+  function buildDetailsLine($form) {
+    const d = appAddressState.details || {};
+    const parts = [];
+    if (d.entrance) parts.push(`Подъезд ${d.entrance}`);
+    if (d.floor) parts.push(`этаж ${d.floor}`);
+    if (d.flat) parts.push(`кв. ${d.flat}`);
+    if (d.intercom) parts.push(`домофон ${d.intercom}`);
+    let line = parts.join(", ");
+    const door = currentDoorTitle($form);
+    if (door) line = line ? `${line} / ${door}` : door;
+    return line;
+  }
+
+  const buildAddressLine1 = () => {
+    const { city, street, house } = appAddressState;
+    return city ? `${city}, ${street}, ${house}` : `${street}, ${house}`;
+  };
+
+  function updateAddressButton($form) {
+    const $btn = $form.find("#em-app-address-btn");
+    if (!$btn.length) return;
+    $btn.text(appAddressState.street ? "Изменить адрес" : "Указать адрес");
+  }
+
+  function refreshAppAddressDisplay($form) {
+    const $plate1 = $form.find("#em-app-address-display");
+    const $plate2 = $form.find("#em-app-address-details");
+    if (!$plate1.length || !appAddressState.street) return;
+
+    $plate1
+      .prop("hidden", false)
+      .html(`<strong>${escapeHtml(buildAddressLine1())}</strong>`);
+
+    const line2 = buildDetailsLine($form);
+    if ($plate2.length) {
+      if (line2) $plate2.prop("hidden", false).text(line2);
+      else $plate2.prop("hidden", true).text("");
+    }
+
+    updateAddressButton($form);
+  }
+
+  // Мокап, пункт 1: зарегистрированный клиент с сохранённым адресом — подставляем автоматически
+  function prefetchExistingAddress($form) {
+    const street = ($form.find("#shipping_address_street").val() || "").trim();
+    const house = ($form.find("#shipping_address_house").val() || "").trim();
+    if (!street || !house) return;
+
+    appAddressState.street = street;
+    appAddressState.house = house;
+    appAddressState.city = "";
+    appAddressState.details = {
+      entrance: (
+        $form.find(".co-input--entrance input.co-input-field").val() || ""
+      ).trim(),
+      floor: (
+        $form.find(".co-input--floor input.co-input-field").val() || ""
+      ).trim(),
+      flat: (
+        $form.find(".co-input--flat input.co-input-field").val() || ""
+      ).trim(),
+      intercom: (
+        $form.find(".co-input--intercom input.co-input-field").val() || ""
+      ).trim(),
+    };
+
+    refreshAppAddressDisplay($form);
+    log("Адрес подставлен из сохранённых данных клиента");
+  }
+
+  function getCustomFieldId(handle) {
+    const store =
+      CONFIG.CUSTOM_FIELD_IDS[location.hostname] || CONFIG.CUSTOM_FIELD_IDS;
+    return store[handle] || null;
+  }
+
+  function writeOrderCustomField($form, handle, value) {
+    const id = getCustomFieldId(handle);
+    if (!id) {
+      warn(`Нет ID поля ${handle} для ${location.hostname}`);
+      return;
+    }
+    const prefix = `order[fields_values_attributes][${id}]`;
+    if (!$form.find(`input[name="${prefix}[field_id]"]`).length) {
+      $form.append(
+        `<input type="hidden" name="${prefix}[hack]" value="">` +
+          `<input type="hidden" name="${prefix}[field_id]" value="${id}">`,
+      );
+    }
+    let $val = $form.find(`input[name="${prefix}[value]"]`);
+    if (!$val.length) {
+      $val = $(`<input type="hidden" name="${prefix}[value]">`);
+      $form.append($val);
+    }
+    $val.val(value);
+    log(`Поле ${handle} (${id}) = "${value}"`);
+  }
+
+  // служебные поля не должны торчать в форме, если InSales их отрендерит
+  function hideServiceFields($form) {
+    const store =
+      CONFIG.CUSTOM_FIELD_IDS[location.hostname] || CONFIG.CUSTOM_FIELD_IDS;
+    Object.values(store).forEach((id) => {
+      $form
+        .find(`input[name="order[fields_values_attributes][${id}][value]"]`)
+        .closest(".co-input")
+        .prop("hidden", true);
+    });
+  }
+
+  function detectOutOfZone($form) {
+    if ($form.find("#deliveries-not-available").is(":visible")) return true;
+    const $checked = $form.find("input[data-delivery-id]:checked").first();
+    if (!$checked.length) return false;
+    const id = $checked.data("delivery-id");
+    if (($form.find(`#delivery_error_${id}`).text() || "").trim()) return true;
+    try {
+      const data = JSON.parse(
+        $form
+          .find(".delivery_variants")
+          .first()
+          .attr("data-delivery-variants") || "{}",
+      );
+      const v = data[String(id)];
+      if (v && (v.not_available || (v.delivery_info?.errors || []).length))
+        return true;
+    } catch (e) {}
+    return false;
+  }
+
+  function initOutOfZoneWatch($form) {
+    let lastState = null;
+    const apply = (outside) => {
+      if (outside === lastState) return;
+      const prev = lastState;
+      lastState = outside;
+      appAddressState.outOfZone = outside;
+      log("Состояние «вне зоны доставки»:", outside);
+      if (outside) {
+        writeOrderCustomField(
+          $form,
+          "delivery_custom_type",
+          CONFIG.OUT_OF_ZONE_TYPE_VALUE,
+        );
+      } else if (prev === true) {
+        // адрес вернули в зону — гасим маркер
+        writeOrderCustomField($form, "delivery_custom_type", "false");
+      }
+    };
+    const check = debounce(() => {
+      hideServiceFields($form);
+      apply(detectOutOfZone($form));
+    }, 400);
+    $(document).on("updated:insales:delivery selected:insales:delivery", check);
+    check();
   }
 
   function setFieldAndNotify($el, value) {
@@ -397,7 +703,6 @@
     initDoorLogic($form);
 
     initAppAddressMode($form);
-
     if (!isAppMode()) {
       initAddressSync($form);
     }
@@ -405,42 +710,12 @@
     initPaymentLogic($form);
     initServiceHandlers($form);
     initHiddenDeliveries($form);
+    initOutOfZoneWatch($form);
     initAuthBlock();
     initValidation($form);
 
     log("Инициализация завершена ✅");
   });
-
-  function injectGlobalStyles() {
-    if (document.getElementById("em-global-style")) return;
-    const rules = CONFIG.HIDDEN_DELIVERY_IDS.map(
-      (id) =>
-        `.co-delivery_method:has(input[data-delivery-id="${id}"]),` +
-        `.co-delivery_method:has(input[value="${id}"]) { display: none !important; }`,
-    ).join("\n");
-    $(`<style id="em-global-style">${rules}</style>`).appendTo("head");
-  }
-
-  function initHiddenDeliveries($form) {
-    const hide = () => {
-      CONFIG.HIDDEN_DELIVERY_IDS.forEach((id) => {
-        $form
-          .find(`input[data-delivery-id="${id}"], input[value="${id}"]`)
-          .closest("label.co-delivery_method")
-          .prop("hidden", true);
-      });
-    };
-    hide();
-    $(document).on("updated:insales:delivery updated:insales:payment", hide);
-    const target = document.getElementById("delivery_variants");
-    if (target && "MutationObserver" in window) {
-      new MutationObserver(debounce(hide, 100)).observe(target, {
-        subtree: true,
-        childList: true,
-      });
-    }
-    log("Скрытые доставки применены:", CONFIG.HIDDEN_DELIVERY_IDS);
-  }
 
   function injectValidationStyles() {
     if (document.getElementById("em-validation-style")) return;
@@ -545,11 +820,14 @@
         .css("margin-right", isDoor ? "1rem" : "0");
 
       if (!isDoor) {
-        $form
-          .find(
-            ".co-input--entrance:first, .co-input--floor:first .co-input-field, .co-input--intercom:first .co-input-field, input[name='shipping_address[flat]']:first",
-          )
-          .val("");
+        // в app-режиме детали приехали из MapKit — не вычищаем их
+        if (!isAppMode()) {
+          $form
+            .find(
+              ".co-input--entrance:first, .co-input--floor:first .co-input-field, .co-input--intercom:first .co-input-field, input[name='shipping_address[flat]']:first",
+            )
+            .val("");
+        }
       } else {
         checkFloorWarning();
       }
@@ -566,6 +844,7 @@
       const isDoor = isDoorStored();
       $form.find("#shipping_address").before(doorHTML(isDoor));
       changeOrderDoor(isDoor);
+      if (isAppMode()) refreshAppAddressDisplay($form);
       log("Блок 'дверь/ворота' отрисован, isDoor =", isDoor);
     };
 
@@ -688,7 +967,7 @@
 
     $form.on("change", "input[data-delivery-id]", function () {
       markChecked(this);
-      // В app-режиме блок сообщения про доставку не показываем — он скрыт CSS
+      // в app-режиме блок сообщения про доставку не показываем — он скрыт CSS
       if (!$form.hasClass("em-app-mode")) {
         $form
           .find("#em_message-delivery")
@@ -722,7 +1001,7 @@
         $form
           .find(".co-input--em-select-zone:first")
           .insertBefore($deliveryVariants);
-        // В app-режиме блок сообщения не вставляем
+        // в app-режиме блок сообщения не вставляем
         if (
           !$form.hasClass("em-app-mode") &&
           !$form.find("#em_message-delivery").length
@@ -974,7 +1253,7 @@
       if ($addrTarget) {
         $addrTarget.addClass("em-pulse");
         setTimeout(() => $addrTarget.removeClass("em-pulse"), 2500);
-        // В app-режиме нет поисковой строки карты — пропускаем фокус
+        // в app-режиме нет поисковой строки карты — пропускаем фокус
         if (!$form.hasClass("em-app-mode")) {
           const $mapSearch = $form.find(
             ".ymaps-2-1-79-searchbox-input__input:first",
