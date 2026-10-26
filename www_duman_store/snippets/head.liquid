@@ -51,6 +51,15 @@
 
 {%- elsif template contains "product" -%}
   <link rel="canonical" href="{{ account.url }}{{ product.canonical_url }}"/>
+
+{%- elsif template contains "page" -%}
+  <link rel="canonical" href="https://&#119;ww.duman.store{{ page.url }}"/>
+
+{%- elsif template contains "blog" -%}
+  <link rel="canonical" href="https://&#119;ww.duman.store{{ blog.url }}"/>
+
+{%- elsif template contains "article" -%}
+  <link rel="canonical" href="https://&#119;ww.duman.store{{ article.url }}"/>
 {% endif %}
 
 <!-- organization microdata -->

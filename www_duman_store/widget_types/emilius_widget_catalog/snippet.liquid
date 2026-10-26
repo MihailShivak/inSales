@@ -23,21 +23,24 @@
 
 {% capture tags_time %}{{'now' | date: '%s.%L' }}{% endcapture %}
 {% if widget_settings.show_tags %}
-  {% capture cache_key_tags_seo %}{{upd_cache}}_tags_{{ widget_settings.updated_at }}_{{ language.locale }}{% endcapture %}
+  {% capture cache_key_tags_seo %}
+    {{upd_cache}}_tags_{{ widget_settings.updated_at }}_{{ language.locale }}
+  {% endcapture %}
+
   {% cache cache_key_tags_seo %}
-  <script id="seo-tags" type="application/ld+json" hidden>
-    {
-    "tags": [
-    {%- for block in data.blocks -%}
-        {
-            "handle": "{{- block.collection.handle -}}",
-            "collection_title": "{{- block.collection.title -}}",
-            "title": "{{- block.name -}}",
-            "link": "{{- block.link -}}"
-        }{% unless forloop.last %},{% endunless %}
-    {%- endfor -%}
-    ]}
-  </script>
+    <script id="seo-tags" type="application/ld+json" hidden>
+      {
+      "tags": [
+      {%- for block in data.blocks -%}
+          {
+              "handle": "{{- block.collection.handle -}}",
+              "collection_title": "{{- block.collection.title -}}",
+              "title": "{{- block.name -}}",
+              "link": "{{- block.link -}}"
+          }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+      ]}
+    </script>
   {% endcache %}
 {% endif %}
 <script>
@@ -49,12 +52,7 @@
     <div class="catalog__grid" data-js="catalog-wrapper">
       <div class="catalog__top" data-em-menu-top>
         <a
-          href=""
-          {% if collection.handle == 'all' %}
-            /
-          {% else %}
-            /collection/all
-          {% endif %}
+          href="{% if collection.handle == 'all' %}/{%- else -%}/collection/all{%- endif -%}"
           class="catalog__back"
         ></a>
         <div class="catalog__title-wrapper">
@@ -78,62 +76,66 @@
         {% if order %}
           <input type="hidden" name="order" value="{{ order }}" />
         {% endif %}
-        <input type="hidden" name="page_size" value="{{ page_size }}" />
+        <input type="hidden" data-page-size="{{ page_size }}" value="{{ page_size }}" />
         {% if language.not_default? %}
           <input type="hidden" name="lang" value="{{ language.locale }}" />
         {% endif %}
-        <input type="hidden" name="page_next" value="{{ paginate.next.url }}" />
+        {% comment %} <input type="hidden" name="page_next" value="{{ paginate.next.url }}" /> {% endcomment %}
+        {% comment %} test {% endcomment %}
+        <input type="hidden" data-page-next="{{ paginate.next.url }}" /> 
         <input type="hidden" name="page_items" value="{{ paginate.items }}" />
         <input type="hidden" name="current_page" value="{{ paginate.current_page }}" />
       </form>
 
-      {% capture cache_key_nav %}{{upd_cache}}_nav_{{ widget_settings.updated_at }}_{{ language.locale }}_{{ collections.last_updated_at }}_{% endcapture %}
+      {% capture cache_key_nav %}
+        {{upd_cache}}_nav_{{ widget_settings.updated_at }}_{{ language.locale }}_{{ collections.last_updated_at }}_
+      {% endcapture %}
       {% cache cache_key_nav %}
-      <div class="catalog__navigation" data-spollers data-js="catalog-navigation">
-        {% if collection.handle != 'all' %}
-          <div class="catalog__navigation-item">
-            <a href="/collection/all" class="catalog__navigation-item-link">Все товары</a>
-          </div>
-        {% endif %}
-        {% comment %} [NEW] Доп. фильтр {% endcomment %}
-        {% assign excludedMenuItems = '26768916,26785050' | split: ',' %}
-        {% for link in linklists.catalog.links %}
-          {% if excludedMenuItems contains link.id %}
-            {% continue %}
+        <div class="catalog__navigation" data-spollers data-js="catalog-navigation">
+          {% if collection.handle != 'all' %}
+            <div class="catalog__navigation-item">
+              <a href="/collection/all" class="catalog__navigation-item-link">Все товары</a>
+            </div>
           {% endif %}
+          {% comment %} [NEW] Доп. фильтр {% endcomment %}
+          {% assign excludedMenuItems = '26768916,26785050' | split: ',' %}
+          {% for link in linklists.catalog.links %}
+            {% if excludedMenuItems contains link.id %}
+              {% continue %}
+            {% endif %}
 
-          {% assign collHandle = link.url | replace: '/collection/', '' | default: 'all' %}
-          {% if link.url != '#women'
-            and link.url contains '/collection/'
-            and collections[collHandle].products_count > 0
-          %}
-            <div class="catalog__navigation-item">
-              <a
-                href="{{ link.url }}"
-                class="catalog__navigation-item-link"
-                data-coll-permalink="{{ link.url }}"
-              >
-                {{ link.title }}
-              </a>
-            </div>
-          {% endif %}
-        {% endfor %}
-        {% for link in linklists['for-women'].links %}
-          {% assign collHandle = link.url | replace: '/collection/', '' | default: 'all' %}
-          {% if link.url contains '/collection/' and collections[collHandle].products_count > 0 %}
-            <div class="catalog__navigation-item">
-              <a
-                href="{{ link.url }}"
-                class="catalog__navigation-item-link"
-                data-coll-permalink="{{ link.url }}"
-              >
-                {{ link.title }}
-              </a>
-            </div>
-          {% endif %}
-        {% endfor %}
-      </div>
-{% endcache %}
+            {% assign collHandle = link.url | replace: '/collection/', '' | default: 'all' %}
+            {% if link.url != '#women'
+              and link.url contains '/collection/'
+              and collections[collHandle].products_count > 0
+            %}
+              <div class="catalog__navigation-item">
+                <a
+                  href="{{ link.url }}"
+                  class="catalog__navigation-item-link"
+                  data-coll-permalink="{{ link.url }}"
+                >
+                  {{ link.title }}
+                </a>
+              </div>
+            {% endif %}
+          {% endfor %}
+          {% for link in linklists['for-women'].links %}
+            {% assign collHandle = link.url | replace: '/collection/', '' | default: 'all' %}
+            {% if link.url contains '/collection/' and collections[collHandle].products_count > 0 %}
+              <div class="catalog__navigation-item">
+                <a
+                  href="{{ link.url }}"
+                  class="catalog__navigation-item-link"
+                  data-coll-permalink="{{ link.url }}"
+                >
+                  {{ link.title }}
+                </a>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endcache %}
 
 {% capture ctl_body_time %}{{'now' | date: '%s.%L' }}{% endcapture %}
 <div class="catalog__body">

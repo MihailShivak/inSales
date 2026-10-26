@@ -1,80 +1,170 @@
 <link href="{{ 'page.css' | asset_url }}" rel="stylesheet" type="text/css" />
-<div class="shop__container info__container_alt">
-<div class="shop__body">
-{% comment %} === Хлебные крошки === {% endcomment %}
-<div class="breadcrumbs">
-<div class="breadcrumbs__container">
-<div class="breadcrumbs__body">
-<ul class="breadcrumbs__list">
-<li class="breadcrumbs__item">
-<a href="/" class="breadcrumbs__link">Главная</a>
-</li>
-<li class="breadcrumbs__item breadcrumbs__item--current">
-<span>{{ page.title }}</span>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<h1 class="info__title">{{ page.title }}</h1>
-<div class="store-info">
-<div class="store__content">
-<!-- Блок для Новосибирска (скрыт по умолчанию) -->
-<div id="store-info-novosibirsk" style="display: none;">
-<div><span style="padding-right: 0.5rem;">г. Новосибирск, Советская ул., дом 49 (метро пл.Ленина), 1 этаж&nbsp;</span><a class="map-link" href="https://yandex.ru/maps/-/CTcbq254" rel="noopener" target="_blank"> На карте</a></div>
-<p>Ежедневно с 11:00 до 20:00, часовой пояс GMT+3 Москва</p>
-</div>
 
-<!-- Блок для остальных городов (скрыт по умолчанию) -->
-<div id="store-info-other" style="display: none;">
-<div><span style="padding-right: 0.5rem;">Технический офис: г. %address%&nbsp;</span><a class="map-link" href="https://yandex.ru/maps/?text=%address%" rel="noopener" target="_blank"> На карте</a></div>
-<p>В данном городе вы можете оформить заказ онлайн с доставкой</p> 
-<p>Самовывоза нет</p>
-<p>Ежедневно с 11:00 до 20:00, часовой пояс GMT+3 Москва</p>
-</div>
-</div>
-<div class="store__wrapper-phone">
-<p class="store-phone">Телефон магазина:</p>
-<a href="tel:+79137621121" class="phone-number">+7 (913) 762-11-21</a>
-</div>
-<div class="contact-buttons">
-<a href="https://wa.me/79137621121" class="contact-btn btn btn_primary" target="_blank">Написать в WhatsApp</a>
-<a href="https://t.me/+79137621121" class="contact-btn btn btn_primary" target="_blank">Написать в Telegram</a>
-</div>
-</div>
-<div class="store-gallery">
-<div class="gallery-item">
-<img src="{{ 'shop_1.jpg' | asset_url }}">
-</div>
-<div class="gallery-item">
-<img src="{{ '2.jpg' | asset_url }}">
-</div>
-<div class="gallery-item">
-<img src="{{ '3.jpg' | asset_url }}">
-</div>
-<div class="gallery-item">
-<img src="{{ '4.jpg' | asset_url }}">
-</div>
-</div>
-</div>
+{% comment %}=== Определяем страницу магазинов: на ней не выводим видимый H1 page.title, единственный H1 — в hero ==={% endcomment %}
+{% assign is_shops_page = false %}
+{% if page.url == '/page/magaziny' %}
+  {% assign is_shops_page = true %}
+{% endif %}
+{% assign head_tag = 'h2' %}
+{% if is_shops_page %}
+  {% assign head_tag = 'h1' %}
+{% endif %}
+
+<div class="shop__container info__container_alt">
+  <div class="shop__body">
+    {% comment %} === Хлебные крошки === {% endcomment %}
+    <div class="breadcrumbs">
+      <div class="breadcrumbs__container">
+        <div class="breadcrumbs__body">
+          <ul class="breadcrumbs__list">
+            <li class="breadcrumbs__item">
+              <a href="/" class="breadcrumbs__link">Главная</a>
+            </li>
+            <li class="breadcrumbs__item breadcrumbs__item--current">
+              <span>{{ page.title }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    {% comment %} H1 страницы не отрисовываем на /page/magaziny — по макету он внутри hero {% endcomment %}
+    {% unless is_shops_page %}
+      <h1 class="info__title">{{ page.title }}</h1>
+    {% endunless %}
+
+    <div class="store-info">
+      <div class="store__content">
+        <!-- Блок для Новосибирска (скрыт по умолчанию, JS его покажет) -->
+        <div id="store-info-novosibirsk" style="display: none;">
+          <section class="shop-hero">
+            <div class="shop-hero__content">
+              <{{ head_tag }} class="info__title">Магазин DUMAN в Новосибирске</{{ head_tag }}>
+              <p class="shop-hero__lead">
+                Загляните в магазин DUMAN, чтобы увидеть коллекцию вживую, примерить вещи и получить консультацию.
+              </p>
+              <div class="shop-hero__facts">
+                <span>Советская, 49</span>
+                <span>Ежедневно, 11:00–20:00</span>
+              </div>
+              <a
+                class="shop-hero__route btn btn_primary"
+                href="https://yandex.ru/maps/-/CTcbq254"
+                rel="noopener"
+                target="_blank"
+                >Построить маршрут <span>↗</span></a
+              >
+            </div>
+            <div class="shop-hero__image">
+              <img src="{{ 'shop_1.jpg' | asset_url }}" alt="Магазин DUMAN в Новосибирске" fetchpriority="high">
+            </div>
+          </section>
+
+          <section class="shop-visit">
+            <h2>В магазине можно</h2>
+            <div class="shop-visit__grid">
+              <div class="shop-visit__item">
+                <span>01</span>
+                <h3>Увидеть вещи вживую</h3>
+                <p>Рассмотреть материалы, фактуры и детали коллекции.</p>
+              </div>
+              <div class="shop-visit__item">
+                <span>02</span>
+                <h3>Примерить перед покупкой</h3>
+                <p>Проверить посадку и выбрать подходящий размер.</p>
+              </div>
+              <div class="shop-visit__item">
+                <span>03</span>
+                <h3>Получить консультацию</h3>
+                <p>Задать вопросы о моделях, сочетаниях и уходе.</p>
+              </div>
+              <div class="shop-visit__item">
+                <span>04</span>
+                <h3>Связаться с нами заранее</h3>
+                <p>Написать в WhatsApp или Telegram перед визитом.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Блок для остальных городов (скрыт по умолчанию) -->
+        <div id="store-info-other" style="display: none;">
+          <section class="shop-hero shop-hero_single">
+            <div class="shop-hero__content">
+              <{{ head_tag }} class="info__title">Магазин DUMAN онлайн</{{ head_tag }}>
+              <p class="shop-hero__lead">
+                В данном городе вы можете оформить заказ онлайн с доставкой. Самовывоза нет.
+              </p>
+              <div class="shop-hero__facts">
+                <span>Технический офис: г. %address%</span>
+                <span>Ежедневно с 11:00 до 20:00, часовой пояс GMT+3 Москва</span>
+              </div>
+              <a
+                class="shop-hero__route btn btn_primary"
+                href="https://yandex.ru/maps/?text=%address%"
+                rel="noopener"
+                target="_blank"
+                >На карте <span>↗</span></a
+              >
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- Пространство DUMAN -->
+    <section class="shop-gallery-block">
+      <div class="shop-gallery-block__head">
+        <h2>Пространство DUMAN</h2>
+        <p>Спокойная атмосфера, внимательное обслуживание и вещи, которые хочется рассматривать в деталях.</p>
+      </div>
+      <div class="store-gallery">
+        <div class="gallery-item gallery-item--wide">
+          <img src="{{ '2.jpg' | asset_url }}" alt="Пространство DUMAN" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="{{ '3.jpg' | asset_url }}" alt="Пространство DUMAN" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="{{ '4.jpg' | asset_url }}" alt="Пространство DUMAN" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- Тёмная плашка контактов -->
+    <section class="shop-contact">
+      <div class="shop-contact__info">
+        <h2>Хотите уточнить наличие?</h2>
+        <p>Напишите нам или позвоните: <a class="shop-contact__phone" href="tel:+79137621121">+7 (913) 762-11-21</a></p>
+      </div>
+      <div class="contact-buttons">
+        <a href="https://wa.me/79137621121" class="contact-btn" target="_blank" rel="noopener"
+          >WhatsApp <span>↗</span></a
+        >
+        <a href="https://t.me/+79137621121" class="contact-btn btn btn_outline" target="_blank" rel="noopener"
+          >Telegram <span>↗</span></a
+        >
+      </div>
+    </section>
+  </div>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const hostname = window.location.hostname;
-  const isNovosibirsk = hostname === "www.duman.store" || hostname === "duman.store";
+  document.addEventListener('DOMContentLoaded', function () {
+    const hostname = window.location.hostname;
+    const isNovosibirsk = hostname === 'www.duman.store' || hostname === 'duman.store';
 
-  const blockNs = document.getElementById("store-info-novosibirsk");
-  const blockOther = document.getElementById("store-info-other");
+    const blockNs = document.getElementById('store-info-novosibirsk');
+    const blockOther = document.getElementById('store-info-other');
 
-  if (!blockNs || !blockOther) return;
+    if (!blockNs || !blockOther) return;
 
-  if (isNovosibirsk) {
-    blockNs.style.display = "block";
-    blockOther.style.display = "none";
-  } else {
-    blockNs.style.display = "none";
-    blockOther.style.display = "block";
-  }
-});
+    if (isNovosibirsk) {
+      blockNs.style.display = 'block';
+      blockOther.style.display = 'none';
+    } else {
+      blockNs.style.display = 'none';
+      blockOther.style.display = 'block';
+    }
+  });
 </script>

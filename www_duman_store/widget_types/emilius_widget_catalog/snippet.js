@@ -11,14 +11,47 @@ document.addEventListener("DOMContentLoaded", function () {
   const $paginationBody = $catalog.find("[data-em-pagin]:first");
   const $panel = $catalog.find(".catalog__top-panel:first");
 
-  const pageFromURL = parseInt(
-    new URLSearchParams(window.location.search).get("page"),
-    10,
-  );
+  // const pageFromURL = parseInt(
+  //   new URLSearchParams(window.location.search).get("page"),
+  //   10,
+  // );
+  function normalizeCatalogUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const page = parseInt(params.get("page"), 10);
+
+    let needClean = false;
+
+    if (params.has("page_size")) {
+      params.delete("page_size");
+      needClean = true;
+    }
+
+    if (params.has("page") && page <= 1) {
+      params.delete("page");
+      needClean = true;
+    }
+
+    if (needClean) {
+      const query = params.toString();
+      const cleanUrl = window.location.pathname + (query ? `?${query}` : "");
+
+      try {
+        window.history.replaceState(null, "", cleanUrl);
+      } catch (error) {
+        console.warn("[New.Catalog] Не удалось нормализовать URL:", error);
+      }
+    }
+
+    return Number.isFinite(page) && page > 0 ? page : 1;
+  }
+
+  const normalizedPage = normalizeCatalogUrl();
+
   const initialPage =
-    Number.isFinite(pageFromURL) && pageFromURL > 0
-      ? pageFromURL
+    Number.isFinite(normalizedPage) && normalizedPage > 0
+      ? normalizedPage
       : parseInt($catalog.find("input[name='current_page']").val(), 10) || 1;
+  
   const isMobile = sessionStorage.getItem("isMobile") === "true";
 
   var filters;
@@ -239,19 +272,32 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function updateURL(page) {
-    if (!page || Number(page) < 1) return;
+  function updateURL(page, options = {}) {
+    const currentPage = Number(page);
+    
+    if (!Number.isFinite(currentPage) || currentPage < 1) return;
 
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.set("page", String(page));
+    const params = new URLSearchParams(window.location.search);
 
-    const query = urlParams.toString();
-    const newURL = `${window.location.pathname}${query ? `?${query}` : ""}`;
+    params.delete("page_size"); // Удаляем page_size, чтобы не было лишних параметров
 
-    try {
-      window.history.pushState({ page: Number(page) }, "", newURL);
-    } catch (error) {
-      console.warn("[New.Catalog]", "Не удалось обновить URL:", error);
+    if(currentPage <= 1) {
+      params.delete("page");
+    } else{
+      params.set("page", String(currentPage));
+    }
+
+    const query = params.toString();
+    const newUrl = `${window.location.pathname}${query ? `?${query}` : ""}`;
+
+    try{
+      if(options.replace){
+        window.history.replaceState({page: currentPage}, "", newUrl);
+      } else{
+        window.history.pushState({page: currentPage}, "", newUrl);
+      }
+    } catch(error){
+      console.warn("[New.Catalog] Не удалось обновить URL:", error);
     }
   }
 
@@ -399,16 +445,16 @@ document.addEventListener("DOMContentLoaded", function () {
   // Отслеживание обновления фильтров
   function updateFilters(filter) {
     if (filter.method == filters.typesEvent.init) {
-      updateURL(filters.currentPage);
+      updateURL(filters.currentPage, { replace: true });
       renderCatalog(true);
     } else if (filter.method == filters.typesEvent.change) {
       filters.currentPage = 1;
-      updateURL(1);
+      updateURL(1, { replace: true });
       scrollToCatalogTop();
       renderCatalog(true);
     } else if (filter.method == filters.typesEvent.clear) {
       filters.currentPage = 1;
-      updateURL(1);
+      updateURL(1, { replace: true });
       scrollToCatalogTop();
       renderCatalog(true);
     }
