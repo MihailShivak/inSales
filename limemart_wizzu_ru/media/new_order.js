@@ -31,9 +31,14 @@
 
     OUT_OF_ZONE_TYPE_VALUE: "true",
     CUSTOM_FIELD_IDS: {
-      delivery_custom_type: 140500769,
-      delivery_custom_price: 140500777,
-      self_pickup: 140500761,
+      "limemart.wizzu.ru": {
+        delivery_custom_type: 140500769,
+        delivery_custom_price: 140500777,
+        self_pickup: 140500761,
+        delivery_custom_quote_id: 141200233,
+        latitude_data: 141656497,
+        longitude_data: 141656505,
+      },
     },
   };
 
@@ -146,8 +151,20 @@
         intercom: "45#123",
         door: "gates",
       },
-      latitude: 43.3167,
-      longitude: 45.6919,
+      latitude_data: 43.3167,
+      longitude_data: 45.6919,
+      self_pickup: false,
+      delivery_custom_price: "123",
+      delivery_custom_quote_id: "42",
+    };
+
+    window.emTestServiceFields = () => {
+      const $form = $("#order_form");
+      writeServiceDefaults($form);
+      writeOrderCustomField($form, "latitude_data", "43.3167");
+      writeOrderCustomField($form, "longitude_data", "45.6919");
+      writeOrderCustomField($form, "delivery_custom_quote_id", "42");
+      log("[TEST] Служебные поля записаны");
     };
 
     window.emTestAddressSuccess = (data) => {
@@ -174,6 +191,24 @@
         "delivery_custom_type",
         CONFIG.OUT_OF_ZONE_TYPE_VALUE,
       );
+      const normalizeBool = (v) => {
+        if (v === true || v === "true" || v === 1 || v === "1") return "true";
+        if (v === false || v === "false" || v === 0 || v === "0")
+          return "false";
+        return null;
+      };
+
+      const normalizeCoord = (v) => {
+        if (v === undefined || v === null || v === "") return null;
+        const num = Number(String(v).replace(",", "."));
+        return Number.isFinite(num) ? num : null;
+      };
+
+      function writeServiceDefaults($form) {
+        writeOrderCustomField($form, "delivery_custom_type", "false");
+        writeOrderCustomField($form, "self_pickup", "false");
+        log("Дефолты записаны: delivery_custom_type=false, self_pickup=false");
+      }
       writeOrderCustomField($form, "delivery_custom_price", "248"); // только для проверки сабмита
       log("[TEST] Поля кастомной доставки записаны (пример)");
     };
@@ -336,6 +371,7 @@
     );
 
     prefetchExistingAddress($form);
+    writeServiceDefaults($form);
 
     log("Адресный sync отключён (нет карты)");
   }
@@ -436,6 +472,42 @@
       }
     }
 
+    // координаты для Govza
+    if (
+      parsed.lat !== null && parsed.lng !== null
+    ) {
+      writeOrderCustomField($form, "latitude_data", String(parsed.lat));
+      writeOrderCustomField($form, "longitude_data", String(parsed.lng));
+    }
+
+    // цена и идентификатор стоимости Govza
+    const price =
+      result.delivery_custom_price ?? result.components?.delivery_custom_price;
+    if (price !== undefined && price !== null && price !== "") {
+      writeOrderCustomField($form, "delivery_custom_price", String(price));
+    }
+
+    const quoteId =
+      result.delivery_custom_quote_id ??
+      result.components?.delivery_custom_quote_id;
+    if (quoteId !== undefined && quoteId !== null && quoteId !== "") {
+      writeOrderCustomField($form, "delivery_custom_quote_id", String(quoteId));
+    }
+
+    const selfPickup = normalizeBool(
+      result.self_pickup ?? result.components?.self_pickup,
+    );
+    if (selfPickup !== null) {
+      writeOrderCustomField($form, "self_pickup", selfPickup);
+    }
+
+    const customType = normalizeBool(
+      result.delivery_custom_type ?? result.components?.delivery_custom_type,
+    );
+    if (customType !== null) {
+      writeOrderCustomField($form, "delivery_custom_type", customType);
+    }
+
     refreshAppAddressDisplay($form);
 
     const $display = $form.find("#em-address");
@@ -469,8 +541,18 @@
       floor: (c.floor || "").trim(),
       flat: (c.flat || "").trim(),
       intercom: (c.intercom || "").trim(),
-      lat: result.latitude ?? null,
-      lng: result.longitude ?? null,
+      lat: normalizeCoord(
+        result.latitude_data ??
+          result.latitude ??
+          c.latitude_data ??
+          c.latitude,
+      ),
+      lng: normalizeCoord(
+        result.longitude_data ??
+          result.longitude ??
+          c.longitude_data ??
+          c.longitude,
+      ),
       door: normalizeDoor(c.door ?? result.door),
     };
   }
