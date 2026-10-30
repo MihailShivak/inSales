@@ -73,12 +73,32 @@
     }
   };
 
-  // Состояние адреса в app-режиме (улица, дом, детали, флаг вне зоны)
+  const normalizeBool = (v) => {
+    if (v === true || v === "true" || v === 1 || v === "1") return "true";
+    if (v === false || v === "false" || v === 0 || v === "0") return "false";
+    return null;
+  };
+
+  const normalizeCoord = (v) => {
+    if (v === undefined || v === null || v === "") return null;
+    const num = Number(String(v).replace(",", "."));
+    return Number.isFinite(num) ? num : null;
+  };
+
+  // Состояние адреса в app-режиме
   const appAddressState = {
     street: "",
     house: "",
+    city: "",
     details: {},
+    deliveryType: null, // "door" | "gate" | "pickup" | null
     outOfZone: false,
+  };
+
+  const DELIVERY_TYPE_TITLES = {
+    gate: "Оставить у ворот",
+    door: "Поднять до двери",
+    pickup: "Самовывоз из магазина",
   };
 
   const doorHTML = (isDoor) => `
@@ -145,26 +165,20 @@
         house: "181",
         city: "Грозный",
         region: "Чеченская Республика",
+      },
+      delivery: {
+        type: "door",
         entrance: "5",
-        floor: "7",
-        flat: "72",
         intercom: "45#123",
-        door: "gates",
+        floor: "7",
+        apartment: "72",
       },
       latitude_data: 43.3167,
       longitude_data: 45.6919,
       self_pickup: false,
-      delivery_custom_price: "123",
-      delivery_custom_quote_id: "42",
-    };
-
-    window.emTestServiceFields = () => {
-      const $form = $("#order_form");
-      writeServiceDefaults($form);
-      writeOrderCustomField($form, "latitude_data", "43.3167");
-      writeOrderCustomField($form, "longitude_data", "45.6919");
-      writeOrderCustomField($form, "delivery_custom_quote_id", "42");
-      log("[TEST] Служебные поля записаны");
+      delivery_custom_type: false,
+      delivery_custom_price: null,
+      delivery_custom_quote_id: null,
     };
 
     window.emTestAddressSuccess = (data) => {
@@ -179,11 +193,19 @@
     };
 
     window.emShowFormat = () => {
-      console.table(window.EM_ADDRESS_FORMAT_EXAMPLE.components);
+      console.table(window.EM_ADDRESS_FORMAT_EXAMPLE);
       console.log(JSON.stringify(window.EM_ADDRESS_FORMAT_EXAMPLE, null, 2));
     };
 
-    // Проверка прохождения кастомных полей с формой (без реального внезоны)
+    window.emTestServiceFields = () => {
+      const $form = $("#order_form");
+      writeServiceDefaults($form);
+      writeOrderCustomField($form, "latitude_data", "43.3167");
+      writeOrderCustomField($form, "longitude_data", "45.6919");
+      writeOrderCustomField($form, "delivery_custom_quote_id", "42");
+      log("[TEST] Служебные поля записаны");
+    };
+
     window.emTestOutOfZoneMark = () => {
       const $form = $("#order_form");
       writeOrderCustomField(
@@ -191,24 +213,6 @@
         "delivery_custom_type",
         CONFIG.OUT_OF_ZONE_TYPE_VALUE,
       );
-      const normalizeBool = (v) => {
-        if (v === true || v === "true" || v === 1 || v === "1") return "true";
-        if (v === false || v === "false" || v === 0 || v === "0")
-          return "false";
-        return null;
-      };
-
-      const normalizeCoord = (v) => {
-        if (v === undefined || v === null || v === "") return null;
-        const num = Number(String(v).replace(",", "."));
-        return Number.isFinite(num) ? num : null;
-      };
-
-      function writeServiceDefaults($form) {
-        writeOrderCustomField($form, "delivery_custom_type", "false");
-        writeOrderCustomField($form, "self_pickup", "false");
-        log("Дефолты записаны: delivery_custom_type=false, self_pickup=false");
-      }
       writeOrderCustomField($form, "delivery_custom_price", "248"); // только для проверки сабмита
       log("[TEST] Поля кастомной доставки записаны (пример)");
     };
@@ -219,8 +223,9 @@
           "Доступные команды:\n" +
           "  emShowFormat()          — показать ожидаемый формат данных\n" +
           "  emTestAddressSuccess()  — эмулировать успешный выбор адреса\n" +
-          "  emTestAddressSuccess({components:{street:'Ленина', house:'10'}}) — свои данные\n" +
+          "  emTestAddressSuccess({delivery:{type:'gate'},components:{street:'Ленина',house:'10'}}) — свои данные\n" +
           "  emTestAddressError()    — эмулировать отмену\n" +
+          "  emTestServiceFields()   — записать служебные поля (дефолты + координаты)\n" +
           "  emTestOutOfZoneMark()   — записать поля кастомной доставки (пример)",
       );
     }
@@ -289,14 +294,15 @@
         .em-app-mode .em-input--address,
         .em-app-mode .co-modal--outlet,
         .em-app-mode #picker-container,
-        .em-app-mode .co-delivery_adress-form
+        .em-app-mode .co-delivery_adress-form,
+        .em-app-mode .order__delivery-door
         { display: none !important; }
 
         .em-app-mode #em-app-address-wrapper {
           margin-top: -1.5rem;
         }
 
-        /* Плашка выбранного адреса — под стиль серых инпутов темы */
+        /* Плашки выбранного адреса — под стиль серых инпутов темы */
         .em-app-address-display {
           padding: 12px 16px;
           background: #f2f2f2;
@@ -322,24 +328,16 @@
           color: #181818;
           font-weight: 600;
         }
-        .em-app-address-line2 {
-          color: #666;
-          font-size: 13px;
-          line-height: 1.4;
+        .em-app-address-details {
+          color: #181818;
+          font-size: 14px;
+          min-height: 40px;
         }
 
         /* Кнопка — как "Подтвердить заказ", на всю ширину блока */
         .em-app-address-btn {
           width: 100%;
           margin: 0;
-        }
-
-        .em-app-mode .order__delivery-door { display: none !important; }
-
-        .em-app-address-details {
-          color: #181818;
-          font-size: 14px;
-          min-height: 40px;
         }
       </style>`,
     ).appendTo("head");
@@ -365,7 +363,7 @@
     injectAddressButton($form);
     $form.on("click", "#em-app-address-btn", () => openFlutterAddressPicker());
 
-    // синхронизация текста двери во второй строке плашки
+    // синхронизация текста двери во второй плашке
     $form.on("change", "input.order__door-input", () =>
       refreshAppAddressDisplay($form),
     );
@@ -380,15 +378,15 @@
     if ($form.find("#em-app-address-wrapper").length) return;
 
     const $block = $(`
-    <div class="co-input co-input--text co-input--nested" id="em-app-address-wrapper">
-      <label class="co-input-label" for="em-app-address-btn">Адрес доставки</label>
-      <div id="em-app-address-display" class="em-app-address-display" hidden></div>
-      <div id="em-app-address-details" class="em-app-address-display em-app-address-details" hidden></div>
-      <button type="button" id="em-app-address-btn" class="co-button co-button--checkout em-app-address-btn">
-        Указать адрес
-      </button>
-    </div>
-  `);
+      <div class="co-input co-input--text co-input--nested" id="em-app-address-wrapper">
+        <label class="co-input-label" for="em-app-address-btn">Адрес доставки</label>
+        <div id="em-app-address-display" class="em-app-address-display" hidden></div>
+        <div id="em-app-address-details" class="em-app-address-display em-app-address-details" hidden></div>
+        <button type="button" id="em-app-address-btn" class="co-button co-button--checkout em-app-address-btn">
+          Указать адрес
+        </button>
+      </div>
+    `);
 
     const $anchor = $form.find("#shipping_address").first();
     if ($anchor.length) {
@@ -451,10 +449,12 @@
     setFieldAndNotify($street, parsed.street);
     setFieldAndNotify($house, parsed.house);
 
-    // сохраняем состояние и пишем детали в скрытые поля формы
+    // состояние + скрытые поля деталей (для gate/pickup приходят пустыми и чистят старые)
     appAddressState.street = parsed.street;
     appAddressState.house = parsed.house;
     appAddressState.city = parsed.city;
+    appAddressState.deliveryType =
+      parsed.doorType || appAddressState.deliveryType;
     appAddressState.details = {
       entrance: parsed.entrance,
       floor: parsed.floor,
@@ -463,24 +463,28 @@
     };
     writeAddressDetails($form, appAddressState.details);
 
-    if (parsed.door !== null) {
+    // тип доставки из delivery.type: door/gate двигают radio, pickup — только поле "Тип доставки"
+    if (parsed.doorType === "door" || parsed.doorType === "gate") {
+      const radioValue = parsed.doorType === "door" ? "true" : "false";
       const $doorRadio = $form.find(
-        `input.order__door-input[value="${String(parsed.door)}"]`,
+        `input.order__door-input[value="${radioValue}"]`,
       );
       if ($doorRadio.length && !$doorRadio.prop("checked")) {
         $doorRadio.prop("checked", true).trigger("change");
       }
+    } else if (parsed.doorType === "pickup") {
+      $form
+        .find(".co-input--type-delivery .co-input-field:first")
+        .val(DELIVERY_TYPE_TITLES.pickup);
     }
 
-    // координаты для Govza
-    if (
-      parsed.lat !== null && parsed.lng !== null
-    ) {
+    // координаты для Govza (ключи latitude_data / longitude_data)
+    if (parsed.lat !== null && parsed.lng !== null) {
       writeOrderCustomField($form, "latitude_data", String(parsed.lat));
       writeOrderCustomField($form, "longitude_data", String(parsed.lng));
     }
 
-    // цена и идентификатор стоимости Govza
+    // цена и идентификатор стоимости Govza — пишем только если нативка передала
     const price =
       result.delivery_custom_price ?? result.components?.delivery_custom_price;
     if (price !== undefined && price !== null && price !== "") {
@@ -494,6 +498,7 @@
       writeOrderCustomField($form, "delivery_custom_quote_id", String(quoteId));
     }
 
+    // булевы из нативки перебивают дефолты
     const selfPickup = normalizeBool(
       result.self_pickup ?? result.components?.self_pickup,
     );
@@ -523,24 +528,35 @@
 
   function extractAddressComponents(result) {
     const c = result.components || {};
-    const normalizeDoor = (v) => {
+    const d = result.delivery || {};
+
+    const normalizeDoorType = (v) => {
       if (v === undefined || v === null || v === "") return null;
-      if (v === true || v === "true" || v === "door" || v === "дверь")
-        return true;
-      if (v === false || v === "false" || v === "gates" || v === "ворота")
-        return false;
+      if (v === "door" || v === true || v === "true" || v === "дверь")
+        return "door";
+      if (
+        v === "gate" ||
+        v === "gates" ||
+        v === false ||
+        v === "false" ||
+        v === "ворота"
+      )
+        return "gate";
+      if (v === "pickup") return "pickup";
       return null;
     };
+
     return {
       street: (c.street || result.street || "").trim(),
       house: (c.house || result.house || "").trim(),
       city: (c.city || result.city || "").trim(),
       region: (c.region || result.region || "").trim(),
       postal: (c.postal_code || result.postal_code || "").trim(),
-      entrance: (c.entrance || "").trim(),
-      floor: (c.floor || "").trim(),
-      flat: (c.flat || "").trim(),
-      intercom: (c.intercom || "").trim(),
+      // детали живут в delivery; при gate/pickup их нет → пустые строки чистят поля
+      entrance: (d.entrance ?? c.entrance ?? "").trim(),
+      floor: (d.floor ?? c.floor ?? "").trim(),
+      flat: (d.apartment ?? d.flat ?? c.apartment ?? c.flat ?? "").trim(),
+      intercom: (d.intercom ?? c.intercom ?? "").trim(),
       lat: normalizeCoord(
         result.latitude_data ??
           result.latitude ??
@@ -553,11 +569,12 @@
           c.longitude_data ??
           c.longitude,
       ),
-      door: normalizeDoor(c.door ?? result.door),
+      doorType:
+        normalizeDoorType(d.type) ?? normalizeDoorType(c.door ?? result.door),
     };
   }
 
-  // Пишем детали адреса в скрытые поля формы (они в DOM и сабмитятся)
+  // Всегда синхронизируем четыре скрытых поля с тем, что пришло (пустое = очистка)
   function writeAddressDetails($form, d) {
     const map = [
       [".co-input--flat input.co-input-field", d.flat],
@@ -567,9 +584,7 @@
     ];
     map.forEach(([sel, val]) => {
       const $el = $form.find(sel).first();
-      if ($el.length && val !== undefined && val !== null && val !== "") {
-        setFieldAndNotify($el, String(val));
-      }
+      if ($el.length) setFieldAndNotify($el, val ? String(val) : "");
     });
   }
 
@@ -587,8 +602,10 @@
     if (d.flat) parts.push(`кв. ${d.flat}`);
     if (d.intercom) parts.push(`домофон ${d.intercom}`);
     let line = parts.join(", ");
-    const door = currentDoorTitle($form);
-    if (door) line = line ? `${line} / ${door}` : door;
+    const suffix =
+      DELIVERY_TYPE_TITLES[appAddressState.deliveryType] ||
+      currentDoorTitle($form);
+    if (suffix) line = line ? `${line} / ${suffix}` : suffix;
     return line;
   }
 
@@ -621,7 +638,7 @@
     updateAddressButton($form);
   }
 
-  // Мокап, пункт 1: зарегистрированный клиент с сохранённым адресом — подставляем автоматически
+  // зарегистрированный клиент с сохранённым адресом — подставляем автоматически
   function prefetchExistingAddress($form) {
     const street = ($form.find("#shipping_address_street").val() || "").trim();
     const house = ($form.find("#shipping_address_house").val() || "").trim();
@@ -630,6 +647,7 @@
     appAddressState.street = street;
     appAddressState.house = house;
     appAddressState.city = "";
+    appAddressState.deliveryType = null;
     appAddressState.details = {
       entrance: (
         $form.find(".co-input--entrance input.co-input-field").val() || ""
@@ -675,6 +693,12 @@
     }
     $val.val(value);
     log(`Поле ${handle} (${id}) = "${value}"`);
+  }
+
+  function writeServiceDefaults($form) {
+    writeOrderCustomField($form, "delivery_custom_type", "false");
+    writeOrderCustomField($form, "self_pickup", "false");
+    log("Дефолты записаны: delivery_custom_type=false, self_pickup=false");
   }
 
   // служебные поля не должны торчать в форме, если InSales их отрендерит
@@ -902,7 +926,7 @@
         .css("margin-right", isDoor ? "1rem" : "0");
 
       if (!isDoor) {
-        // в app-режиме детали приехали из MapKit — не вычищаем их
+        // в app-режиме детали приходят из нативки — radio их не вычищает
         if (!isAppMode()) {
           $form
             .find(
